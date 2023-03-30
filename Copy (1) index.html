@@ -1,0 +1,19 @@
+---
+# front matter tells Jekyll to process Liquid
+title: Home
+my_number: 5
+layout: default
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> {{ page.my_number }}</title>
+  </head>
+  <body>
+    <h1>{{ "Hello World!" | downcase }}</h1>
+	<h2>My name is Jakob</h2>
+	<l> This is page Number {{page.my_number}} on my website. </l>
+  </body>
+</html>
