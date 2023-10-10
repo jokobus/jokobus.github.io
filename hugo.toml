@@ -1,0 +1,4 @@
+baseURL = 'https://jokobus.github.io'
+languageCode = 'en-us'
+title = 'Jakob Fürst'
+theme = 'ananke'
