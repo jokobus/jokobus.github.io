@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on JF</title><link>https://jokobus.github.io/tags/linux/</link><description>Recent content in Linux on JF</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Wed, 03 Jun 2026 09:21:51 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Install Custom Applications on Linux</title><link>https://jokobus.github.io/posts/linux/install-custom-applications-on-linux/</link><pubDate>Wed, 03 Jun 2026 09:21:51 +0200</pubDate><guid>https://jokobus.github.io/posts/linux/install-custom-applications-on-linux/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
+&lt;p&gt;When using Linux machines where you lack root privileges (sudo), you can still install applications locally. This guide covers how to set up standalone binaries (like VS Code, Obsidian, or custom tools) and integrate them into your desktop environment&amp;rsquo;s app launcher using &lt;code&gt;.desktop&lt;/code&gt; files.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="step-by-step-installation"&gt;Step-by-Step Installation&lt;/h2&gt;
+&lt;h3 id="1-download-and-prepare"&gt;1. Download and Prepare&lt;/h3&gt;
+&lt;p&gt;Download the executable or compressed archive (&lt;code&gt;.tar.gz&lt;/code&gt;, &lt;code&gt;.zip&lt;/code&gt;, &lt;code&gt;.AppImage&lt;/code&gt;) for your application. If it&amp;rsquo;s a folder, move it to a dedicated local bin directory.&lt;/p&gt;</description></item><item><title>Use Neoylayout</title><link>https://jokobus.github.io/posts/neoylayout/</link><pubDate>Mon, 16 Jun 2025 14:51:26 +0200</pubDate><guid>https://jokobus.github.io/posts/neoylayout/</guid><description>&lt;p&gt;This is a short summary of the essentials of the keybord layout &lt;a href="https://neo-layout.org" target="_blank" rel="noopener"&gt;neo-layout&lt;/a&gt;
+ variant &lt;a href="https://neo-layout.org/Layouts/bone/" target="_blank" rel="noopener"&gt;&lt;em&gt;bone&lt;/em&gt;&lt;/a&gt;
+ for faster and healtier text (and math) typing on your PC.&lt;/p&gt;
+&lt;h2 id="windows"&gt;Windows&lt;/h2&gt;
+&lt;p&gt;To use it on Windows follow these steps.&lt;/p&gt;
+&lt;h3 id="install"&gt;Install&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Copy the &lt;em&gt;kbdbone.dll&lt;/em&gt; file in System32 to &lt;em&gt;C:\Windows\System32&lt;/em&gt; and the one in SysWOW64 to &lt;em&gt;C:\Windows\SysWOW64&lt;/em&gt; respectively. Grant access rights. (On 64-bit Windows you have to copy it with a 64-bit Programm, best by the Windows Explorer)&lt;/p&gt;</description></item></channel></rss>

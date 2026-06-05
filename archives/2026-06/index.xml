@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>2026-06 on JF</title><link>https://jokobus.github.io/archives/2026-06/</link><description>Recent content in 2026-06 on JF</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Thu, 04 Jun 2026 16:23:59 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/archives/2026-06/index.xml" rel="self" type="application/rss+xml"/><item><title>Deploy Hugo on your Homserver via GitHub Actions</title><link>https://jokobus.github.io/posts/hugo_github_workflow/</link><pubDate>Thu, 04 Jun 2026 16:23:59 +0200</pubDate><guid>https://jokobus.github.io/posts/hugo_github_workflow/</guid><description>&lt;h2 id="prerequisites"&gt;Prerequisites&lt;/h2&gt;
+&lt;p&gt;You need to have:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A GitHub account&lt;/li&gt;
+&lt;li&gt;A Hugo website in a private repository, pushed to GitHub&lt;/li&gt;
+&lt;li&gt;A Linux homeserver with Caddy Reverse Proxy running.&lt;/li&gt;
+&lt;li&gt;A domain (or duckdns)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If not, then this guide is not the perfect match for you (yet). However, you can get a GitHub account and set it up with this guide &lt;em&gt;&lt;a href="https://jokobus.github.io/posts/git/"&gt;Git &amp;amp; GitHub Essentials&lt;/a&gt;
+&lt;/em&gt;. Another of my blogs covers &lt;a href="https://jokobus.github.io/posts/create_hugo_blog/"&gt;How to create a blog with Hugo&lt;/a&gt;
+. Getting your own Linux homeserver is also doable, e.g. with a Raspi. Come back to this afterwards.&lt;/p&gt;</description></item><item><title>Install Custom Applications on Linux</title><link>https://jokobus.github.io/posts/linux/install-custom-applications-on-linux/</link><pubDate>Wed, 03 Jun 2026 09:21:51 +0200</pubDate><guid>https://jokobus.github.io/posts/linux/install-custom-applications-on-linux/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
+&lt;p&gt;When using Linux machines where you lack root privileges (sudo), you can still install applications locally. This guide covers how to set up standalone binaries (like VS Code, Obsidian, or custom tools) and integrate them into your desktop environment&amp;rsquo;s app launcher using &lt;code&gt;.desktop&lt;/code&gt; files.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="step-by-step-installation"&gt;Step-by-Step Installation&lt;/h2&gt;
+&lt;h3 id="1-download-and-prepare"&gt;1. Download and Prepare&lt;/h3&gt;
+&lt;p&gt;Download the executable or compressed archive (&lt;code&gt;.tar.gz&lt;/code&gt;, &lt;code&gt;.zip&lt;/code&gt;, &lt;code&gt;.AppImage&lt;/code&gt;) for your application. If it&amp;rsquo;s a folder, move it to a dedicated local bin directory.&lt;/p&gt;</description></item><item><title>Git &amp; GitHub</title><link>https://jokobus.github.io/posts/git/</link><pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate><guid>https://jokobus.github.io/posts/git/</guid><description>&lt;hr&gt;
+&lt;p&gt;&amp;ldquo;Git is a distributed version control software system that is capable of managing versions of source code or data. It is often used to control source code by programmers who are developing software collaboratively.&amp;rdquo; [&lt;a href="https://en.wikipedia.org/wiki/Git" target="_blank" rel="noopener"&gt;Wikipedia as of 2025-05-30&lt;/a&gt;
+]&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="i-setup--configuration"&gt;I. Setup &amp;amp; Configuration&lt;/h2&gt;
+&lt;h3 id="1-install-git"&gt;1. Install Git&lt;/h3&gt;
+&lt;p&gt;(Test if installed: &lt;code&gt;git --version&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Windows&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-powershell" data-lang="powershell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;winget&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="n"&gt;-id&lt;/span&gt; &lt;span class="n"&gt;Git&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="py"&gt;Git&lt;/span&gt; &lt;span class="n"&gt;-e&lt;/span&gt; &lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="n"&gt;-source&lt;/span&gt; &lt;span class="n"&gt;winget&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;macOS&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Linux&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Debian, Ubuntu, Raspberry Pi OS&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt install git
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Arch Linux&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo pacman -S git
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Fedora&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo dnf install git
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# NixOS / Nix&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;nix-env -iA nixpkgs.git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="2-install-github-cli-gh"&gt;2. Install GitHub CLI (&lt;code&gt;gh&lt;/code&gt;)&lt;/h3&gt;
+&lt;p&gt;Essential for PRs and repo management from the terminal.&lt;/p&gt;</description></item></channel></rss>

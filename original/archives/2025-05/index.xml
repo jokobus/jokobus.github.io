@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>2025-05 on JF</title><link>https://jokobus.github.io/original/archives/2025-05/</link><description>Recent content in 2025-05 on JF</description><generator>Hugo</generator><language>original</language><lastBuildDate>Tue, 20 May 2025 16:22:04 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/original/archives/2025-05/index.xml" rel="self" type="application/rss+xml"/><item><title>SQL</title><link>https://jokobus.github.io/original/posts/programming/sql/</link><pubDate>Tue, 20 May 2025 16:22:04 +0200</pubDate><guid>https://jokobus.github.io/original/posts/programming/sql/</guid><description>&lt;p&gt;This post is my personal SQL Cheat Sheet, based on the SQL tutorial by &lt;a href="https://www.w3schools.com/sql/" target="_blank" rel="noopener"&gt;W3Schools&lt;/a&gt;
+.&lt;/p&gt;
+&lt;p&gt;tl;dr SQL let&amp;rsquo;s you access and manipulate databases.&lt;/p&gt;
+&lt;h2 id="why-sql"&gt;Why SQL&lt;/h2&gt;
+&lt;p&gt;SQL can execute queries, retrieve data, insert records, update records, delete record to/from a database as well as create/delete a database, create/delete tables in a database, create views and stored procedures in a database and finally set permissions on tables, procedures and views.&lt;/p&gt;
+&lt;p&gt;Many database programs build on SQL, but add some (proprietary) functionalities.&lt;/p&gt;</description></item><item><title>Conda</title><link>https://jokobus.github.io/original/posts/conda/</link><pubDate>Tue, 13 May 2025 22:50:33 +0200</pubDate><guid>https://jokobus.github.io/original/posts/conda/</guid><description>&lt;h2 id="why-conda"&gt;Why Conda?&lt;/h2&gt;
+&lt;p&gt;Conda is an environment and package management system, widely used in scientific computing and data science. Very handy if you program in Python. Conda features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cross-Platform Compatibility&lt;/li&gt;
+&lt;li&gt;Package Management&lt;/li&gt;
+&lt;li&gt;Environment Management (you can switch easily)&lt;/li&gt;
+&lt;li&gt;Version control&lt;/li&gt;
+&lt;li&gt;Dependency Management&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The handy thing about conda is that you can create a new environment for each project that you have. Then you install all the packages for each project in it&amp;rsquo;s own dedicated environment. Then you can swap back and forth to another project that might need totally different packages and versions. The different packages and versions are kind of &amp;lsquo;containerized&amp;rsquo; and don&amp;rsquo;t interfer with each other.&lt;/p&gt;</description></item><item><title>Git Delete Commit History</title><link>https://jokobus.github.io/original/posts/howto/git_delete-commit-history/</link><pubDate>Sat, 03 May 2025 21:39:15 +0200</pubDate><guid>https://jokobus.github.io/original/posts/howto/git_delete-commit-history/</guid><description>&lt;p&gt;There are actually two possible methods, I recommend method 1.&lt;/p&gt;
+&lt;h2 id="method-1"&gt;Method 1&lt;/h2&gt;
+&lt;p&gt;Create a new temporary orphan branch, delete the main branch and rename the temporary branch to main.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git pull origin main &lt;span class="c1"&gt;# Make sure your on the last version&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git checkout --orphan temporary_branch &lt;span class="c1"&gt;# Create new branch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git add -A &lt;span class="c1"&gt;# Add all current content to&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git commit -am &lt;span class="s2"&gt;&amp;#34;Initial commit&amp;#34;&lt;/span&gt; &lt;span class="c1"&gt;# Commit all content to temporary_branch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git branch -D main &lt;span class="c1"&gt;# Remove main branch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git branch -m main &lt;span class="c1"&gt;# Rename current temporary_branch to main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git push -f origin main &lt;span class="c1"&gt;# Force push to main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git remote prune origin &lt;span class="c1"&gt;# Prune old associations&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;All done!&lt;/p&gt;</description></item><item><title>Custom Anki Card</title><link>https://jokobus.github.io/original/posts/howto/custom-anki-card/</link><pubDate>Fri, 02 May 2025 11:43:40 +0200</pubDate><guid>https://jokobus.github.io/original/posts/howto/custom-anki-card/</guid><description>&lt;p&gt;Today, I came accross my old Notes from my German Class at School. I decided to learn the stylistic devices (dt. &amp;ldquo;Stilmittel&amp;rdquo;) again. To do so, I want to use Anki and create a custom card with the three fields &lt;strong&gt;Name&lt;/strong&gt;, &lt;strong&gt;Definition&lt;/strong&gt; and &lt;strong&gt;Example&lt;/strong&gt;. In this guide, I will explain how to create a custom Anki card (template) with multiple fields and cross-learning. When the cards are created, I have to learn each three times.&lt;/p&gt;</description></item><item><title>Git</title><link>https://jokobus.github.io/original/posts/git/</link><pubDate>Thu, 01 May 2025 19:04:03 +0200</pubDate><guid>https://jokobus.github.io/original/posts/git/</guid><description>&lt;h2 id="git-basics"&gt;Git Basics&lt;/h2&gt;
+&lt;h3 id="find-version"&gt;Find Version&lt;/h3&gt;
+&lt;p&gt;(Often used to test if git is installed)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git --version
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="set-username-and-email-address"&gt;Set username and email address&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global user.name &lt;span class="s2"&gt;&amp;#34;jokobus&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global user.email &lt;span class="s2"&gt;&amp;#34;jokobus@example.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you want to use the username only for the git repository of the current directory, remove the &lt;em&gt;global&lt;/em&gt; option.&lt;/p&gt;
+&lt;p&gt;If you want to see which username and email is currently set, use&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global user.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global user.email
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you are using a credential manager, you might need to clear the stored credentials&lt;/p&gt;</description></item></channel></rss>

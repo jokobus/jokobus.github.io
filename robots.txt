@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+Sitemap: https://jokobus.github.io/sitemap.xml

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on JF</title><link>https://jokobus.github.io/original/tags/git/</link><description>Recent content in Git on JF</description><generator>Hugo</generator><language>original</language><lastBuildDate>Sat, 03 May 2025 21:39:15 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/original/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git Delete Commit History</title><link>https://jokobus.github.io/original/posts/howto/git_delete-commit-history/</link><pubDate>Sat, 03 May 2025 21:39:15 +0200</pubDate><guid>https://jokobus.github.io/original/posts/howto/git_delete-commit-history/</guid><description>&lt;p&gt;There are actually two possible methods, I recommend method 1.&lt;/p&gt;
+&lt;h2 id="method-1"&gt;Method 1&lt;/h2&gt;
+&lt;p&gt;Create a new temporary orphan branch, delete the main branch and rename the temporary branch to main.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git pull origin main &lt;span class="c1"&gt;# Make sure your on the last version&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git checkout --orphan temporary_branch &lt;span class="c1"&gt;# Create new branch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git add -A &lt;span class="c1"&gt;# Add all current content to&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git commit -am &lt;span class="s2"&gt;&amp;#34;Initial commit&amp;#34;&lt;/span&gt; &lt;span class="c1"&gt;# Commit all content to temporary_branch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git branch -D main &lt;span class="c1"&gt;# Remove main branch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git branch -m main &lt;span class="c1"&gt;# Rename current temporary_branch to main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git push -f origin main &lt;span class="c1"&gt;# Force push to main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git remote prune origin &lt;span class="c1"&gt;# Prune old associations&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;All done!&lt;/p&gt;</description></item><item><title>Git</title><link>https://jokobus.github.io/original/posts/git/</link><pubDate>Thu, 01 May 2025 19:04:03 +0200</pubDate><guid>https://jokobus.github.io/original/posts/git/</guid><description>&lt;h2 id="git-basics"&gt;Git Basics&lt;/h2&gt;
+&lt;h3 id="find-version"&gt;Find Version&lt;/h3&gt;
+&lt;p&gt;(Often used to test if git is installed)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git --version
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="set-username-and-email-address"&gt;Set username and email address&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global user.name &lt;span class="s2"&gt;&amp;#34;jokobus&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global user.email &lt;span class="s2"&gt;&amp;#34;jokobus@example.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you want to use the username only for the git repository of the current directory, remove the &lt;em&gt;global&lt;/em&gt; option.&lt;/p&gt;
+&lt;p&gt;If you want to see which username and email is currently set, use&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global user.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global user.email
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you are using a credential manager, you might need to clear the stored credentials&lt;/p&gt;</description></item><item><title>How to solve git VPN issue</title><link>https://jokobus.github.io/original/posts/howto/git_solve-fatal-unable-to-access/</link><pubDate>Fri, 12 Jul 2024 13:09:21 -0700</pubDate><guid>https://jokobus.github.io/original/posts/howto/git_solve-fatal-unable-to-access/</guid><description>&lt;p&gt;If you try to use git you can get the following error:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fatal: unable to access &lt;span class="s1"&gt;&amp;#39;https://github.com/yourusername/yourrepository.git/&amp;#39;&lt;/span&gt;: Could not resolve host: github.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This error can happen, if you are using a VPN.&lt;/p&gt;
+&lt;p&gt;The solution is to either toggle your VPN and try again or (if you don&amp;rsquo;t want to toggle your VPN) to execute:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;If your VPN is currently OFF:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global --unset http.proxy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If your VPN is currently ON:&lt;/p&gt;</description></item></channel></rss>

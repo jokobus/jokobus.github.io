@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neural Network on JF</title><link>https://jokobus.github.io/tags/neural-network/</link><description>Recent content in Neural Network on JF</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Mon, 27 May 2024 19:27:30 -0700</lastBuildDate><atom:link href="https://jokobus.github.io/tags/neural-network/index.xml" rel="self" type="application/rss+xml"/><item><title>Feedforward Phase</title><link>https://jokobus.github.io/posts/feedforward/</link><pubDate>Mon, 27 May 2024 19:27:30 -0700</pubDate><guid>https://jokobus.github.io/posts/feedforward/</guid><description>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;This article gives a quick overview over the feedforward phase of a Neural Network.&lt;/p&gt;
+&lt;h2 id="nodes"&gt;Nodes&lt;/h2&gt;
+&lt;p&gt;A Neural Network is made of many &lt;strong&gt;Nodes&lt;/strong&gt; that are connected to each other. Each Node itself is a very basic unit that does only do three things.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Multiply each input with a weight and sum all inputs up. $y_{in} = \sum_{i=0}^m w_i\cdot x_i$, where $m$ is the number of inputs.&lt;/li&gt;
+&lt;li&gt;Process the single, scalar input value by some activation function $y_{out}=f(y_{in})$ where $y_{in}$ is the result from step 1 and $y_{out}$ is the result from step 1 after being applied to the activation function.&lt;/li&gt;
+&lt;li&gt;Output the result $y_{out}$ to the next node&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;So, a single node pretty much looks like this:
+&lt;div class="not-prose"&gt;
+&lt;picture&gt;
+ &lt;source type="image/webp" srcset="https://jokobus.github.io/posts/feedforward/images/Single_Node_hu_c0b419fe7808747b.webp 320w, https://jokobus.github.io/posts/feedforward/images/Single_Node_hu_bd9bea0247148daf.webp 640w" sizes="(min-width: 1024px) 100vw, 50vw" /&gt;
+ &lt;source type="image/jpeg" srcset="https://jokobus.github.io/posts/feedforward/images/Single_Node_hu_4acf994b3a82f269.jpg 320w, https://jokobus.github.io/posts/feedforward/images/Single_Node_hu_c2b4bc9b37f65e46.jpg 640w" sizes="(min-width: 1024px) 100vw, 50vw" /&gt;
+ &lt;img class="h-auto max-w-full rounded-lg" src="https://jokobus.github.io/posts/feedforward/images/Single_Node_hu_c2b4bc9b37f65e46.jpg" width="776" height="436" alt="Figure 1: A single Node with its weights" title="Figure 1: A single Node with its weights" loading="lazy" /&gt;
+ &lt;/picture&gt;&lt;p class="text-sm text-center text-slate-500 dark:text-slate-300"&gt;Figure 1: A single Node with its weights&lt;/p&gt;</description></item></channel></rss>

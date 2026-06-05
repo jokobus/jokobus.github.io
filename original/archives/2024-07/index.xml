@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>2024-07 on JF</title><link>https://jokobus.github.io/original/archives/2024-07/</link><description>Recent content in 2024-07 on JF</description><generator>Hugo</generator><language>original</language><lastBuildDate>Wed, 17 Jul 2024 13:09:54 -0700</lastBuildDate><atom:link href="https://jokobus.github.io/original/archives/2024-07/index.xml" rel="self" type="application/rss+xml"/><item><title>How to include Scalable Vector Graphics (svg) in $\LaTeX$</title><link>https://jokobus.github.io/original/posts/latex/includesvg/</link><pubDate>Wed, 17 Jul 2024 13:09:54 -0700</pubDate><guid>https://jokobus.github.io/original/posts/latex/includesvg/</guid><description>&lt;p&gt;You may know the popular LaTeX package &lt;em&gt;graphicx&lt;/em&gt; which you can use as:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-TeX" data-lang="TeX"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;\includegraphics&lt;/span&gt;&lt;span class="na"&gt;[options]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;filename&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;graphicx&lt;/em&gt; does not support svg, but there is the package called &lt;em&gt;svg&lt;/em&gt; that does the job.&lt;/p&gt;
+&lt;h2 id="how-to-use-the-svg-package"&gt;How to use the &lt;em&gt;svg&lt;/em&gt; package:&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Install &lt;a href="https://inkscape.org/" target="_blank" rel="noopener"&gt;Inkscape&lt;/a&gt;
+&lt;/p&gt;
+&lt;p&gt;On Windows you can use winget.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-PowerShell" data-lang="PowerShell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;winget&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;-e&lt;/span&gt; &lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="n"&gt;-id&lt;/span&gt; &lt;span class="n"&gt;Inkscape&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="py"&gt;Inkscape&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Copy your &lt;em&gt;image.svg&lt;/em&gt; file into your document root folder (= right next to your .tex file)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;This is a MWE for your .tex file:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-TeX" data-lang="TeX"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;article&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;\includepackage&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;svg&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;figure&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;\includesvg&lt;/span&gt;&lt;span class="na"&gt;[]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;image&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;figure&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Notes:&lt;/p&gt;</description></item><item><title>LBA Kompetenznachweis</title><link>https://jokobus.github.io/original/posts/lba_kompetenznachweis/</link><pubDate>Fri, 12 Jul 2024 21:06:45 -0700</pubDate><guid>https://jokobus.github.io/original/posts/lba_kompetenznachweis/</guid><description>&lt;p&gt;&lt;strong&gt;Achtung Disclaimer&lt;/strong&gt; Dies sind meine persönlichen Notizen zum LBA Kompetenznachweis, der in Europa zum Führen von unbemannten Luftfahrzeugen (v.a. im Hobby-Bereich) berechtigt. Es besteht &lt;strong&gt;kein Anspruch auf Richtigkeit&lt;/strong&gt;. Alle Informationen - soweit nicht anderweitig gekennzeichnet - stammen von &lt;a href="https://lba-openuav.de/onlinekurs/" target="_blank" rel="noopener"&gt;https://lba-openuav.de/onlinekurs/&lt;/a&gt;
+.&lt;/p&gt;
+&lt;h2 id="checkliste"&gt;Checkliste&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Kompetenznachweis (Drohnenführerschein)&lt;/li&gt;
+&lt;li&gt;Betreiberregistrierung&lt;/li&gt;
+&lt;li&gt;Versicherung&lt;/li&gt;
+&lt;li&gt;Checke, dass du mit der richtigen Drohnenklasse in der richtigen Kategorie unterwegs bist&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Der einfachste Weg, um legal loslegen zu können ist, die Website &lt;a href="https://lba-openuav.de/onlinekurs/" target="_blank" rel="noopener"&gt;lba-openuav.de&lt;/a&gt;
+ zu besuchen, dort den Online-Kurs zu machen, den A1/A3 (kleinen) Drohnenführerschein und sich dort nach bestehen des kurzen Tests gleich noch als UAV-Betreiber eintragen. Zuletzt noch kurz checken, dass die Haftpflichtversicherung Drohnen mit abdeckt und los kann es gehen.&lt;/p&gt;</description></item><item><title>How to solve git VPN issue</title><link>https://jokobus.github.io/original/posts/howto/git_solve-fatal-unable-to-access/</link><pubDate>Fri, 12 Jul 2024 13:09:21 -0700</pubDate><guid>https://jokobus.github.io/original/posts/howto/git_solve-fatal-unable-to-access/</guid><description>&lt;p&gt;If you try to use git you can get the following error:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fatal: unable to access &lt;span class="s1"&gt;&amp;#39;https://github.com/yourusername/yourrepository.git/&amp;#39;&lt;/span&gt;: Could not resolve host: github.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This error can happen, if you are using a VPN.&lt;/p&gt;
+&lt;p&gt;The solution is to either toggle your VPN and try again or (if you don&amp;rsquo;t want to toggle your VPN) to execute:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;If your VPN is currently OFF:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global --unset http.proxy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If your VPN is currently ON:&lt;/p&gt;</description></item></channel></rss>

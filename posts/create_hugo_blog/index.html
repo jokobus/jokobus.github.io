@@ -1,0 +1,509 @@
+<!doctype html><html lang=en-US dir=ltr><head><title>How to create a blog with Hugo (full guide) :: JF - Blog about random topics</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="This is a short guide how to create a Hugo blog, using the tailwind theme, which is the one I&rsquo;m currently using myself. This guide was written with unexperienced users in mind. If you follow this guide 1:1 you should get a running instance (no guarantee of course). If you are confident with the topic, you can use this guide to get inspired and modify the steps to your own preference.
+Although the following steps are for Windows, the whole process is the same for Linux/MacOS. Only some of the console commands are slightly different. E.g. instead of the powershell command Start-process you can use nano or vim and instead of winget you may use your distribution&rsquo;s package manager or homebrew.
+"><meta name=keywords content="hugo,tailwind,tailwindcss,hugo theme,hugo theme tailwind"><meta name=robots content="noodp"><link rel=manifest href=/manifest.json><meta property="og:url" content="https://jokobus.github.io/posts/create_hugo_blog/"><meta property="og:site_name" content="JF"><meta property="og:title" content="How to create a blog with Hugo (full guide)"><meta property="og:description" content="This is a short guide how to create a Hugo blog, using the tailwind theme, which is the one I’m currently using myself. This guide was written with unexperienced users in mind. If you follow this guide 1:1 you should get a running instance (no guarantee of course). If you are confident with the topic, you can use this guide to get inspired and modify the steps to your own preference.
+Although the following steps are for Windows, the whole process is the same for Linux/MacOS. Only some of the console commands are slightly different. E.g. instead of the powershell command Start-process you can use nano or vim and instead of winget you may use your distribution’s package manager or homebrew."><meta property="og:locale" content="en_US"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-06-27T10:43:10-07:00"><meta property="article:modified_time" content="2024-06-27T10:43:10-07:00"><meta property="article:tag" content="Hugo"><meta name=twitter:card content="summary"><meta name=twitter:title content="How to create a blog with Hugo (full guide)"><meta name=twitter:description content="This is a short guide how to create a Hugo blog, using the tailwind theme, which is the one I’m currently using myself. This guide was written with unexperienced users in mind. If you follow this guide 1:1 you should get a running instance (no guarantee of course). If you are confident with the topic, you can use this guide to get inspired and modify the steps to your own preference.
+Although the following steps are for Windows, the whole process is the same for Linux/MacOS. Only some of the console commands are slightly different. E.g. instead of the powershell command Start-process you can use nano or vim and instead of winget you may use your distribution’s package manager or homebrew."><link rel=canonical href=https://jokobus.github.io/posts/create_hugo_blog/><link rel="shortcut icon" href=/favicon.ico><link rel=stylesheet href=/css/index.min.630c969617083a6daf57616348566062c10481d4377aa0aeaf5b77188fa9a016.css><style>.prose :not(pre)>code{background-color:#f1f5f9;color:#0f172a;padding:.2em .4em;border-radius:.25rem;border:1px solid #e2e8f0;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,liberation mono,courier new,monospace;font-size:.9em;font-weight:400;transition:all .2s}.dark .prose :not(pre)>code{background-color:#1e293b;color:#e2e8f0;border-color:#334155}.prose code::before,.prose code::after{content:""!important}</style></head><body class="flex flex-col min-h-screen w-full bg-slate-50 dark:bg-gray-800"><header class="flex flex-none justify-center z-10"><div class="flex flex-row gap justify-between w-full max-w-4xl lg:max-w-5xl h-12 mt-3"><div class="flex-none ml-2 md:ml-0"><a href=/><img class="h-12 w-12 rounded-full object-cover bg-gray-100" src=/logo.jpg alt=logo></a></div><div class=flex-1></div><div class=flex-none><nav class="h-full static"><button id=navbar-menu-toggle type=button class="inline-flex items-center p-2 text-sm text-slate-800 dark:text-slate-200 rounded-lg md:hidden" aria-controls=navbar-menu aria-expanded=false>
+<span class=sr-only>Open main menu</span>
+<i class="w-8 h-8"><svg class="icon icon-tabler icon-tabler-menu-2" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg></i></button><div class="absolute md:static top-16 left-0 right-0 z-50 hidden w-full md:block md:w-auto" id=navbar-menu><ul class="flex flex-col mx-2 md:mx-0 md:flex-row md:border-0 rounded-sm md:rounded-full px-3 text-base font-medium text-slate-800 dark:text-slate-200 shadow-lg bg-white dark:bg-gray-600 shadow-slate-800/5 dark:shadow-slate-200/5 ring-1 ring-slate-900/5 dark:ring-slate-100/5"><li id=home><a class="block px-3 py-3 hover:text-emerald-600" href=/en title=Home>Home</a></li><li id=about><a class="block px-3 py-3 hover:text-emerald-600" href=/about/ title=About>About</a></li><li id=contact><a class="block px-3 py-3 hover:text-emerald-600" href=/contact/ title=Contact>Contact</a></li><li id=openpgp><a class="block px-3 py-3 hover:text-emerald-600" href=/openpgp/ title=OpenPGP>OpenPGP</a></li></ul></div></nav></div><div class=flex-none><div class="h-full static"><button id=navbar-lang-toggle type=button class="inline-flex items-center p-2 text-sm text-slate-800 dark:text-slate-200 rounded-lg" aria-controls=navbar-menu aria-expanded=false>
+<span class=sr-only>Open language switcher</span>
+<i class="w-8 h-8"><svg class="icon icon-tabler icon-tabler-language" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c0 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg></i></button><div class="absolute hidden top-16 z-50" id=navbar-lang><ul class="flex flex-col rounded-sm px-3 text-base font-medium text-slate-800 dark:text-slate-200 shadow-lg bg-white dark:bg-gray-600 shadow-slate-800/5 dark:shadow-slate-200/5 ring-1 ring-slate-900/5 dark:ring-slate-100/5"><li><span class="block px-3 py-3 cursor-default hover:text-emerald-600"><b>English</b></span></li><li><a class="block px-3 py-3 hover:text-emerald-600" href=/original/posts/howto/create_hugo_blog/ title=Original>Original</a></li></ul></div></div></div><div class="flex-none md:hidden"><a href=/search/ class="inline-flex items-center p-2 text-sm text-slate-800 dark:text-slate-200 rounded-lg" aria-controls=navbar-menu aria-expanded=false><span class=sr-only>Search</span>
+<i class="w-8 h-8"><svg class="icon icon-tabler icon-tabler-search" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1014 0A7 7 0 103 10"/><path d="M21 21l-6-6"/></svg></i></a></div><div class="darkmode-toggle flex flex-none mr-2 md:mr-0"><label for=darkmode-toggle class="flex items-center px-3 cursor-pointer rounded-full bg-gray-100 dark:bg-gray-600" title="Toggle dark mode"><input name=darkmode-toggle id=darkmode-toggle type=checkbox class="sr-only peer" aria-label="Toggle dark mode"><div class="group flex flex-row gap-1 justify-center h-8 px-1 rounded-full bg-white dark:bg-gray-700"><i class="h-6 w-6 flex-none rounded-full bg-yellow-400 place-self-center peer-checked:group-[]:invisible"><svg class="icon icon-tabler icon-tabler-brightness-down" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-3 0a3 3 0 106 0 3 3 0 10-6 0"/><path d="M12 5v.01"/><path d="M17 7v.01"/><path d="M19 12v.01"/><path d="M17 17v.01"/><path d="M12 19v.01"/><path d="M7 17v.01"/><path d="M5 12v.01"/><path d="M7 7v.01"/></svg>
+</i><i class="h-6 w-6 flex-none rounded-full place-self-center invisible peer-checked:group-[]:visible"><svg class="icon icon-tabler icon-tabler-moon-stars" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132.0.263.0.393.0a7.5 7.5.0 007.92 12.446A9 9 0 1112 2.992z"/><path d="M17 4a2 2 0 002 2 2 2 0 00-2 2 2 2 0 00-2-2 2 2 0 002-2"/><path d="M19 11h2m-1-1v2"/></svg></i></div></label></div></div></header><main class="flex flex-auto justify-center"><div class="w-full max-w-4xl lg:max-w-5xl"><div class="flex flex-col mt-6 mx-2 md:mx-0 rounded-lg overflow-hidden shadow-md bg-white dark:bg-gray-700"><div><a href=/posts/create_hugo_blog/><figure><img class="w-full object-cover h-36 md:h-48 xl:h-60" src=/posts/create_hugo_blog/images/hugo.svg alt="How to create a blog with Hugo (full guide)" title="How to create a blog with Hugo (full guide)" loading=lazy></figure></a></div><div class="flex flex-col gap-y-3 p-6"><h1 class="text-4xl font-semibold text-slate-800 dark:text-slate-100"><a href=/posts/create_hugo_blog/>How to create a blog with Hugo (full guide)</a></h1><ul class="flex flex-row flex-wrap text-slate-500 dark:text-slate-300"><li><a href=/categories/howto/ class="text-sm mr-2 px-2 py-1 rounded border border-emerald-800 bg-emerald-800 text-slate-50">Howto</a></li><li><a href=/tags/hugo/ class="flex flex-row text-sm mr-2 py-1"><i class="h-5 w-5 flex-none"><svg class="icon icon-tabler icon-tabler-tags" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 8v4.172a2 2 0 00.586 1.414l5.71 5.71a2.41 2.41.0 003.408.0l3.592-3.592a2.41 2.41.0 000-3.408l-5.71-5.71A2 2 0 009.172 6H5A2 2 0 003 8z"/><path d="M18 19l1.592-1.592a4.82 4.82.0 000-6.816L15 6"/><path d="M7 10h-.01"/></svg>
+</i><span class=ml-0>Hugo</span></a></li></ul><div class="flex flex-col gap-y-1 md:flex-row md:gap-y-0 md:gap-x-4 text-slate-500 dark:text-slate-300"><div class="flex flex-row text-base gap-x-1"><i class="h-6 w-6 flex-none"><svg class="icon icon-tabler icon-tabler-calendar" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V7z"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/><path d="M11 15h1"/><path d="M12 15v3"/></svg>
+</i><time datetime=2024-06-27T10:43:10-07:00>2024-06-27</time></div><div class="flex flex-row text-base gap-x-1"><i class="h-6 w-6 flex-none"><svg class="icon icon-tabler icon-tabler-hourglass-high" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.5 7h11"/><path d="M6 20v-2a6 6 0 1112 0v2a1 1 0 01-1 1H7a1 1 0 01-1-1z"/><path d="M6 4v2a6 6 0 1012 0V4a1 1 0 00-1-1H7A1 1 0 006 4z"/></svg>
+</i><span>17 minutes to read</span></div></div><div class="flex flex-col gap-y-1 md:flex-row md:gap-y-0 md:gap-x-4 text-slate-500 dark:text-slate-300"><div class="flex flex-row gap-x-1"><i class="h-6 w-6 flex-none" style=margin-left:2.8px><svg class="icon icon-tabler icon-tabler-hourglass-high" viewBox="0 0 32 32" stroke-width="1.35" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><g fill="none" fill-rule="evenodd"><g fill="currentColor"><path d="M7.515 5.008a.744.744.0 00-.687-.464h0a.748.748.0 00-.695.477L4.156 10.208a.625.625.0 00.362.807.64.64.0 00.222.041.626.626.0 00.584-.4l.339-.889H7.974l.335.887a.625.625.0 101.17-.441zM6.139 8.514l.684-1.8.679 1.8z"/><path d="M11.232 4.544a.626.626.0 00-.625.625v5.262a.625.625.0 001.25.0V5.169a.625.625.0 00-.625-.625z"/><path d="M19 0H5A5.006 5.006.0 000 5V19a5.006 5.006.0 005 5H16.343a4.968 4.968.0 003.536-1.464l2.656-2.658A4.968 4.968.0 0024 16.343V5A5.006 5.006.0 0019 0zM2 19V5A3 3 0 015 2H19a3 3 0 013 3V15H18a3 3 0 00-3 3v4H5A3 3 0 012 19zm16.465 2.122a2.975 2.975.0 01-1.465.8V18a1 1 0 011-1h3.925a3.016 3.016.0 01-.8 1.464z"/></g></g></svg></i><p><b>Disclaimer: </b>This post was created using AI.</p></div></div><section class="prose prose-slate dark:prose-invert w-full max-w-4xl lg:max-w-5xl mt-6"><h2>Table of Contents</h2><aside><nav id=TableOfContents><ul><li><a href=#important-concept-to-understand>Important concept to understand</a></li><li><a href=#prerequisites>Prerequisites</a></li><li><a href=#step-1-install-hugo>Step 1: Install Hugo</a></li><li><a href=#step-2-create-github-repositories>Step 2: Create github repositories</a><ul><li><a href=#private-repository>Private repository</a></li><li><a href=#public-repository>Public repository</a></li></ul></li><li><a href=#step-3-install-theme>Step 3: Install theme</a></li><li><a href=#step-4-adjust-to-your-needs>Step 4: Adjust to your needs</a></li><li><a href=#addcontent>Step 5: Add content</a><ul><li><a href=#multilanguage-support>Multilanguage support</a></li></ul></li><li><a href=#step-6-push-to-github>Step 6: Push to github</a></li><li><a href=#step-7-automate-github-interaction-with-script>Step 7: Automate github interaction with script</a><ul><li><a href=#windows-batch-file-not-recommended>Windows Batch file (not recommended)</a></li><li><a href=#windows-powershell-recommended>Windows Powershell (recommended)</a></li><li><a href=#linux-bash-file>Linux bash file</a></li></ul></li><li><a href=#step-8-search-engine-and-crawler-optimization-optional>Step 8: Search Engine and Crawler optimization (optional)</a><ul><li><a href=#robotstxt>Robots.txt</a></li><li><a href=#search-engine-optimization-seo>Search Engine Optimization SEO</a></li></ul></li><li><a href=#workflow>Workflow</a></li><li><a href=#further-reading>Further reading</a></li><li><a href=#dependabot-alerts>Dependabot alerts</a></li></ul></nav></aside></section><article class="mt-6 w-full max-w-4xl lg:max-w-5xl prose prose-slate dark:prose-invert prose-quoteless post-content"><p>This is a short guide how to create a <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>
+blog, using the <a href=https://github.com/tomowang/hugo-theme-tailwind target=_blank rel=noopener>tailwind</a>
+theme, which is the one I&rsquo;m currently using myself. This guide was written with unexperienced users in mind. If you follow this guide 1:1 you <em>should</em> get a running instance (no guarantee of course). If you are confident with the topic, you can use this guide to get inspired and modify the steps to your own preference.</p><p>Although the following steps are for Windows, the whole process is the same for Linux/MacOS. Only some of the console commands are slightly different. E.g. instead of the powershell command <em>Start-process</em> you can use <em>nano</em> or <em>vim</em> and instead of <em>winget</em> you may use your distribution&rsquo;s package manager or homebrew.</p><h2 id=important-concept-to-understand>Important concept to understand</h2><p>The blog will be hosted on github and will be stored in two different repositories. The first repository (let&rsquo;s call this repo <em>website</em>) is private and stores all the code and content needed to build the blog. The second repository has to be named according to your github username <em>yourusername.github.io</em>, where you replace <em>yourusername</em> with your actual github username (Please also replace <em>yourusername</em> in all the following code by your actual username. In my case the second repository is called <em>jokobus.github.io</em>). The <em>yourusername.github.io</em> repository contains all the public html (and other stuff) that Hugo created and is nested inside your <em>website</em> repository. Most of your code can be private, but the subdirectory called <em>public</em> (yes, that is it&rsquo;s name) has to be public. Once the website is built by Hugo, we only need to publish the stuff in the <em>public</em> subdirectory. We publish it by pushing the content to the <em>yourusername</em> repository on github. All other content outside the <em>public</em> folder is just needed to build the content of the <em>public</em> folder. Finally your blog will be available on <a href=https://yourusername.github.io target=_blank rel=noopener>https://yourusername.github.io</a>
+.</p><h2 id=prerequisites>Prerequisites</h2><p>On Windows, we should use the Windows Powershell and not the built in Command Prompt. If you don&rsquo;t have Powershell installed, you can follow <a href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4" target=_blank rel=noopener>this guide</a>
+. The quick way via winget is:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-PowerShell data-lang=PowerShell><span class=line><span class=cl><span class=n>winget</span> <span class=n>install</span> <span class=n>-e</span> <span class=p>-</span><span class=n>-id</span> <span class=n>Microsoft</span><span class=p>.</span><span class=py>PowerShell</span>
+</span></span></code></pre></div><p>On Linux and Mac your default Terminal should do the job.</p><p>Secondly you need to have a <a href=https://github.com target=_blank rel=noopener>Github</a>
+account and <a href=https://github.com/git-guides/install-git target=_blank rel=noopener>git installed</a>
+. Create a new github account <a href="https://github.com/signup?ref_cta=Sign+up&amp;ref_loc=header+logged+out&amp;ref_page=%2F&amp;source=header-home" target=_blank rel=noopener>here</a>
+and install git by executing this in the powershell.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>winget install -e --id Git.Git
+</span></span></code></pre></div><p>Then authenticate git to Github by one of the options mentioned in the <a href=https://docs.github.com/en/get-started/getting-started-with-git/set-up-git#authenticating-with-github-from-git target=_blank rel=noopener>official article</a>
+.</p><p>The easiest way is to install the Github Desktop Client and authenticate there:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>winget install -e --id GitHub.GitHubDesktop
+</span></span></code></pre></div><p>Follow the installation guide and open the Github Desktop Application. Login with your Github credentials there. You will automatically be able to use your credentials with the git command.</p><p>All prerequistes met? Let&rsquo;s go!</p><h2 id=step-1-install-hugo>Step 1: Install Hugo</h2><p>Follow the <a href=https://gohugo.io/installation/windows/ target=_blank rel=noopener>official Hugo guide</a>
+. As a service I added the steps for Windows below. However, it is definitely a good idea to look at the official guide as well.</p><p>If you use winget, it is as simple as:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>winget install Hugo.Hugo.Extended
+</span></span></code></pre></div><h2 id=step-2-create-github-repositories>Step 2: Create github repositories</h2><p>Go to <a href=https://github.com target=_blank rel=noopener>https://github.com</a>
+and log in to your account. Create a new private repository called <em>website</em> and a public repository called <em>yourusername.github.io</em> (where you off course replace <em>yourusername</em> with your actual username).</p><h3 id=private-repository>Private repository</h3><p>First, we clone the <em>website</em> repository.</p><ol><li>Move into the folder where you want to store your website and clone the repo.</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;C:/path/to/where/you/want/to/store/your/website&#34;</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/yourusername/website.git
+</span></span></code></pre></div><ol start=2><li>Create a new Hugo instance.</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> website
+</span></span><span class=line><span class=cl>hugo new site yourusername
+</span></span><span class=line><span class=cl><span class=nb>cd</span> yourusername
+</span></span></code></pre></div><p>Optional: To see all the folders that were created, type:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>ls
+</span></span></code></pre></div><p>Do you see a <strong>config.toml</strong> or <strong>hugo.toml</strong> file? This is the configuration file, where all the settings are stored. Later, we will modify it.</p><h3 id=public-repository>Public repository</h3><p>Now we clone the public <em>yourusername.github.io</em> repository and add it as a submodule. (<a href=https://gist.github.com/gitaarik/8735255 target=_blank rel=noopener>Here</a>
+is some unofficial, but good explanation what a submodule is. )</p><ol><li>Clone the public repository next to your private one, add a readme and push it to github</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;C:/path/to/where/you/want/to/store/your/website&#34;</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/yourusername/yourusername.github.io.git
+</span></span><span class=line><span class=cl><span class=nb>cd</span> yourusername.github.io
+</span></span><span class=line><span class=cl>git checkout -b main
+</span></span><span class=line><span class=cl>notepad Readme.md
+</span></span></code></pre></div><p>Add a short description like &ldquo;This is the public content for my Hugo website. " to the Readme file.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git add -A
+</span></span><span class=line><span class=cl>git commit -m <span class=s2>&#34;First commit to add Readme. &#34;</span>
+</span></span></code></pre></div><ol start=2><li>Switch back into your private repository</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> ../
+</span></span><span class=line><span class=cl><span class=nb>cd</span> website/yourusername
+</span></span></code></pre></div><p>and add a submodule.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git submodule add -b main https://github.com/yourusername/yourusername.github.io.git public
+</span></span></code></pre></div><ol start=3><li>Check that everything worked by:</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> public
+</span></span><span class=line><span class=cl>ls
+</span></span></code></pre></div><p>You should see a file called <em>Readme.md</em> and if you open it with</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>notepad Readme.md
+</span></span></code></pre></div><p>you will find exactly the text you wrote in the <em>Readme.md</em> file a few lines above.</p><h2 id=step-3-install-theme>Step 3: Install theme</h2><p>We use the <a href=https://github.com/tomowang/hugo-theme-tailwind target=_blank rel=noopener>Tailwind theme</a>
+, but you can pick whichever you want. There is an <a href=https://themes.gohugo.io/ target=_blank rel=noopener>extensive list</a>
+of free themes on the hugo website.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;C:/path/to/where/you/want/to/store/your/website/website/yourusername&#34;</span>
+</span></span><span class=line><span class=cl>git submodule add https://github.com/tomowang/hugo-theme-tailwind.git themes/tailwind
+</span></span></code></pre></div><p>You can always update the theme by:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git submodule update --remote
+</span></span></code></pre></div><h2 id=step-4-adjust-to-your-needs>Step 4: Adjust to your needs</h2><p>First, we open the <em>config.toml</em> file and paste some prebuilt configuration.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>Start-process config.toml
+</span></span></code></pre></div><p>Paste the following text (originally from <a href=https://github.com/tomowang/hugo-theme-tailwind target=_blank rel=noopener>tailwind</a>
+and extended by me). Play around with it and adjust to your needs.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=line><span class=cl><span class=nx>baseURL</span> <span class=p>=</span> <span class=s1>&#39;https://yourusername.github.io&#39;</span>
+</span></span><span class=line><span class=cl><span class=nx>title</span> <span class=p>=</span> <span class=s1>&#39;My website&#39;</span>
+</span></span><span class=line><span class=cl><span class=nx>subtitle</span> <span class=p>=</span><span class=s2>&#34;A Blog about random topics. &#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>author</span> <span class=p>=</span> <span class=s2>&#34;Your Name&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>enableInlineShortcodes</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl><span class=nx>theme</span> <span class=p>=</span> <span class=s2>&#34;tailwind&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Enables the robots.txt file, default is to allow all crawling, see step 8 on how to modify it. </span>
+</span></span><span class=line><span class=cl><span class=nx>enableRobotsTXT</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Please enable this feature if the site is available in Japanese, Chinese or Korean.</span>
+</span></span><span class=line><span class=cl><span class=c>#hasCJKLanguage = true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>jsonLD</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># If you&#39;re using Google Analytics, you can enable this feature.</span>
+</span></span><span class=line><span class=cl><span class=c>#googleAnalytics = &#34;G-1234567890&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Disqus Comment System</span>
+</span></span><span class=line><span class=cl><span class=c>#disqusShortname = &#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>#Emoji support</span>
+</span></span><span class=line><span class=cl><span class=nx>enableEmoji</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>#Paginate, how many sites before break </span>
+</span></span><span class=line><span class=cl><span class=nx>paginate</span><span class=p>=</span><span class=mi>50</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>markup</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>highlight</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=c># lineNos = true</span>
+</span></span><span class=line><span class=cl>    <span class=nx>noClasses</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>.</span><span class=nx>renderer</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>      <span class=nx>unsafe</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>.</span><span class=nx>extensions</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>.</span><span class=nx>extensions</span><span class=p>.</span><span class=nx>cjk</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=nx>enable</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>        <span class=nx>eastAsianLineBreaks</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>        <span class=nx>escapedSpace</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>.</span><span class=nx>extensions</span><span class=p>.</span><span class=nx>passthrough</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=nx>enable</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>        <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>.</span><span class=nx>extensions</span><span class=p>.</span><span class=nx>passthrough</span><span class=p>.</span><span class=nx>delimiters</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>          <span class=nx>block</span> <span class=p>=</span> <span class=p>[[</span><span class=s1>&#39;\[&#39;</span><span class=p>,</span> <span class=s1>&#39;\]&#39;</span><span class=p>],</span> <span class=p>[</span><span class=s1>&#39;$$&#39;</span><span class=p>,</span> <span class=s1>&#39;$$&#39;</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>          <span class=nx>inline</span> <span class=p>=</span> <span class=p>[[</span><span class=s1>&#39;\(&#39;</span><span class=p>,</span> <span class=s1>&#39;\)&#39;</span><span class=p>],</span> <span class=p>[</span><span class=s1>&#39;$&#39;</span><span class=p>,</span> <span class=s1>&#39;$&#39;</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>params</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Base color of the website.</span>
+</span></span><span class=line><span class=cl><span class=c># https://tailwindcss.com/docs/background-color</span>
+</span></span><span class=line><span class=cl><span class=nx>base_color</span> <span class=p>=</span> <span class=s2>&#34;bg-gray-800&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>subtitle</span> <span class=p>=</span> <span class=s2>&#34;A Blog about random topics&#34;</span>
+</span></span><span class=line><span class=cl><span class=c>#Site description</span>
+</span></span><span class=line><span class=cl><span class=nx>description</span> <span class=p>=</span> <span class=s2>&#34;My Website&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>#Enable LaTeX math support</span>
+</span></span><span class=line><span class=cl><span class=nx>math</span><span class=p>=</span><span class=kc>true</span> <span class=c># this enables KaTeX, see https://katex.org/ for how to use it</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Number of tags to be displayed.</span>
+</span></span><span class=line><span class=cl><span class=nx>tagsLimit</span> <span class=p>=</span> <span class=mi>20</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Show or not to show the reading time</span>
+</span></span><span class=line><span class=cl><span class=nx>showReadingTime</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>author</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>name</span> <span class=p>=</span> <span class=s2>&#34;Your Name&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>email</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>header</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>logo</span> <span class=p>=</span> <span class=s2>&#34;logo.jpg&#34;</span> <span class=c># Place logo.jpg in static folder</span>
+</span></span><span class=line><span class=cl>    <span class=nx>sticky</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>footer</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>since</span> <span class=p>=</span> <span class=mi>2024</span>
+</span></span><span class=line><span class=cl>    <span class=nx>poweredby</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>ad</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=c># Google AdSense</span>
+</span></span><span class=line><span class=cl>    <span class=c># ex. ca-pub-0000000000000000</span>
+</span></span><span class=line><span class=cl>    <span class=nx>googleAdSense</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c># ex. 000000000</span>
+</span></span><span class=line><span class=cl>    <span class=nx>adslot</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c># Placement of ads</span>
+</span></span><span class=line><span class=cl>    <span class=nx>postTop</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=nx>postBottom</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>post</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=c># Show thumbnails</span>
+</span></span><span class=line><span class=cl>    <span class=nx>thumbnail</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c># Disable the &#34;NO IMAGE&#34; image.</span>
+</span></span><span class=line><span class=cl>    <span class=nx>noimage</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c># See the Tailwind CSS documentation to set it up.</span>
+</span></span><span class=line><span class=cl>    <span class=c># Recommended settings are h-32 to h-48.</span>
+</span></span><span class=line><span class=cl>    <span class=c># https://tailwindcss.com/docs/height</span>
+</span></span><span class=line><span class=cl>    <span class=nx>thumbnail_height</span> <span class=p>=</span> <span class=s2>&#34;lg:h-44&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c># https://tailwindcss.com/docs/width</span>
+</span></span><span class=line><span class=cl>    <span class=nx>thumbnail_width</span> <span class=p>=</span> <span class=s2>&#34;lg:w-auto&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c># Number of characters in description</span>
+</span></span><span class=line><span class=cl>    <span class=nx>description</span> <span class=p>=</span> <span class=s2>&#34;130&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>widgets</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=c># Display widgets</span>
+</span></span><span class=line><span class=cl>    <span class=nx>display</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c># Order of widgets to display</span>
+</span></span><span class=line><span class=cl>    <span class=nx>widgets</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;search&#34;</span><span class=p>,</span> <span class=s2>&#34;archive&#34;</span><span class=p>,</span> <span class=s2>&#34;category&#34;</span><span class=p>,</span> <span class=s2>&#34;tags&#34;</span><span class=p>,</span> <span class=s2>&#34;recent&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># If you&#39;re using Yandex.Metrica, you can enable this feature.</span>
+</span></span><span class=line><span class=cl><span class=c>#[params.analytics.yandexmetrica]</span>
+</span></span><span class=line><span class=cl><span class=c>#    enabled = true</span>
+</span></span><span class=line><span class=cl><span class=c>#    tagNumber = &#39;&#39;</span>
+</span></span><span class=line><span class=cl>  <span class=p>[[</span><span class=nx>params</span><span class=p>.</span><span class=nx>social_media</span><span class=p>.</span><span class=nx>items</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>enabled</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=nx>title</span> <span class=p>=</span> <span class=s1>&#39;Github&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>icon</span> <span class=p>=</span> <span class=s1>&#39;brand-github&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>link</span> <span class=p>=</span> <span class=s1>&#39;https://github.com/yourusername&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>languages</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>en</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>contentDir</span> <span class=p>=</span> <span class=s1>&#39;content/en&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>languageCode</span> <span class=p>=</span> <span class=s1>&#39;en-US&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>languageName</span> <span class=p>=</span> <span class=s1>&#39;English&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>weight</span> <span class=p>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>en</span><span class=p>.</span><span class=nx>params</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>      <span class=nx>reading_speed</span> <span class=p>=</span> <span class=mi>228</span>
+</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>en</span><span class=p>.</span><span class=nx>menu</span><span class=p>.</span><span class=nx>main</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>      <span class=nx>identifier</span><span class=p>=</span><span class=s2>&#34;home&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>name</span> <span class=p>=</span> <span class=s1>&#39;Home&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>url</span> <span class=p>=</span> <span class=s1>&#39;/en&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>weight</span> <span class=p>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>en</span><span class=p>.</span><span class=nx>menu</span><span class=p>.</span><span class=nx>main</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>      <span class=nx>identifier</span><span class=p>=</span><span class=s2>&#34;about&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>name</span><span class=p>=</span><span class=s2>&#34;About&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>url</span><span class=p>=</span><span class=s1>&#39;/about/&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>weight</span> <span class=p>=</span> <span class=mi>2</span>
+</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>en</span><span class=p>.</span><span class=nx>menu</span><span class=p>.</span><span class=nx>main</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>      <span class=nx>identifier</span><span class=p>=</span><span class=s2>&#34;contact&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>url</span><span class=p>=</span><span class=s1>&#39;/contact/&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>name</span><span class=p>=</span><span class=s2>&#34;Contact&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>weight</span> <span class=p>=</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>de</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>contentDir</span> <span class=p>=</span> <span class=s1>&#39;content/de&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>languageCode</span> <span class=p>=</span> <span class=s1>&#39;de-DE&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>languageName</span> <span class=p>=</span> <span class=s1>&#39;Deutsch&#39;</span> 
+</span></span><span class=line><span class=cl>    <span class=nx>weight</span> <span class=p>=</span> <span class=mi>2</span>
+</span></span><span class=line><span class=cl>    <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>de</span><span class=p>.</span><span class=nx>params</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>      <span class=nx>reading_speed</span> <span class=p>=</span> <span class=mi>179</span>
+</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>de</span><span class=p>.</span><span class=nx>menu</span><span class=p>.</span><span class=nx>main</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>      <span class=nx>identifier</span><span class=p>=</span><span class=s2>&#34;home&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>name</span> <span class=p>=</span> <span class=s1>&#39;Start&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>url</span><span class=p>=</span><span class=s1>&#39;/de&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>weight</span> <span class=p>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>de</span><span class=p>.</span><span class=nx>menu</span><span class=p>.</span><span class=nx>main</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>      <span class=nx>identifier</span><span class=p>=</span><span class=s2>&#34;about&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>name</span><span class=p>=</span><span class=s2>&#34;Über mich&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>url</span><span class=p>=</span><span class=s1>&#39;/de/ueber/&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>weight</span> <span class=p>=</span> <span class=mi>2</span>
+</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>de</span><span class=p>.</span><span class=nx>menu</span><span class=p>.</span><span class=nx>main</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>      <span class=nx>identifier</span><span class=p>=</span><span class=s2>&#34;contact&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>name</span><span class=p>=</span><span class=s2>&#34;Kontakt&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>url</span><span class=p>=</span><span class=s1>&#39;/de/kontakt/&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>weight</span> <span class=p>=</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>taxonomies</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nx>category</span> <span class=p>=</span> <span class=s2>&#34;categories&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>tag</span> <span class=p>=</span> <span class=s2>&#34;tags&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>archive</span> <span class=p>=</span> <span class=s2>&#34;archives&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>privacy</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>privacy</span><span class=p>.</span><span class=nx>vimeo</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=nx>simple</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>privacy</span><span class=p>.</span><span class=nx>twitter</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=nx>enableDNT</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>    <span class=nx>simple</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>privacy</span><span class=p>.</span><span class=nx>instagram</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=nx>simple</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>privacy</span><span class=p>.</span><span class=nx>youtube</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=nx>privacyEnhanced</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>services</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>services</span><span class=p>.</span><span class=nx>instagram</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>disableInlineCSS</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>services</span><span class=p>.</span><span class=nx>twitter</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>disableInlineCSS</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>sitemap</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>changefreq</span> <span class=p>=</span> <span class=s2>&#34;weekly&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>priority</span> <span class=p>=</span> <span class=mf>0.5</span>
+</span></span></code></pre></div><p>Also, it is a good idea to personalize the default post header. This is the header that will be created by default each time you create a new post.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>Start-process /archetypes/default.md
+</span></span></code></pre></div><p>Replace the code in the file by the following code:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=line><span class=cl><span class=err>+++</span>
+</span></span><span class=line><span class=cl><span class=nx>title</span> <span class=p>=</span> <span class=s1>&#39;{{ replace .File.ContentBaseName &#34;-&#34; &#34; &#34; | title}}&#39;</span>
+</span></span><span class=line><span class=cl><span class=nx>description</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>translationKey</span> <span class=p>=</span> <span class=s1>&#39;{{ replace .File.ContentBaseName &#34;-&#34; &#34; &#34; | title | lower}}&#39;</span>
+</span></span><span class=line><span class=cl><span class=nx>author</span> <span class=p>=</span> <span class=s2>&#34;Your Name&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>date</span> <span class=p>=</span> <span class=p>{{</span> <span class=p>.</span><span class=nx>Date</span> <span class=p>}}</span>
+</span></span><span class=line><span class=cl><span class=nx>archives</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;{{ dateFormat &#34;</span><span class=mi>2006-01</span><span class=s2>&#34; .Date }}&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nx>tags</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;&#34;</span><span class=p>,</span> <span class=s2>&#34;&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nx>draft</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl><span class=nx>toc</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl><span class=err>+++</span>
+</span></span></code></pre></div><h2 id=addcontent>Step 5: Add content</h2><p>To add content in markdown format you have to do the following:</p><ol><li>Create a new blog entry via<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>hugo new /en/posts/yourpostname.md
+</span></span></code></pre></div>or<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>hugo new /en/posts/yourpostname/index.md
+</span></span></code></pre></div>both methods work the same, but in the second variant you can also store images inside the <em>/yourpostname/</em> folder.</li><li>Use your favourite text editor to open the newly created markdown file and add content. You may look at some examples in <em>/themes/tailwind/exampleSite/content/</em> and read <a href=https://www.markdownguide.org/basic-syntax/ target=_blank rel=noopener>this useful guide</a>
+about the Markdown syntax. All the content is written in the simple Markdown format.</li></ol><h3 id=multilanguage-support>Multilanguage support</h3><p>Tailwind supports a blog with multiple languages. That&rsquo;s a really nice feature. The code for the <em>config.toml</em> file I provided makes your website ready for multiple languages (in this case english and german, but you can simply add another language).</p><p>The important step is, to store two .md files in the <strong>correct directories</strong> with the <strong>same translation key</strong> in their headers.</p><p>The following graphic shows the most important parts of the file-tree inside your <em>website</em> repository.</p><pre tabindex=0><code>├── yourusername
+    ├── archetypes
+    ├── assets
+    ├── content
+        ├── de 
+            ├── posts
+                ├── Hunde
+                    ├── images
+                    └── index.md
+                ├── Meerschweinchen
+                    └── index.md
+                └── Katzen.md
+            ├── uebermich.md
+            └── kontakt.md
+        └── en
+            ├── posts
+                ├── dogs
+                    ├── images
+                    └── index.md
+                ├── guineapigs
+                    └── index.md
+                └── cats.md
+            ├── about.md
+            └── contact.md
+    ├── data
+    ├── i18n
+    ├── layouts
+    ├── node_modules
+    ├── public
+    ├── resources
+    ├── static
+    ├── themes
+        └── tailwind
+    ├── gitcommit.ps1
+    …
+    └── config.toml
+├── .gitattributes
+├── .gitmodules
+└── README.md
+</code></pre><p>A few general words:</p><ul><li><strong>public</strong> In this folder all the html and other public stuff Hugo creates is stored. Only this folder needs to be public.</li><li><strong>config.toml</strong> This is your configuraton file (you could also rename it to <em>hugo.toml</em> if you want)</li><li><strong>themes</strong> this is where you clone your themes to</li></ul><p>Now, about the multilanguage support: Ultimately we want to have two different posts with the same content, but one in english and one in german. The user can toggle on the website, which article he wants to see.</p><p>To achive this, everything is already prepared for you.</p><ol><li>Create a new article as you did in <a href=/posts/#addcontent>Step 5</a></li><li>Write some english content</li><li>copy <em>index.md</em> from /en/posts/yourpostname/index.md to /de/posts/yourpostname/index.md, open the file and translate it to german.</li><li>Make sure that the headers of both <em>index.md</em> files have the identical value for <em>translationKey=</em> in their headers (e.g. both have <em>translationKey=&ldquo;guineapig&rdquo;</em>)</li></ol><h2 id=step-6-push-to-github>Step 6: Push to github</h2><p>In this step, we finally get to the point where you can see the result. All you need for this is:</p><ol><li>commit the private code to the <em>website</em> repository</li><li>Build the public content in ./public subdirectory</li><li>commit the public code to the <em>yourusername.github.io</em> repository</li><li>open <a href=https://yourusername.github.io target=_blank rel=noopener>https://yourusername.github.io</a>
+in your browser</li></ol><p>To do so we have to execute the following code in our terminal (on Windows use Powershell rather than cmd):</p><p>First we have to go to into our <em>website</em> repository</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;C:/path/to/hugo/website/repository&#34;</span>
+</span></span></code></pre></div><ol><li>commit the private code to the <em>website</em> repository</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git add -A
+</span></span><span class=line><span class=cl>git commit -m <span class=s2>&#34;Some message&#34;</span>
+</span></span><span class=line><span class=cl>git push origin main
+</span></span></code></pre></div><ol start=2><li>Build the public content in ./public subdirectory</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>hugo -t tailwind
+</span></span><span class=line><span class=cl><span class=nb>cd</span> public
+</span></span></code></pre></div><ol start=3><li>commit the public code to the <em>yourusername.github.io</em> repository</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git add -A
+</span></span><span class=line><span class=cl>git commit -m <span class=s2>&#34;Some message&#34;</span>
+</span></span><span class=line><span class=cl>git push origin main
+</span></span></code></pre></div><ol start=4><li>open <a href=https://yourusername.github.io target=_blank rel=noopener>https://yourusername.github.io</a>
+in your browser</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>Start-Process <span class=s2>&#34;https://yourusername.github.io&#34;</span>
+</span></span></code></pre></div><h2 id=step-7-automate-github-interaction-with-script>Step 7: Automate github interaction with script</h2><p>This is way too much work! We don&rsquo;t want to type half a dozen lines for just pushing our code to github. Therefore I wrote a little file that does the job for us. Disclaimer: The translation from batch to ps1 and bash was done by ChatGPT.</p><p>Note, that I built the files in a way that I can easily switch between different themes, in case I ever wish to do so. If you don&rsquo;t want to use that, feel free to remove the unncessary code. Also, when the script asks for the theme name, it only takes the first character of your input. If you have two themes with the same first character, you have to modify the line that starts with <em>for /f &ldquo;delims="…</em>.</p><h3 id=windows-batch-file-not-recommended>Windows Batch file (not recommended)</h3><p>Create a new file called <em>gitcommit.bat</em> in your <em>website</em> repository and paste the following lines. Edit the <em>pathtowebsite</em>-Variable in line 3.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-batch data-lang=batch><span class=line><span class=cl><span class=p>@</span><span class=k>echo</span> off
+</span></span><span class=line><span class=cl><span class=k>title</span> Commit Hugo Webpage to Github
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=nv>pathtowebsite </span><span class=p>=</span> <span class=s2>&#34;C:/path/to/my/website&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>cd</span> pathtowebsite
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=k>/p</span> <span class=nv>message</span><span class=p>=</span><span class=s2>&#34;Enter Comment Message: &#34;</span>
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=k>/p</span> <span class=nv>theme</span><span class=p>=</span><span class=s2>&#34;Enter Theme Name : Tailwind (default) or Blonde: &#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>echo</span> --- website Repository ---
+</span></span><span class=line><span class=cl>git add -A
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=s2>&#34;</span><span class=nv>%message%</span><span class=s2>&#34;</span><span class=o>==</span><span class=s2>&#34;&#34;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=k>echo</span> No message, committing changes without comment.
+</span></span><span class=line><span class=cl>    git commit
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=k>else</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    git commit -m <span class=s2>&#34;</span><span class=nv>%message%</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>git push origin
+</span></span><span class=line><span class=cl><span class=k>echo</span> Total code was successfully pushed to private repository. 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>echo</span> --- public Repository ---
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=s2>&#34;</span><span class=nv>%theme%</span><span class=s2>&#34;</span><span class=o>==</span><span class=s2>&#34;&#34;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl><span class=k>echo</span> Theme Name cannot be empty, using default Tailwind
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=nv>theme </span><span class=p>=</span> Tailwind
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>REM Convert theme to lowercase and get the first character</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=k>/f</span> <span class=s2>&#34;delims=&#34;</span> <span class=se>%%</span>i <span class=k>in</span> <span class=p>(</span><span class=s1>&#39;echo </span><span class=nv>%theme%</span><span class=s1> ^| tr &#34;[A-Z]&#34; &#34;[a-z]&#34;&#39;</span><span class=p>)</span> <span class=k>do</span> <span class=k>set</span> <span class=nv>theme</span><span class=p>=</span><span class=se>%%</span>i
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=nv>theme</span><span class=p>=</span><span class=nv>%theme:~0,1%</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=s2>&#34;</span><span class=nv>%theme%</span><span class=s2>&#34;</span><span class=o>==</span><span class=s2>&#34;b&#34;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    hugo -t Blonde
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=k>else</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    hugo -t tailwind
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>cd</span> public
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>git add -A
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=s2>&#34;</span><span class=nv>%message%</span><span class=s2>&#34;</span><span class=o>==</span><span class=s2>&#34;&#34;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=k>echo</span> No message, committing changes without comment.
+</span></span><span class=line><span class=cl>    git commit
+</span></span><span class=line><span class=cl><span class=p>)</span> <span class=k>else</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    git commit -m <span class=s2>&#34;</span><span class=nv>%message%</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>git push origin
+</span></span><span class=line><span class=cl><span class=k>echo</span> Public code successfully pushed. 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>cd</span> pathtowebsite
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>echo</span> Job done, everything was pushed. 
+</span></span><span class=line><span class=cl><span class=k>exit</span>
+</span></span></code></pre></div><p>To commit your changes, type:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>.<span class=se>\g</span>itcommit.bat
+</span></span></code></pre></div><h3 id=windows-powershell-recommended>Windows Powershell (recommended)</h3><p>Create a new file called <em>gitcommit.ps1</em> file in your <em>website</em> repository and paste the following lines. Edit the <em>pathtowebsite</em>-Variable in line 1.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ps1 data-lang=ps1><span class=line><span class=cl><span class=nv>$pathtowebsite</span> <span class=p>=</span> <span class=s2>&#34;C:/path/to/my/website&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>Set-Location</span> <span class=n>-Path</span> <span class=nv>$pathtowebsite</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>$message</span> <span class=p>=</span> <span class=nb>Read-Host</span> <span class=s2>&#34;Enter Comment Message&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>$theme</span> <span class=p>=</span> <span class=nb>Read-Host</span> <span class=s2>&#34;Enter Theme Name : Tailwind (default) or Blonde&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;--- website Repository ---&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>git</span> <span class=n>add</span> <span class=n>-A</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>([</span><span class=no>string</span><span class=p>]::</span><span class=n>IsNullOrEmpty</span><span class=p>(</span><span class=nv>$message</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>Write-Host</span> <span class=s2>&#34;No message, committing changes without comment.&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>git</span> <span class=n>commit</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>git</span> <span class=n>commit</span> <span class=n>-m</span> <span class=nv>$message</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>git</span> <span class=n>push</span> <span class=n>origin</span>
+</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;Total code was successfully pushed to private repository.&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;--- public Repository ---&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Check if theme name is provided, otherwise use default</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>([</span><span class=no>string</span><span class=p>]::</span><span class=n>IsNullOrEmpty</span><span class=p>(</span><span class=nv>$theme</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>Write-Host</span> <span class=s2>&#34;Theme Name cannot be empty, using default Tailwind&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>$theme</span> <span class=p>=</span> <span class=s2>&#34;Tailwind&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Convert theme to lowercase and get the first character</span>
+</span></span><span class=line><span class=cl><span class=nv>$theme</span> <span class=p>=</span> <span class=nv>$theme</span><span class=p>.</span><span class=py>ToLower</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nv>$theme</span> <span class=p>=</span> <span class=nv>$theme</span><span class=p>.</span><span class=py>Substring</span><span class=p>(</span><span class=mf>0</span><span class=p>,</span> <span class=mf>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=nv>$theme</span> <span class=o>-eq</span> <span class=s2>&#34;b&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>hugo</span> <span class=n>-t</span> <span class=n>Blonde</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>hugo</span> <span class=n>-t</span> <span class=n>tailwind</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>Set-Location</span> <span class=n>-Path</span> <span class=s2>&#34;public&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>git</span> <span class=n>add</span> <span class=n>-A</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>([</span><span class=no>string</span><span class=p>]::</span><span class=n>IsNullOrEmpty</span><span class=p>(</span><span class=nv>$message</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>Write-Host</span> <span class=s2>&#34;No message, committing changes without comment.&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>git</span> <span class=n>commit</span> <span class=n>-m</span> <span class=s2>&#34;No comment provided&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>git</span> <span class=n>commit</span> <span class=n>-m</span> <span class=nv>$message</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>git</span> <span class=n>push</span> <span class=n>origin</span>
+</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;Public code successfully pushed.&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>Set-Location</span> <span class=n>-Path</span> <span class=nv>$pathtowebsite</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;Job done, everything was pushed.&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>exit</span>
+</span></span></code></pre></div><p>To commit your changes, type:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>.<span class=se>\g</span>itcommit.ps1
+</span></span></code></pre></div><p>or only</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>.<span class=se>\g</span>itcommit
+</span></span></code></pre></div><h3 id=linux-bash-file>Linux bash file</h3><p>Create a new file called <em>gitcommit.sh</em> in your <em>website</em> repository and paste the following lines. Edit the <em>pathtowebsite</em>-Variable in line 2.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=nv>pathtowebsite</span><span class=o>=</span><span class=s2>&#34;C:/path/to/my/website&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;</span><span class=nv>$pathtowebsite</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>git add -A
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>read</span> -p <span class=s2>&#34;Enter Comment Message: &#34;</span> message
+</span></span><span class=line><span class=cl><span class=nb>read</span> -p <span class=s2>&#34;Enter Theme Name : Tailwind (default) or Blonde: &#34;</span> theme
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;--- website Repository ---&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -z <span class=s2>&#34;</span><span class=nv>$message</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;No message, committing changes without comment.&#34;</span>
+</span></span><span class=line><span class=cl>    git commit -m <span class=s2>&#34;No comment provided&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>    git commit -m <span class=s2>&#34;</span><span class=nv>$message</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>git push origin
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Total code was successfully pushed to private repository.&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;--- public Repository ---&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -z <span class=s2>&#34;</span><span class=nv>$theme</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;Theme Name cannot be empty, using default Tailwind&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>theme</span><span class=o>=</span><span class=s2>&#34;Tailwind&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Convert theme to lowercase and get the first character</span>
+</span></span><span class=line><span class=cl><span class=nv>theme</span><span class=o>=</span><span class=k>$(</span><span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$theme</span><span class=s2>&#34;</span> <span class=p>|</span> tr <span class=s1>&#39;[:upper:]&#39;</span> <span class=s1>&#39;[:lower:]&#39;</span><span class=k>)</span>
+</span></span><span class=line><span class=cl><span class=nv>theme</span><span class=o>=</span><span class=si>${</span><span class=nv>theme</span><span class=p>:</span><span class=nv>0</span><span class=p>:</span><span class=nv>1</span><span class=si>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$theme</span><span class=s2>&#34;</span> <span class=o>==</span> <span class=s2>&#34;b&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    hugo -t Blonde
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>    hugo -t tailwind
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> public
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>git add -A
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -z <span class=s2>&#34;</span><span class=nv>$message</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;No message, committing changes without comment.&#34;</span>
+</span></span><span class=line><span class=cl>    git commit
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>    git commit -m <span class=s2>&#34;</span><span class=nv>$message</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>git push origin
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Public code successfully pushed.&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;</span><span class=nv>$pathtowebsite</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Job done, everything was pushed.&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>exit</span> <span class=m>0</span>
+</span></span></code></pre></div><p>To commit your changes, type:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Bash data-lang=Bash><span class=line><span class=cl>./gitcommit.sh
+</span></span></code></pre></div><h2 id=step-8-search-engine-and-crawler-optimization-optional>Step 8: Search Engine and Crawler optimization (optional)</h2><h3 id=robotstxt>Robots.txt</h3><p>If you set &rsquo;enableRobotsTXT=true&rsquo; in hugo.toml, then Hugo automatically creates a &lsquo;robots.txt&rsquo; file with the content:</p><pre tabindex=0><code>User-agent: *
+</code></pre><p>This tells web-crawlers that it is okay, to crawl your data. <a href=https://en.wikipedia.org/wiki/Web_crawler target=_blank rel=noopener>Wikipedia: What is a web-crawler?</a>
+If you don&rsquo;t want that (which I personally prefer, but that is your own mindset of course) then you can disallow all crawling by overwriting the default. To do so, create a file called &lsquo;robots.txt&rsquo; in the &rsquo;layouts&rsquo; folder in the private &lsquo;website&rsquo; repository. Paste</p><pre tabindex=0><code>User-agent: *
+Disallow: /
+</code></pre><p>to disallow all crawling or</p><pre tabindex=0><code>User-agent: *
+Disallow: /contact
+Disallow: /about
+Allow: /posts
+</code></pre><p>to allow only partial crawling. Modify it to your liking! For more information refer to the official <a href=https://gohugo.io/templates/robots/ target=_blank rel=noopener>Hugo Documentation</a></p><h3 id=search-engine-optimization-seo>Search Engine Optimization SEO</h3><p>You can generate a sitemap, which will help your website to be better found via Google. I already added the necessary section to &lsquo;hugo.toml&rsquo; file, so the sitemap is already created. What we now have to do is to tell Google about the sitemap. Therefore we use the Google Search Console.</p><ol><li>In your web-browser:</li><li>Open the Google Search Console <a href=https://search.google.com/search-console/about target=_blank rel=noopener>https://search.google.com/search-console/about</a></li><li>Log in with your Google Account if not already done so</li><li>Select &lsquo;Add Property&rsquo;</li><li>In the pop-up type your url <a href=https://yourdomain.github.io target=_blank rel=noopener>https://yourdomain.github.io</a>
+under &lsquo;URL-Prefix&rsquo; (<strong>not</strong> Domain)</li><li>Select HTML-Tag as your url-ownership verification method and copy the line</li><li>In your private &lsquo;website&rsquo; repository.</li><li>Open the file &rsquo;themes/tailwind/layouts/partials/head.html</li><li>Add the copied line at the top</li><li>Save your changes and push the website to github</li><li>Go back to the Google Search Console website</li><li>Click on the Finish button, now Google verifies that you have control over the url. If it didn&rsquo;t work right away, push the website once again to git and wait a minute or two. Then try again.</li><li>Click on the sitemap entry in the sidebar, fill the field behind &lsquo;yourusername.github.io/&rsquo; with &lsquo;sitemap.xml&rsquo;.</li></ol><p>That&rsquo;s it. Now feel free to play around with the Google Search Console.</p><h2 id=workflow>Workflow</h2><p>This is a short summary that describes all the steps you need to do each time you want to create and publish a new article.</p><ol><li><p>Open Powershell.</p></li><li><p>Use the <em>cd</em> command to move into your directory, where your website is stored.</p></li><li><p>Create a new content page (replace <em>yourpostname</em> with the actual title of your new post, but try to avoid blank spaces):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>hugo new posts/yourpostname/index.md
+</span></span></code></pre></div></li><li><p>Open index.md with your favourite text editor or IDE (e.g. Visual Studio Code) and write down your world-changing thoughts.</p></li><li><p>Optional: Copy the newly created /en/posts/yourpostname/index.md to /de/posts/yourpostname/index.md and translate the text to german. Make sure to have the same values for <em>translationKey</em>. If you are building a multilanguage webpage, I definitely recommend that you translate every blog entry. However, it is not technically required to do so.</p></li><li><p>To test that everything looks correct, execute the following in PowerShell:</p><ol><li>run the hugo server</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>hugo server
+</span></span></code></pre></div><p>or</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>hugo server --buildDrafts
+</span></span></code></pre></div><p>if you want all drafts to be compiled as well.</p><ol start=2><li>open <a href=localhost:1313>localhost:1313/</a>
+in your browser. (Every time you update content, the change will instantly be shown on localhost. )</li></ol></li><li><p>If everything is looking good on localhost and you want to make the changes public, execute our script:</p><ul><li>Windows<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>./gitcommit.ps1
+</span></span></code></pre></div></li><li>Linux<div class=highlight><pre tabindex=0 class=chroma><code class=language-Bash data-lang=Bash><span class=line><span class=cl>./gitcommit.sh
+</span></span></code></pre></div></li></ul></li></ol><p>Your website should be available at <em>yourusername.github.io</em>.</p><h2 id=further-reading>Further reading</h2><p>I recommend reading through the <a href=https://hugo-theme-tailwind.tomo.dev/post/ target=_blank rel=noopener>demo page</a>
+of the tailwind theme. There you can find some nice guides on how to include images/videos, enable Emoji-Support 😎 and a Markdown Syntax Guide.</p><p>They also provide a guide about how to add add LaTeX-like support (called <a href=https://katex.org/ target=_blank rel=noopener>kaTeX</a>
+), however I recommend to follow the <a href=https://gohugo.io/content-management/mathematics/ target=_blank rel=noopener>official Hugo Math guide</a>
+. Handy tip: You can verify that you are using KaTeX (and not MathJax or nothing) in the developer tools of your internet browser. Open your website, press <code>F12</code> to go to the <em>Network</em>-tab, reload the page and you should see a <em>katex.min.css</em> and <em>katex.min.js</em> entry.</p><p>Also read <a href=https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site target=_blank rel=noopener>this</a>
+guide if you wish your website to be available under a custom domain.</p><p><strong>Congratulations</strong>, that&rsquo;s it! Have fun with your Webpage.</p><h2 id=dependabot-alerts>Dependabot alerts</h2><p>After a while of running the Blog, I received Github Dependabot alerts, warning me about security issues with packages specified in the package-lock.json file. To solve those security issues you should definitely asap execute</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>npm update
+</span></span></code></pre></div><p>to update those dependencies. After a new add, commit and push to github via the gitcommit script the security alerts should be solved.</p></article></div></div></div></main><footer class="flex flex-none justify-center"><section class="flex flex-col md:flex-row mx-2 md:mx-0 gap-2 md:gap-0 justify-between w-full max-w-4xl lg:max-w-5xl py-6 text-slate-500 dark:text-slate-300"><div class="flex flex-row"><a href=https://github.com/jokobus target=_blank title=Github class="flex flex-row mr-2"><span class=hidden>Github</span>
+<i class="h-6 w-6 flex-none"><svg class="icon icon-tabler icon-tabler-brand-github" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></i></a></div><div class=grow></div><div class="flex flex-row"><i class="h-6 w-6 flex-none"><svg class="icon icon-tabler icon-tabler-copyright" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1018 0A9 9 0 103 12"/><path d="M14 9.75a3.016 3.016.0 00-4.163.173 2.993 2.993.0 000 4.154A3.016 3.016.0 0014 14.25"/></svg>
+</i>2024 - 2026</div><div class="flex flex-row"><span class="ml-0 pl-0 md:ml-2 md:pl-2 border-l-0 md:border-l border-slate-300 dark:border-slate-400">Powered by <a href=https://gohugo.io target=_blank rel=noopener class=underline>Hugo</a> <span class=text-red-600>&#9829;</span> <a href=https://github.com/tomowang/hugo-theme-tailwind target=_blank rel=noopener class=underline>Tailwind</a></span></div></section></footer><script src=/main.min.65ca5b0808abf278fcec5d424701ebf0b4bc46a737129cd5e57fdb739f463e79.js></script><div class="hidden top-1 right-1" id=code-copy><i class="h-6 w-6 block"><svg class="icon icon-tabler icon-tabler-copy" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667A2.667 2.667.0 019.667 7h8.666A2.667 2.667.0 0121 9.667v8.666A2.667 2.667.0 0118.333 21H9.667A2.667 2.667.0 017 18.333z"/><path d="M4.012 16.737A2.005 2.005.0 013 15V5c0-1.1.9-2 2-2h10c.75.0 1.158.385 1.5 1"/></svg></i></div><div class="hidden top-1 right-1" id=code-copy-done><i class="h-6 w-6 block"><svg class="icon icon-tabler icon-tabler-check" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5L20 7"/></svg></i></div><script src=/code-copy.min.e7b2a74adef1ed474c335c8bd5e7832b2316b8842b0f9184d65286c5bd64f51a.js></script></body></html>

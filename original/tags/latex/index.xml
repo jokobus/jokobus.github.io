@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LaTeX on JF</title><link>https://jokobus.github.io/original/tags/latex/</link><description>Recent content in LaTeX on JF</description><generator>Hugo</generator><language>original</language><lastBuildDate>Wed, 17 Jul 2024 13:09:54 -0700</lastBuildDate><atom:link href="https://jokobus.github.io/original/tags/latex/index.xml" rel="self" type="application/rss+xml"/><item><title>How to include Scalable Vector Graphics (svg) in $\LaTeX$</title><link>https://jokobus.github.io/original/posts/latex/includesvg/</link><pubDate>Wed, 17 Jul 2024 13:09:54 -0700</pubDate><guid>https://jokobus.github.io/original/posts/latex/includesvg/</guid><description>&lt;p&gt;You may know the popular LaTeX package &lt;em&gt;graphicx&lt;/em&gt; which you can use as:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-TeX" data-lang="TeX"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;\includegraphics&lt;/span&gt;&lt;span class="na"&gt;[options]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;filename&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;graphicx&lt;/em&gt; does not support svg, but there is the package called &lt;em&gt;svg&lt;/em&gt; that does the job.&lt;/p&gt;
+&lt;h2 id="how-to-use-the-svg-package"&gt;How to use the &lt;em&gt;svg&lt;/em&gt; package:&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Install &lt;a href="https://inkscape.org/" target="_blank" rel="noopener"&gt;Inkscape&lt;/a&gt;
+&lt;/p&gt;
+&lt;p&gt;On Windows you can use winget.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-PowerShell" data-lang="PowerShell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;winget&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;-e&lt;/span&gt; &lt;span class="p"&gt;-&lt;/span&gt;&lt;span class="n"&gt;-id&lt;/span&gt; &lt;span class="n"&gt;Inkscape&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="py"&gt;Inkscape&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Copy your &lt;em&gt;image.svg&lt;/em&gt; file into your document root folder (= right next to your .tex file)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;This is a MWE for your .tex file:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-TeX" data-lang="TeX"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;article&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;\includepackage&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;svg&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;figure&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;\includesvg&lt;/span&gt;&lt;span class="na"&gt;[]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;image&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;figure&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Notes:&lt;/p&gt;</description></item></channel></rss>

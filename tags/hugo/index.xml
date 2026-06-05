@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hugo on JF</title><link>https://jokobus.github.io/tags/hugo/</link><description>Recent content in Hugo on JF</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Thu, 04 Jun 2026 16:23:59 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>Deploy Hugo on your Homserver via GitHub Actions</title><link>https://jokobus.github.io/posts/hugo_github_workflow/</link><pubDate>Thu, 04 Jun 2026 16:23:59 +0200</pubDate><guid>https://jokobus.github.io/posts/hugo_github_workflow/</guid><description>&lt;h2 id="prerequisites"&gt;Prerequisites&lt;/h2&gt;
+&lt;p&gt;You need to have:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A GitHub account&lt;/li&gt;
+&lt;li&gt;A Hugo website in a private repository, pushed to GitHub&lt;/li&gt;
+&lt;li&gt;A Linux homeserver with Caddy Reverse Proxy running.&lt;/li&gt;
+&lt;li&gt;A domain (or duckdns)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If not, then this guide is not the perfect match for you (yet). However, you can get a GitHub account and set it up with this guide &lt;em&gt;&lt;a href="https://jokobus.github.io/posts/git/"&gt;Git &amp;amp; GitHub Essentials&lt;/a&gt;
+&lt;/em&gt;. Another of my blogs covers &lt;a href="https://jokobus.github.io/posts/create_hugo_blog/"&gt;How to create a blog with Hugo&lt;/a&gt;
+. Getting your own Linux homeserver is also doable, e.g. with a Raspi. Come back to this afterwards.&lt;/p&gt;</description></item><item><title>How to create a blog with Hugo (full guide)</title><link>https://jokobus.github.io/posts/create_hugo_blog/</link><pubDate>Thu, 27 Jun 2024 10:43:10 -0700</pubDate><guid>https://jokobus.github.io/posts/create_hugo_blog/</guid><description>&lt;p&gt;This is a short guide how to create a &lt;a href="https://gohugo.io/" target="_blank" rel="noopener"&gt;Hugo&lt;/a&gt;
+ blog, using the &lt;a href="https://github.com/tomowang/hugo-theme-tailwind" target="_blank" rel="noopener"&gt;tailwind&lt;/a&gt;
+ theme, which is the one I&amp;rsquo;m currently using myself. This guide was written with unexperienced users in mind. If you follow this guide 1:1 you &lt;em&gt;should&lt;/em&gt; get a running instance (no guarantee of course). If you are confident with the topic, you can use this guide to get inspired and modify the steps to your own preference.&lt;/p&gt;
+&lt;p&gt;Although the following steps are for Windows, the whole process is the same for Linux/MacOS. Only some of the console commands are slightly different. E.g. instead of the powershell command &lt;em&gt;Start-process&lt;/em&gt; you can use &lt;em&gt;nano&lt;/em&gt; or &lt;em&gt;vim&lt;/em&gt; and instead of &lt;em&gt;winget&lt;/em&gt; you may use your distribution&amp;rsquo;s package manager or homebrew.&lt;/p&gt;</description></item></channel></rss>
