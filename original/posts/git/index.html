@@ -29,17 +29,17 @@ git config --global user.name git config --global user.email If you are using a 
 </span></span></code></pre></div><p>Git help</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git <span class=nb>command</span> -help   <span class=c1># help for a command</span>
 </span></span><span class=line><span class=cl>git --help          <span class=c1># general git help</span>
 </span></span><span class=line><span class=cl>git <span class=nb>help</span> --all      <span class=c1># very, very long list</span>
-</span></span></code></pre></div><h3 id=branches>Branches</h3><p>Create a branch (~copy) of the main branch, edit your branch and merge it with the main branch.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git branch fix-small-error      <span class=c1># create new branch</span>
+</span></span></code></pre></div><h3 id=branches>Branches</h3><p>Create a branch (~copy) of the main branch, edit your branch and merge it with the main branch.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git branch mybranch      <span class=c1># create new branch</span>
 </span></span><span class=line><span class=cl>git branch                      <span class=c1># verify in which branch you are (* main)</span>
-</span></span><span class=line><span class=cl>git checkout fix-small-error    <span class=c1># therefore switch to new branch</span>
+</span></span><span class=line><span class=cl>git checkout mybranch    <span class=c1># therefore switch to new branch</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># alternative: create and move to new branch in one line</span>
-</span></span><span class=line><span class=cl>git checkout -b fix-small-error
+</span></span><span class=line><span class=cl>git checkout -b mybranch
 </span></span></code></pre></div><p>After making changes, add, commit and merge.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git add -A
-</span></span><span class=line><span class=cl>git commit -m <span class=s2>&#34;Some message&#34;</span>    <span class=c1># Commit to fix-small-error</span>
+</span></span><span class=line><span class=cl>git commit -m <span class=s2>&#34;Some message&#34;</span>    <span class=c1># Commit to mybranch</span>
 </span></span><span class=line><span class=cl>git checkout master             <span class=c1># Switch back to master</span>
-</span></span><span class=line><span class=cl>git merge fix-small-error
-</span></span><span class=line><span class=cl>git branch -d fix-small-error   <span class=c1># Delete temporary branch after successful merge</span>
+</span></span><span class=line><span class=cl>git merge mybranch
+</span></span><span class=line><span class=cl>git branch -d mybranch   <span class=c1># Delete temporary branch after successful merge</span>
 </span></span></code></pre></div><p>If the merge fails due to a conflict, edit the file and commit again.</p><h2 id=use-git-with-github>Use Git with Github</h2><p>Important: <strong>Stay up to date!!</strong> Otherwise you and your teammembers might work on different versions and merging your branches can become a nightmare.</p><h3 id=make-a-repository-available-locally>Make a repository available locally</h3><ul><li><p><strong>Remote add</strong>: Upload content of an existing git repository to a new github repository.</p><ol><li>Log in to github and create a new (empty) repository</li><li>cd into your local directory</li><li>Add origin and push your local files to github</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git remote add origin https://github.com/jokobus/hello-world.git
 </span></span><span class=line><span class=cl>git push --set-upstream origin master   <span class=c1># push current main branch to origin url and set it as default for the remote branch</span>
 </span></span></code></pre></div></li><li><p>Or <strong>Clone</strong> an existing repository</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git clone https://github.com/jokobus.hello-world.git

@@ -23,4 +23,14 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Notes:&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Notes:&lt;/p&gt;</description></item><item><title>How to solve git VPN issue</title><link>https://jokobus.github.io/posts/howto/git_solve-fatal-unable-to-access/</link><pubDate>Fri, 12 Jul 2024 13:09:21 -0700</pubDate><guid>https://jokobus.github.io/posts/howto/git_solve-fatal-unable-to-access/</guid><description>&lt;p&gt;If you try to use git you can get the following error:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fatal: unable to access &lt;span class="s1"&gt;&amp;#39;https://github.com/yourusername/yourrepository.git/&amp;#39;&lt;/span&gt;: Could not resolve host: github.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This error can happen, if you are using a VPN.&lt;/p&gt;
+&lt;p&gt;The solution is to either toggle your VPN and try again or (if you don&amp;rsquo;t want to toggle your VPN) to execute:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;If your VPN is currently OFF:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git config --global --unset http.proxy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If your VPN is currently ON:&lt;/p&gt;</description></item></channel></rss>
