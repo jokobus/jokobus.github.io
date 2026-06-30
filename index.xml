@@ -1,4 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>JF</title><link>https://jokobus.github.io/</link><description>Recent content on JF</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Thu, 04 Jun 2026 16:23:59 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Deploy Hugo on your Homserver via GitHub Actions</title><link>https://jokobus.github.io/posts/hugo_github_workflow/</link><pubDate>Thu, 04 Jun 2026 16:23:59 +0200</pubDate><guid>https://jokobus.github.io/posts/hugo_github_workflow/</guid><description>&lt;h2 id="prerequisites"&gt;Prerequisites&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>JF</title><link>https://jokobus.github.io/</link><description>Recent content on JF</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Tue, 30 Jun 2026 23:31:14 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Conda Cuda Pytorch</title><link>https://jokobus.github.io/posts/conda-cuda-pytorch/</link><pubDate>Tue, 30 Jun 2026 23:31:14 +0200</pubDate><guid>https://jokobus.github.io/posts/conda-cuda-pytorch/</guid><description>&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Create and activate a new environment&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;conda create -n myenv &lt;span class="nv"&gt;python&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;3.11 
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;conda activate myenv &lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install PyTorch, torchvision, and torchaudio from the CUDA 13.0 wheel index&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;conda install pip
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;pip install --upgrade pip
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Verify the installed python version and path&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;which python
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;python -m pip install &lt;span class="nv"&gt;torch&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;2.9 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Check the exact torch version and CUDA tag you got&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;python -c &lt;span class="s2"&gt;&amp;#34;import torch; print(torch.__version__); print(torch.version.cuda)&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install the PyTorch Geometric stack using the matching wheel page for that exact torch/CUDA combo (here we found 2.9.0 is the exact pytorch version)&lt;/p&gt;</description></item><item><title>Deploy Hugo on your Homserver via GitHub Actions</title><link>https://jokobus.github.io/posts/hugo_github_workflow/</link><pubDate>Thu, 04 Jun 2026 16:23:59 +0200</pubDate><guid>https://jokobus.github.io/posts/hugo_github_workflow/</guid><description>&lt;h2 id="prerequisites"&gt;Prerequisites&lt;/h2&gt;
 &lt;p&gt;You need to have:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;A GitHub account&lt;/li&gt;
