@@ -114,22 +114,22 @@ using Python. Open-WebUI is a lightweight, open-source frontend that connects to
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>maxPromptTokens</span><span class=p>:</span><span class=w> </span><span class=m>2048</span><span class=w>     </span><span class=c># Limits background code context chunking to keep execution snappy</span><span class=w>
 </span></span></span></code></pre></div><h3 id=extra-use-gemini-25-with-continue>Extra: Use Gemini 2.5 with Continue</h3><p>You can also use Gemini 2.5 (Free) with Continue, which is a great option for those who want to leverage Google&rsquo;s Gemini LLMs. However, this is not data-private, as everything is sent to Google&rsquo;s / Gemini&rsquo;s servers for processing. If you want to use Gemini, add the following configuration to the bottom of your Continue <code>config.yaml</code> file.</p><p>Get your Gemini API key from <a href=https://aistudio.google.com/ target=_blank rel=noopener>https://aistudio.google.com/</a>
 , login with your normal Google account, copy the key, and replace <code>paste-your-api-key</code> in <code>config.yaml</code> with your actual key.</p><blockquote><p>Note: There are token limits, so you migth run out of them. As of 2026-07, they renew every 24 hours. You can check your remaining tokens at <a href=https://aistudio.google.com/ target=_blank rel=noopener>https://aistudio.google.com/</a>
-.</p></blockquote><blockquote><p>Note: Gemini is not free for commercial use. Please check the terms of service before using it in a commercial setting.</p></blockquote><blockquote><p>Note: Google might use your data to train Gemini. If you want to keep your code private/confidential, do not use Gemini.</p></blockquote><p>Here comes the config:</p><pre tabindex=0><code>models:
-  - name: Autodetect
-    provider: ollama
-    model: AUTODETECT
-    roles:
-      - chat
-      - edit
-  - name: Gemini 2.5 Pro (Free)
-    provider: gemini
-    model: gemini-2.5-pro
-    apiKey: paste-your-api-key
-  - name: Gemini 2.5 Flash (Free)
-    provider: gemini
-    model: gemini-2.5-flash
-    apiKey: paste-your-api-key
-</code></pre><h3 id=optimize-vscodiums-user-settings>Optimize VSCodium&rsquo;s User Settings</h3><p>To ensure the inline completions and suggestions render beautifully alongside the Continue extension, update your main VSCodium configurations. Open your <code>settings.json</code> file (<code>Ctrl+Shift+P</code> -> <em>Preferences: Open User Settings (JSON)</em>) and make sure the following properties are defined:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+.</p></blockquote><blockquote><p>Note: Gemini is not free for commercial use. Please check the terms of service before using it in a commercial setting.</p></blockquote><blockquote><p>Note: Google might use your data to train Gemini. If you want to keep your code private/confidential, do not use Gemini.</p></blockquote><p>Here comes the config:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>models</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Autodetect</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>provider</span><span class=p>:</span><span class=w> </span><span class=l>ollama</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>model</span><span class=p>:</span><span class=w> </span><span class=l>AUTODETECT</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>roles</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>chat</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>edit</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Gemini 2.5 Pro (Free)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>provider</span><span class=p>:</span><span class=w> </span><span class=l>gemini</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>model</span><span class=p>:</span><span class=w> </span><span class=l>gemini-2.5-pro</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>apiKey</span><span class=p>:</span><span class=w> </span><span class=l>paste-your-api-key</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Gemini 2.5 Flash (Free)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>provider</span><span class=p>:</span><span class=w> </span><span class=l>gemini</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>model</span><span class=p>:</span><span class=w> </span><span class=l>gemini-2.5-flash</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>apiKey</span><span class=p>:</span><span class=w> </span><span class=l>paste-your-api-key</span><span class=w>
+</span></span></span></code></pre></div><h3 id=optimize-vscodiums-user-settings>Optimize VSCodium&rsquo;s User Settings</h3><p>To ensure the inline completions and suggestions render beautifully alongside the Continue extension, update your main VSCodium configurations. Open your <code>settings.json</code> file (<code>Ctrl+Shift+P</code> -> <em>Preferences: Open User Settings (JSON)</em>) and make sure the following properties are defined:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
 </span></span><span class=line><span class=cl>  <span class=nt>&#34;editor.hover.enabled&#34;</span><span class=p>:</span> <span class=s2>&#34;on&#34;</span><span class=p>,</span>
 </span></span><span class=line><span class=cl>  <span class=nt>&#34;editor.hover.delay&#34;</span><span class=p>:</span> <span class=mi>150</span><span class=p>,</span>
 </span></span><span class=line><span class=cl>  <span class=nt>&#34;editor.parameterHints.enabled&#34;</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
