@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VSCode on JF</title><link>https://jokobus.github.io/tags/vscode/</link><description>Recent content in VSCode on JF</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Tue, 30 Jun 2026 20:01:59 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/tags/vscode/index.xml" rel="self" type="application/rss+xml"/><item><title>Deploy local AI via Ollama, Open-WebUI and VSCode/VSCodium</title><link>https://jokobus.github.io/posts/ollama_webui_vscodium/</link><pubDate>Tue, 30 Jun 2026 20:01:59 +0200</pubDate><guid>https://jokobus.github.io/posts/ollama_webui_vscodium/</guid><description>&lt;p&gt;This is a guide how to install ollama on Linux and serve it to a localhost WebUI (no exposure to the internet) and use Ollama as a Chat Agent in VSCodium.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;no root / sudo required&lt;/li&gt;
+&lt;li&gt;no proxy server, only conda and python&lt;/li&gt;
+&lt;li&gt;in the following replace USERNAME with your actual username&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="install-ollama"&gt;Install Ollama&lt;/h1&gt;
+&lt;h2 id="create-the-directory-structure"&gt;Create the Directory structure&lt;/h2&gt;
+&lt;p&gt;mkdir -p /home_local/$USER/ollama/{bin,lib,logs,models,webui}&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;bin/: Stores the Ollama executable.&lt;/li&gt;
+&lt;li&gt;lib/: Holds necessary libraries and dependencies.&lt;/li&gt;
+&lt;li&gt;logs/: Keeps tracking and server logs.&lt;/li&gt;
+&lt;li&gt;models/: Stores downloaded LLMs (Llama, Mistral, etc.).&lt;/li&gt;
+&lt;li&gt;webui/: Reserved for the frontend user interface.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="download-and-move-the-binary"&gt;Download and Move the Binary&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Download the latest binary&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;curl -L https://ollama.com/download/ollama-linux-amd64 -o /home_local/&lt;span class="nv"&gt;$USER&lt;/span&gt;/ollama/bin/ollama
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Make it executable&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;chmod +x /home_local/&lt;span class="nv"&gt;$USER&lt;/span&gt;/ollama/bin/ollama
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="add-paths-to-bashrc"&gt;Add paths to bashrc&lt;/h3&gt;
+&lt;p&gt;nano ~/.bashrc&lt;/p&gt;</description></item></channel></rss>

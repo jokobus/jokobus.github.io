@@ -1,4 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VSCodium on JF</title><link>https://jokobus.github.io/tags/vscodium/</link><description>Recent content in VSCodium on JF</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Sun, 31 May 2026 16:17:11 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/tags/vscodium/index.xml" rel="self" type="application/rss+xml"/><item><title>Avoid Python Package Import-Errors in VSCodium or VSCode</title><link>https://jokobus.github.io/posts/howto/vscodium_ignore-import-errors/</link><pubDate>Sun, 31 May 2026 16:17:11 +0200</pubDate><guid>https://jokobus.github.io/posts/howto/vscodium_ignore-import-errors/</guid><description>&lt;p&gt;If you are working with Conda environments, you might notice that VSCodium or VS Code shows &amp;ldquo;import not found&amp;rdquo; errors (red squiggly lines) even though your code runs perfectly fine in the terminal.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VSCodium on JF</title><link>https://jokobus.github.io/tags/vscodium/</link><description>Recent content in VSCodium on JF</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Tue, 30 Jun 2026 20:01:59 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/tags/vscodium/index.xml" rel="self" type="application/rss+xml"/><item><title>Deploy local AI via Ollama, Open-WebUI and VSCode/VSCodium</title><link>https://jokobus.github.io/posts/ollama_webui_vscodium/</link><pubDate>Tue, 30 Jun 2026 20:01:59 +0200</pubDate><guid>https://jokobus.github.io/posts/ollama_webui_vscodium/</guid><description>&lt;p&gt;This is a guide how to install ollama on Linux and serve it to a localhost WebUI (no exposure to the internet) and use Ollama as a Chat Agent in VSCodium.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;no root / sudo required&lt;/li&gt;
+&lt;li&gt;no proxy server, only conda and python&lt;/li&gt;
+&lt;li&gt;in the following replace USERNAME with your actual username&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="install-ollama"&gt;Install Ollama&lt;/h1&gt;
+&lt;h2 id="create-the-directory-structure"&gt;Create the Directory structure&lt;/h2&gt;
+&lt;p&gt;mkdir -p /home_local/$USER/ollama/{bin,lib,logs,models,webui}&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;bin/: Stores the Ollama executable.&lt;/li&gt;
+&lt;li&gt;lib/: Holds necessary libraries and dependencies.&lt;/li&gt;
+&lt;li&gt;logs/: Keeps tracking and server logs.&lt;/li&gt;
+&lt;li&gt;models/: Stores downloaded LLMs (Llama, Mistral, etc.).&lt;/li&gt;
+&lt;li&gt;webui/: Reserved for the frontend user interface.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="download-and-move-the-binary"&gt;Download and Move the Binary&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Download the latest binary&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;curl -L https://ollama.com/download/ollama-linux-amd64 -o /home_local/&lt;span class="nv"&gt;$USER&lt;/span&gt;/ollama/bin/ollama
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Make it executable&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;chmod +x /home_local/&lt;span class="nv"&gt;$USER&lt;/span&gt;/ollama/bin/ollama
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="add-paths-to-bashrc"&gt;Add paths to bashrc&lt;/h3&gt;
+&lt;p&gt;nano ~/.bashrc&lt;/p&gt;</description></item><item><title>Avoid Python Package Import-Errors in VSCodium or VSCode</title><link>https://jokobus.github.io/posts/howto/vscodium_ignore-import-errors/</link><pubDate>Sun, 31 May 2026 16:17:11 +0200</pubDate><guid>https://jokobus.github.io/posts/howto/vscodium_ignore-import-errors/</guid><description>&lt;p&gt;If you are working with Conda environments, you might notice that VSCodium or VS Code shows &amp;ldquo;import not found&amp;rdquo; errors (red squiggly lines) even though your code runs perfectly fine in the terminal.&lt;/p&gt;
 &lt;p&gt;This happens because the IDE&amp;rsquo;s Python extension doesn&amp;rsquo;t automatically know which Conda environment to use for its background linting and IntelliSense. By explicitly setting the interpreter path, you tell the IDE exactly where to look for your installed packages.&lt;/p&gt;</description></item><item><title>Tune VSCodium for Python</title><link>https://jokobus.github.io/posts/howto/vscodium_tune4python/</link><pubDate>Sat, 30 May 2026 12:41:04 +0200</pubDate><guid>https://jokobus.github.io/posts/howto/vscodium_tune4python/</guid><description>&lt;p&gt;&lt;a href="https://vscodium.com/" target="_blank" rel="noopener"&gt;VSCodium&lt;/a&gt;
  is the Open-Source binaries version of the popular Visual Studio Code IDE, mainly developed by Microsoft.&lt;/p&gt;
 &lt;p&gt;However, VSCodium lacks some nice features such as code auto complete, nice code coloring, funtcion preview at howver, etc. The good news is: You can easily enhance your VSCodium Experience, by following the following steps.&lt;/p&gt;
