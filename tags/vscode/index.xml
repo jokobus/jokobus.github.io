@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VSCode on JF</title><link>https://jokobus.github.io/tags/vscode/</link><description>Recent content in VSCode on JF</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Tue, 30 Jun 2026 20:01:59 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/tags/vscode/index.xml" rel="self" type="application/rss+xml"/><item><title>Deploy local AI via Ollama, Open-WebUI and VSCode/VSCodium</title><link>https://jokobus.github.io/posts/ollama_webui_vscode/</link><pubDate>Tue, 30 Jun 2026 20:01:59 +0200</pubDate><guid>https://jokobus.github.io/posts/ollama_webui_vscode/</guid><description>&lt;p&gt;This guide walks you through installing Ollama on a Linux system, serving it to a strictly local &lt;code&gt;localhost&lt;/code&gt; WebUI (ensuring no exposure to the internet), and leveraging your local Large Language Models (LLMs) as an AI Chat Agent and autocomplete engine inside VSCode and/or VSCodium.&lt;/p&gt;
-&lt;h3 id="why-this-setup"&gt;Why this setup?&lt;/h3&gt;
+&lt;h3 id="why-this-setup-is-super-cool"&gt;Why this setup is super cool?&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;No root / sudo required:&lt;/strong&gt; Everything runs cleanly within your user space.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;100% Private:&lt;/strong&gt; No reverse proxies or exposed external ports—just a local Python environment and standard tools.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Completely Free &amp;amp; Offline:&lt;/strong&gt; No accounts, API keys, or data tracking required.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Offline &amp;amp; Data Friendly&lt;/strong&gt; No data tracking by Big Tech. (Yet you can configure the models in Open-WebUI to search the internet with e.g. DuckDuckGo (DDGS) if you want to.)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Completely Free&lt;/strong&gt; No accounts, API keys, or monthly subscriptions. Only the electricity bill.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="however"&gt;However&amp;hellip;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;GPU Requirements:&lt;/strong&gt; Ollama is only fun, when you have a potent GPU. It also runs on my Laptop with a decent CPU and built-in Intel GPU, but you have to stick to small (=dumpish) models for fast responses. So, if you have a GPU, then let&amp;rsquo;s go!&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AI Server:&lt;/strong&gt; If you want to build your own AI server that is available from anywhere (e.g. you can access it from your phone), then you need to expose the Ollama server to the internet, preferralbly via a reverse proxy such as Caddy, Apache or Nginx. This is not covered in this guide.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;This guide is for Linux&lt;/strong&gt; but Windows and MacOS should works as well. Yet, I haven&amp;rsquo;t tested it.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id="1-install-ollama"&gt;1. Install Ollama&lt;/h2&gt;
