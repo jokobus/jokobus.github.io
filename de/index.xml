@@ -61,7 +61,76 @@
 &lt;li&gt;Versicherung&lt;/li&gt;
 &lt;li&gt;Checke, dass du mit der richtigen Drohnenklasse in der richtigen Kategorie unterwegs bist&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Der einfachste Weg, um legal loslegen zu können ist, die Website &lt;a href="https://lba-openuav.de/onlinekurs/"&gt;lba-openuav.de&lt;/a&gt; zu besuchen, dort den Online-Kurs zu machen, den A1/A3 (kleinen) Drohnenführerschein und sich dort nach bestehen des kurzen Tests gleich noch als UAV-Betreiber eintragen. Zuletzt noch kurz checken, dass die Haftpflichtversicherung Drohnen mit abdeckt und los kann es gehen.&lt;/p&gt;</description></item><item><title>Lineare Regression: Mathematische Grundlagen und Implementierung</title><link>https://jokobus.github.io/de/posts/linear_regression/</link><pubDate>Sun, 23 Jun 2024 11:50:21 -0700</pubDate><guid>https://jokobus.github.io/de/posts/linear_regression/</guid><description>&lt;h2 id="überblick"&gt;Überblick&lt;/h2&gt;
+&lt;p&gt;Der einfachste Weg, um legal loslegen zu können ist, die Website &lt;a href="https://lba-openuav.de/onlinekurs/"&gt;lba-openuav.de&lt;/a&gt; zu besuchen, dort den Online-Kurs zu machen, den A1/A3 (kleinen) Drohnenführerschein und sich dort nach bestehen des kurzen Tests gleich noch als UAV-Betreiber eintragen. Zuletzt noch kurz checken, dass die Haftpflichtversicherung Drohnen mit abdeckt und los kann es gehen.&lt;/p&gt;</description></item><item><title>Hugo auf dem Homeserver via GitHub Actions deployen</title><link>https://jokobus.github.io/de/posts/hugo_github_workflow/</link><pubDate>Fri, 28 Jun 2024 16:23:59 +0200</pubDate><guid>https://jokobus.github.io/de/posts/hugo_github_workflow/</guid><description>&lt;p&gt;Dies ist &lt;strong&gt;Teil 2&lt;/strong&gt; unserer Hugo-Serie. In &lt;a href="https://jokobus.github.io/de/posts/create_hugo_blog/"&gt;Teil 1: Blog mit Hugo und Smidr erstellen&lt;/a&gt; haben wir gezeigt, wie man einen modernen Blog lokal mit Hugo Extended und dem Smidr-Theme aufbaut.&lt;/p&gt;
+&lt;p&gt;In diesem Teil bringen wir das Setup in die Produktion auf eigener Hardware. Diese Anleitung zeigt, wie eine Hugo-Website vollautomatisiert auf einen Linux-Homeserver (wie z. B. einen Raspberry Pi) oder VPS hinter einem &lt;strong&gt;Caddy&lt;/strong&gt;-Webserver deployt wird.&lt;/p&gt;
+&lt;h3 id="sicherheitsvorteile-dieser-architektur"&gt;Sicherheitsvorteile dieser Architektur&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Port 22 (SSH) bleibt vollständig geschlossen:&lt;/strong&gt; Der Homeserver zieht Aktualisierungen aktiv nach außen über HTTPS bzw. SSH-Deploy-Keys. Es gibt keine offenen SSH-Ports im Internet für Brute-Force-Angriffe.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Quelldateien bleiben privat:&lt;/strong&gt; Entwürfe, unfertige Artikel und Konfigurationsdateien verbleiben sicher im privaten GitHub-Quell-Repository (&lt;code&gt;hugo-source&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Continuous Integration:&lt;/strong&gt; GitHub Actions baut die Website mit Hugo Extended und dem Smidr-Theme-Submodul und pusht ausschließlich das kompilierte statische HTML/CSS auf das Deployment-Ziel.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Automatische SSL-Zertifikate &amp;amp; Kompression:&lt;/strong&gt; Caddy kümmert sich vollautomatisch um Let&amp;rsquo;s Encrypt-Zertifikate, HTTP/3 sowie Zstandard/Gzip-Kompression.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="architektur-übersicht"&gt;Architektur-Übersicht&lt;/h2&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;[Lokaler Arbeitsplatz]
+│
+▼ (git push: Markdown + Smidr-Submodul)
+[GitHub: hugo-source] (Privat)
+│
+▼ (GitHub Actions: Hugo Extended Build)
+[GitHub: hugo-public] (Privates Deployment-Repo)
+▲
+│ (Alle 5 Min: Ausgehender &amp;#39;git pull&amp;#39; via SSH-Deploy-Key)
+[Homeserver / Raspberry Pi]
+├── /var/www/hugo-public (Statische Website)
+└── Caddy Reverse Proxy (Nur Ports 80/443 für Webverkehr)
+&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;hugo-source&lt;/code&gt; (Privates Repo):&lt;/strong&gt; Beherbergt deine Inhalte, das Theme-Submodul (&lt;code&gt;themes/smidr&lt;/code&gt;) und die &lt;code&gt;hugo.yaml&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;hugo-public&lt;/code&gt; (Privates Repo):&lt;/strong&gt; Speichert ausschließlich das fertig generierte statische HTML/CSS.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GitHub Actions:&lt;/strong&gt; Sobald ein Push in &lt;code&gt;hugo-source&lt;/code&gt; erfolgt, baut GitHub Actions die Seite mit &lt;code&gt;hugo --minify&lt;/code&gt; und überträgt das Ergebnis in &lt;code&gt;hugo-public&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Homeserver:&lt;/strong&gt; Ein leichtgewichtiger Cronjob führt alle 5 Minuten ein &lt;code&gt;git pull&lt;/code&gt; über einen schreibgeschützten SSH-Deploy-Key aus. Caddy liefert die neuen Dateien sofort aus.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id="voraussetzungen"&gt;Voraussetzungen&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Ein GitHub-Konto.&lt;/li&gt;
+&lt;li&gt;Ein privates Hugo-Repository (&lt;code&gt;hugo-source&lt;/code&gt;) mit eingerichtetem Smidr-Theme (siehe &lt;a href="https://jokobus.github.io/de/posts/create_hugo_blog/"&gt;Teil 1&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;Ein Linux-Server (z. B. Raspberry Pi) mit installiertem &lt;a href="https://caddyserver.com/"&gt;Caddy&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Eine eigene Domain oder Dynamic DNS (z. B. DuckDNS), die auf deine öffentliche IP verweist.&lt;/li&gt;
+&lt;li&gt;Im Router freigegebene Ports &lt;strong&gt;80&lt;/strong&gt; und &lt;strong&gt;443&lt;/strong&gt; für Webverkehr. &lt;em&gt;(Port 22 für SSH bleibt zu).&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id="schritt-1-deployment-repository-und-token-anlegen"&gt;Schritt 1: Deployment-Repository und Token anlegen&lt;/h2&gt;
+&lt;h3 id="11-ziel-repository-erstellen"&gt;1.1 Ziel-Repository erstellen&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Auf &lt;a href="https://github.com"&gt;GitHub&lt;/a&gt; ein neues Repository namens &lt;code&gt;hugo-public&lt;/code&gt; anlegen.&lt;/li&gt;
+&lt;li&gt;Die Sichtbarkeit auf &lt;strong&gt;Private&lt;/strong&gt; stellen (oder Public).&lt;/li&gt;
+&lt;li&gt;Mit einer &lt;code&gt;README.md&lt;/code&gt; initialisieren, damit der Standardbranch &lt;code&gt;main&lt;/code&gt; existiert.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="12-fine-grained-personal-access-token-generieren"&gt;1.2 Fine-Grained Personal Access Token generieren&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;In den GitHub-Profileinstellungen auf &lt;strong&gt;Settings&lt;/strong&gt; → &lt;strong&gt;Developer Settings&lt;/strong&gt; → &lt;strong&gt;Personal Access Tokens&lt;/strong&gt; → &lt;strong&gt;Fine-grained tokens&lt;/strong&gt; gehen.&lt;/li&gt;
+&lt;li&gt;Auf &lt;strong&gt;Generate new token&lt;/strong&gt; klicken und als Namen z. B. &lt;code&gt;hugo-compiler-token&lt;/code&gt; wählen.&lt;/li&gt;
+&lt;li&gt;Unter &lt;strong&gt;Repository access&lt;/strong&gt; die Option &lt;strong&gt;Only select repositories&lt;/strong&gt; wählen und das &lt;code&gt;hugo-public&lt;/code&gt;-Repository auswählen.&lt;/li&gt;
+&lt;li&gt;Unter &lt;strong&gt;Permissions&lt;/strong&gt; → &lt;strong&gt;Repository permissions&lt;/strong&gt; das Recht &lt;strong&gt;Contents&lt;/strong&gt; auf &lt;strong&gt;Read and Write&lt;/strong&gt; setzen.&lt;/li&gt;
+&lt;li&gt;Den Token kopieren.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="13-secret-im-quell-repository-hinterlegen"&gt;1.3 Secret im Quell-Repository hinterlegen&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Im Quell-Repository (&lt;code&gt;hugo-source&lt;/code&gt;) auf GitHub zu &lt;strong&gt;Settings&lt;/strong&gt; → &lt;strong&gt;Secrets and variables&lt;/strong&gt; → &lt;strong&gt;Actions&lt;/strong&gt; → &lt;strong&gt;New repository secret&lt;/strong&gt; navigieren.&lt;/li&gt;
+&lt;li&gt;Als Namen &lt;code&gt;PUBLIC_REPO_TOKEN&lt;/code&gt; wählen und den kopierten Token einfügen.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id="schritt-2-github-actions-workflow-einrichten"&gt;Schritt 2: GitHub Actions Workflow einrichten&lt;/h2&gt;
+&lt;p&gt;Erstelle im lokalen Quell-Repository die Datei &lt;code&gt;.github/workflows/compile.yml&lt;/code&gt;:&lt;/p&gt;</description><category>Hugo</category><category>GitHub Actions</category><category>Self-Hosting</category><category>Caddy</category><category>DevOps</category></item><item><title>Blog mit Hugo und Smidr erstellen (Komplette Anleitung)</title><link>https://jokobus.github.io/de/posts/create_hugo_blog/</link><pubDate>Thu, 27 Jun 2024 10:43:10 -0700</pubDate><guid>https://jokobus.github.io/de/posts/create_hugo_blog/</guid><description>&lt;p&gt;Dies ist eine umfassende Schritt-für-Schritt-Anleitung zur Erstellung, Anpassung und Veröffentlichung einer modernen statischen Website mit &lt;a href="https://gohugo.io/"&gt;Hugo&lt;/a&gt; und dem cyber-cleanen &lt;a href="https://github.com/jokobus/smidr"&gt;Smidr&lt;/a&gt;-Theme. Ganz gleich, ob der Blog kostenlos auf GitHub Pages gehostet oder vollautomatisiert auf einem eigenen Homeserver betrieben werden soll: Diese Anleitung deckt alle Phasen von der lokalen Einrichtung bis zum produktiven Deployment ab.&lt;/p&gt;
+&lt;p&gt;Dies ist &lt;strong&gt;Teil 1&lt;/strong&gt; unserer Hugo-Serie:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Teil 1 (Diese Anleitung):&lt;/strong&gt; Einrichtung, Konfiguration, Smidr-Theme, Leaf Bundles, interaktive Widgets und Veröffentlichung.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Teil 2:&lt;/strong&gt; &lt;a href="https://jokobus.github.io/de/posts/hugo_github_workflow/"&gt;Hugo auf dem Homeserver via GitHub Actions deployen&lt;/a&gt; — automatisiertes Zero-Trust-Deployment hinter Caddy ohne offene SSH-Ports.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="architektur-wie-hugo-und-github-zusammenspielen"&gt;Architektur: Wie Hugo und GitHub zusammenspielen&lt;/h2&gt;
+&lt;p&gt;Ein modernes Hugo-Setup ist modular und sauber getrennt:&lt;/p&gt;</description><category>Hugo</category><category>Smidr</category><category>GitHub Pages</category><category>Webentwicklung</category></item><item><title>Lineare Regression: Mathematische Grundlagen und Implementierung</title><link>https://jokobus.github.io/de/posts/linear_regression/</link><pubDate>Sun, 23 Jun 2024 11:50:21 -0700</pubDate><guid>https://jokobus.github.io/de/posts/linear_regression/</guid><description>&lt;h2 id="überblick"&gt;Überblick&lt;/h2&gt;
 &lt;p&gt;Lineare Regression dient der Vorhersage stetiger Zielwerte bei Annahme eines linearen Zusammenhangs. In 2D modellieren wir Datenpunkte entlang einer Regressionsgeraden:&lt;/p&gt;
 $$y = a \cdot x + b$$&lt;p&gt;wobei $a$ die Steigung (Gewicht) und $b$ den y-Achsenabschnitt (Bias) darstellt. Bei gegebenem $x$ kann der unbekannte Zielwert $\hat{y}$ vorhergesagt werden.&lt;/p&gt;
 &lt;h2 id="1-lineare-regression-mit-einer-variablen-2d"&gt;1. Lineare Regression mit einer Variablen (2D)&lt;/h2&gt;

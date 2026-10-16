@@ -19,7 +19,7 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span>Sort Order</span></h3><div class=sort-select-wrapper><select id=posts-sort-select class=posts-sort-select aria-label="Sort posts by"><option value=date-desc>Date: Newest First</option><option value=date-asc>Date: Oldest First</option><option value=title-asc>Title: A → Z</option><option value=title-desc>Title: Z → A</option><option value=time-asc>Read Time: Shortest</option><option value=time-desc>Read Time: Longest</option></select></div></div><div class=tax-sidebar-card><h3 class=tax-sidebar-heading>📂 Kategorien</h3><div class=tax-checkbox-list><button type=button class=tax-checkbox-btn data-type=category data-value=guide role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>Guide</span>
-<span class=tax-count>7</span>
+<span class=tax-count>9</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=category data-value=howto role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
@@ -34,7 +34,12 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <button type=button class=tax-checkbox-btn data-type=category data-value=simulation role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>Simulation</span>
-<span class=tax-count>1</span></button></div></div><div class=tax-sidebar-card><h3 class=tax-sidebar-heading>🏷️ Schlagwörter</h3><div class=tax-checkbox-list><button type=button class=tax-checkbox-btn data-type=tag data-value=conda role=checkbox aria-checked=false>
+<span class=tax-count>1</span></button></div></div><div class=tax-sidebar-card><h3 class=tax-sidebar-heading>🏷️ Schlagwörter</h3><div class=tax-checkbox-list><button type=button class=tax-checkbox-btn data-type=tag data-value=caddy role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Caddy</span>
+<span class=tax-count>1</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=conda role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Conda</span>
 <span class=tax-count>2</span>
@@ -52,7 +57,22 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <button type=button class=tax-checkbox-btn data-type=tag data-value=devops role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#DevOps</span>
+<span class=tax-count>2</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value="github actions" role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#GitHub Actions</span>
 <span class=tax-count>1</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value="github pages" role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#GitHub Pages</span>
+<span class=tax-count>1</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=hugo role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Hugo</span>
+<span class=tax-count>2</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value="machine learning" role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
@@ -84,6 +104,16 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=tax-title>#PyTorch</span>
 <span class=tax-count>2</span>
 </button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=self-hosting role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Self-Hosting</span>
+<span class=tax-count>1</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=smidr role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Smidr</span>
+<span class=tax-count>1</span>
+</button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=wahrscheinlichkeitsrechnung role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Wahrscheinlichkeitsrechnung</span>
@@ -92,6 +122,11 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <button type=button class=tax-checkbox-btn data-type=tag data-value=warteschlangentheorie role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Warteschlangentheorie</span>
+<span class=tax-count>1</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=webentwicklung role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Webentwicklung</span>
 <span class=tax-count>1</span></button></div></div></div></details></aside></div></div><script>document.addEventListener("DOMContentLoaded",()=>{const c=document.getElementById("blog-posts-grid");if(!c)return;const d=Array.from(c.querySelectorAll(".post-card")),l=Array.from(document.querySelectorAll(".tax-checkbox-btn")),s=document.getElementById("filter-mode-btn"),a=document.getElementById("filter-clear-btn"),i=document.getElementById("posts-sort-select"),h=document.getElementById("posts-empty-state"),m=document.getElementById("empty-clear-btn"),o=document.getElementById("filter-count-label"),e=new Set,t=new Set;let n="AND";function r(){l.forEach(n=>{const i=n.dataset.type,s=n.dataset.value,o=i==="category"?e.has(s):t.has(s);n.classList.toggle("active",o),n.setAttribute("aria-checked",o?"true":"false")});const i=e.size+t.size;a&&(a.style.display=i>0?"inline-block":"none"),o&&(i>0?(o.textContent=`${i} active filter${i>1?"s":""}`,o.style.display="block"):o.style.display="none"),s&&(s.className=`filter-mode-btn mode-${n.toLowerCase()}`,s.querySelector(".mode-text").textContent=n);let r=0;d.forEach(s=>{const a=(s.dataset.categories||"").split(",").map(e=>e.trim()).filter(Boolean),c=(s.dataset.tags||"").split(",").map(e=>e.trim()).filter(Boolean);let o=!0;if(i>0)if(n==="OR"){const n=Array.from(e).some(e=>a.includes(e)),s=Array.from(t).some(e=>c.includes(e));o=n||s}else{const n=Array.from(e).every(e=>a.includes(e)),s=Array.from(t).every(e=>c.includes(e));o=n&&s}o?(s.style.display="",r++):s.style.display="none"}),h&&(h.style.display=r===0?"block":"none")}function f(){const e=i?i.value:"date-desc";d.sort((t,n)=>{switch(e){case"date-asc":return parseInt(t.dataset.date||0)-parseInt(n.dataset.date||0);case"title-asc":return(t.dataset.title||"").localeCompare(n.dataset.title||"");case"title-desc":return(n.dataset.title||"").localeCompare(t.dataset.title||"");case"time-asc":return parseInt(t.dataset.readingTime||0)-parseInt(n.dataset.readingTime||0);case"time-desc":return parseInt(n.dataset.readingTime||0)-parseInt(t.dataset.readingTime||0);case"date-desc":default:return parseInt(n.dataset.date||0)-parseInt(t.dataset.date||0)}}),d.forEach(e=>c.appendChild(e))}l.forEach(n=>{n.addEventListener("click",s=>{s.preventDefault();const a=n.dataset.type,o=n.dataset.value,i=a==="category"?e:t,c=i.has(o),l=e.size+t.size;c?l>1?(e.clear(),t.clear(),i.add(o)):i.delete(o):i.add(o),r()})}),s&&s.addEventListener("click",()=>{n=n==="AND"?"OR":"AND",r()});function p(){e.clear(),t.clear(),r()}a&&a.addEventListener("click",p),m&&m.addEventListener("click",p),i&&i.addEventListener("change",()=>{f()});const u="simulation";l.forEach(n=>{n.dataset.value===u&&(n.dataset.type==="category"?e.add(u):t.add(u))}),f(),r()})</script></main><footer class=site-footer role=contentinfo><div class=container-wide><div class=footer-grid><div class=footer-left><p class=footer-copyright>&copy;2024-2026
 <strong>Jokobus</strong>.
 Alle Rechte vorbehalten.</p><p class=footer-credits>Geschmiedet mit <a href=https://github.com/jokobus/smidr target=_blank rel="noopener noreferrer" style=color:var(--color-primary);font-weight:600;text-decoration:underline;text-underline-offset:2px>Smidr</a> auf <a href=https://gohugo.io target=_blank rel="noopener noreferrer" style=color:var(--color-primary);font-weight:600;text-decoration:underline;text-underline-offset:2px>Hugo</a></p></div><nav class=footer-right aria-label="Footer Navigation"><ul class=footer-links><li><a class=footer-link href=/de/imprint/>Impressum</a></li><li><a class=footer-link href=/de/privacy/>Datenschutz</a></li><li><a class=footer-link href=/index.xml>RSS-Feed</a></li></ul></nav></div></div></footer><div id=command-palette class=command-palette-backdrop aria-hidden=true role=dialog aria-modal=true aria-label="Befehl eingeben oder Beiträge durchsuchen..."><div class=command-palette-modal><div class=palette-input-wrap><span class=palette-input-icon>🔍</span>

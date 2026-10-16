@@ -1,503 +1,286 @@
-<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="ie=edge"><title>How to create a blog with Hugo (full guide) | Jokobus</title><meta name=description content="A step-by-step beginner-friendly guide to setting up, configuring, and publishing a Hugo blog on GitHub Pages."><link rel=canonical href=https://jokobus.github.io/posts/create_hugo_blog/><meta property="og:title" content="How to create a blog with Hugo (full guide)"><meta property="og:description" content="A step-by-step beginner-friendly guide to setting up, configuring, and publishing a Hugo blog on GitHub Pages."><meta property="og:type" content="article"><meta property="og:url" content="https://jokobus.github.io/posts/create_hugo_blog/"><meta property="og:site_name" content="Jokobus"><meta property="article:published_time" content="2024-06-27T10:43:10-07:00"><meta property="article:modified_time" content="2024-06-27T10:43:10-07:00"><meta property="article:tag" content="Hugo"><meta property="article:tag" content="GitHub Pages"><meta property="article:tag" content="Web Development"><meta property="og:image" content="https://jokobus.github.io/images/hugo.svg"><meta name=twitter:image content="https://jokobus.github.io/images/hugo.svg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="How to create a blog with Hugo (full guide)"><meta name=twitter:description content="A step-by-step beginner-friendly guide to setting up, configuring, and publishing a Hugo blog on GitHub Pages."><link rel=icon type=image/svg+xml href=/favicon.svg><link rel=alternate type=application/rss+xml title=Jokobus href=/index.xml><link rel=stylesheet href=/css/smidr-bundle.min.6781683933143ae02a7e21c8c36f9cbafd24bb95bb5e650319fde64bb817284d.css integrity="sha256-Z4FoOTMUOuAqfiHIw2+cuv0ku5W7XmUDGf3mS7gXKE0="><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"\\[",right:"\\]",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script></head><body data-tab-away-title="🔨 Smidr: Don't miss the next breakthrough!"><a href=#main-content class=skip-link>Skip to content</a><header class=site-header role=banner><div class="container-wide header-inner"><a href=/ class=site-logo aria-label="Jokobus Home"><span class=logo-badge title=Jokobus><svg class="logo-hammer-svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><defs><linearGradient id="headerHammerGrad" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0" stop-color="#00f0ff"/><stop offset="50%" stop-color="#8a2be2"/><stop offset="100%" stop-color="#ff007a"/></linearGradient><linearGradient id="headerMetalShaft" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0" stop-color="#cbd5e1"/><stop offset="50%" stop-color="#64748b"/><stop offset="100%" stop-color="#1e293b"/></linearGradient></defs><g transform="translate(50, 52) rotate(-35) translate(-50, -50)"><path d="M46 44h8l1 42H45z" fill="url(#headerMetalShaft)"/><rect x="44.5" y="60" width="11" height="3" rx="1.5" fill="#00f0ff"/><rect x="44.5" y="68" width="11" height="3" rx="1.5" fill="#a855f7"/><rect x="44.5" y="76" width="11" height="3" rx="1.5" fill="#ff007a"/><rect x="43" y="85" width="14" height="4" rx="2" fill="url(#headerHammerGrad)"/><path d="M22 24H78l4 6-2 14-4 4H24l-4-4-2-14z" fill="url(#headerHammerGrad)"/><polygon points="18,30 22,24 22,48 20,44" fill="#fff" opacity=".85"/><polygon points="78,24 82,30 80,44 76,48" fill="#00f0ff" opacity=".9"/><rect x="36" y="32" width="28" height="8" rx="2" fill="#090d16" opacity=".7"/><line x1="38" y1="36" x2="62" y2="36" stroke="#00f0ff" stroke-width="2" stroke-linecap="round"/><circle cx="50" cy="36" r="2.5" fill="#ff007a"/></g></svg>
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="ie=edge"><title>How to Create a Blog with Hugo and Smidr (Full Guide) | Jokobus</title><meta name=description content="A step-by-step guide to setting up, configuring, and publishing a modern, cyber-clean Hugo blog with the Smidr theme on GitHub Pages or self-hosted servers."><link rel=canonical href=https://jokobus.github.io/posts/create_hugo_blog/><meta property="og:title" content="How to Create a Blog with Hugo and Smidr (Full Guide)"><meta property="og:description" content="A step-by-step guide to setting up, configuring, and publishing a modern, cyber-clean Hugo blog with the Smidr theme on GitHub Pages or self-hosted servers."><meta property="og:type" content="article"><meta property="og:url" content="https://jokobus.github.io/posts/create_hugo_blog/"><meta property="og:site_name" content="Jokobus"><meta property="article:published_time" content="2024-06-27T10:43:10-07:00"><meta property="article:modified_time" content="2024-06-27T10:43:10-07:00"><meta property="article:tag" content="Hugo"><meta property="article:tag" content="Smidr"><meta property="article:tag" content="GitHub Pages"><meta property="article:tag" content="Web Development"><meta property="og:image" content="https://jokobus.github.io/images/hugo.svg"><meta name=twitter:image content="https://jokobus.github.io/images/hugo.svg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="How to Create a Blog with Hugo and Smidr (Full Guide)"><meta name=twitter:description content="A step-by-step guide to setting up, configuring, and publishing a modern, cyber-clean Hugo blog with the Smidr theme on GitHub Pages or self-hosted servers."><link rel=icon type=image/svg+xml href=/favicon.svg><link rel=alternate type=application/rss+xml title=Jokobus href=/index.xml><link rel=stylesheet href=/css/smidr-bundle.min.6781683933143ae02a7e21c8c36f9cbafd24bb95bb5e650319fde64bb817284d.css integrity="sha256-Z4FoOTMUOuAqfiHIw2+cuv0ku5W7XmUDGf3mS7gXKE0="><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"\\[",right:"\\]",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script></head><body data-tab-away-title="🔨 Smidr: Don't miss the next breakthrough!"><a href=#main-content class=skip-link>Skip to content</a><header class=site-header role=banner><div class="container-wide header-inner"><a href=/ class=site-logo aria-label="Jokobus Home"><span class=logo-badge title=Jokobus><svg class="logo-hammer-svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><defs><linearGradient id="headerHammerGrad" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0" stop-color="#00f0ff"/><stop offset="50%" stop-color="#8a2be2"/><stop offset="100%" stop-color="#ff007a"/></linearGradient><linearGradient id="headerMetalShaft" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0" stop-color="#cbd5e1"/><stop offset="50%" stop-color="#64748b"/><stop offset="100%" stop-color="#1e293b"/></linearGradient></defs><g transform="translate(50, 52) rotate(-35) translate(-50, -50)"><path d="M46 44h8l1 42H45z" fill="url(#headerMetalShaft)"/><rect x="44.5" y="60" width="11" height="3" rx="1.5" fill="#00f0ff"/><rect x="44.5" y="68" width="11" height="3" rx="1.5" fill="#a855f7"/><rect x="44.5" y="76" width="11" height="3" rx="1.5" fill="#ff007a"/><rect x="43" y="85" width="14" height="4" rx="2" fill="url(#headerHammerGrad)"/><path d="M22 24H78l4 6-2 14-4 4H24l-4-4-2-14z" fill="url(#headerHammerGrad)"/><polygon points="18,30 22,24 22,48 20,44" fill="#fff" opacity=".85"/><polygon points="78,24 82,30 80,44 76,48" fill="#00f0ff" opacity=".9"/><rect x="36" y="32" width="28" height="8" rx="2" fill="#090d16" opacity=".7"/><line x1="38" y1="36" x2="62" y2="36" stroke="#00f0ff" stroke-width="2" stroke-linecap="round"/><circle cx="50" cy="36" r="2.5" fill="#ff007a"/></g></svg>
 </span><span class=logo-text>Jokobus</span></a><nav class="site-nav desktop-nav" aria-label="Main Navigation"><ul class=nav-menu><li><a class=nav-link href=/>Home</a></li><li><a class="nav-link active" href=/posts/>Blog</a></li><li><a class=nav-link href=/about/>About</a></li><li><a class=nav-link href=/contact/>Contact</a></li></ul></nav><div class=header-actions><button id=search-trigger-btn class=search-trigger-btn type=button aria-label="Press Ctrl+K or Cmd+K to search">
 <span>🔍</span>
 <span class=search-btn-text>Type a...</span>
 <kbd class=search-kbd>⌘K</kbd>
 </button>
-<a class=btn-icon href=/de/ title="Switch language: Deutsch" aria-label="Switch language: Deutsch">🇩🇪
+<a class=btn-icon href=/de/posts/create_hugo_blog/ title="Switch language: Deutsch" aria-label="Switch language: Deutsch">🇩🇪
 </a><button class=btn-icon type=button data-action=toggle-theme aria-label="Toggle color theme">
 <span class=theme-icon>☀️</span>
 </button>
 <button id=mobile-menu-btn class="btn-icon mobile-menu-btn" type=button aria-label="Toggle navigation menu" aria-expanded=false>
-<span class=hamburger-icon>☰</span></button></div></div><div id=mobile-nav-drawer class=mobile-nav-drawer aria-hidden=true><div class=container><ul class=mobile-menu-list><li><a class=mobile-nav-link href=/>Home</a></li><li><a class="mobile-nav-link active" href=/posts/>Blog</a></li><li><a class=mobile-nav-link href=/about/>About</a></li><li><a class=mobile-nav-link href=/contact/>Contact</a></li><li class=mobile-menu-divider></li><li><a class=mobile-nav-link href=/categories/>📂 Categories</a></li><li><a class=mobile-nav-link href=/tags/>🏷️ Tags</a></li></ul></div></div></header><main id=main-content class=site-main role=main><div class=container><article class=article-container itemscope itemtype=http://schema.org/BlogPosting><header class=article-header><h1 class=article-title itemprop=headline>How to create a blog with Hugo (full guide)</h1><div class=article-meta-bar><span class=meta-item><span>📅</span>
+<span class=hamburger-icon>☰</span></button></div></div><div id=mobile-nav-drawer class=mobile-nav-drawer aria-hidden=true><div class=container><ul class=mobile-menu-list><li><a class=mobile-nav-link href=/>Home</a></li><li><a class="mobile-nav-link active" href=/posts/>Blog</a></li><li><a class=mobile-nav-link href=/about/>About</a></li><li><a class=mobile-nav-link href=/contact/>Contact</a></li><li class=mobile-menu-divider></li><li><a class=mobile-nav-link href=/categories/>📂 Categories</a></li><li><a class=mobile-nav-link href=/tags/>🏷️ Tags</a></li></ul></div></div></header><main id=main-content class=site-main role=main><div class=container><article class=article-container itemscope itemtype=http://schema.org/BlogPosting><header class=article-header><h1 class=article-title itemprop=headline>How to Create a Blog with Hugo and Smidr (Full Guide)</h1><div class=article-meta-bar><span class=meta-item><span>📅</span>
 <time datetime=2024-06-27T10:43:10-07:00>27. Jun 2024</time>
 </span><span class=meta-item><span>⏱️</span>
-<span>~16 min read</span>
-<span class=meta-words>(3275 words)</span>
+<span>~9 min read</span>
+<span class=meta-words>(1722 words)</span>
 </span><span class="meta-item post-tags"><a href=/tags/hugo class=tag-badge>#Hugo</a>
+<a href=/tags/smidr class=tag-badge>#Smidr</a>
 <a href=/tags/github-pages class=tag-badge>#GitHub Pages</a>
-<a href=/tags/web-development class=tag-badge>#Web Development</a></span></div></header><div class=post-featured-image-container><figure class=post-featured-figure><img class=post-featured-img src=/posts/create_hugo_blog/images/hugo.svg alt="How to create a blog with Hugo (full guide)" loading=lazy></figure></div><aside class=toc-box aria-label="Table of Contents"><details class=toc-details open><summary class=toc-summary><span class=toc-title><span class=toc-icon>📑</span>
+<a href=/tags/web-development class=tag-badge>#Web Development</a></span></div></header><div class=post-featured-image-container><figure class=post-featured-figure><img class=post-featured-img src=/posts/create_hugo_blog/images/hugo.svg alt="How to Create a Blog with Hugo and Smidr (Full Guide)" loading=lazy></figure></div><aside class=toc-box aria-label="Table of Contents"><details class=toc-details open><summary class=toc-summary><span class=toc-title><span class=toc-icon>📑</span>
 <span>Table of Contents</span>
-</span><span class=toc-chevron>▾</span></summary><div class=toc-nav-wrapper><nav id=TableOfContents><ul><li><a href=#important-concepts-to-understand>Important Concepts to Understand</a></li><li><a href=#prerequisites>Prerequisites</a></li><li><a href=#step-1-install-hugo>Step 1: Install Hugo</a></li><li><a href=#step-2-create-github-repositories>Step 2: Create github repositories</a><ul><li><a href=#private-repository>Private repository</a></li><li><a href=#public-repository>Public repository</a></li></ul></li><li><a href=#step-3-install-theme>Step 3: Install theme</a></li><li><a href=#step-4-adjust-to-your-needs>Step 4: Adjust to your needs</a></li><li><a href=#addcontent>Step 5: Add content</a><ul><li><a href=#multilanguage-support>Multilanguage support</a></li></ul></li><li><a href=#step-6-push-to-github>Step 6: Push to github</a></li><li><a href=#step-7-automate-github-interaction-with-script>Step 7: Automate github interaction with script</a><ul><li><a href=#windows-batch-file-not-recommended>Windows Batch file (not recommended)</a></li><li><a href=#windows-powershell-recommended>Windows Powershell (recommended)</a></li><li><a href=#linux-bash-file>Linux bash file</a></li></ul></li><li><a href=#step-8-search-engine-and-crawler-optimization-optional>Step 8: Search Engine and Crawler optimization (optional)</a><ul><li><a href=#robotstxt>Robots.txt</a></li><li><a href=#search-engine-optimization-seo>Search Engine Optimization SEO</a></li></ul></li><li><a href=#workflow>Workflow</a></li><li><a href=#further-reading>Further reading</a></li><li><a href=#dependabot-alerts>Dependabot alerts</a></li></ul></nav></div></details></aside><div class=article-content itemprop=articleBody><p>This is a step-by-step guide on how to create and deploy a <a href=https://gohugo.io/>Hugo</a> blog to GitHub Pages. This guide was written with beginners in mind, walking through each phase from initial local setup to automatic publishing.</p><p>Although the following steps are written for Windows, the concepts and commands are virtually identical on Linux and macOS. (For example, where Windows uses <code>winget</code> or PowerShell commands, Linux/macOS users can use <code>brew</code> or their distribution package manager).</p><h2 id=important-concepts-to-understand>Important Concepts to Understand</h2><p>The blog is typically organized using two GitHub repositories:</p><ol><li><strong>Source Repository (Private or Public):</strong> Stores your Markdown content, theme submodule, configuration files, and assets.</li><li><strong>Deployment Repository (<code>&lt;username>.github.io</code>):</strong> Contains the compiled static HTML, CSS, and JavaScript generated by Hugo in the <code>public/</code> directory, which GitHub Pages serves to the web at <code>https://&lt;username>.github.io</code>.</li></ol><h2 id=prerequisites>Prerequisites</h2><p>On Windows, we should use the Windows Powershell and not the built in Command Prompt. If you don&rsquo;t have Powershell installed, you can follow <a href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4">this guide</a>. The quick way via winget is:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-PowerShell data-lang=PowerShell><span class=line><span class=cl><span class=n>winget</span> <span class=n>install</span> <span class=n>-e</span> <span class=p>-</span><span class=n>-id</span> <span class=n>Microsoft</span><span class=p>.</span><span class=py>PowerShell</span>
-</span></span></code></pre></div><p>On Linux and Mac your default Terminal should do the job.</p><p>Secondly you need to have a <a href=https://github.com>Github</a> account and <a href=https://github.com/git-guides/install-git>git installed</a>. Create a new github account <a href="https://github.com/signup?ref_cta=Sign+up&amp;ref_loc=header+logged+out&amp;ref_page=%2F&amp;source=header-home">here</a> and install git by executing this in the powershell.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>winget install -e --id Git.Git
-</span></span></code></pre></div><p>Then authenticate git to Github by one of the options mentioned in the <a href=https://docs.github.com/en/get-started/getting-started-with-git/set-up-git#authenticating-with-github-from-git>official article</a>.</p><p>The easiest way is to install the Github Desktop Client and authenticate there:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>winget install -e --id GitHub.GitHubDesktop
-</span></span></code></pre></div><p>Follow the installation guide and open the Github Desktop Application. Login with your Github credentials there. You will automatically be able to use your credentials with the git command.</p><p>All prerequistes met? Let&rsquo;s go!</p><h2 id=step-1-install-hugo>Step 1: Install Hugo</h2><p>Follow the <a href=https://gohugo.io/installation/windows/>official Hugo guide</a>. As a service I added the steps for Windows below. However, it is definitely a good idea to look at the official guide as well.</p><p>If you use winget, it is as simple as:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>winget install Hugo.Hugo.Extended
-</span></span></code></pre></div><h2 id=step-2-create-github-repositories>Step 2: Create github repositories</h2><p>Go to <a href=https://github.com>https://github.com</a> and log in to your account. Create a new private repository called <em>website</em> and a public repository called <em>yourusername.github.io</em> (where you off course replace <em>yourusername</em> with your actual username).</p><h3 id=private-repository>Private repository</h3><p>First, we clone the <em>website</em> repository.</p><ol><li>Move into the folder where you want to store your website and clone the repo.</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;C:/path/to/where/you/want/to/store/your/website&#34;</span>
+</span><span class=toc-chevron>▾</span></summary><div class=toc-nav-wrapper><nav id=TableOfContents><ul><li><a href=#architecture-how-hugo-and-github-work-together>Architecture: How Hugo and GitHub Work Together</a></li><li><a href=#prerequisites>Prerequisites</a><ul><li><a href=#1-terminal>1. Terminal</a></li><li><a href=#2-git--github>2. Git & GitHub</a></li></ul></li><li><a href=#step-1-install-hugo-extended>Step 1: Install Hugo Extended</a></li><li><a href=#step-2-initialize-your-source-repository>Step 2: Initialize Your Source Repository</a></li><li><a href=#step-3-install-the-smidr-theme>Step 3: Install the Smidr Theme</a></li><li><a href=#step-4-configure-hugo-and-smidr>Step 4: Configure Hugo and Smidr</a><ul><li><a href=#theme-parameters-paramsyaml>Theme Parameters (<code>params.yaml</code>)</a></li><li><a href=#configure-the-default-post-archetype>Configure the Default Post Archetype</a></li></ul></li><li><a href=#step-5-content-organization-with-multilingual-leaf-bundles>Step 5: Content Organization with Multilingual Leaf Bundles</a><ul><li><a href=#1-create-a-new-post-bundle>1. Create a New Post Bundle</a></li><li><a href=#2-add-multilingual-support>2. Add Multilingual Support</a></li></ul></li><li><a href=#step-6-supercharge-posts-with-smidr-shortcodes>Step 6: Supercharge Posts with Smidr Shortcodes</a><ul><li><a href=#1-in-browser-python--wasm-code-runner>1. In-Browser Python / WASM Code Runner</a></li><li><a href=#2-cyber-callouts--alerts>2. Cyber Callouts & Alerts</a></li><li><a href=#3-mathematical-typesetting-katex>3. Mathematical Typesetting (KaTeX)</a></li></ul></li><li><a href=#step-7-preview-locally>Step 7: Preview Locally</a></li><li><a href=#step-8-publishing-your-blog>Step 8: Publishing Your Blog</a><ul><li><a href=#method-a-automated-github-actions-cicd-recommended>Method A: Automated GitHub Actions CI/CD (Recommended)</a></li><li><a href=#method-b-local-helper-script-manual-publishing>Method B: Local Helper Script (Manual Publishing)</a></li></ul></li><li><a href=#step-9-crawlers-seo--rss-feeds>Step 9: Crawlers, SEO & RSS Feeds</a><ul><li><a href=#1-robotstxt>1. Robots.txt</a></li><li><a href=#2-custom-rss-feed-with-smidr-xslt-styling>2. Custom RSS Feed with Smidr XSLT Styling</a></li></ul></li><li><a href=#next-steps-self-hosting-on-your-own-server>Next Steps: Self-Hosting on Your Own Server</a></li></ul></nav></div></details></aside><div class=article-content itemprop=articleBody><p>This is a comprehensive, step-by-step guide on how to create, customize, and publish a modern static website using <a href=https://gohugo.io/>Hugo</a> and the cyber-clean <a href=https://github.com/jokobus/smidr>Smidr</a> theme. Whether you want to host your blog for free on GitHub Pages or deploy it automatically to a self-hosted server, this guide covers everything from initial setup to production publishing.</p><p>This is <strong>Part 1</strong> of our Hugo series:</p><ul><li><strong>Part 1 (This Guide):</strong> Setup, configuration, Smidr theme, leaf bundles, interactive widgets, and publishing.</li><li><strong>Part 2:</strong> <a href=/posts/hugo_github_workflow/>Deploy Hugo on your Homeserver via GitHub Actions</a> — zero-trust automated deployment behind Caddy without opening SSH ports.</li></ul><hr><h2 id=architecture-how-hugo-and-github-work-together>Architecture: How Hugo and GitHub Work Together</h2><p>A Hugo blog setup is clean and modular:</p><pre tabindex=0><code>[Local Desktop]
+   ├── Content (Markdown)
+   ├── Configuration (hugo.yaml)
+   └── Themes (Smidr via Git Submodule)
+         │
+         ├── (Local Preview: hugo server at localhost:1313)
+         │
+         ▼ (Git Push to Private Source Repo)
+[GitHub: hugo-source]
+         │
+         ▼ (GitHub Actions Build: hugo --minify)
+[Deployment Target]
+   ├── Option A: GitHub Pages (https://&lt;username&gt;.github.io)
+   └── Option B: Private Server / Raspberry Pi via Caddy
+</code></pre><ol><li><strong>Source Repository (<code>website</code> or <code>hugo-source</code>):</strong> Stores your Markdown drafts, images, configuration files, and theme submodules. This can be private to keep drafts and unpublished posts confidential.</li><li><strong>Compiled Static Output (<code>public/</code>):</strong> When Hugo runs, it compiles Markdown and layouts into blazing-fast, static HTML, CSS, and JavaScript.</li><li><strong>Deployment Target:</strong> Served either directly by <strong>GitHub Pages</strong> (free, public repository <code>&lt;username>.github.io</code>) or pulled down by your own <strong>Linux server</strong> using automated pipelines.</li></ol><hr><h2 id=prerequisites>Prerequisites</h2><p>Before beginning, install the required development tools for your platform.</p><h3 id=1-terminal>1. Terminal</h3><ul><li><strong>Windows:</strong> Use PowerShell 7+ rather than legacy Command Prompt (<code>cmd.exe</code>). You can install or update PowerShell via <code>winget</code>:<div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=line><span class=cl><span class=n>winget</span> <span class=n>install</span> <span class=n>-e</span> <span class=p>-</span><span class=n>-id</span> <span class=n>Microsoft</span><span class=p>.</span><span class=py>PowerShell</span>
+</span></span></code></pre></div></li><li><strong>Linux & macOS:</strong> Your default terminal (<code>bash</code> or <code>zsh</code>) works out of the box.</li></ul><h3 id=2-git--github>2. Git & GitHub</h3><p>You need a <a href=https://github.com>GitHub</a> account and Git installed locally:</p><ul><li><strong>Windows:</strong><div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=line><span class=cl><span class=n>winget</span> <span class=n>install</span> <span class=n>-e</span> <span class=p>-</span><span class=n>-id</span> <span class=n>Git</span><span class=p>.</span><span class=py>Git</span>
+</span></span></code></pre></div><em>(Optional: Install <a href=https://desktop.github.com/>GitHub Desktop</a> via <code>winget install -e --id GitHub.GitHubDesktop</code> if you prefer a graphical authentication helper).</em></li><li><strong>Linux (Debian/Ubuntu):</strong><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt update <span class=o>&amp;&amp;</span> sudo apt install git
+</span></span></code></pre></div></li><li><strong>macOS:</strong><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>brew install git
+</span></span></code></pre></div></li></ul><p>Authenticate your Git installation using an SSH key or GitHub CLI (<code>gh auth login</code>).</p><hr><h2 id=step-1-install-hugo-extended>Step 1: Install Hugo Extended</h2><div class="callout callout-tip" role=region aria-label="Hugo Extended Required"><div class=callout-icon aria-hidden=true>💡</div><div class=callout-body><div class=callout-title>Hugo Extended Required</div><div class=callout-content>The <strong>Extended</strong> edition of Hugo is strictly required for the <strong>Smidr</strong> theme because it uses Hugo&rsquo;s advanced asset pipeline for Sass/SCSS compilation, CSS minification, and fingerprinting.</div></div></div><ul><li><strong>Windows:</strong><div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=line><span class=cl><span class=n>winget</span> <span class=n>install</span> <span class=n>Hugo</span><span class=p>.</span><span class=py>Hugo</span><span class=p>.</span><span class=py>Extended</span>
+</span></span></code></pre></div></li><li><strong>macOS (Homebrew):</strong><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>brew install hugo
+</span></span></code></pre></div></li><li><strong>Linux:</strong>
+Download the latest extended <code>.deb</code> package or tarball from the <a href=https://github.com/gohugoio/hugo/releases>Hugo GitHub Releases</a> page:<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>hugo version
+</span></span></code></pre></div>Verify that the output displays <code>+extended</code> (e.g. <code>hugo v0.125.0+extended ...</code>).</li></ul><hr><h2 id=step-2-initialize-your-source-repository>Step 2: Initialize Your Source Repository</h2><p>Create your central repository to store your Markdown articles, configuration, and assets.</p><ol><li>On <a href=https://github.com>GitHub</a>, create a new private repository called <code>website</code> (or <code>hugo-source</code>).</li><li>Open your terminal, navigate to your development directory, and clone the empty repository:<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;C:/Projects&#34;</span> <span class=c1># or ~/Projects on Linux/macOS</span>
 </span></span><span class=line><span class=cl>git clone https://github.com/yourusername/website.git
-</span></span></code></pre></div><ol start=2><li>Create a new Hugo instance.</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> website
-</span></span><span class=line><span class=cl>hugo new site yourusername
-</span></span><span class=line><span class=cl><span class=nb>cd</span> yourusername
-</span></span></code></pre></div><p>Optional: To see all the folders that were created, type:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>ls
-</span></span></code></pre></div><p>Do you see a <strong>config.toml</strong> or <strong>hugo.toml</strong> file? This is the configuration file, where all the settings are stored. Later, we will modify it.</p><h3 id=public-repository>Public repository</h3><p>Now we clone the public <em>yourusername.github.io</em> repository and add it as a submodule. (<a href=https://gist.github.com/gitaarik/8735255>Here</a> is some unofficial, but good explanation what a submodule is. )</p><ol><li>Clone the public repository next to your private one, add a readme and push it to github</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;C:/path/to/where/you/want/to/store/your/website&#34;</span>
-</span></span><span class=line><span class=cl>git clone https://github.com/yourusername/yourusername.github.io.git
-</span></span><span class=line><span class=cl><span class=nb>cd</span> yourusername.github.io
-</span></span><span class=line><span class=cl>git checkout -b main
-</span></span><span class=line><span class=cl>notepad Readme.md
-</span></span></code></pre></div><p>Add a short description like &ldquo;This is the public content for my Hugo website. " to the Readme file.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git add -A
-</span></span><span class=line><span class=cl>git commit -m <span class=s2>&#34;First commit to add Readme. &#34;</span>
-</span></span></code></pre></div><ol start=2><li>Switch back into your private repository</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> ../
-</span></span><span class=line><span class=cl><span class=nb>cd</span> website/yourusername
-</span></span></code></pre></div><p>and add a submodule.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git submodule add -b main https://github.com/yourusername/yourusername.github.io.git public
-</span></span></code></pre></div><ol start=3><li>Check that everything worked by:</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> public
-</span></span><span class=line><span class=cl>ls
-</span></span></code></pre></div><p>You should see a file called <em>Readme.md</em> and if you open it with</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>notepad Readme.md
-</span></span></code></pre></div><p>you will find exactly the text you wrote in the <em>Readme.md</em> file a few lines above.</p><h2 id=step-3-install-theme>Step 3: Install theme</h2><p>We use the <a href=https://github.com/tomowang/hugo-theme-tailwind>Tailwind theme</a>, but you can pick whichever you want. There is an <a href=https://themes.gohugo.io/>extensive list</a> of free themes on the hugo website.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;C:/path/to/where/you/want/to/store/your/website/website/yourusername&#34;</span>
-</span></span><span class=line><span class=cl>git submodule add https://github.com/tomowang/hugo-theme-tailwind.git themes/tailwind
-</span></span></code></pre></div><p>You can always update the theme by:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git submodule update --remote
-</span></span></code></pre></div><h2 id=step-4-adjust-to-your-needs>Step 4: Adjust to your needs</h2><p>First, we open the <em>config.toml</em> file and paste some prebuilt configuration.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>Start-process config.toml
-</span></span></code></pre></div><p>Paste the following text (originally from <a href=https://github.com/tomowang/hugo-theme-tailwind>tailwind</a> and extended by me). Play around with it and adjust to your needs.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=line><span class=cl><span class=nx>baseURL</span> <span class=p>=</span> <span class=s1>&#39;https://yourusername.github.io&#39;</span>
-</span></span><span class=line><span class=cl><span class=nx>title</span> <span class=p>=</span> <span class=s1>&#39;My website&#39;</span>
-</span></span><span class=line><span class=cl><span class=nx>subtitle</span> <span class=p>=</span><span class=s2>&#34;A Blog about random topics. &#34;</span>
-</span></span><span class=line><span class=cl><span class=nx>author</span> <span class=p>=</span> <span class=s2>&#34;Your Name&#34;</span>
-</span></span><span class=line><span class=cl><span class=nx>enableInlineShortcodes</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl><span class=nx>theme</span> <span class=p>=</span> <span class=s2>&#34;tailwind&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> website
+</span></span></code></pre></div></li><li>Initialize a new Hugo site inside the directory:<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>hugo new site . --force
+</span></span></code></pre></div><em>Note: Using <code>.</code> creates the Hugo directory structure directly inside your cloned git repository.</em></li></ol><hr><h2 id=step-3-install-the-smidr-theme>Step 3: Install the Smidr Theme</h2><p><a href=https://github.com/jokobus/smidr>Smidr</a> is a cyber-clean, dark-aesthetic Hugo theme designed for engineers, researchers, and developers. Key features include:</p><ul><li><strong>In-Browser Interactive Code Execution:</strong> Execute Python and JavaScript directly in the browser using WebAssembly (Pyodide).</li><li><strong>Bilingual / Multilingual Ready:</strong> Side-by-side language switching (<code>.en.md</code> and <code>.de.md</code>).</li><li><strong>LaTeX / KaTeX Mathematics:</strong> Blazing fast rendering for equations (
+$$E=mc^2$$).</li><li><strong>Dynamic Sidebar Filter & Search:</strong> Multi-checkbox taxonomy filters with <code>AND</code>/<code>OR</code> match modes, instant sorting, and <code>Cmd+K</code> / <code>Ctrl+K</code> modal search.</li><li><strong>RSS Feeds with Beautiful XSLT Stylesheets:</strong> Clean, readable feeds for browsers and feed readers.</li></ul><p>Install Smidr as a Git submodule so you can easily pull upstream updates:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git submodule add https://github.com/jokobus/smidr.git themes/smidr
+</span></span></code></pre></div><p>To update the theme in the future:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git submodule update --remote --merge
+</span></span></code></pre></div><hr><h2 id=step-4-configure-hugo-and-smidr>Step 4: Configure Hugo and Smidr</h2><p>Hugo supports both single-file configurations (<code>hugo.yaml</code>) and modular directory configurations (<code>config/_default/</code>). We recommend the modern, clean <code>hugo.yaml</code> format.</p><p>Create or update <code>hugo.yaml</code> in your project root (or inside <code>config/_default/hugo.yaml</code>):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>baseURL</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;https://yourusername.github.io/&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;My Tech Logbook&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>theme</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;smidr&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>defaultContentLanguage</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;en&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>enableRobotsTXT</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># Multi-output formats (required for Smidr fuzzy search &amp; RSS)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>outputs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>home</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>HTML</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>RSS</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>JSON</span><span class=w> </span><span class=c># Powers client-side Ctrl+K search</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>page</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>HTML</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>section</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>HTML</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>RSS</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>taxonomy</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>HTML</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>term</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>HTML</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># Taxonomies</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>taxonomies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>category</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;categories&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>tag</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;tags&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>archive</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;archives&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># Multilingual Configuration</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>languages</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>en</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>label</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;English&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>locale</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;en-US&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;My Tech Logbook&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>menus</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>main</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Home&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;home&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Blog&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;posts&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/posts/&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>20</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;About&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;about&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/about/&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>30</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Contact&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;contact&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/contact/&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>40</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>de</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>label</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Deutsch&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>locale</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;de-DE&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Mein Tech Logbuch&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>menus</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>main</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Start&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;home&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Blog&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;posts&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/posts/&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>20</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Über mich&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;about&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/about/&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>30</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Kontakt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;contact&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/contact/&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>40</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># Goldmark Markdown &amp; KaTeX Math Parser</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>markup</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>goldmark</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>renderer</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>unsafe</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>extensions</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>passthrough</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>enable</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>delimiters</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>block</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span>- <span class=p>[</span><span class=s1>&#39;\[&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;\]&#39;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span>- <span class=p>[</span><span class=s1>&#39;$$&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;$$&#39;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>inline</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span>- <span class=p>[</span><span class=s1>&#39;\(&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;\)&#39;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span>- <span class=p>[</span><span class=s1>&#39;$&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;$&#39;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>highlight</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>noClasses</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>style</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;dracula&#34;</span><span class=w>
+</span></span></span></code></pre></div><h3 id=theme-parameters-paramsyaml>Theme Parameters (<code>params.yaml</code>)</h3><p>Place these parameters in <code>config/_default/params.yaml</code> (or under <code>params:</code> in your <code>hugo.yaml</code>):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>author</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Your Name&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>email</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;hello@example.com&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>subtitle</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Robotics, Machine Learning &amp; Engineering&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;A fast, cyber-clean logbook powered by Hugo and Smidr.&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>since</span><span class=p>:</span><span class=w> </span><span class=m>2024</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># Features</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>math</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>showReadingTime</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>social</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>github</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;yourusername&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>social_media</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>items</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;GitHub&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>link</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;https://github.com/yourusername&#34;</span><span class=w>
+</span></span></span></code></pre></div><h3 id=configure-the-default-post-archetype>Configure the Default Post Archetype</h3><p>To ensure every new post automatically has the correct metadata, edit <code>archetypes/default.md</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=nn>---</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ replace .File.ContentBaseName &#34;</span>-<span class=s2>&#34; &#34;</span><span class=w> </span><span class=s2>&#34; | title }}&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>translationKey</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ replace .File.ContentBaseName &#34;</span>-<span class=s2>&#34; &#34;</span><span class=w> </span><span class=s2>&#34; | title | lower }}&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Your Name&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>date</span><span class=p>:</span><span class=w> </span>{{<span class=w> </span><span class=l>.Date }}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>archives</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;{{ dateFormat &#34;</span><span class=m>2006-01</span><span class=s2>&#34; .Date }}&#34;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>categories</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;Guide&#34;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>tags</span><span class=p>:</span><span class=w> </span><span class=p>[]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>draft</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>toc</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nn>---</span><span class=w>
+</span></span></span></code></pre></div><hr><h2 id=step-5-content-organization-with-multilingual-leaf-bundles>Step 5: Content Organization with Multilingual Leaf Bundles</h2><p>The cleanest and most robust way to organize blog articles in Hugo is using <strong>Leaf Bundles</strong>. Instead of maintaining disjointed <code>content/en/</code> and <code>content/de/</code> trees, keep each post&rsquo;s language files and assets together in a single folder:</p><pre tabindex=0><code>content/
+├── about.en.md
+├── about.de.md
+├── contact.en.md
+├── contact.de.md
+└── posts/
+    └── my-first-post/
+        ├── index.en.md       &lt;-- English version
+        ├── index.de.md       &lt;-- German version
+        └── images/           &lt;-- Post-specific diagrams &amp; assets
+            └── architecture.svg
+</code></pre><h3 id=1-create-a-new-post-bundle>1. Create a New Post Bundle</h3><p>Run the Hugo CLI to generate the bundle:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>hugo new posts/my-first-post/index.en.md
+</span></span></code></pre></div><h3 id=2-add-multilingual-support>2. Add Multilingual Support</h3><p>To offer the article in German, duplicate <code>index.en.md</code> as <code>index.de.md</code> in the exact same directory:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cp content/posts/my-first-post/index.en.md content/posts/my-first-post/index.de.md
+</span></span></code></pre></div><p>Open <code>index.de.md</code>, translate the content, and ensure both files share the <strong>exact same <code>translationKey</code></strong>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=nn>---</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Mein erster Beitrag&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>translationKey</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;my-first-post&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nn>...</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nn>---</span><span class=w>
+</span></span></span></code></pre></div><p>Hugo and Smidr will automatically link the two versions, enabling the instant language switcher in the header!</p><hr><h2 id=step-6-supercharge-posts-with-smidr-shortcodes>Step 6: Supercharge Posts with Smidr Shortcodes</h2><p>Smidr includes built-in interactive components designed for technical articles:</p><h3 id=1-in-browser-python--wasm-code-runner>1. In-Browser Python / WASM Code Runner</h3><p>Allow readers to run and experiment with Python code right in their browser without installing anything:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>{{&lt; code-runner lang=&#34;python&#34; title=&#34;Interactive Matrix Multiplication&#34; &gt;}}
+</span></span><span class=line><span class=cl>import numpy as np
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c># Enables the robots.txt file, default is to allow all crawling, see step 8 on how to modify it. </span>
-</span></span><span class=line><span class=cl><span class=nx>enableRobotsTXT</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>A = np.array([[1, 2], [3, 4]])
+</span></span><span class=line><span class=cl>B = np.array([[5, 6], [7, 8]])
+</span></span><span class=line><span class=cl>C = np.dot(A, B)
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c># Please enable this feature if the site is available in Japanese, Chinese or Korean.</span>
-</span></span><span class=line><span class=cl><span class=c>#hasCJKLanguage = true</span>
+</span></span><span class=line><span class=cl>print(&#34;Matrix Multiplication Result:&#34;)
+</span></span><span class=line><span class=cl>print(C)
+</span></span><span class=line><span class=cl>{{&lt; /code-runner &gt;}}
+</span></span></code></pre></div><h3 id=2-cyber-callouts--alerts>2. Cyber Callouts & Alerts</h3><p>Highlight key insights or warnings using styled alert boxes:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>{{&lt; alert type=&#34;tip&#34; title=&#34;Pro Tip&#34; &gt;}}
+</span></span><span class=line><span class=cl>Run <span class=sb>`hugo server -D`</span> to preview draft posts locally before pushing to production.
+</span></span><span class=line><span class=cl>{{&lt; /alert &gt;}}
+</span></span></code></pre></div><p>Supported alert types: <code>info</code>, <code>tip</code>, <code>warning</code>, <code>caution</code>, <code>robotics</code>.</p><h3 id=3-mathematical-typesetting-katex>3. Mathematical Typesetting (KaTeX)</h3><p>Write LaTeX math directly in your Markdown using <code>$$</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>$$
+</span></span><span class=line><span class=cl>f(x) = \frac{1}{1 + e^{-x}}
+</span></span><span class=line><span class=cl>$$
+</span></span></code></pre></div><hr><h2 id=step-7-preview-locally>Step 7: Preview Locally</h2><p>Start Hugo&rsquo;s local development server to preview your site with instant live reloading:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>hugo server -D
+</span></span></code></pre></div><p>Open <code>http://localhost:1313/</code> in your browser. Every time you save an edit in your editor, the page reloads automatically in milliseconds.</p><hr><h2 id=step-8-publishing-your-blog>Step 8: Publishing Your Blog</h2><p>There are two primary ways to publish your site:</p><h3 id=method-a-automated-github-actions-cicd-recommended>Method A: Automated GitHub Actions CI/CD (Recommended)</h3><p>Instead of compiling HTML manually on your machine, let GitHub Actions compile and publish your site automatically whenever you push Markdown.</p><ol><li>On GitHub, create a public repository named <code>yourusername.github.io</code>.</li><li>Generate a Fine-Grained Personal Access Token with read/write permissions for <code>yourusername.github.io</code>.</li><li>Add the token to your private <code>website</code> repository secrets as <code>PUBLIC_REPO_TOKEN</code>.</li><li>Add the following workflow to <code>.github/workflows/deploy.yml</code> in your source repo:</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Deploy Hugo Site</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>push</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>branches</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>jobs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>build-and-deploy</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>runs-on</span><span class=p>:</span><span class=w> </span><span class=l>ubuntu-latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>steps</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Checkout Source &amp; Themes</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>actions/checkout@v4</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>submodules</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>fetch-depth</span><span class=p>:</span><span class=w> </span><span class=m>0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Setup Hugo Extended</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>peaceiris/actions-hugo@v3</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>hugo-version</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;latest&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>extended</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Build Minified Site</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>run</span><span class=p>:</span><span class=w> </span><span class=l>hugo --minify</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Push to GitHub Pages Repository</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>cpina/github-action-push-to-another-repository@main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>env</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>API_TOKEN_GITHUB</span><span class=p>:</span><span class=w> </span><span class=l>${{ secrets.PUBLIC_REPO_TOKEN }}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>source-directory</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;public&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>destination-github-username</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;yourusername&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>destination-repository-name</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;yourusername.github.io&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>user-email</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;hello@example.com&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>target-branch</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;main&#39;</span><span class=w>
+</span></span></span></code></pre></div><p>Every <code>git push</code> to your source repository will now automatically compile and deploy your site in under 60 seconds!</p><hr><h3 id=method-b-local-helper-script-manual-publishing>Method B: Local Helper Script (Manual Publishing)</h3><p>If you prefer building locally and pushing to GitHub Pages manually, use a helper script to automate the build and commit steps:</p><h4 id=powershell-helper-gitcommitps1-for-windows>PowerShell Helper (<code>gitcommit.ps1</code> for Windows):</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-powershell data-lang=powershell><span class=line><span class=cl><span class=nv>$message</span> <span class=p>=</span> <span class=nb>Read-Host</span> <span class=s2>&#34;Enter Commit Message&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>([</span><span class=no>string</span><span class=p>]::</span><span class=n>IsNullOrWhiteSpace</span><span class=p>(</span><span class=nv>$message</span><span class=p>))</span> <span class=p>{</span> <span class=nv>$message</span> <span class=p>=</span> <span class=s2>&#34;Update blog content&#34;</span> <span class=p>}</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nx>jsonLD</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c># If you&#39;re using Google Analytics, you can enable this feature.</span>
-</span></span><span class=line><span class=cl><span class=c>#googleAnalytics = &#34;G-1234567890&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c># Disqus Comment System</span>
-</span></span><span class=line><span class=cl><span class=c>#disqusShortname = &#34;&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c>#Emoji support</span>
-</span></span><span class=line><span class=cl><span class=nx>enableEmoji</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c>#Paginate, how many sites before break </span>
-</span></span><span class=line><span class=cl><span class=nx>paginate</span><span class=p>=</span><span class=mi>50</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>markup</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>highlight</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=c># lineNos = true</span>
-</span></span><span class=line><span class=cl>    <span class=nx>noClasses</span> <span class=p>=</span> <span class=kc>false</span>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>.</span><span class=nx>renderer</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>      <span class=nx>unsafe</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>.</span><span class=nx>extensions</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>.</span><span class=nx>extensions</span><span class=p>.</span><span class=nx>cjk</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>        <span class=nx>enable</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>        <span class=nx>eastAsianLineBreaks</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>        <span class=nx>escapedSpace</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>      <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>.</span><span class=nx>extensions</span><span class=p>.</span><span class=nx>passthrough</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>        <span class=nx>enable</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>        <span class=p>[</span><span class=nx>markup</span><span class=p>.</span><span class=nx>goldmark</span><span class=p>.</span><span class=nx>extensions</span><span class=p>.</span><span class=nx>passthrough</span><span class=p>.</span><span class=nx>delimiters</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>          <span class=nx>block</span> <span class=p>=</span> <span class=p>[[</span><span class=s1>&#39;\[&#39;</span><span class=p>,</span> <span class=s1>&#39;\]&#39;</span><span class=p>],</span> <span class=p>[</span><span class=s1>&#39;$$&#39;</span><span class=p>,</span> <span class=s1>&#39;$$&#39;</span><span class=p>]]</span>
-</span></span><span class=line><span class=cl>          <span class=nx>inline</span> <span class=p>=</span> <span class=p>[[</span><span class=s1>&#39;\(&#39;</span><span class=p>,</span> <span class=s1>&#39;\)&#39;</span><span class=p>],</span> <span class=p>[</span><span class=s1>&#39;$&#39;</span><span class=p>,</span> <span class=s1>&#39;$&#39;</span><span class=p>]]</span>
-</span></span><span class=line><span class=cl>  
-</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>params</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c># Base color of the website.</span>
-</span></span><span class=line><span class=cl><span class=c># https://tailwindcss.com/docs/background-color</span>
-</span></span><span class=line><span class=cl><span class=nx>base_color</span> <span class=p>=</span> <span class=s2>&#34;bg-gray-800&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nx>subtitle</span> <span class=p>=</span> <span class=s2>&#34;A Blog about random topics&#34;</span>
-</span></span><span class=line><span class=cl><span class=c>#Site description</span>
-</span></span><span class=line><span class=cl><span class=nx>description</span> <span class=p>=</span> <span class=s2>&#34;My Website&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c>#Enable LaTeX math support</span>
-</span></span><span class=line><span class=cl><span class=nx>math</span><span class=p>=</span><span class=kc>true</span> <span class=c># this enables KaTeX, see https://katex.org/ for how to use it</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c># Number of tags to be displayed.</span>
-</span></span><span class=line><span class=cl><span class=nx>tagsLimit</span> <span class=p>=</span> <span class=mi>20</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c># Show or not to show the reading time</span>
-</span></span><span class=line><span class=cl><span class=nx>showReadingTime</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>author</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=nx>name</span> <span class=p>=</span> <span class=s2>&#34;Your Name&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=nx>email</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>header</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=nx>logo</span> <span class=p>=</span> <span class=s2>&#34;logo.jpg&#34;</span> <span class=c># Place logo.jpg in static folder</span>
-</span></span><span class=line><span class=cl>    <span class=nx>sticky</span> <span class=p>=</span> <span class=kc>false</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>footer</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=nx>since</span> <span class=p>=</span> <span class=mi>2024</span>
-</span></span><span class=line><span class=cl>    <span class=nx>poweredby</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>ad</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=c># Google AdSense</span>
-</span></span><span class=line><span class=cl>    <span class=c># ex. ca-pub-0000000000000000</span>
-</span></span><span class=line><span class=cl>    <span class=nx>googleAdSense</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=c># ex. 000000000</span>
-</span></span><span class=line><span class=cl>    <span class=nx>adslot</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=c># Placement of ads</span>
-</span></span><span class=line><span class=cl>    <span class=nx>postTop</span> <span class=p>=</span> <span class=kc>false</span>
-</span></span><span class=line><span class=cl>    <span class=nx>postBottom</span> <span class=p>=</span> <span class=kc>false</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>post</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=c># Show thumbnails</span>
-</span></span><span class=line><span class=cl>    <span class=nx>thumbnail</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=c># Disable the &#34;NO IMAGE&#34; image.</span>
-</span></span><span class=line><span class=cl>    <span class=nx>noimage</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=c># See the Tailwind CSS documentation to set it up.</span>
-</span></span><span class=line><span class=cl>    <span class=c># Recommended settings are h-32 to h-48.</span>
-</span></span><span class=line><span class=cl>    <span class=c># https://tailwindcss.com/docs/height</span>
-</span></span><span class=line><span class=cl>    <span class=nx>thumbnail_height</span> <span class=p>=</span> <span class=s2>&#34;lg:h-44&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=c># https://tailwindcss.com/docs/width</span>
-</span></span><span class=line><span class=cl>    <span class=nx>thumbnail_width</span> <span class=p>=</span> <span class=s2>&#34;lg:w-auto&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=c># Number of characters in description</span>
-</span></span><span class=line><span class=cl>    <span class=nx>description</span> <span class=p>=</span> <span class=s2>&#34;130&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>params</span><span class=p>.</span><span class=nx>widgets</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=c># Display widgets</span>
-</span></span><span class=line><span class=cl>    <span class=nx>display</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=c># Order of widgets to display</span>
-</span></span><span class=line><span class=cl>    <span class=nx>widgets</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;search&#34;</span><span class=p>,</span> <span class=s2>&#34;archive&#34;</span><span class=p>,</span> <span class=s2>&#34;category&#34;</span><span class=p>,</span> <span class=s2>&#34;tags&#34;</span><span class=p>,</span> <span class=s2>&#34;recent&#34;</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c># If you&#39;re using Yandex.Metrica, you can enable this feature.</span>
-</span></span><span class=line><span class=cl><span class=c>#[params.analytics.yandexmetrica]</span>
-</span></span><span class=line><span class=cl><span class=c>#    enabled = true</span>
-</span></span><span class=line><span class=cl><span class=c>#    tagNumber = &#39;&#39;</span>
-</span></span><span class=line><span class=cl>  <span class=p>[[</span><span class=nx>params</span><span class=p>.</span><span class=nx>social_media</span><span class=p>.</span><span class=nx>items</span><span class=p>]]</span>
-</span></span><span class=line><span class=cl>    <span class=nx>enabled</span> <span class=p>=</span> <span class=kc>false</span>
-</span></span><span class=line><span class=cl>    <span class=nx>title</span> <span class=p>=</span> <span class=s1>&#39;Github&#39;</span>
-</span></span><span class=line><span class=cl>    <span class=nx>icon</span> <span class=p>=</span> <span class=s1>&#39;brand-github&#39;</span>
-</span></span><span class=line><span class=cl>    <span class=nx>link</span> <span class=p>=</span> <span class=s1>&#39;https://github.com/yourusername&#39;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>languages</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>en</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=nx>contentDir</span> <span class=p>=</span> <span class=s1>&#39;content/en&#39;</span>
-</span></span><span class=line><span class=cl>    <span class=nx>languageCode</span> <span class=p>=</span> <span class=s1>&#39;en-US&#39;</span>
-</span></span><span class=line><span class=cl>    <span class=nx>languageName</span> <span class=p>=</span> <span class=s1>&#39;English&#39;</span>
-</span></span><span class=line><span class=cl>    <span class=nx>weight</span> <span class=p>=</span> <span class=mi>1</span>
-</span></span><span class=line><span class=cl>    <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>false</span>
-</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>en</span><span class=p>.</span><span class=nx>params</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>      <span class=nx>reading_speed</span> <span class=p>=</span> <span class=mi>228</span>
-</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>en</span><span class=p>.</span><span class=nx>menu</span><span class=p>.</span><span class=nx>main</span><span class=p>]]</span>
-</span></span><span class=line><span class=cl>      <span class=nx>identifier</span><span class=p>=</span><span class=s2>&#34;home&#34;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>name</span> <span class=p>=</span> <span class=s1>&#39;Home&#39;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>url</span> <span class=p>=</span> <span class=s1>&#39;/en&#39;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>weight</span> <span class=p>=</span> <span class=mi>1</span>
-</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>en</span><span class=p>.</span><span class=nx>menu</span><span class=p>.</span><span class=nx>main</span><span class=p>]]</span>
-</span></span><span class=line><span class=cl>      <span class=nx>identifier</span><span class=p>=</span><span class=s2>&#34;about&#34;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>name</span><span class=p>=</span><span class=s2>&#34;About&#34;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>url</span><span class=p>=</span><span class=s1>&#39;/about/&#39;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>weight</span> <span class=p>=</span> <span class=mi>2</span>
-</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>en</span><span class=p>.</span><span class=nx>menu</span><span class=p>.</span><span class=nx>main</span><span class=p>]]</span>
-</span></span><span class=line><span class=cl>      <span class=nx>identifier</span><span class=p>=</span><span class=s2>&#34;contact&#34;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>url</span><span class=p>=</span><span class=s1>&#39;/contact/&#39;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>name</span><span class=p>=</span><span class=s2>&#34;Contact&#34;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>weight</span> <span class=p>=</span> <span class=mi>3</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>de</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=nx>contentDir</span> <span class=p>=</span> <span class=s1>&#39;content/de&#39;</span>
-</span></span><span class=line><span class=cl>    <span class=nx>languageCode</span> <span class=p>=</span> <span class=s1>&#39;de-DE&#39;</span>
-</span></span><span class=line><span class=cl>    <span class=nx>languageName</span> <span class=p>=</span> <span class=s1>&#39;Deutsch&#39;</span> 
-</span></span><span class=line><span class=cl>    <span class=nx>weight</span> <span class=p>=</span> <span class=mi>2</span>
-</span></span><span class=line><span class=cl>    <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>false</span>
-</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>de</span><span class=p>.</span><span class=nx>params</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>      <span class=nx>reading_speed</span> <span class=p>=</span> <span class=mi>179</span>
-</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>de</span><span class=p>.</span><span class=nx>menu</span><span class=p>.</span><span class=nx>main</span><span class=p>]]</span>
-</span></span><span class=line><span class=cl>      <span class=nx>identifier</span><span class=p>=</span><span class=s2>&#34;home&#34;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>name</span> <span class=p>=</span> <span class=s1>&#39;Start&#39;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>url</span><span class=p>=</span><span class=s1>&#39;/de&#39;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>weight</span> <span class=p>=</span> <span class=mi>1</span>
-</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>de</span><span class=p>.</span><span class=nx>menu</span><span class=p>.</span><span class=nx>main</span><span class=p>]]</span>
-</span></span><span class=line><span class=cl>      <span class=nx>identifier</span><span class=p>=</span><span class=s2>&#34;about&#34;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>name</span><span class=p>=</span><span class=s2>&#34;Über mich&#34;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>url</span><span class=p>=</span><span class=s1>&#39;/de/ueber/&#39;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>weight</span> <span class=p>=</span> <span class=mi>2</span>
-</span></span><span class=line><span class=cl>    <span class=p>[[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>de</span><span class=p>.</span><span class=nx>menu</span><span class=p>.</span><span class=nx>main</span><span class=p>]]</span>
-</span></span><span class=line><span class=cl>      <span class=nx>identifier</span><span class=p>=</span><span class=s2>&#34;contact&#34;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>name</span><span class=p>=</span><span class=s2>&#34;Kontakt&#34;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>url</span><span class=p>=</span><span class=s1>&#39;/de/kontakt/&#39;</span>
-</span></span><span class=line><span class=cl>      <span class=nx>weight</span> <span class=p>=</span> <span class=mi>3</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>taxonomies</span><span class=p>]</span>
-</span></span><span class=line><span class=cl><span class=nx>category</span> <span class=p>=</span> <span class=s2>&#34;categories&#34;</span>
-</span></span><span class=line><span class=cl><span class=nx>tag</span> <span class=p>=</span> <span class=s2>&#34;tags&#34;</span>
-</span></span><span class=line><span class=cl><span class=nx>archive</span> <span class=p>=</span> <span class=s2>&#34;archives&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>privacy</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>privacy</span><span class=p>.</span><span class=nx>vimeo</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>false</span>
-</span></span><span class=line><span class=cl>    <span class=nx>simple</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>privacy</span><span class=p>.</span><span class=nx>twitter</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>false</span>
-</span></span><span class=line><span class=cl>    <span class=nx>enableDNT</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>    <span class=nx>simple</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>privacy</span><span class=p>.</span><span class=nx>instagram</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>false</span>
-</span></span><span class=line><span class=cl>    <span class=nx>simple</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>privacy</span><span class=p>.</span><span class=nx>youtube</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=nx>disabled</span> <span class=p>=</span> <span class=kc>false</span>
-</span></span><span class=line><span class=cl>    <span class=nx>privacyEnhanced</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>services</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>services</span><span class=p>.</span><span class=nx>instagram</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=nx>disableInlineCSS</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>services</span><span class=p>.</span><span class=nx>twitter</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>    <span class=nx>disableInlineCSS</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>sitemap</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>  <span class=nx>changefreq</span> <span class=p>=</span> <span class=s2>&#34;weekly&#34;</span>
-</span></span><span class=line><span class=cl>  <span class=nx>priority</span> <span class=p>=</span> <span class=mf>0.5</span>
-</span></span></code></pre></div><p>Also, it is a good idea to personalize the default post header. This is the header that will be created by default each time you create a new post.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>Start-process /archetypes/default.md
-</span></span></code></pre></div><p>Replace the code in the file by the following code:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=line><span class=cl><span class=err>+++</span>
-</span></span><span class=line><span class=cl><span class=nx>title</span> <span class=p>=</span> <span class=s1>&#39;{{ replace .File.ContentBaseName &#34;-&#34; &#34; &#34; | title}}&#39;</span>
-</span></span><span class=line><span class=cl><span class=nx>description</span> <span class=p>=</span> <span class=s2>&#34;&#34;</span>
-</span></span><span class=line><span class=cl><span class=nx>translationKey</span> <span class=p>=</span> <span class=s1>&#39;{{ replace .File.ContentBaseName &#34;-&#34; &#34; &#34; | title | lower}}&#39;</span>
-</span></span><span class=line><span class=cl><span class=nx>author</span> <span class=p>=</span> <span class=s2>&#34;Your Name&#34;</span>
-</span></span><span class=line><span class=cl><span class=nx>date</span> <span class=p>=</span> <span class=p>{{</span> <span class=p>.</span><span class=nx>Date</span> <span class=p>}}</span>
-</span></span><span class=line><span class=cl><span class=nx>archives</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;{{ dateFormat &#34;</span><span class=mi>2006-01</span><span class=s2>&#34; .Date }}&#34;</span><span class=p>]</span>
-</span></span><span class=line><span class=cl><span class=nx>tags</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;&#34;</span><span class=p>,</span> <span class=s2>&#34;&#34;</span><span class=p>]</span>
-</span></span><span class=line><span class=cl><span class=nx>draft</span> <span class=p>=</span> <span class=kc>false</span>
-</span></span><span class=line><span class=cl><span class=nx>toc</span> <span class=p>=</span> <span class=kc>true</span>
-</span></span><span class=line><span class=cl><span class=err>+++</span>
-</span></span></code></pre></div><h2 id=addcontent>Step 5: Add content</h2><p>To add content in markdown format you have to do the following:</p><ol><li>Create a new blog entry via<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>hugo new /en/posts/yourpostname.md
-</span></span></code></pre></div>or<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>hugo new /en/posts/yourpostname/index.md
-</span></span></code></pre></div>both methods work the same, but in the second variant you can also store images inside the <em>/yourpostname/</em> folder.</li><li>Use your favourite text editor to open the newly created markdown file and add content. You may look at some examples in <em>/themes/tailwind/exampleSite/content/</em> and read <a href=https://www.markdownguide.org/basic-syntax/>this useful guide</a> about the Markdown syntax. All the content is written in the simple Markdown format.</li></ol><h3 id=multilanguage-support>Multilanguage support</h3><p>Tailwind supports a blog with multiple languages. That&rsquo;s a really nice feature. The code for the <em>config.toml</em> file I provided makes your website ready for multiple languages (in this case english and german, but you can simply add another language).</p><p>The important step is, to store two .md files in the <strong>correct directories</strong> with the <strong>same translation key</strong> in their headers.</p><p>The following graphic shows the most important parts of the file-tree inside your <em>website</em> repository.</p><pre tabindex=0><code>├── yourusername
-    ├── archetypes
-    ├── assets
-    ├── content
-        ├── de 
-            ├── posts
-                ├── Hunde
-                    ├── images
-                    └── index.md
-                ├── Meerschweinchen
-                    └── index.md
-                └── Katzen.md
-            ├── uebermich.md
-            └── kontakt.md
-        └── en
-            ├── posts
-                ├── dogs
-                    ├── images
-                    └── index.md
-                ├── guineapigs
-                    └── index.md
-                └── cats.md
-            ├── about.md
-            └── contact.md
-    ├── data
-    ├── i18n
-    ├── layouts
-    ├── node_modules
-    ├── public
-    ├── resources
-    ├── static
-    ├── themes
-        └── tailwind
-    ├── gitcommit.ps1
-    …
-    └── config.toml
-├── .gitattributes
-├── .gitmodules
-└── README.md
-</code></pre><p>A few general words:</p><ul><li><strong>public</strong> In this folder all the html and other public stuff Hugo creates is stored. Only this folder needs to be public.</li><li><strong>config.toml</strong> This is your configuraton file (you could also rename it to <em>hugo.toml</em> if you want)</li><li><strong>themes</strong> this is where you clone your themes to</li></ul><p>Now, about the multilanguage support: Ultimately we want to have two different posts with the same content, but one in english and one in german. The user can toggle on the website, which article he wants to see.</p><p>To achive this, everything is already prepared for you.</p><ol><li>Create a new article as you did in <a href=/posts/#addcontent>Step 5</a></li><li>Write some english content</li><li>copy <em>index.md</em> from /en/posts/yourpostname/index.md to /de/posts/yourpostname/index.md, open the file and translate it to german.</li><li>Make sure that the headers of both <em>index.md</em> files have the identical value for <em>translationKey=</em> in their headers (e.g. both have <em>translationKey=&ldquo;guineapig&rdquo;</em>)</li></ol><h2 id=step-6-push-to-github>Step 6: Push to github</h2><p>In this step, we finally get to the point where you can see the result. All you need for this is:</p><ol><li>commit the private code to the <em>website</em> repository</li><li>Build the public content in ./public subdirectory</li><li>commit the public code to the <em>yourusername.github.io</em> repository</li><li>open <a href=https://yourusername.github.io>https://yourusername.github.io</a> in your browser</li></ol><p>To do so we have to execute the following code in our terminal (on Windows use Powershell rather than cmd):</p><p>First we have to go to into our <em>website</em> repository</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;C:/path/to/hugo/website/repository&#34;</span>
-</span></span></code></pre></div><ol><li>commit the private code to the <em>website</em> repository</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git add -A
-</span></span><span class=line><span class=cl>git commit -m <span class=s2>&#34;Some message&#34;</span>
-</span></span><span class=line><span class=cl>git push origin main
-</span></span></code></pre></div><ol start=2><li>Build the public content in ./public subdirectory</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>hugo -t tailwind
-</span></span><span class=line><span class=cl><span class=nb>cd</span> public
-</span></span></code></pre></div><ol start=3><li>commit the public code to the <em>yourusername.github.io</em> repository</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>git add -A
-</span></span><span class=line><span class=cl>git commit -m <span class=s2>&#34;Some message&#34;</span>
-</span></span><span class=line><span class=cl>git push origin main
-</span></span></code></pre></div><ol start=4><li>open <a href=https://yourusername.github.io>https://yourusername.github.io</a> in your browser</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>Start-Process <span class=s2>&#34;https://yourusername.github.io&#34;</span>
-</span></span></code></pre></div><h2 id=step-7-automate-github-interaction-with-script>Step 7: Automate github interaction with script</h2><p>This is way too much work! We don&rsquo;t want to type half a dozen lines for just pushing our code to github. Therefore I wrote a little file that does the job for us. Disclaimer: The translation from batch to ps1 and bash was done by ChatGPT.</p><p>Note, that I built the files in a way that I can easily switch between different themes, in case I ever wish to do so. If you don&rsquo;t want to use that, feel free to remove the unncessary code. Also, when the script asks for the theme name, it only takes the first character of your input. If you have two themes with the same first character, you have to modify the line that starts with <em>for /f &ldquo;delims="…</em>.</p><h3 id=windows-batch-file-not-recommended>Windows Batch file (not recommended)</h3><p>Create a new file called <em>gitcommit.bat</em> in your <em>website</em> repository and paste the following lines. Edit the <em>pathtowebsite</em>-Variable in line 3.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-batch data-lang=batch><span class=line><span class=cl><span class=p>@</span><span class=k>echo</span> off
-</span></span><span class=line><span class=cl><span class=k>title</span> Commit Hugo Webpage to Github
-</span></span><span class=line><span class=cl><span class=k>set</span> <span class=nv>pathtowebsite </span><span class=p>=</span> <span class=s2>&#34;C:/path/to/my/website&#34;</span>
-</span></span><span class=line><span class=cl><span class=k>cd</span> pathtowebsite
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>set</span> <span class=k>/p</span> <span class=nv>message</span><span class=p>=</span><span class=s2>&#34;Enter Comment Message: &#34;</span>
-</span></span><span class=line><span class=cl><span class=k>set</span> <span class=k>/p</span> <span class=nv>theme</span><span class=p>=</span><span class=s2>&#34;Enter Theme Name : Tailwind (default) or Blonde: &#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>echo</span> --- website Repository ---
-</span></span><span class=line><span class=cl>git add -A
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=s2>&#34;</span><span class=nv>%message%</span><span class=s2>&#34;</span><span class=o>==</span><span class=s2>&#34;&#34;</span> <span class=p>(</span>
-</span></span><span class=line><span class=cl>    <span class=k>echo</span> No message, committing changes without comment.
-</span></span><span class=line><span class=cl>    git commit
-</span></span><span class=line><span class=cl><span class=p>)</span> <span class=k>else</span> <span class=p>(</span>
-</span></span><span class=line><span class=cl>    git commit -m <span class=s2>&#34;</span><span class=nv>%message%</span><span class=s2>&#34;</span>
-</span></span><span class=line><span class=cl><span class=p>)</span>
-</span></span><span class=line><span class=cl>git push origin
-</span></span><span class=line><span class=cl><span class=k>echo</span> Total code was successfully pushed to private repository. 
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>echo</span> --- public Repository ---
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=s2>&#34;</span><span class=nv>%theme%</span><span class=s2>&#34;</span><span class=o>==</span><span class=s2>&#34;&#34;</span> <span class=p>(</span>
-</span></span><span class=line><span class=cl><span class=k>echo</span> Theme Name cannot be empty, using default Tailwind
-</span></span><span class=line><span class=cl><span class=k>set</span> <span class=nv>theme </span><span class=p>=</span> Tailwind
-</span></span><span class=line><span class=cl><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1>REM Convert theme to lowercase and get the first character</span>
-</span></span><span class=line><span class=cl><span class=k>for</span> <span class=k>/f</span> <span class=s2>&#34;delims=&#34;</span> <span class=se>%%</span>i <span class=k>in</span> <span class=p>(</span><span class=s1>&#39;echo </span><span class=nv>%theme%</span><span class=s1> ^| tr &#34;[A-Z]&#34; &#34;[a-z]&#34;&#39;</span><span class=p>)</span> <span class=k>do</span> <span class=k>set</span> <span class=nv>theme</span><span class=p>=</span><span class=se>%%</span>i
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>set</span> <span class=nv>theme</span><span class=p>=</span><span class=nv>%theme:~0,1%</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=s2>&#34;</span><span class=nv>%theme%</span><span class=s2>&#34;</span><span class=o>==</span><span class=s2>&#34;b&#34;</span> <span class=p>(</span>
-</span></span><span class=line><span class=cl>    hugo -t Blonde
-</span></span><span class=line><span class=cl><span class=p>)</span> <span class=k>else</span> <span class=p>(</span>
-</span></span><span class=line><span class=cl>    hugo -t tailwind
-</span></span><span class=line><span class=cl><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>cd</span> public
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>git add -A
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=s2>&#34;</span><span class=nv>%message%</span><span class=s2>&#34;</span><span class=o>==</span><span class=s2>&#34;&#34;</span> <span class=p>(</span>
-</span></span><span class=line><span class=cl>    <span class=k>echo</span> No message, committing changes without comment.
-</span></span><span class=line><span class=cl>    git commit
-</span></span><span class=line><span class=cl><span class=p>)</span> <span class=k>else</span> <span class=p>(</span>
-</span></span><span class=line><span class=cl>    git commit -m <span class=s2>&#34;</span><span class=nv>%message%</span><span class=s2>&#34;</span>
-</span></span><span class=line><span class=cl><span class=p>)</span>
-</span></span><span class=line><span class=cl>git push origin
-</span></span><span class=line><span class=cl><span class=k>echo</span> Public code successfully pushed. 
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>cd</span> pathtowebsite
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>echo</span> Job done, everything was pushed. 
-</span></span><span class=line><span class=cl><span class=k>exit</span>
-</span></span></code></pre></div><p>To commit your changes, type:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>.<span class=se>\g</span>itcommit.bat
-</span></span></code></pre></div><h3 id=windows-powershell-recommended>Windows Powershell (recommended)</h3><p>Create a new file called <em>gitcommit.ps1</em> file in your <em>website</em> repository and paste the following lines. Edit the <em>pathtowebsite</em>-Variable in line 1.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ps1 data-lang=ps1><span class=line><span class=cl><span class=nv>$pathtowebsite</span> <span class=p>=</span> <span class=s2>&#34;C:/path/to/my/website&#34;</span>
-</span></span><span class=line><span class=cl><span class=nb>Set-Location</span> <span class=n>-Path</span> <span class=nv>$pathtowebsite</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nv>$message</span> <span class=p>=</span> <span class=nb>Read-Host</span> <span class=s2>&#34;Enter Comment Message&#34;</span>
-</span></span><span class=line><span class=cl><span class=nv>$theme</span> <span class=p>=</span> <span class=nb>Read-Host</span> <span class=s2>&#34;Enter Theme Name : Tailwind (default) or Blonde&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;--- website Repository ---&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;--- 1. Pushing Source Repository ---&#34;</span> <span class=n>-ForegroundColor</span> <span class=n>Cyan</span>
 </span></span><span class=line><span class=cl><span class=n>git</span> <span class=n>add</span> <span class=n>-A</span>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>([</span><span class=no>string</span><span class=p>]::</span><span class=n>IsNullOrEmpty</span><span class=p>(</span><span class=nv>$message</span><span class=p>))</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nb>Write-Host</span> <span class=s2>&#34;No message, committing changes without comment.&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=n>git</span> <span class=n>commit</span>
-</span></span><span class=line><span class=cl><span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=n>git</span> <span class=n>commit</span> <span class=n>-m</span> <span class=nv>$message</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=n>git</span> <span class=n>push</span> <span class=n>origin</span>
-</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;Total code was successfully pushed to private repository.&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>git</span> <span class=n>commit</span> <span class=n>-m</span> <span class=nv>$message</span>
+</span></span><span class=line><span class=cl><span class=n>git</span> <span class=n>push</span> <span class=n>origin</span> <span class=n>main</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;--- public Repository ---&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;--- 2. Compiling Static Output ---&#34;</span> <span class=n>-ForegroundColor</span> <span class=n>Cyan</span>
+</span></span><span class=line><span class=cl><span class=n>hugo</span> <span class=p>-</span><span class=n>-minify</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c># Check if theme name is provided, otherwise use default</span>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>([</span><span class=no>string</span><span class=p>]::</span><span class=n>IsNullOrEmpty</span><span class=p>(</span><span class=nv>$theme</span><span class=p>))</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nb>Write-Host</span> <span class=s2>&#34;Theme Name cannot be empty, using default Tailwind&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=nv>$theme</span> <span class=p>=</span> <span class=s2>&#34;Tailwind&#34;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c># Convert theme to lowercase and get the first character</span>
-</span></span><span class=line><span class=cl><span class=nv>$theme</span> <span class=p>=</span> <span class=nv>$theme</span><span class=p>.</span><span class=py>ToLower</span><span class=p>()</span>
-</span></span><span class=line><span class=cl><span class=nv>$theme</span> <span class=p>=</span> <span class=nv>$theme</span><span class=p>.</span><span class=py>Substring</span><span class=p>(</span><span class=mf>0</span><span class=p>,</span> <span class=mf>1</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=nv>$theme</span> <span class=o>-eq</span> <span class=s2>&#34;b&#34;</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=n>hugo</span> <span class=n>-t</span> <span class=n>Blonde</span>
-</span></span><span class=line><span class=cl><span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=n>hugo</span> <span class=n>-t</span> <span class=n>tailwind</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;--- 3. Pushing Deployment Repository ---&#34;</span> <span class=n>-ForegroundColor</span> <span class=n>Cyan</span>
 </span></span><span class=line><span class=cl><span class=nb>Set-Location</span> <span class=n>-Path</span> <span class=s2>&#34;public&#34;</span>
-</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=n>git</span> <span class=n>add</span> <span class=n>-A</span>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>([</span><span class=no>string</span><span class=p>]::</span><span class=n>IsNullOrEmpty</span><span class=p>(</span><span class=nv>$message</span><span class=p>))</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nb>Write-Host</span> <span class=s2>&#34;No message, committing changes without comment.&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=n>git</span> <span class=n>commit</span> <span class=n>-m</span> <span class=s2>&#34;No comment provided&#34;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=n>git</span> <span class=n>commit</span> <span class=n>-m</span> <span class=nv>$message</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=n>git</span> <span class=n>push</span> <span class=n>origin</span>
-</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;Public code successfully pushed.&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>git</span> <span class=n>commit</span> <span class=n>-m</span> <span class=nv>$message</span>
+</span></span><span class=line><span class=cl><span class=n>git</span> <span class=n>push</span> <span class=n>origin</span> <span class=n>main</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nb>Set-Location</span> <span class=n>-Path</span> <span class=nv>$pathtowebsite</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;Job done, everything was pushed.&#34;</span>
-</span></span><span class=line><span class=cl><span class=n>exit</span>
-</span></span></code></pre></div><p>To commit your changes, type:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>.<span class=se>\g</span>itcommit.ps1
-</span></span></code></pre></div><p>or only</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>.<span class=se>\g</span>itcommit
-</span></span></code></pre></div><h3 id=linux-bash-file>Linux bash file</h3><p>Create a new file called <em>gitcommit.sh</em> in your <em>website</em> repository and paste the following lines. Edit the <em>pathtowebsite</em>-Variable in line 2.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/bin/bash
-</span></span></span><span class=line><span class=cl><span class=nv>pathtowebsite</span><span class=o>=</span><span class=s2>&#34;C:/path/to/my/website&#34;</span>
-</span></span><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;</span><span class=nv>$pathtowebsite</span><span class=s2>&#34;</span>
-</span></span><span class=line><span class=cl>git add -A
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nb>read</span> -p <span class=s2>&#34;Enter Comment Message: &#34;</span> message
-</span></span><span class=line><span class=cl><span class=nb>read</span> -p <span class=s2>&#34;Enter Theme Name : Tailwind (default) or Blonde: &#34;</span> theme
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;--- website Repository ---&#34;</span>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -z <span class=s2>&#34;</span><span class=nv>$message</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
-</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;No message, committing changes without comment.&#34;</span>
-</span></span><span class=line><span class=cl>    git commit -m <span class=s2>&#34;No comment provided&#34;</span>
-</span></span><span class=line><span class=cl><span class=k>else</span>
-</span></span><span class=line><span class=cl>    git commit -m <span class=s2>&#34;</span><span class=nv>$message</span><span class=s2>&#34;</span>
-</span></span><span class=line><span class=cl><span class=k>fi</span>
-</span></span><span class=line><span class=cl>git push origin
-</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Total code was successfully pushed to private repository.&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;--- public Repository ---&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -z <span class=s2>&#34;</span><span class=nv>$theme</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
-</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;Theme Name cannot be empty, using default Tailwind&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=nv>theme</span><span class=o>=</span><span class=s2>&#34;Tailwind&#34;</span>
-</span></span><span class=line><span class=cl><span class=k>fi</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Convert theme to lowercase and get the first character</span>
-</span></span><span class=line><span class=cl><span class=nv>theme</span><span class=o>=</span><span class=k>$(</span><span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$theme</span><span class=s2>&#34;</span> <span class=p>|</span> tr <span class=s1>&#39;[:upper:]&#39;</span> <span class=s1>&#39;[:lower:]&#39;</span><span class=k>)</span>
-</span></span><span class=line><span class=cl><span class=nv>theme</span><span class=o>=</span><span class=si>${</span><span class=nv>theme</span><span class=p>:</span><span class=nv>0</span><span class=p>:</span><span class=nv>1</span><span class=si>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$theme</span><span class=s2>&#34;</span> <span class=o>==</span> <span class=s2>&#34;b&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
-</span></span><span class=line><span class=cl>    hugo -t Blonde
-</span></span><span class=line><span class=cl><span class=k>else</span>
-</span></span><span class=line><span class=cl>    hugo -t tailwind
-</span></span><span class=line><span class=cl><span class=k>fi</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nb>cd</span> public
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>git add -A
-</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -z <span class=s2>&#34;</span><span class=nv>$message</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
-</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;No message, committing changes without comment.&#34;</span>
-</span></span><span class=line><span class=cl>    git commit
-</span></span><span class=line><span class=cl><span class=k>else</span>
-</span></span><span class=line><span class=cl>    git commit -m <span class=s2>&#34;</span><span class=nv>$message</span><span class=s2>&#34;</span>
-</span></span><span class=line><span class=cl><span class=k>fi</span>
-</span></span><span class=line><span class=cl>git push origin
-</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Public code successfully pushed.&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nb>cd</span> <span class=s2>&#34;</span><span class=nv>$pathtowebsite</span><span class=s2>&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Job done, everything was pushed.&#34;</span>
-</span></span><span class=line><span class=cl><span class=nb>exit</span> <span class=m>0</span>
-</span></span></code></pre></div><p>To commit your changes, type:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Bash data-lang=Bash><span class=line><span class=cl>./gitcommit.sh
-</span></span></code></pre></div><h2 id=step-8-search-engine-and-crawler-optimization-optional>Step 8: Search Engine and Crawler optimization (optional)</h2><h3 id=robotstxt>Robots.txt</h3><p>If you set &rsquo;enableRobotsTXT=true&rsquo; in hugo.toml, then Hugo automatically creates a &lsquo;robots.txt&rsquo; file with the content:</p><pre tabindex=0><code>User-agent: *
-</code></pre><p>This tells web-crawlers that it is okay, to crawl your data. <a href=https://en.wikipedia.org/wiki/Web_crawler>Wikipedia: What is a web-crawler?</a> If you don&rsquo;t want that (which I personally prefer, but that is your own mindset of course) then you can disallow all crawling by overwriting the default. To do so, create a file called &lsquo;robots.txt&rsquo; in the &rsquo;layouts&rsquo; folder in the private &lsquo;website&rsquo; repository. Paste</p><pre tabindex=0><code>User-agent: *
-Disallow: /
-</code></pre><p>to disallow all crawling or</p><pre tabindex=0><code>User-agent: *
-Disallow: /contact
-Disallow: /about
-Allow: /posts
-</code></pre><p>to allow only partial crawling. Modify it to your liking! For more information refer to the official <a href=https://gohugo.io/templates/robots/>Hugo Documentation</a></p><h3 id=search-engine-optimization-seo>Search Engine Optimization SEO</h3><p>You can generate a sitemap, which will help your website to be better found via Google. I already added the necessary section to &lsquo;hugo.toml&rsquo; file, so the sitemap is already created. What we now have to do is to tell Google about the sitemap. Therefore we use the Google Search Console.</p><ol><li>In your web-browser:</li><li>Open the Google Search Console <a href=https://search.google.com/search-console/about>https://search.google.com/search-console/about</a></li><li>Log in with your Google Account if not already done so</li><li>Select &lsquo;Add Property&rsquo;</li><li>In the pop-up type your url <a href=https://yourdomain.github.io>https://yourdomain.github.io</a> under &lsquo;URL-Prefix&rsquo; (<strong>not</strong> Domain)</li><li>Select HTML-Tag as your url-ownership verification method and copy the line</li><li>In your private &lsquo;website&rsquo; repository.</li><li>Open the file &rsquo;themes/tailwind/layouts/partials/head.html</li><li>Add the copied line at the top</li><li>Save your changes and push the website to github</li><li>Go back to the Google Search Console website</li><li>Click on the Finish button, now Google verifies that you have control over the url. If it didn&rsquo;t work right away, push the website once again to git and wait a minute or two. Then try again.</li><li>Click on the sitemap entry in the sidebar, fill the field behind &lsquo;yourusername.github.io/&rsquo; with &lsquo;sitemap.xml&rsquo;.</li></ol><p>That&rsquo;s it. Now feel free to play around with the Google Search Console.</p><h2 id=workflow>Workflow</h2><p>This is a short summary that describes all the steps you need to do each time you want to create and publish a new article.</p><ol><li><p>Open Powershell.</p></li><li><p>Use the <em>cd</em> command to move into your directory, where your website is stored.</p></li><li><p>Create a new content page (replace <em>yourpostname</em> with the actual title of your new post, but try to avoid blank spaces):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>hugo new posts/yourpostname/index.md
-</span></span></code></pre></div></li><li><p>Open index.md with your favourite text editor or IDE (e.g. Visual Studio Code) and write down your world-changing thoughts.</p></li><li><p>Optional: Copy the newly created /en/posts/yourpostname/index.md to /de/posts/yourpostname/index.md and translate the text to german. Make sure to have the same values for <em>translationKey</em>. If you are building a multilanguage webpage, I definitely recommend that you translate every blog entry. However, it is not technically required to do so.</p></li><li><p>To test that everything looks correct, execute the following in PowerShell:</p><ol><li>run the hugo server</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>hugo server
-</span></span></code></pre></div><p>or</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>hugo server --buildDrafts
-</span></span></code></pre></div><p>if you want all drafts to be compiled as well.</p><ol start=2><li>open <a href=#ZgotmplZ>localhost:1313/</a> in your browser. (Every time you update content, the change will instantly be shown on localhost. )</li></ol></li><li><p>If everything is looking good on localhost and you want to make the changes public, execute our script:</p><ul><li>Windows<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>./gitcommit.ps1
-</span></span></code></pre></div></li><li>Linux<div class=highlight><pre tabindex=0 class=chroma><code class=language-Bash data-lang=Bash><span class=line><span class=cl>./gitcommit.sh
-</span></span></code></pre></div></li></ul></li></ol><p>Your website should be available at <em>yourusername.github.io</em>.</p><h2 id=further-reading>Further reading</h2><p>I recommend reading through the <a href=https://hugo-theme-tailwind.tomo.dev/post/>demo page</a> of the tailwind theme. There you can find some nice guides on how to include images/videos, enable Emoji-Support 😎 and a Markdown Syntax Guide.</p><p>They also provide a guide about how to add add LaTeX-like support (called <a href=https://katex.org/>kaTeX</a>), however I recommend to follow the <a href=https://gohugo.io/content-management/mathematics/>official Hugo Math guide</a>. Handy tip: You can verify that you are using KaTeX (and not MathJax or nothing) in the developer tools of your internet browser. Open your website, press <code>F12</code> to go to the <em>Network</em>-tab, reload the page and you should see a <em>katex.min.css</em> and <em>katex.min.js</em> entry.</p><p>Also read <a href=https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site>this</a> guide if you wish your website to be available under a custom domain.</p><p><strong>Congratulations</strong>, that&rsquo;s it! Have fun with your Webpage.</p><h2 id=dependabot-alerts>Dependabot alerts</h2><p>After a while of running the Blog, I received Github Dependabot alerts, warning me about security issues with packages specified in the package-lock.json file. To solve those security issues you should definitely asap execute</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>npm update
-</span></span></code></pre></div><p>to update those dependencies. After a new add, commit and push to github via the gitcommit script the security alerts should be solved.</p></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--color-border);flex-wrap:wrap;gap:1rem"><div class=post-tags><a href=/tags/hugo class=tag-badge>#Hugo</a>
+</span></span><span class=line><span class=cl><span class=nb>Set-Location</span> <span class=n>-Path</span> <span class=s2>&#34;..&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>Write-Host</span> <span class=s2>&#34;Website successfully deployed!&#34;</span> <span class=n>-ForegroundColor</span> <span class=n>Green</span>
+</span></span></code></pre></div><hr><h2 id=step-9-crawlers-seo--rss-feeds>Step 9: Crawlers, SEO & RSS Feeds</h2><h3 id=1-robotstxt>1. Robots.txt</h3><p>When <code>enableRobotsTXT: true</code> is enabled in <code>hugo.yaml</code>, Hugo generates <code>robots.txt</code> automatically. If you want to block search engine web crawlers completely from indexing your site, create <code>layouts/robots.txt</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>User-agent: *
+</span></span><span class=line><span class=cl>Disallow: /
+</span></span></code></pre></div><h3 id=2-custom-rss-feed-with-smidr-xslt-styling>2. Custom RSS Feed with Smidr XSLT Styling</h3><p>Smidr includes a custom XML stylesheet for RSS feeds (<code>static/rss-style.xsl</code>). Browsers that open <code>/index.xml</code> will render a dark-styled cyber feed rather than an unformatted XML tree, giving your readers a clean RSS subscription experience.</p><hr><h2 id=next-steps-self-hosting-on-your-own-server>Next Steps: Self-Hosting on Your Own Server</h2><p>Want to host your Hugo blog on your own Raspberry Pi, VPS, or home server behind a reverse proxy without opening SSH port 22?</p><p>Proceed to <strong>Part 2</strong> of this guide:
+👉 <strong><a href=/posts/hugo_github_workflow/>Deploy Hugo on your Homeserver via GitHub Actions</a></strong></p></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--color-border);flex-wrap:wrap;gap:1rem"><div class=post-tags><a href=/tags/hugo class=tag-badge>#Hugo</a>
+<a href=/tags/smidr class=tag-badge>#Smidr</a>
 <a href=/tags/github-pages class=tag-badge>#GitHub Pages</a>
 <a href=/tags/web-development class=tag-badge>#Web Development</a></div><button onclick='navigator.clipboard.writeText(window.location.href),alert("Link copied to clipboard!")' class=code-copy-btn type=button style="padding:.4rem .8rem;font-size:.85rem">
 <span>🔗</span>
 <span>Copy link</span></button></div><section class=backlinks-section aria-label="Contextual Backlinks"><div class=backlinks-header-wrap><h3 class=backlinks-header><span class=backlink-icon>🔗</span>
-<span>Contextual Backlinks</span></h3><span class=backlink-count-badge>1 reference</span></div><div class=backlinks-grid><a href=/posts/hugo_github_workflow/ class=backlink-card aria-label="Reference in Deploy Hugo on your Homserver via GitHub Actions"><div class=backlink-top><span class=backlink-badge>Referenced in</span>
-<time class=backlink-date datetime=2026-06-04>04. Jun 2026</time></div><h4 class=backlink-title>Deploy Hugo on your Homserver via GitHub Actions</h4><p class=backlink-snippet>This guide covers how to deploy a Hugo website on your own Homserver via GitHub Actions and provides a …</p><div class=backlink-meta><span>⏱️ ~11 min read</span>
+<span>Contextual Backlinks</span></h3><span class=backlink-count-badge>1 reference</span></div><div class=backlinks-grid><a href=/posts/hugo_github_workflow/ class=backlink-card aria-label="Reference in Deploy Hugo on your Homeserver via GitHub Actions"><div class=backlink-top><span class=backlink-badge>Referenced in</span>
+<time class=backlink-date datetime=2024-06-28>28. Jun 2024</time></div><h4 class=backlink-title>Deploy Hugo on your Homeserver via GitHub Actions</h4><p class=backlink-snippet>A complete, secure workflow for deploying a Hugo website on your own Linux homeserver via GitHub Actions. Your …</p><div class=backlink-meta><span>⏱️ ~7 min read</span>
 <span class=backlink-arrow>&rarr;</span></div></a></div></section><section style=margin-top:3rem><h3 style=font-size:1.25rem;font-weight:700;margin-bottom:1rem;color:var(--color-text)>🕸️ Knowledge Graph</h3><div class=garden-graph-container aria-label="Knowledge Graph"><div class=garden-graph-header><div class=garden-title-wrap><span class=garden-graph-icon>🕸️</span>
 <strong>Knowledge Graph</strong>
-<span class=garden-stats-badge>5 nodes &bull; 5 edges</span></div><span class=meta-words style=font-size:.8rem;opacity:.8>Interactive map of interconnected concepts, posts, and tags</span></div><canvas class=garden-canvas></canvas>
-<script type=application/json class=garden-data>{"currentNodeId":"/posts/create_hugo_blog/","links":[{"source":"/posts/create_hugo_blog/","target":"tag:Hugo"},{"source":"tag:Hugo","target":"/posts/hugo_github_workflow/"},{"source":"/posts/create_hugo_blog/","target":"tag:GitHub Pages"},{"source":"/posts/create_hugo_blog/","target":"tag:Web Development"},{"source":"/posts/hugo_github_workflow/","target":"/posts/create_hugo_blog/"}],"nodes":[{"id":"/posts/create_hugo_blog/","isCurrent":true,"title":"How to create a blog with Hugo (full guide)","type":"post","url":"/posts/create_hugo_blog/"},{"id":"tag:Hugo","isCurrent":false,"title":"#Hugo","type":"tag","url":"/tags/hugo"},{"id":"/posts/hugo_github_workflow/","isCurrent":false,"title":"Deploy Hugo on your Homserver via GitHub Actions","type":"post","url":"/posts/hugo_github_workflow/"},{"id":"tag:GitHub Pages","isCurrent":false,"title":"#GitHub Pages","type":"tag","url":"/tags/github-pages"},{"id":"tag:Web Development","isCurrent":false,"title":"#Web Development","type":"tag","url":"/tags/web-development"}]}</script></div></section><nav style="display:flex;justify-content:space-between;gap:1rem;margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--color-border)" aria-label="Adjacent Posts"><a href=/posts/linear_regression/ class=backlink-card style=flex:1;text-align:left><span style=font-size:.75rem;text-transform:uppercase;color:var(--color-primary);font-family:var(--font-mono)>&larr; Previous Post</span><div style=font-weight:600;margin-top:.25rem>Linear Regression</div></a><a href=/posts/latex/includesvg/ class=backlink-card style=flex:1;text-align:right><span style=font-size:.75rem;text-transform:uppercase;color:var(--color-primary);font-family:var(--font-mono)>Next Post &rarr;</span><div style=font-weight:600;margin-top:.25rem>How to include Scalable Vector Graphics (svg) in $\LaTeX$</div></a></nav></article></div></main><footer class=site-footer role=contentinfo><div class=container-wide><div class=footer-grid><div class=footer-left><p class=footer-copyright>&copy;2024-2026
+<span class=garden-stats-badge>6 nodes &bull; 6 edges</span></div><span class=meta-words style=font-size:.8rem;opacity:.8>Interactive map of interconnected concepts, posts, and tags</span></div><canvas class=garden-canvas></canvas>
+<script type=application/json class=garden-data>{"currentNodeId":"/posts/create_hugo_blog/","links":[{"source":"/posts/create_hugo_blog/","target":"tag:Hugo"},{"source":"tag:Hugo","target":"/posts/hugo_github_workflow/"},{"source":"/posts/create_hugo_blog/","target":"tag:Smidr"},{"source":"/posts/create_hugo_blog/","target":"tag:GitHub Pages"},{"source":"/posts/create_hugo_blog/","target":"tag:Web Development"},{"source":"/posts/hugo_github_workflow/","target":"/posts/create_hugo_blog/"}],"nodes":[{"id":"/posts/create_hugo_blog/","isCurrent":true,"title":"How to Create a Blog with Hugo and Smidr (Full Guide)","type":"post","url":"/posts/create_hugo_blog/"},{"id":"tag:Hugo","isCurrent":false,"title":"#Hugo","type":"tag","url":"/tags/hugo"},{"id":"/posts/hugo_github_workflow/","isCurrent":false,"title":"Deploy Hugo on your Homeserver via GitHub Actions","type":"post","url":"/posts/hugo_github_workflow/"},{"id":"tag:Smidr","isCurrent":false,"title":"#Smidr","type":"tag","url":"/tags/smidr"},{"id":"tag:GitHub Pages","isCurrent":false,"title":"#GitHub Pages","type":"tag","url":"/tags/github-pages"},{"id":"tag:Web Development","isCurrent":false,"title":"#Web Development","type":"tag","url":"/tags/web-development"}]}</script></div></section><nav style="display:flex;justify-content:space-between;gap:1rem;margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--color-border)" aria-label="Adjacent Posts"><a href=/posts/linear_regression/ class=backlink-card style=flex:1;text-align:left><span style=font-size:.75rem;text-transform:uppercase;color:var(--color-primary);font-family:var(--font-mono)>&larr; Previous Post</span><div style=font-weight:600;margin-top:.25rem>Linear Regression</div></a><a href=/posts/hugo_github_workflow/ class=backlink-card style=flex:1;text-align:right><span style=font-size:.75rem;text-transform:uppercase;color:var(--color-primary);font-family:var(--font-mono)>Next Post &rarr;</span><div style=font-weight:600;margin-top:.25rem>Deploy Hugo on your Homeserver via GitHub Actions</div></a></nav></article></div></main><footer class=site-footer role=contentinfo><div class=container-wide><div class=footer-grid><div class=footer-left><p class=footer-copyright>&copy;2024-2026
 <strong>Jokobus</strong>.
 All rights reserved.</p><p class=footer-credits>Forged with <a href=https://github.com/jokobus/smidr target=_blank rel="noopener noreferrer" style=color:var(--color-primary);font-weight:600;text-decoration:underline;text-underline-offset:2px>Smidr</a> on <a href=https://gohugo.io target=_blank rel="noopener noreferrer" style=color:var(--color-primary);font-weight:600;text-decoration:underline;text-underline-offset:2px>Hugo</a></p></div><nav class=footer-right aria-label="Footer Navigation"><ul class=footer-links><li><a class=footer-link href=/imprint/>Imprint / Legal Notice</a></li><li><a class=footer-link href=/privacy/>Privacy Policy</a></li><li><a class=footer-link href=/index.xml>RSS Feed</a></li></ul></nav></div></div></footer><div id=command-palette class=command-palette-backdrop aria-hidden=true role=dialog aria-modal=true aria-label="Type a command or search posts..."><div class=command-palette-modal><div class=palette-input-wrap><span class=palette-input-icon>🔍</span>
 <input id=palette-search-input class=palette-input type=search placeholder="Type a command or search posts..." autocomplete=off spellcheck=false>
