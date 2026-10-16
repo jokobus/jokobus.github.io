@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background:#090d16; font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; border-radius: 12px; border: 1px solid #1e293b;">
+  
+  <defs>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff007a" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <linearGradient id="nodeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#090d16" />
+    </linearGradient>
+    <filter id="cyanGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00f0ff" flood-opacity="0.4"/>
+    </filter>
+    <filter id="pinkGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#ff007a" flood-opacity="0.4"/>
+    </filter>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+    
+    <marker id="arrowCyan" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00f0ff" />
+    </marker>
+    <marker id="arrowPink" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff007a" />
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#38bdf8" />
+    </marker>
+    <marker id="arrowMuted" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b" />
+    </marker>
+  </defs>
+
+
+  <!-- Header -->
+  <text x="40" y="40" fill="#f8fafc" font-size="19" font-weight="700">3-Layer Neural Network Architecture</text>
+  <text x="40" y="62" fill="#94a3b8" font-size="13">Input layer (x) connected via weight matrix W to hidden layer (z), and matrix V to output layer (y).</text>
+
+  <!-- Layer Column Headers -->
+  <rect x="100" y="82" width="120" height="26" rx="6" fill="#1e293b" fill-opacity="0.6"/>
+  <text x="160" y="99" fill="#00f0ff" font-size="12" font-weight="700" text-anchor="middle">Input Layer x</text>
+
+  <rect x="390" y="82" width="120" height="26" rx="6" fill="#1e293b" fill-opacity="0.6"/>
+  <text x="450" y="99" fill="#a855f7" font-size="12" font-weight="700" text-anchor="middle">Hidden Layer z</text>
+
+  <rect x="680" y="82" width="120" height="26" rx="6" fill="#1e293b" fill-opacity="0.6"/>
+  <text x="740" y="99" fill="#10b981" font-size="12" font-weight="700" text-anchor="middle">Output Layer y</text>
+
+  <!-- Weight Matrix Headers -->
+  <text x="300" y="99" fill="#38bdf8" font-size="15" font-weight="800" text-anchor="middle">Weight Matrix W</text>
+  <text x="595" y="99" fill="#ff007a" font-size="15" font-weight="800" text-anchor="middle">Weight Matrix V</text>
+
+  <!-- Connections: Layer 1 -> Layer 2 -->
+  <!-- x coordinates: 160 -> 450 -->
+  <!-- Inputs: x0=140, x1=230, x2=320 -->
+  <!-- Hidden: z0=140, z1=210, z2=280, z3=350 -->
+  <!-- Note: x0 connects to z1, z2, z3. x1 connects to z1, z2, z3. x2 connects to z1, z2, z3. (z0 is bias, no incoming) -->
+  
+  <g stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.4" marker-end="url(#arrowBlue)">
+    <!-- from x0 -->
+    <line x1="184" y1="140" x2="424" y2="210"/>
+    <line x1="184" y1="140" x2="424" y2="280"/>
+    <line x1="184" y1="140" x2="424" y2="350"/>
+    <!-- from x1 -->
+    <line x1="184" y1="230" x2="424" y2="210"/>
+    <line x1="184" y1="230" x2="424" y2="280"/>
+    <line x1="184" y1="230" x2="424" y2="350"/>
+    <!-- from x2 -->
+    <line x1="184" y1="320" x2="424" y2="210"/>
+    <line x1="184" y1="320" x2="424" y2="280"/>
+    <line x1="184" y1="320" x2="424" y2="350"/>
+  </g>
+
+  <!-- Weight Labels for W (Sample key positions) -->
+  <g fill="#38bdf8" font-size="11" font-weight="600">
+    <text x="260" y="152">w<tspan font-size="8" dy="2">01</tspan></text>
+    <text x="250" y="172">w<tspan font-size="8" dy="2">02</tspan></text>
+    <text x="240" y="195">w<tspan font-size="8" dy="2">03</tspan></text>
+
+    <text x="265" y="215">w<tspan font-size="8" dy="2">11</tspan></text>
+    <text x="280" y="245">w<tspan font-size="8" dy="2">12</tspan></text>
+    <text x="265" y="275">w<tspan font-size="8" dy="2">13</tspan></text>
+
+    <text x="240" y="295">w<tspan font-size="8" dy="2">21</tspan></text>
+    <text x="250" y="325">w<tspan font-size="8" dy="2">22</tspan></text>
+    <text x="260" y="350">w<tspan font-size="8" dy="2">23</tspan></text>
+  </g>
+
+  <!-- Connections: Layer 2 -> Layer 3 -->
+  <!-- Hidden z0=140, z1=210, z2=280, z3=350 -> Output y1=230, y2=330 -->
+  <g stroke="#ff007a" stroke-width="1.2" stroke-opacity="0.4" marker-end="url(#arrowPink)">
+    <!-- from z0 -->
+    <line x1="474" y1="140" x2="714" y2="230"/>
+    <line x1="474" y1="140" x2="714" y2="330"/>
+    <!-- from z1 -->
+    <line x1="474" y1="210" x2="714" y2="230"/>
+    <line x1="474" y1="210" x2="714" y2="330"/>
+    <!-- from z2 -->
+    <line x1="474" y1="280" x2="714" y2="230"/>
+    <line x1="474" y1="280" x2="714" y2="330"/>
+    <!-- from z3 -->
+    <line x1="474" y1="350" x2="714" y2="230"/>
+    <line x1="474" y1="350" x2="714" y2="330"/>
+  </g>
+
+  <!-- Weight Labels for V -->
+  <g fill="#ff007a" font-size="11" font-weight="600">
+    <text x="560" y="160">v<tspan font-size="8" dy="2">01</tspan></text>
+    <text x="545" y="180">v<tspan font-size="8" dy="2">02</tspan></text>
+
+    <text x="565" y="215">v<tspan font-size="8" dy="2">11</tspan></text>
+    <text x="575" y="245">v<tspan font-size="8" dy="2">12</tspan></text>
+
+    <text x="575" y="275">v<tspan font-size="8" dy="2">21</tspan></text>
+    <text x="565" y="305">v<tspan font-size="8" dy="2">22</tspan></text>
+
+    <text x="545" y="335">v<tspan font-size="8" dy="2">31</tspan></text>
+    <text x="560" y="360">v<tspan font-size="8" dy="2">32</tspan></text>
+  </g>
+
+  <!-- Input Nodes -->
+  <!-- x0 (Bias) -->
+  <g transform="translate(160, 140)">
+    <circle r="22" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
+    <text x="0" y="5" fill="#f59e0b" font-size="14" font-weight="700" text-anchor="middle">x<tspan font-size="10" dy="3">0</tspan></text>
+    <text x="-32" y="5" fill="#f59e0b" font-size="11" font-weight="600" text-anchor="end">Bias (=1)</text>
+  </g>
+  <!-- x1 -->
+  <g transform="translate(160, 230)">
+    <circle r="22" fill="#0f172a" stroke="#00f0ff" stroke-width="2" filter="url(#cyanGlow)"/>
+    <text x="0" y="5" fill="#00f0ff" font-size="14" font-weight="700" text-anchor="middle">x<tspan font-size="10" dy="3">1</tspan></text>
+  </g>
+  <!-- x2 -->
+  <g transform="translate(160, 320)">
+    <circle r="22" fill="#0f172a" stroke="#00f0ff" stroke-width="2" filter="url(#cyanGlow)"/>
+    <text x="0" y="5" fill="#00f0ff" font-size="14" font-weight="700" text-anchor="middle">x<tspan font-size="10" dy="3">2</tspan></text>
+  </g>
+
+  <!-- Hidden Nodes -->
+  <!-- z0 (Bias) -->
+  <g transform="translate(450, 140)">
+    <circle r="22" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
+    <text x="0" y="5" fill="#f59e0b" font-size="14" font-weight="700" text-anchor="middle">z<tspan font-size="10" dy="3">0</tspan></text>
+    <text x="32" y="5" fill="#f59e0b" font-size="11" font-weight="600" text-anchor="start">Bias (=1)</text>
+  </g>
+  <!-- z1 -->
+  <g transform="translate(450, 210)">
+    <circle r="22" fill="#0f172a" stroke="#a855f7" stroke-width="2"/>
+    <text x="0" y="5" fill="#a855f7" font-size="14" font-weight="700" text-anchor="middle">z<tspan font-size="10" dy="3">1</tspan></text>
+  </g>
+  <!-- z2 -->
+  <g transform="translate(450, 280)">
+    <circle r="22" fill="#0f172a" stroke="#a855f7" stroke-width="2"/>
+    <text x="0" y="5" fill="#a855f7" font-size="14" font-weight="700" text-anchor="middle">z<tspan font-size="10" dy="3">2</tspan></text>
+  </g>
+  <!-- z3 -->
+  <g transform="translate(450, 350)">
+    <circle r="22" fill="#0f172a" stroke="#a855f7" stroke-width="2"/>
+    <text x="0" y="5" fill="#a855f7" font-size="14" font-weight="700" text-anchor="middle">z<tspan font-size="10" dy="3">3</tspan></text>
+  </g>
+
+  <!-- Output Nodes -->
+  <!-- y1 -->
+  <g transform="translate(740, 230)">
+    <circle r="24" fill="#0f172a" stroke="#10b981" stroke-width="2.5" filter="url(#softShadow)"/>
+    <text x="0" y="5" fill="#10b981" font-size="15" font-weight="700" text-anchor="middle">y<tspan font-size="11" dy="3">1</tspan></text>
+  </g>
+  <!-- y2 -->
+  <g transform="translate(740, 330)">
+    <circle r="24" fill="#0f172a" stroke="#10b981" stroke-width="2.5" filter="url(#softShadow)"/>
+    <text x="0" y="5" fill="#10b981" font-size="15" font-weight="700" text-anchor="middle">y<tspan font-size="11" dy="3">2</tspan></text>
+  </g>
+
+  <!-- Mathematical Pipeline Legend -->
+  <rect x="40" y="420" width="820" height="38" rx="8" fill="#111827" stroke="#1e293b"/>
+  <text x="450" y="444" fill="#94a3b8" font-size="13" text-anchor="middle">
+    <tspan fill="#00f0ff" font-weight="700">Pipeline:</tspan> z<tspan font-size="10" dy="2">in</tspan><tspan dy="-2"> = Wᵀx</tspan> &#x2192; 
+    z<tspan font-size="10" dy="2">out</tspan><tspan dy="-2"> = f(z</tspan><tspan font-size="10" dy="2">in</tspan><tspan dy="-2">)</tspan> &#x2192; 
+    y<tspan font-size="10" dy="2">in</tspan><tspan dy="-2"> = Vᵀz</tspan> &#x2192; 
+    y<tspan font-size="10" dy="2">out</tspan><tspan dy="-2"> = f(y</tspan><tspan font-size="10" dy="2">in</tspan><tspan dy="-2">)</tspan>
+  </text>
+</svg>
