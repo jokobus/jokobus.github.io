@@ -4928,7 +4928,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1792276543177385100">
+<figure class="tikz-container" id="tikz-1792276916055698128">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -5064,7 +5064,7 @@ wobei $\bm{b}$ die spezifische Volumenkraft (z. B. Schwerebeschleunigung $\bm{g}
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-konstitutivgesetze--lineare-elastizität">4. Konstitutivgesetze &amp; lineare Elastizität</h2>
-<figure class="tikz-container" id="tikz-1792276543177604701">
+<figure class="tikz-container" id="tikz-1792276916055941854">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -5678,7 +5678,7 @@ $$\begin{aligned}
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792276543179401762">
+<figure class="tikz-container" id="tikz-1792276916059694220">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -5904,7 +5904,7 @@ $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792276543180106741">
+<figure class="tikz-container" id="tikz-1792276916060348323">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -6435,33 +6435,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Gleichungssystem lösen:</strong>
 Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\mathbf{K}\mathbf{c} = \mathbf{F}$, dessen Lösung die energieoptimalen Koeffizienten $c_i$ liefert.</li>
 </ol>
-<hr>
-<h2 id="technische-anmerkungen--quelltext-errata">Technische Anmerkungen &amp; Quelltext-Errata</h2>
-<div class="callout callout-warning" role="region" aria-label="Warning">
-  <div class="callout-icon" aria-hidden="true">⚠️</div>
-  <div class="callout-body">
-    <div class="callout-title">Warning</div>
-    <div class="callout-content">
-      <p><strong>Dokumentation mathematischer Tippfehler in den ursprünglichen Zusammenfassungen:</strong></p>
-<ol>
-<li><strong>Modul-Tippfehler im Hookeschen Gesetz (Teil I, Zeile 337):</strong> Im Original stand $\varepsilon_{ij} = \frac{1}{E}[(1+\mu)\sigma_{ij} - \mu \delta_{ij}\sigma_{kk}]$, wobei versehentlich der Lamé-Schubparameter $\mu$ anstelle der Querkontraktionszahl $\nu$ gesetzt wurde. Die korrekte Form lautet $\varepsilon_{ij} = \frac{1}{E}[(1+\nu)\sigma_{ij} - \nu \delta_{ij}\sigma_{kk}]$.</li>
-<li><strong>Airy-Dehnungsgleichung Tippfehler (Teil I, Zeilen 435 &amp; 443):</strong>
-<ul>
-<li>Die mit $\sigma_{11} = \frac{1}{E}(\Phi_{,22} - \nu \Phi_{,11}) = \Phi_{,22}$ bezeichnete Formel verwechselte Dehnung $\varepsilon_{11}$ mit Spannung $\sigma_{11} = \Phi_{,22}$.</li>
-<li>Im EVZ (Zeile 443) stand $\varepsilon_{12} = -\frac{1+\nu}{E}\Phi_{,12} = -\frac{\nu}{E}(\sigma_{11}+\sigma_{22})$. Der Ausdruck $-\frac{\nu}{E}(\sigma_{11}+\sigma_{22})$ ist jedoch die Querdehnung $\varepsilon_{33}$ im ebenen Spannungszustand und nicht die Schubverzerrung $\varepsilon_{12}$.</li>
-</ul>
-</li>
-<li><strong>Euler-Bernoulli Kinematik-Schreibweise (Teil II, Zeile 57):</strong> Im Text stand $\beta(x) = -\frac{w(x)}{dx}$ und $\gamma = \frac{\partial \beta}{\partial x}$. Die korrekte Ableitung lautet $\beta(x) = -\frac{dw}{dx}$, und die Schubverzerrung ist $\gamma = w' + \beta = 0$, während $\beta' = -w''$ die Biegungskrümmung $\kappa$ darstellt.</li>
-<li><strong>Statisches Bestimmtheitsmaß für Fachwerke (Teil II, Zeile 332):</strong> Mit $f = 2k - s - r$ ist $f = 0$ statisch bestimmt, $f > 0$ kinematisch unterbestimmt (verschieblicher Mechanismus) und $f < 0$ statisch unbestimmt mit $n = -f$ überzähligen Stäben.</li>
-<li><strong>Einheitsvektor-Normierung (Teil II, Zeile 339):</strong> Der Verbindungsvektor $\bm{e}_{0,i} = (x_B - x_A, y_B - y_A)^T$ muss durch die Stablänge $L_i$ dividiert werden, um ein echter Einheitsvektor $\|\bm{e}_{0,i}\| = 1$ zu sein.</li>
-</ol>
-    </div>
-  </div>
-</div>
-
-
-<hr>
-<section class="smidr-bibliography-section" id="bib-sec-1792276543181254508" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792276916063070263" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur &amp; Referenzen</span>
     </h2>
@@ -6793,7 +6767,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1792276543177385100">
+<figure class="tikz-container" id="tikz-1792276916055698128">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -6929,7 +6903,7 @@ wobei $\bm{b}$ die spezifische Volumenkraft (z. B. Schwerebeschleunigung $\bm{g}
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-konstitutivgesetze--lineare-elastizität">4. Konstitutivgesetze &amp; lineare Elastizität</h2>
-<figure class="tikz-container" id="tikz-1792276543177604701">
+<figure class="tikz-container" id="tikz-1792276916055941854">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -7543,7 +7517,7 @@ $$\begin{aligned}
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792276543179401762">
+<figure class="tikz-container" id="tikz-1792276916059694220">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -7769,7 +7743,7 @@ $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792276543180106741">
+<figure class="tikz-container" id="tikz-1792276916060348323">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -8300,33 +8274,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Gleichungssystem lösen:</strong>
 Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\mathbf{K}\mathbf{c} = \mathbf{F}$, dessen Lösung die energieoptimalen Koeffizienten $c_i$ liefert.</li>
 </ol>
-<hr>
-<h2 id="technische-anmerkungen--quelltext-errata">Technische Anmerkungen &amp; Quelltext-Errata</h2>
-<div class="callout callout-warning" role="region" aria-label="Warning">
-  <div class="callout-icon" aria-hidden="true">⚠️</div>
-  <div class="callout-body">
-    <div class="callout-title">Warning</div>
-    <div class="callout-content">
-      <p><strong>Dokumentation mathematischer Tippfehler in den ursprünglichen Zusammenfassungen:</strong></p>
-<ol>
-<li><strong>Modul-Tippfehler im Hookeschen Gesetz (Teil I, Zeile 337):</strong> Im Original stand $\varepsilon_{ij} = \frac{1}{E}[(1+\mu)\sigma_{ij} - \mu \delta_{ij}\sigma_{kk}]$, wobei versehentlich der Lamé-Schubparameter $\mu$ anstelle der Querkontraktionszahl $\nu$ gesetzt wurde. Die korrekte Form lautet $\varepsilon_{ij} = \frac{1}{E}[(1+\nu)\sigma_{ij} - \nu \delta_{ij}\sigma_{kk}]$.</li>
-<li><strong>Airy-Dehnungsgleichung Tippfehler (Teil I, Zeilen 435 &amp; 443):</strong>
-<ul>
-<li>Die mit $\sigma_{11} = \frac{1}{E}(\Phi_{,22} - \nu \Phi_{,11}) = \Phi_{,22}$ bezeichnete Formel verwechselte Dehnung $\varepsilon_{11}$ mit Spannung $\sigma_{11} = \Phi_{,22}$.</li>
-<li>Im EVZ (Zeile 443) stand $\varepsilon_{12} = -\frac{1+\nu}{E}\Phi_{,12} = -\frac{\nu}{E}(\sigma_{11}+\sigma_{22})$. Der Ausdruck $-\frac{\nu}{E}(\sigma_{11}+\sigma_{22})$ ist jedoch die Querdehnung $\varepsilon_{33}$ im ebenen Spannungszustand und nicht die Schubverzerrung $\varepsilon_{12}$.</li>
-</ul>
-</li>
-<li><strong>Euler-Bernoulli Kinematik-Schreibweise (Teil II, Zeile 57):</strong> Im Text stand $\beta(x) = -\frac{w(x)}{dx}$ und $\gamma = \frac{\partial \beta}{\partial x}$. Die korrekte Ableitung lautet $\beta(x) = -\frac{dw}{dx}$, und die Schubverzerrung ist $\gamma = w' + \beta = 0$, während $\beta' = -w''$ die Biegungskrümmung $\kappa$ darstellt.</li>
-<li><strong>Statisches Bestimmtheitsmaß für Fachwerke (Teil II, Zeile 332):</strong> Mit $f = 2k - s - r$ ist $f = 0$ statisch bestimmt, $f > 0$ kinematisch unterbestimmt (verschieblicher Mechanismus) und $f < 0$ statisch unbestimmt mit $n = -f$ überzähligen Stäben.</li>
-<li><strong>Einheitsvektor-Normierung (Teil II, Zeile 339):</strong> Der Verbindungsvektor $\bm{e}_{0,i} = (x_B - x_A, y_B - y_A)^T$ muss durch die Stablänge $L_i$ dividiert werden, um ein echter Einheitsvektor $\|\bm{e}_{0,i}\| = 1$ zu sein.</li>
-</ol>
-    </div>
-  </div>
-</div>
-
-
-<hr>
-<section class="smidr-bibliography-section" id="bib-sec-1792276543181254508" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792276916063070263" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur &amp; Referenzen</span>
     </h2>
@@ -13887,7 +13835,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792276543245280254" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792276916169340410" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -14004,7 +13952,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792276543245280254");
+  const root = document.getElementById("neuron-1792276916169340410");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -14476,7 +14424,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792276543245280254" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792276916169340410" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -14593,7 +14541,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792276543245280254");
+  const root = document.getElementById("neuron-1792276916169340410");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");

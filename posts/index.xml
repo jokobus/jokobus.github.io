@@ -5436,7 +5436,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1792276542229405678">
+<figure class="tikz-container" id="tikz-1792276914878493561">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -5572,7 +5572,7 @@ where $\bm{b}$ represents body forces per unit mass (gravity, magnetic fields). 
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-constitutive-laws--linear-elastic-solids">4. Constitutive Laws &amp; Linear Elastic Solids</h2>
-<figure class="tikz-container" id="tikz-1792276542229535891">
+<figure class="tikz-container" id="tikz-1792276914878814741">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -6188,7 +6188,7 @@ $$\begin{aligned}
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792276542230350094">
+<figure class="tikz-container" id="tikz-1792276914882089354">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -6414,7 +6414,7 @@ $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792276542230616512">
+<figure class="tikz-container" id="tikz-1792276914882747975">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -6945,33 +6945,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Solve System:</strong>
 This produces a symmetric linear system of algebraic equations $\mathbf{K}\mathbf{c} = \mathbf{F}$ yielding the energy-optimal approximation coefficients $c_i$.</li>
 </ol>
-<hr>
-<h2 id="technical-notes--original-source-errata">Technical Notes &amp; Original Source Errata</h2>
-<div class="callout callout-warning" role="region" aria-label="Warning">
-  <div class="callout-icon" aria-hidden="true">⚠️</div>
-  <div class="callout-body">
-    <div class="callout-title">Warning</div>
-    <div class="callout-content">
-      <p><strong>Mathematical Errata Cataloged from Source Notes:</strong></p>
-<ol>
-<li><strong>Hooke&rsquo;s Law Modulus Typo (Part I, line 337):</strong> The original source note wrote $\varepsilon_{ij} = \frac{1}{E}[(1+\mu)\sigma_{ij} - \mu \delta_{ij}\sigma_{kk}]$, substituting Lamé shear parameter $\mu$ in place of Poisson&rsquo;s ratio $\nu$. The corrected isotropic formulation is $\varepsilon_{ij} = \frac{1}{E}[(1+\nu)\sigma_{ij} - \nu \delta_{ij}\sigma_{kk}]$.</li>
-<li><strong>Airy Strain Formulation Typo (Part I, lines 435 &amp; 443):</strong>
-<ul>
-<li>The equation labeled $\sigma_{11} = \frac{1}{E}(\Phi_{,22} - \nu \Phi_{,11}) = \Phi_{,22}$ conflated strain $\varepsilon_{11}$ with stress $\sigma_{11} = \Phi_{,22}$.</li>
-<li>In plane strain, line 443 wrote $\varepsilon_{12} = -\frac{1+\nu}{E}\Phi_{,12} = -\frac{\nu}{E}(\sigma_{11}+\sigma_{22})$. The expression $-\frac{\nu}{E}(\sigma_{11}+\sigma_{22})$ is actually out-of-plane strain $\varepsilon_{33}$ under plane stress, not shear strain $\varepsilon_{12}$.</li>
-</ul>
-</li>
-<li><strong>Euler-Bernoulli Kinematic Constraint Typo (Part II, line 57):</strong> The note wrote $\beta(x) = -\frac{w(x)}{dx}$ and $\gamma = \frac{\partial \beta}{\partial x}$. The correct derivative is $\beta(x) = -\frac{dw}{dx}$, and shear strain is $\gamma = w' + \beta = 0$, while $\beta' = -w''$ is the bending curvature $\kappa$.</li>
-<li><strong>Truss Determinacy Degrees (Part II, line 332):</strong> The degree of determinacy formula $f = 2k - s - r$ defines $f = 0$ as determinate, $f > 0$ as kinematically underdetermined (an unstable mechanism), and $f < 0$ as statically indeterminate ($n = -f$ redundant bars).</li>
-<li><strong>Unit Vector Normalization (Part II, line 339):</strong> The vector $\bm{e}_{0,i} = (x_B - x_A, y_B - y_A)^T$ must be divided by length $L_i$ to form a unit vector $\|\bm{e}_{0,i}\| = 1$.</li>
-</ol>
-    </div>
-  </div>
-</div>
-
-
-<hr>
-<section class="smidr-bibliography-section" id="bib-sec-1792276542231123100" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792276914885694395" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>References &amp; Citations</span>
     </h2>
@@ -7303,7 +7277,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1792276542229405678">
+<figure class="tikz-container" id="tikz-1792276914878493561">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -7439,7 +7413,7 @@ where $\bm{b}$ represents body forces per unit mass (gravity, magnetic fields). 
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-constitutive-laws--linear-elastic-solids">4. Constitutive Laws &amp; Linear Elastic Solids</h2>
-<figure class="tikz-container" id="tikz-1792276542229535891">
+<figure class="tikz-container" id="tikz-1792276914878814741">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -8055,7 +8029,7 @@ $$\begin{aligned}
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792276542230350094">
+<figure class="tikz-container" id="tikz-1792276914882089354">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -8281,7 +8255,7 @@ $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792276542230616512">
+<figure class="tikz-container" id="tikz-1792276914882747975">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -8812,33 +8786,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Solve System:</strong>
 This produces a symmetric linear system of algebraic equations $\mathbf{K}\mathbf{c} = \mathbf{F}$ yielding the energy-optimal approximation coefficients $c_i$.</li>
 </ol>
-<hr>
-<h2 id="technical-notes--original-source-errata">Technical Notes &amp; Original Source Errata</h2>
-<div class="callout callout-warning" role="region" aria-label="Warning">
-  <div class="callout-icon" aria-hidden="true">⚠️</div>
-  <div class="callout-body">
-    <div class="callout-title">Warning</div>
-    <div class="callout-content">
-      <p><strong>Mathematical Errata Cataloged from Source Notes:</strong></p>
-<ol>
-<li><strong>Hooke&rsquo;s Law Modulus Typo (Part I, line 337):</strong> The original source note wrote $\varepsilon_{ij} = \frac{1}{E}[(1+\mu)\sigma_{ij} - \mu \delta_{ij}\sigma_{kk}]$, substituting Lamé shear parameter $\mu$ in place of Poisson&rsquo;s ratio $\nu$. The corrected isotropic formulation is $\varepsilon_{ij} = \frac{1}{E}[(1+\nu)\sigma_{ij} - \nu \delta_{ij}\sigma_{kk}]$.</li>
-<li><strong>Airy Strain Formulation Typo (Part I, lines 435 &amp; 443):</strong>
-<ul>
-<li>The equation labeled $\sigma_{11} = \frac{1}{E}(\Phi_{,22} - \nu \Phi_{,11}) = \Phi_{,22}$ conflated strain $\varepsilon_{11}$ with stress $\sigma_{11} = \Phi_{,22}$.</li>
-<li>In plane strain, line 443 wrote $\varepsilon_{12} = -\frac{1+\nu}{E}\Phi_{,12} = -\frac{\nu}{E}(\sigma_{11}+\sigma_{22})$. The expression $-\frac{\nu}{E}(\sigma_{11}+\sigma_{22})$ is actually out-of-plane strain $\varepsilon_{33}$ under plane stress, not shear strain $\varepsilon_{12}$.</li>
-</ul>
-</li>
-<li><strong>Euler-Bernoulli Kinematic Constraint Typo (Part II, line 57):</strong> The note wrote $\beta(x) = -\frac{w(x)}{dx}$ and $\gamma = \frac{\partial \beta}{\partial x}$. The correct derivative is $\beta(x) = -\frac{dw}{dx}$, and shear strain is $\gamma = w' + \beta = 0$, while $\beta' = -w''$ is the bending curvature $\kappa$.</li>
-<li><strong>Truss Determinacy Degrees (Part II, line 332):</strong> The degree of determinacy formula $f = 2k - s - r$ defines $f = 0$ as determinate, $f > 0$ as kinematically underdetermined (an unstable mechanism), and $f < 0$ as statically indeterminate ($n = -f$ redundant bars).</li>
-<li><strong>Unit Vector Normalization (Part II, line 339):</strong> The vector $\bm{e}_{0,i} = (x_B - x_A, y_B - y_A)^T$ must be divided by length $L_i$ to form a unit vector $\|\bm{e}_{0,i}\| = 1$.</li>
-</ol>
-    </div>
-  </div>
-</div>
-
-
-<hr>
-<section class="smidr-bibliography-section" id="bib-sec-1792276542231123100" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792276914885694395" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>References &amp; Citations</span>
     </h2>
@@ -16109,7 +16057,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792276542381456062" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792276914980957341" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -16226,7 +16174,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792276542381456062");
+  const root = document.getElementById("neuron-1792276914980957341");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -16701,7 +16649,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792276542381456062" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792276914980957341" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -16818,7 +16766,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792276542381456062");
+  const root = document.getElementById("neuron-1792276914980957341");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
