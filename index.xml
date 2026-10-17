@@ -1738,7 +1738,1383 @@ simulate_queues(total_lambda=1.6, mu=1.0, c=2)</textarea>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;editor.suggest.showDetails&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;python.analysis.typeCheckingMode&#34;</span><span class="p">:</span> <span class="s2">&#34;basic&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div>]]></content:encoded><category>IDE</category><category>VSCodium</category><category>Python</category></item><item><title>Ergonomic Typing with Neo Layout (Bone Variant)</title><link>https://jokobus.github.io/posts/neoylayout/</link><pubDate>Mon, 16 Jun 2025 14:51:26 +0200</pubDate><guid>https://jokobus.github.io/posts/neoylayout/</guid><description><![CDATA[<p>This is a concise guide to the essentials of the <a href="https://neo-layout.org">Neo Keyboard Layout</a> variant <a href="https://neo-layout.org/Layouts/bone/"><strong>Bone</strong></a> for faster, healthier typing and streamlined mathematical notation.</p>
+</span></span></code></pre></div>]]></content:encoded><category>IDE</category><category>VSCodium</category><category>Python</category></item><item><title>Structural Mechanics Modeling: Continuum Elasticity, Structural Elements &amp; Variational Methods</title><link>https://jokobus.github.io/posts/structural-mechanics/</link><pubDate>Wed, 25 Feb 2026 19:45:00 +0100</pubDate><guid>https://jokobus.github.io/posts/structural-mechanics/</guid><description><![CDATA[<p>Structural mechanics provides the rigorous mathematical framework connecting fundamental continuum physics to real-world load-bearing structures. This guide synthesizes two core pillars: <strong>Part I: Continuum Mechanics and Three-Dimensional Linear Elasticity</strong>, and <strong>Part II: Structural Elements (Beams, Plates, Shells, Torsion) and Variational Principles</strong>.</p>
+<hr>
+<h1 id="part-i-continuum-mechanics--linear-elasticity">Part I: Continuum Mechanics &amp; Linear Elasticity</h1>
+<h2 id="1-tensor-calculus-foundations">1. Tensor Calculus Foundations</h2>
+<h3 id="scalars-vectors-and-tensors">Scalars, Vectors, and Tensors</h3>
+<p>In continuum mechanics, physical quantities are invariant under coordinate rotations <span class="cite-group"><a class="cite-ref" href="#bib-timoshenko1970" data-cite-key="timoshenko1970" role="doc-biblioref" aria-label="Citation: timoshenko1970"><span class="cite-num">[timoshenko1970]</span></a></span>
+:</p>
+<ul>
+<li><strong>Scalars (0th-order):</strong> Magnitude only (e.g., mass density $\rho$, temperature $\theta$).</li>
+<li><strong>Vectors (1st-order):</strong> Magnitude and spatial orientation: $\bm{v} = v_i \bm{e}_i$.</li>
+<li><strong>Second-Order Tensors:</strong> Linear operators mapping vectors to vectors:
+
+$$\bm{T}(\alpha \bm{u} + \beta \bm{v}) = \alpha \bm{T}\bm{u} + \beta \bm{T}\bm{v}$$</li>
+<li><strong>Action on Basis Vectors:</strong> $\bm{T}\bm{e}_i = T_{ji} \bm{e}_j$, with components:
+
+$$[\bm{T}] = \begin{bmatrix} T_{11} & T_{12} & T_{13} \\ T_{21} & T_{22} & T_{23} \\ T_{31} & T_{32} & T_{33} \end{bmatrix} \quad \leftrightarrow \quad T_{ij} = \bm{e}_i \cdot \bm{T} \bm{e}_j$$</li>
+</ul>
+<h3 id="core-tensor-operations">Core Tensor Operations</h3>
+<ul>
+<li><strong>Scalar Product (Vectors):</strong> $\bm{u} \cdot \bm{v} = u_i v_i$.</li>
+<li><strong>Vector Product:</strong> $\bm{u} \times \bm{v} = \epsilon_{ijk} u_i v_j \bm{e}_k$.</li>
+<li><strong>Dyadic Product:</strong> $(\bm{a} \otimes \bm{b})\bm{v} = (\bm{b} \cdot \bm{v})\bm{a}$, with components $[\bm{a} \otimes \bm{b}]_{ij} = a_i b_j$.</li>
+<li><strong>Double Contraction (Tensor Inner Product):</strong>
+
+$$\bm{S} : \bm{D} = \text{tr}(\bm{S}^T \bm{D}) = S_{ij} D_{ij}$$</li>
+<li><strong>Trace &amp; Determinant:</strong> $\text{tr}(\bm{T}) = T_{ii}$ and $\det \bm{T} = \epsilon_{ijk} T_{1i} T_{2j} T_{3k}$ (both frame-invariant).</li>
+<li><strong>Symmetric &amp; Skew-Symmetric Decomposition:</strong>
+
+$$\bm{T} = \bm{E} + \bm{W}, \quad \bm{E} = \frac{1}{2}(\bm{T} + \bm{T}^T), \quad \bm{W} = \frac{1}{2}(\bm{T} - \bm{T}^T)$$</li>
+<li><strong>Orthogonal &amp; Rotation Tensors:</strong> $\bm{Q}^T = \bm{Q}^{-1}$ ($\det\bm{Q} = \pm 1$). A proper rotation tensor satisfies $\det\bm{R} = +1$.</li>
+</ul>
+<h3 id="coordinate-transformations">Coordinate Transformations</h3>
+<p>Changing from basis $\bm{e}_i$ to rotated basis $\bm{e}'_i = Q_{mi} \bm{e}_m$:</p>
+<ul>
+<li>Direction cosines: $Q_{ij} = \bm{e}_i \cdot \bm{e}'_j$.</li>
+<li>Vector components: $[\bm{v}]_{\bm{e}'} = \bm{Q}^T [\bm{v}]_{\bm{e}}$ ($v'_i = Q_{ki} v_k$).</li>
+<li>Tensor components: $[\bm{T}]_{\bm{e}'} = \bm{Q}^T [\bm{T}]_{\bm{e}} \bm{Q}$ ($T'_{ij} = Q_{ki} T_{kl} Q_{lj}$).</li>
+</ul>
+<h3 id="principal-values--invariants">Principal Values &amp; Invariants</h3>
+<p>For any symmetric second-order tensor $\bm{S}$, the eigenvalue problem $\bm{S}\bm{n} = \lambda \bm{n}$ yields the characteristic equation:
+</p>
+$$\lambda^3 - I_1 \lambda^2 + I_2 \lambda - I_3 = 0$$<p>where the principal invariants are:
+</p>
+$$\begin{aligned}
+I_1(\bm{S}) &= \text{tr}(\bm{S}) = \lambda_1 + \lambda_2 + \lambda_3 \\
+I_2(\bm{S}) &= \frac{1}{2}[(\text{tr}\bm{S})^2 - \text{tr}(\bm{S}^2)] = \lambda_1\lambda_2 + \lambda_2\lambda_3 + \lambda_3\lambda_1 \\
+I_3(\bm{S}) &= \det \bm{S} = \lambda_1\lambda_2\lambda_3
+\end{aligned}$$<p>Spectral decomposition expresses the tensor along its principal directions:
+</p>
+$$\bm{S} = \sum_{i=1}^3 \lambda_i (\bm{n}_i \otimes \bm{n}_i) = \bm{Q} \bm{\Lambda} \bm{Q}^T$$<h3 id="differential-operators--integral-theorems">Differential Operators &amp; Integral Theorems</h3>
+<ul>
+<li><strong>Gradient:</strong> $\nabla \phi = \frac{\partial \phi}{\partial x_i} \bm{e}_i$, $\nabla \bm{v} = v_{i,j} \bm{e}_i \otimes \bm{e}_j$.</li>
+<li><strong>Divergence:</strong> $\nabla \cdot \bm{v} = v_{i,i}$, $(\nabla \cdot \bm{S})_i = S_{ij,j}$.</li>
+<li><strong>Gauss&rsquo; Divergence Theorem:</strong>
+
+$$\int_{\partial \mathcal{B}} \bm{v} \cdot \bm{n} \, dA = \int_{\mathcal{B}} \nabla \cdot \bm{v} \, dV \quad \leftrightarrow \quad \int_{\partial \mathcal{B}} v_i n_i \, dA = \int_{\mathcal{B}} v_{i,i} \, dV$$</li>
+<li><strong>Stokes&rsquo; Theorem:</strong>
+
+$$\int_{\Gamma} (\nabla \times \bm{v}) \cdot \bm{n} \, dA = \oint_{\partial \Gamma} \bm{v} \cdot \bm{t} \, ds$$</li>
+</ul>
+<hr>
+<h2 id="2-kinematics--strain-measures">2. Kinematics &amp; Strain Measures</h2>
+<h3 id="material-vs-spatial-descriptions">Material vs. Spatial Descriptions</h3>
+<p>Let $\bm{X}$ denote the reference (material) configuration and $\bm{x} = \bm{\phi}(\bm{X}, t)$ the deformed (spatial) configuration.</p>
+<ul>
+<li><strong>Displacement:</strong> $\bm{u}(\bm{X}, t) = \bm{x} - \bm{X}$.</li>
+<li><strong>Velocity &amp; Material Derivative:</strong>
+
+$$\bm{v} = \frac{\partial \bm{\phi}}{\partial t}\Big|_{\bm{X}}, \quad \frac{D(\cdot)}{Dt} = \frac{\partial(\cdot)}{\partial t} + \bm{v} \cdot \nabla(\cdot)$$</li>
+</ul>
+<h3 id="deformation-gradient--finite-strain">Deformation Gradient &amp; Finite Strain</h3>
+<ul>
+<li><strong>Deformation Gradient Tensor:</strong>
+
+$$\bm{F} = \frac{\partial \bm{x}}{\partial \bm{X}} = \nabla_{\bm{X}} \bm{\phi}, \quad F_{ij} = \frac{\partial x_i}{\partial X_j}$$</li>
+<li><strong>Volume Ratio (Jacobian):</strong> $J = \det\bm{F} > 0$. An isochoric (incompressible) motion satisfies $J=1$.</li>
+<li><strong>Right Cauchy-Green Tensor:</strong> $\bm{C} = \bm{F}^T \bm{F}$ ($C_{IJ} = F_{kI} F_{kJ}$).</li>
+<li><strong>Green-Lagrange Strain Tensor:</strong>
+
+$$\bm{E} = \frac{1}{2}(\bm{C} - \bm{I}) = \frac{1}{2}\left(\nabla_{\bm{X}}\bm{U} + \nabla_{\bm{X}}\bm{U}^T + \nabla_{\bm{X}}\bm{U}^T \nabla_{\bm{X}}\bm{U}\right)$$</li>
+<li><strong>Stretch Ratio $\lambda$ in Direction $\bm{N}$:</strong> $\lambda = \frac{\|d\bm{x}\|}{\|d\bm{X}\|} = \sqrt{\bm{N} \cdot \bm{C} \bm{N}}$.</li>
+</ul>
+<h3 id="infinitesimal-strain-tensor">Infinitesimal Strain Tensor</h3>
+<p>Under the assumption of small displacement gradients ($\|\nabla \bm{u}\| \ll 1$):
+</p>
+$$\bm{\varepsilon} = \frac{1}{2}(\nabla\bm{u} + \nabla\bm{u}^T) \quad \leftrightarrow \quad \varepsilon_{ij} = \frac{1}{2}(u_{i,j} + u_{j,i})$$<ul>
+<li><strong>Normal Strain:</strong> $\varepsilon_{nn} = \bm{n} \cdot \bm{\varepsilon} \bm{n} \approx \frac{ds - dS}{dS}$ represents fractional elongation.</li>
+<li><strong>Engineering Shear Strain:</strong> $\gamma_{mn} = 2 \varepsilon_{mn} = 2(\bm{m} \cdot \bm{\varepsilon} \bm{n})$ represents the decrease in the right angle between orthogonal directions $\bm{m}$ and $\bm{n}$.</li>
+<li><strong>Volumetric Strain:</strong> $e = \text{tr}(\bm{\varepsilon}) = \varepsilon_{kk} \approx \frac{\Delta V}{V_0}$.</li>
+</ul>
+<h3 id="saint-venant-compatibility-conditions">Saint-Venant Compatibility Conditions</h3>
+<p>To guarantee that a symmetric strain tensor field $\varepsilon_{ij}(\bm{x})$ can be integrated into a single-valued, continuous displacement field $\bm{u}(\bm{x})$ in a simply-connected domain:
+</p>
+$$\varepsilon_{ij,kl} + \varepsilon_{kl,ij} - \varepsilon_{ik,jl} - \varepsilon_{jl,ik} = 0$$<p>In 3D Cartesian coordinates, this expands to six independent equations:
+</p>
+$$\begin{aligned}
+\frac{\partial^2 \varepsilon_{11}}{\partial x_2^2} + \frac{\partial^2 \varepsilon_{22}}{\partial x_1^2} &= 2 \frac{\partial^2 \varepsilon_{12}}{\partial x_1 \partial x_2}, & \frac{\partial^2 \varepsilon_{11}}{\partial x_2 \partial x_3} &= \frac{\partial}{\partial x_1} \left( -\frac{\partial \varepsilon_{23}}{\partial x_1} + \frac{\partial \varepsilon_{13}}{\partial x_2} + \frac{\partial \varepsilon_{12}}{\partial x_3} \right) \\
+\frac{\partial^2 \varepsilon_{22}}{\partial x_3^2} + \frac{\partial^2 \varepsilon_{33}}{\partial x_2^2} &= 2 \frac{\partial^2 \varepsilon_{23}}{\partial x_2 \partial x_3}, & \frac{\partial^2 \varepsilon_{22}}{\partial x_3 \partial x_1} &= \frac{\partial}{\partial x_2} \left( \frac{\partial \varepsilon_{23}}{\partial x_1} - \frac{\partial \varepsilon_{13}}{\partial x_2} + \frac{\partial \varepsilon_{12}}{\partial x_3} \right) \\
+\frac{\partial^2 \varepsilon_{33}}{\partial x_1^2} + \frac{\partial^2 \varepsilon_{11}}{\partial x_3^2} &= 2 \frac{\partial^2 \varepsilon_{13}}{\partial x_3 \partial x_1}, & \frac{\partial^2 \varepsilon_{33}}{\partial x_1 \partial x_2} &= \frac{\partial}{\partial x_3} \left( \frac{\partial \varepsilon_{23}}{\partial x_1} + \frac{\partial \varepsilon_{13}}{\partial x_2} - \frac{\partial \varepsilon_{12}}{\partial x_3} \right)
+\end{aligned}$$<div class="callout callout-note" role="region" aria-label="Note">
+  <div class="callout-icon" aria-hidden="true">📝</div>
+  <div class="callout-body">
+    <div class="callout-title">Note</div>
+    <div class="callout-content">
+      If all strain components $\varepsilon_{ij}$ are linear functions of coordinates $(x_1, x_2, x_3)$, all second derivatives vanish identically, so compatibility is automatically satisfied.
+    </div>
+  </div>
+</div>
+
+
+<hr>
+<h2 id="3-motion-equilibrium--conservation-laws">3. Motion, Equilibrium &amp; Conservation Laws</h2>
+<h3 id="cauchy-stress-principle--traction">Cauchy Stress Principle &amp; Traction</h3>
+<p>Surface force per unit area on a cutting plane with unit normal $\bm{n}$:
+</p>
+$$\bm{t}_{\bm{n}} = \lim_{\Delta A \to 0} \frac{\Delta \bm{F}}{\Delta A} = \bm{\sigma} \bm{n}$$<ul>
+<li><strong>Normal Traction Component:</strong> $t_n = \bm{n} \cdot \bm{t}_{\bm{n}} = \bm{n} \cdot \bm{\sigma} \bm{n}$ ($t_n > 0$ tensile, $t_n < 0$ compressive).</li>
+<li><strong>Shear Traction Component:</strong> $t_s = \sqrt{\|\bm{\sigma}\bm{n}\|^2 - (\bm{n} \cdot \bm{\sigma} \bm{n})^2}$.</li>
+<li><strong>Maximum Shear Stress:</strong> $\tau_{max} = \frac{\lambda_{max} - \lambda_{min}}{2}$, acting on planes bisecting the principal stress axes.</li>
+</ul>
+<h3 id="cauchy-stress-state-on-a-differential-element">Cauchy Stress State on a Differential Element</h3>
+<p>The conservation of angular momentum requires the Cauchy stress tensor to be symmetric: $\sigma_{ij} = \sigma_{ji}$.</p>
+<figure class="tikz-container" id="tikz-1792239481332021054">
+  <div class="tikz-wrapper">
+    <script type="text/tikz">
+
+\begin{tikzpicture}[scale=0.9, every node/.style={scale=0.85}]
+    \draw[thick] (0,0) rectangle (4,2.5);
+    \node at (2,1.25) {$dA$};
+    \node at (2,0.3) {$\Delta x_1$};
+    \node at (0.5,1.25) {$\Delta x_2$};
+    
+    % Left Face (-e1)
+    \draw[thick, -&gt;] (0,1.25) -- (-1,1.25) node[left] {$\sigma_{11}$};
+    \draw[thick, -&gt;] (-0.2,1.75) -- (-0.2,0.75) node[left] {$\sigma_{21}$};
+    
+    % Right Face (&#43;e1)
+    \draw[thick, -&gt;] (4,1.25) -- (5,1.25) node[right] {$\sigma_{11} &#43; \frac{\partial \sigma_{11}}{\partial x_1}\Delta x_1$};
+    \draw[thick, -&gt;] (4.2,0.75) -- (4.2,1.75) node[right] {$\sigma_{21} &#43; \frac{\partial \sigma_{21}}{\partial x_1}\Delta x_1$};
+    
+    % Bottom Face (-e2)
+    \draw[thick, -&gt;] (2,0) -- (2,-1) node[below] {$\sigma_{22}$};
+    \draw[thick, -&gt;] (2.5,-0.2) -- (1.5,-0.2) node[below] {$\sigma_{12}$};
+
+    % Top Face (&#43;e2)
+    \draw[thick, -&gt;] (2,2.5) -- (2,3.5) node[above] {$\sigma_{22} &#43; \frac{\partial \sigma_{22}}{\partial x_2}\Delta x_2$};
+    \draw[thick, -&gt;] (1.5,2.7) -- (2.5,2.7) node[above] {$\sigma_{12} &#43; \frac{\partial \sigma_{12}}{\partial x_2}\Delta x_2$};
+
+    % Coordinate Frame
+    \begin{scope}[shift={(-0.8,-0.8)}]
+        \draw[thick, -&gt;] (0,0) -- (0.8,0) node[right] {$x_1$};
+        \draw[thick, -&gt;] (0,0) -- (0,0.8) node[above] {$x_2$};
+    \end{scope}
+\end{tikzpicture}
+
+    </script>
+  </div>
+  
+  <figcaption class="tikz-caption">
+    <span class="tikz-caption-prefix">Figure:</span> Two-dimensional state of stress on a differential continuum element with normal and shear tractions.
+  </figcaption>
+  
+</figure>
+
+<h3 id="equations-of-linear-momentum-equilibrium">Equations of Linear Momentum (Equilibrium)</h3>
+<p>Balancing forces on the differential volume yields the Navier-Cauchy equations of motion:
+</p>
+$$\nabla \cdot \bm{\sigma} + \rho \bm{b} = \rho \ddot{\bm{u}} \quad \leftrightarrow \quad \sigma_{ij,j} + \rho b_i = \rho \ddot{u}_i$$<p>For static equilibrium in the absence of body forces ($\bm{b} = \bm{0}$):
+</p>
+$$\sigma_{ij,j} = 0$$<hr>
+<h2 id="4-constitutive-laws--linear-elastic-solids">4. Constitutive Laws &amp; Linear Elastic Solids</h2>
+<figure class="tikz-container" id="tikz-1792239481332039151">
+  <div class="tikz-wrapper">
+    <script type="text/tikz">
+
+\begin{tikzpicture}[scale=0.7, &gt;=latex]
+    % Linear Elastic
+    \begin{scope}[shift={(0,0)}]
+        \draw[-&gt;] (0,0) -- (3,0) node[below] {$\varepsilon$};
+        \draw[-&gt;] (0,0) -- (0,3) node[left] {$\sigma$};
+        \draw[thick, cyan] (0,0) -- (2.4,2.4);
+        \draw[-&gt;, cyan] (0.5, 0.8) -- (1.6, 1.9);
+        \draw[-&gt;, cyan] (1.8, 1.5) -- (0.7, 0.4);
+        \node[below, align=center] at (1.5, -0.5) {\textbf{Linear}\\\textbf{Elastic}};
+    \end{scope}
+
+    % Non-Linear Elastic
+    \begin{scope}[shift={(4.5,0)}]
+        \draw[-&gt;] (0,0) -- (3,0) node[below] {$\varepsilon$};
+        \draw[-&gt;] (0,0) -- (0,3) node[left] {$\sigma$};
+        \draw[thick, purple] (0,0) to[out=70, in=200] (2.4,2.4);
+        \draw[-&gt;, purple] (0.4, 1.4) to[out=65, in=210] (1.6, 2.3);
+        \draw[-&gt;, purple] (1.9, 1.8) to[out=210, in=75] (0.7, 0.6);
+        \node[below, align=center] at (1.5, -0.5) {\textbf{Non-Linear}\\\textbf{Elastic}};
+    \end{scope}
+
+    % Inelastic
+    \begin{scope}[shift={(9,0)}]
+        \draw[-&gt;] (0,0) -- (3,0) node[below] {$\varepsilon$};
+        \draw[-&gt;] (0,0) -- (0,3) node[left] {$\sigma$};
+        \draw[thick, red] (0,0) to[out=70, in=200] (2.4,2.4);
+        \draw[thick, dashed, red] (2.4,2.4) -- (1.6,0);
+        \draw[-&gt;, red] (0.4, 1.4) to[out=65, in=210] (1.6, 2.3);
+        \draw[-&gt;, red] (2.4, 1.8) -- (1.9, 0.5);
+        \node[below, align=center] at (1.5, -0.5) {\textbf{Inelastic}\\\textbf{(Plastic)}};
+    \end{scope}
+\end{tikzpicture}
+
+    </script>
+  </div>
+  
+  <figcaption class="tikz-caption">
+    <span class="tikz-caption-prefix">Figure:</span> Material constitutive behaviors: linear elastic, non-linear elastic, and inelastic (plastic) responses.
+  </figcaption>
+  
+</figure>
+
+<h3 id="generalized-hookes-law--symmetries">Generalized Hooke&rsquo;s Law &amp; Symmetries</h3>
+<p>For linear elastic materials, the fourth-order elasticity tensor $\mathbb{C}$ relates stress to strain:
+</p>
+$$\sigma_{ij} = C_{ijkl} \varepsilon_{kl}$$<ul>
+<li><strong>Total Components:</strong> $3^4 = 81$.</li>
+<li><strong>Minor Symmetries:</strong> Due to $\bm{\sigma} = \bm{\sigma}^T$ and $\bm{\varepsilon} = \bm{\varepsilon}^T$, $C_{ijkl} = C_{jikl} = C_{ijlk} \implies$ <strong>36 components</strong>.</li>
+<li><strong>Major Symmetry (Hyperelasticity):</strong> The existence of a strain energy density function $U(\bm{\varepsilon})$ such that $\sigma_{ij} = \frac{\partial U}{\partial \varepsilon_{ij}}$ implies $C_{ijkl} = C_{klij} \implies$ <strong>21 independent components</strong>.</li>
+</ul>
+<h3 id="isotropic-linear-elasticity">Isotropic Linear Elasticity</h3>
+<p>For materials whose mechanical properties are direction-independent, the 21 constants collapse to just <strong>two independent Lamé parameters</strong> ($\lambda, \mu$):
+</p>
+$$\sigma_{ij} = \lambda \delta_{ij} \varepsilon_{kk} + 2\mu \varepsilon_{ij} \quad \leftrightarrow \quad \bm{\sigma} = \lambda \text{tr}(\bm{\varepsilon})\bm{I} + 2\mu \bm{\varepsilon}$$<p>Inverting this relationship gives Hooke&rsquo;s Law in terms of Young&rsquo;s modulus $E$ and Poisson&rsquo;s ratio $\nu$:
+</p>
+$$\varepsilon_{ij} = \frac{1+\nu}{E} \sigma_{ij} - \frac{\nu}{E} \sigma_{kk} \delta_{ij} \quad \leftrightarrow \quad \bm{\varepsilon} = \frac{1+\nu}{E} \bm{\sigma} - \frac{\nu}{E} \text{tr}(\bm{\sigma})\bm{I}$$<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Modulus</th>
+					<th style="text-align: left">Definition</th>
+					<th style="text-align: left">Relationship to Lamé Constants</th>
+					<th style="text-align: left">Physical Application</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>Young&rsquo;s Modulus ($E$)</strong></td>
+					<td style="text-align: left">Tensile/compressive stiffness</td>
+					<td style="text-align: left">$E = \frac{\mu(3\lambda + 2\mu)}{\lambda + \mu}$</td>
+					<td style="text-align: left">Beams, trusses, columns</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Shear Modulus ($G = \mu$)</strong></td>
+					<td style="text-align: left">Resistance to shear deformation</td>
+					<td style="text-align: left">$G = \mu = \frac{E}{2(1+\nu)}$</td>
+					<td style="text-align: left">Torsion, transverse shear</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Bulk Modulus ($K$)</strong></td>
+					<td style="text-align: left">Resistance to volume change</td>
+					<td style="text-align: left">$K = \lambda + \frac{2}{3}\mu = \frac{E}{3(1-2\nu)}$</td>
+					<td style="text-align: left">Hydrostatic pressure, fluids</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Poisson&rsquo;s Ratio ($\nu$)</strong></td>
+					<td style="text-align: left">Transverse contraction ratio</td>
+					<td style="text-align: left">$\nu = \frac{\lambda}{2(\lambda+\mu)}$</td>
+					<td style="text-align: left">Lateral necking, auxetics ($\nu < 0$)</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="hydrostatic--deviatoric-stress-decomposition">Hydrostatic &amp; Deviatoric Stress Decomposition</h3>
+<p>Any stress state can be decoupled into volumetric changes and shape distortion:
+</p>
+$$\sigma_{ij} = H_{ij} + S_{ij} = \underbrace{\frac{1}{3}\sigma_{kk} \delta_{ij}}_{\text{Hydrostatic (Volume)}} + \underbrace{\left(\sigma_{ij} - \frac{1}{3}\sigma_{kk}\delta_{ij}\right)}_{\text{Deviatoric (Distortion)}}$$<h3 id="naviers-displacement-equations">Navier&rsquo;s Displacement Equations</h3>
+<p>Substituting kinematics and constitutive relations into linear momentum equilibrium yields Navier&rsquo;s equations:
+</p>
+$$\mu \nabla^2 \bm{u} + (\lambda + \mu) \nabla(\nabla \cdot \bm{u}) + \rho \bm{b} = \bm{0} \quad \leftrightarrow \quad \mu u_{i,jj} + (\lambda + \mu) u_{j,ij} + \rho b_i = 0$$<hr>
+<h2 id="5-two-dimensional-continua--airy-stress-functions">5. Two-Dimensional Continua &amp; Airy Stress Functions</h2>
+<h3 id="plane-strain-vs-plane-stress">Plane Strain vs. Plane Stress</h3>
+$$\begin{array}{l|c|c}
+\textbf{Property} & \textbf{Plane Strain (Thick Bodies, Dams, Tunnels)} & \textbf{Plane Stress (Thin Plates, Membranes)} \\
+\hline
+\textbf{Kinematic Constraint} & \varepsilon_{33} = \varepsilon_{13} = \varepsilon_{23} = 0 & \sigma_{33} = \sigma_{13} = \sigma_{23} = 0 \\
+\textbf{Out-of-Plane Component} & \sigma_{33} = \nu(\sigma_{11} + \sigma_{22}) \neq 0 & \varepsilon_{33} = -\frac{\nu}{E}(\sigma_{11} + \sigma_{22}) \neq 0 \\
+\textbf{Constitutive Matrix} & \bar{E} = \frac{E}{1-\nu^2}, \; \bar{\nu} = \frac{\nu}{1-\nu} & E, \; \nu \text{ (Standard)}
+\end{array}$$<h3 id="airy-stress-function--biharmonic-equation">Airy Stress Function &amp; Biharmonic Equation</h3>
+<p>For 2D problems with negligible body forces, equilibrium is identically satisfied by defining the stress components via an <strong>Airy stress function</strong> $\Phi(x_1, x_2)$:
+</p>
+$$\sigma_{11} = \frac{\partial^2 \Phi}{\partial x_2^2}, \quad \sigma_{22} = \frac{\partial^2 \Phi}{\partial x_1^2}, \quad \sigma_{12} = -\frac{\partial^2 \Phi}{\partial x_1 \partial x_2}$$<p>Substituting these stresses into the compatibility equation proves that $\Phi$ must satisfy the <strong>Biharmonic Equation</strong>:
+</p>
+$$\nabla^4 \Phi = \frac{\partial^4 \Phi}{\partial x_1^4} + 2\frac{\partial^4 \Phi}{\partial x_1^2 \partial x_2^2} + \frac{\partial^4 \Phi}{\partial x_2^4} = 0$$<hr>
+<h2 id="6-worked-benchmark-problems">6. Worked Benchmark Problems</h2>
+<h3 id="benchmark-1-mars-rover-solar-panel-tractions">Benchmark 1: Mars Rover Solar Panel Tractions</h3>
+<details class="smidr-collapse" open>
+  <summary class="smidr-collapse-summary">
+    <span class="smidr-collapse-title-wrap">
+      <span class="smidr-collapse-icon">▸</span>
+      <span class="smidr-collapse-title">Problem Statement &amp; Derivation</span>
+    </span>
+    <span class="smidr-collapse-chevron" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </span>
+  </summary>
+  <div class="smidr-collapse-content">
+    <p><strong>Problem:</strong> The stress field in the solar panel of a planetary rover is modeled by the quadratic Airy stress function:
+</p>
+$$\Phi(x_1, x_2) = a_1 x_1^2 + a_2 x_1 x_2 + a_3 x_2^2$$<p><strong>1. Biharmonic Check:</strong> Fourth derivatives vanish identically, so $\nabla^4 \Phi = 0$ is satisfied.<br>
+<strong>2. Stress Recovery:</strong>
+</p>
+$$\sigma_{11} = \frac{\partial^2 \Phi}{\partial x_2^2} = 2a_3, \quad \sigma_{22} = \frac{\partial^2 \Phi}{\partial x_1^2} = 2a_1, \quad \sigma_{12} = -\frac{\partial^2 \Phi}{\partial x_1 \partial x_2} = -a_2$$<p>
+<strong>3. Boundary Tractions:</strong> On boundaries with normal $\bm{n}$, $\bm{t} = \bm{\sigma}\bm{n}$.</p>
+
+  </div>
+</details>
+
+<figure class="tikz-container" id="tikz-1792239481332093209">
+  <div class="tikz-wrapper">
+    <script type="text/tikz">
+
+\begin{tikzpicture}[scale=0.75]
+    % Coordinate System
+    \draw[thick, |-&gt;] (0,-1) -- (0.9,-1) node[below] {$\bm{e}_1$};
+    \draw[thick, |-&gt;] (0,-1) -- (0,-0.1) node[left] {$\bm{e}_2$};
+
+    % Plate boundaries
+    \draw[thick, cyan] (0,0) rectangle (6,4);
+    
+    % Normal Stresses Sigma_11 = 2a3
+    \foreach \y in {0.5, 1.5, 2.5, 3.5} {
+        \draw[thick, cyan, &lt;-] (-1, \y) -- (-0.1, \y);
+        \draw[thick, cyan, -&gt;] (6.1, \y) -- (7, \y);
+    }
+    \node[cyan, left] at (-1, 2) {$\sigma_{11}=2a_3$};
+    \node[cyan, right] at (7, 2) {$\sigma_{11}=2a_3$};
+
+    % Normal Stresses Sigma_22 = 2a1
+    \foreach \x in {1, 2, 3, 4, 5} {
+        \draw[thick, cyan, -&gt;] (\x, 4.1) -- (\x, 5);
+        \draw[thick, cyan, -&gt;] (\x, -0.1) -- (\x, -1);
+    }
+    \node[cyan, above] at (3, 5) {$\sigma_{22}=2a_1$};
+    \node[cyan, below] at (3, -1) {$\sigma_{22}=2a_1$};
+
+    % Shear Stresses Sigma_12 = -a2
+    \foreach \x in {5.5, 4.5, ..., 0.5} {
+        \draw[thick, purple, -&gt;] (\x&#43;0.5, 3.8) -- (\x, 3.8);
+    }
+    \node[purple, below] at (3, 3.8) {$\sigma_{12}=-a_2$};
+    
+    \foreach \y in {3.5, 2.5, ..., 0.5} {
+        \draw[thick, purple, -&gt;] (5.8, \y&#43;0.5) -- (5.8, \y);
+    }
+    \node[purple, left] at (5.8, 2) {$\sigma_{12}=-a_2$};
+
+    \foreach \x in {0.5, 1.5, ..., 5.5} {
+        \draw[thick, purple, -&gt;] (\x, 0.2) -- (\x&#43;0.5, 0.2);
+    }
+    \node[purple, above] at (3, 0.2) {$\sigma_{12}=-a_2$};
+
+    \foreach \y in {0.5, 1.5, ..., 3.5} {
+        \draw[thick, purple, -&gt;] (0.2, \y) -- (0.2, \y&#43;0.5);
+    }
+    \node[purple, right] at (0.2, 2) {$\sigma_{12}=-a_2$};
+    
+    \node[below] at (6,0) {$b$};
+    \node[left] at (0,4) {$c$};
+\end{tikzpicture}
+
+    </script>
+  </div>
+  
+  <figcaption class="tikz-caption">
+    <span class="tikz-caption-prefix">Figure:</span> Boundary normal and shear tractions acting on the rectangular Mars rover solar panel.
+  </figcaption>
+  
+</figure>
+
+<hr>
+<h3 id="benchmark-2-hydrostatic-gravity-dam">Benchmark 2: Hydrostatic Gravity Dam</h3>
+<details class="smidr-collapse" open>
+  <summary class="smidr-collapse-summary">
+    <span class="smidr-collapse-title-wrap">
+      <span class="smidr-collapse-icon">▸</span>
+      <span class="smidr-collapse-title">Problem Statement &amp; Derivation</span>
+    </span>
+    <span class="smidr-collapse-chevron" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </span>
+  </summary>
+  <div class="smidr-collapse-content">
+    <p><strong>Problem:</strong> A triangular dam under plane strain is subjected to hydrostatic water pressure $p(y) = \rho g y$ on its vertical face $AB$ ($x=0$), with free surface $AC$ ($x=y$):
+</p>
+$$\Phi(x, y) = \frac{1}{6}a_1 x^3 + \frac{1}{2}a_2 x^2 y + \frac{1}{2}a_3 x y^2 + \frac{1}{6}a_4 y^3$$<p>Matching boundary conditions reveals the unique coefficients:
+</p>
+$$a_1 = -2\rho g, \quad a_2 = \rho g, \quad a_3 = 0, \quad a_4 = -\rho g$$<p>The resulting base reaction traction on $BC$ ($y=l$) is:
+</p>
+$$\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2$$
+  </div>
+</details>
+
+<figure class="tikz-container" id="tikz-1792239481332165234">
+  <div class="tikz-wrapper">
+    <script type="text/tikz">
+
+\begin{tikzpicture}[scale=0.9]
+    \coordinate (A) at (4,4); 
+    \coordinate (B) at (4,0); 
+    \coordinate (C) at (0,0); 
+    
+    \draw[line width=1.5pt] (A) -- (B) -- (C) -- cycle;
+    \fill[pattern=north east lines, pattern color=cyan!40] (A) -- (B) -- (C) -- cycle;
+    
+    \node[above] at (A) {$A$};
+    \node[below right] at (B) {$B$};
+    \node[below left] at (C) {$C$};
+    
+    % Coordinates
+    \draw[|-&gt;] (4, 4.5) -- (3, 4.5) node[below] {$x$};
+    \draw[|-&gt;] (5, 4) -- (5, 3) node[right] {$y$};
+    
+    % Dimensions
+    \draw[&lt;-&gt;] (-0.5, 0) -- (-0.5, 4) node[midway, left] {$l$};
+    \draw[&lt;-&gt;] (0, -0.6) -- (4, -0.6) node[midway, below] {$l$};
+
+    % Hydrostatic Pressure
+    \draw (4,4) -- (5.5,0);
+    \draw (4,0) -- (5.5,0);
+    \foreach \y in {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5} {
+        \draw[-&gt;, blue] ({4 &#43; (4-\y)*1.5/4}, \y) -- (4, \y);
+    }
+    \node[right, blue] at (5, 2) {$p(y)=\rho g y$};
+    
+    % Base Tractions
+    \foreach \x in {0.5, 1.5, 2.5, 3.5} {
+        \draw[-&gt;, purple] (\x, -0.15) -- (\x&#43;0.5, -0.15);
+    }
+    \node[below, purple] at (2, -0.2) {$t_{x} = -\rho g x$};
+    
+    % Vertical Traction
+    \draw (0,-1.6) -- (4,-1.6);
+    \foreach \x in {0.2, 0.6, ..., 4.0} {
+         \pgfmathsetmacro{\h}{1.0 - 0.5*\x}
+         \draw[-&gt;, orange] (\x, -1.6) -- (\x, {-1.6 &#43; \h});
+    }
+    \node[left, orange] at (0, -0.6) {$&#43;\rho g l$};
+    \node[right, orange] at (4, -2.1) {$-\rho g l$};
+\end{tikzpicture}
+
+    </script>
+  </div>
+  
+  <figcaption class="tikz-caption">
+    <span class="tikz-caption-prefix">Figure:</span> Triangular gravity dam under hydrostatic water pressure and resulting base reaction tractions.
+  </figcaption>
+  
+</figure>
+
+<hr>
+<h1 id="part-ii-structural-elements--variational-principles">Part II: Structural Elements &amp; Variational Principles</h1>
+<h2 id="7-beam-formulations-euler-bernoulli-vs-timoshenko">7. Beam Formulations: Euler-Bernoulli vs. Timoshenko</h2>
+<p>1D structural models approximate slender structural members ($L \gg h, b$).</p>
+<h3 id="kinematic-hypotheses">Kinematic Hypotheses</h3>
+<ul>
+<li>
+<p><strong>Timoshenko Beam Theory (Thick/Shear-Deformable):</strong><br>
+Plane sections remain plane but <strong>not</strong> necessarily perpendicular to the deformed neutral axis. Cross-sectional rotation $\beta(x)$ is independent of deflection slope $w'(x)$:
+</p>
+$$u(x,z) = u_0(x) + z\beta(x), \quad w(x,z) = w(x)$$<p>
+</p>
+$$\text{Shear Strain: } \gamma = w'(x) + \beta(x)$$<p>
+</p>
+$$\text{Constitutive: } N = EA u_0', \quad M = EI \beta', \quad V = GA_V (w' + \beta)$$<p>
+</p>
+$$\text{Equilibrium: } N' + p_x = 0, \quad V' + p_z = 0, \quad M' - V = 0$$</li>
+<li>
+<p><strong>Euler-Bernoulli Beam Theory (Thin/Shear-Rigid):</strong><br>
+Plane sections remain plane and strictly perpendicular to the neutral axis ($\gamma = 0 \implies \beta(x) = -w'(x)$):
+</p>
+$$(EI w'')'' = p_z$$</li>
+</ul>
+<h3 id="systematic-integration-procedure">Systematic Integration Procedure</h3>
+<ol>
+<li><strong>Equilibrium Integration:</strong>
+
+$$V(x) = -\int p_z(x) dx + C_1$$
+
+$$M(x) = \int V(x) dx + C_2$$</li>
+<li><strong>Kinematic Integration:</strong>
+<ul>
+<li><em>Timoshenko:</em> $\beta(x) = \int \frac{M(x)}{EI} dx + C_3$, $\quad w(x) = \int \left(\frac{V(x)}{GA_V} - \beta(x)\right) dx + C_4$.</li>
+<li><em>Euler-Bernoulli:</em> $w'(x) = -\int \frac{M(x)}{EI} dx + C_3$, $\quad w(x) = \int w'(x) dx + C_4$.</li>
+</ul>
+</li>
+<li><strong>Boundary Condition Enforcement:</strong></li>
+</ol>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Support Type</th>
+					<th style="text-align: center">Diagram Representation</th>
+					<th style="text-align: center">Kinematic BCs</th>
+					<th style="text-align: center">Dynamic / Force BCs</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>Clamped</strong></td>
+					<td style="text-align: center">Rigid wall</td>
+					<td style="text-align: center">$w = 0, \quad \beta = 0$</td>
+					<td style="text-align: center">$M \neq 0, \quad V \neq 0$</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Pinned (Hinged)</strong></td>
+					<td style="text-align: center">Triangular support</td>
+					<td style="text-align: center">$w = 0$</td>
+					<td style="text-align: center">$M = 0$</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Free Tip</strong></td>
+					<td style="text-align: center">Unconstrained end</td>
+					<td style="text-align: center">None</td>
+					<td style="text-align: center">$M = 0, \quad V = 0$</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Guided / Slider</strong></td>
+					<td style="text-align: center">Vertical roller sleeve</td>
+					<td style="text-align: center">$\beta = 0$</td>
+					<td style="text-align: center">$V = 0$</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Tip Load / Moment</strong></td>
+					<td style="text-align: center">Point load $\widehat{F}$, moment $\widehat{M}$</td>
+					<td style="text-align: center">None</td>
+					<td style="text-align: center">$M = \widehat{M}, \quad V = \widehat{F}$</td>
+			</tr>
+	</tbody>
+</table>
+<hr>
+<h2 id="8-plate-theory-kirchhoff-love-vs-reissner-mindlin">8. Plate Theory: Kirchhoff-Love vs. Reissner-Mindlin</h2>
+<p>Plates are 2D flat structures ($t \ll L_x, L_y$) resisting transverse loads primarily through internal bending moments ($M_{xx}, M_{yy}$), twisting moments ($M_{xy}$), and transverse shears ($Q_x, Q_y$) <span class="cite-group"><a class="cite-ref" href="#bib-mindlin1951" data-cite-key="mindlin1951" role="doc-biblioref" aria-label="Citation: mindlin1951"><span class="cite-num">[mindlin1951]</span></a></span>
+ <span class="cite-group"><a class="cite-ref" href="#bib-reissner1945" data-cite-key="reissner1945" role="doc-biblioref" aria-label="Citation: reissner1945"><span class="cite-num">[reissner1945]</span></a></span>
+.</p>
+<ul>
+<li><strong>Kirchhoff Bending Stiffness:</strong> $K = \frac{Et^3}{12(1-\nu^2)}$.</li>
+<li><strong>Biharmonic Plate Equation:</strong>
+
+$$\Delta\Delta w = \frac{\partial^4 w}{\partial x^4} + 2\frac{\partial^4 w}{\partial x^2 \partial y^2} + \frac{\partial^4 w}{\partial y^4} = \frac{p(x,y)}{K}$$</li>
+</ul>
+<h3 id="axisymmetric-circular-plates">Axisymmetric Circular Plates</h3>
+<p>Under rotationally symmetric loads $p(r)$, the plate equation simplifies in polar coordinates:
+</p>
+$$\frac{1}{r} \frac{d}{dr} \left\{ r \frac{d}{dr} \left[ \frac{1}{r} \frac{d}{dr} \left( r \frac{dw}{dr} \right) \right] \right\} = \frac{p(r)}{K}$$<p>Integrating four times yields the general solution:
+</p>
+$$w(r) = C_1 + C_2 r^2 + C_3 \ln r + C_4 r^2 \ln r + w_{\text{particular}}(r)$$<p>For solid circular plates without a central hole, $C_3 = C_4 = 0$ to avoid logarithmic singularity at $r = 0$.</p>
+<h3 id="classical-plate-boundary-conditions">Classical Plate Boundary Conditions</h3>
+$$\begin{array}{l|l|l}
+\textbf{Edge Type} & \textbf{Kirchhoff-Love (KL)} & \textbf{Reissner-Mindlin (RM)} \\
+\hline
+\textbf{Clamped} & w = 0, \quad \frac{\partial w}{\partial n} = 0 & w = 0, \quad \varphi_n = 0, \quad \varphi_s = 0 \\
+\textbf{Simply Supported} & w = 0, \quad M_n = 0 & w = 0, \quad M_n = 0, \quad \varphi_s = 0 \text{ (Hard)} \\
+\textbf{Free Edge} & M_n = 0, \quad V_{\text{eff}} = Q_n + \frac{\partial M_{ns}}{\partial s} = 0 & M_n = 0, \quad M_{ns} = 0, \quad Q_n = 0
+\end{array}$$<hr>
+<h2 id="9-saint-venant-torsion">9. Saint-Venant Torsion</h2>
+<p>Applying a twisting moment $M_T$ generates a constant rate of twist $\vartheta' = \frac{d\vartheta}{dx}$:
+</p>
+$$M_T = G I_T \vartheta'$$<h3 id="cross-sectional-torsion-constants">Cross-Sectional Torsion Constants</h3>
+$$\begin{array}{l|l|l}
+\textbf{Cross-Section Type} & \textbf{Torsional Constant } I_T & \textbf{Peak Shear Stress } \tau_{max} \\
+\hline
+\textbf{Solid Circular / Tube} & I_T = I_p = \frac{\pi r^4}{2} & \tau_{max} = \frac{M_T r}{I_p} \\
+\textbf{Thin-Walled Open (I-beam, C-channel)} & I_T \approx \sum \frac{1}{3} b_i t_i^3 & \tau_{max} \approx G t_{max} \vartheta' = \frac{M_T t_{max}}{I_T} \\
+\textbf{Thin-Walled Closed (Bredt Box)} & I_T = \frac{4 A_m^2}{\oint \frac{ds}{t}} & \tau = \frac{q}{t} = \frac{M_T}{2 A_m t}
+\end{array}$$<p>where $A_m$ is the area enclosed by the mean wall perimeter line.</p>
+<hr>
+<h2 id="10-truss-systems--matrix-structural-analysis">10. Truss Systems &amp; Matrix Structural Analysis</h2>
+<p>Trusses are networks of pin-jointed bars carrying axial forces only.</p>
+<h3 id="static-determinacy-criterion">Static Determinacy Criterion</h3>
+<p>For a 2D planar truss with $k$ nodes, $s$ members (bars), and $r$ support reactions:
+</p>
+$$f = 2k - s - r$$<ul>
+<li>$f = 0$: Statically determinate. Solved via nodal equilibrium.</li>
+<li>$f < 0$: Statically indeterminate. Requires the direct stiffness method.</li>
+</ul>
+<h3 id="element-stiffness-matrix-in-2d-global-coordinates">Element Stiffness Matrix in 2D Global Coordinates</h3>
+<p>For a bar inclined at angle $\alpha$ with $c = \cos\alpha$ and $s = \sin\alpha$:
+</p>
+$$\mathbf{k}^{(e)} = \frac{EA}{L} \begin{bmatrix}
+c^2 & cs & -c^2 & -cs \\
+cs & s^2 & -cs & -s^2 \\
+-c^2 & -cs & c^2 & cs \\
+-cs & -s^2 & cs & s^2
+\end{bmatrix}$$<p>Assembling into the global system $\mathbf{K}\mathbf{u} = \mathbf{f}$ and enforcing boundary constraints yields the nodal displacement vector $\mathbf{u}$.</p>
+<hr>
+<h2 id="11-thin-walled-shells--the-7-parameter-model">11. Thin-Walled Shells &amp; the 7-Parameter Model</h2>
+<p>Shells combine <strong>membrane action</strong> (in-plane forces $N_{\alpha\beta}$, highly efficient) with <strong>bending action</strong> (moments $M_{\alpha\beta}$, flexible). In modern computational finite element formulations, standard shell elements suffer from shear locking and Poisson thickness locking.</p>
+<p>The advanced <strong>7-parameter shell model</strong> expands displacement kinematics:
+</p>
+$$\bm{u}(\theta^1, \theta^2, \theta^3) = \bm{v}(\theta^1, \theta^2) + \theta^3 \bm{w}(\theta^1, \theta^2) + (\theta^3)^2 \widetilde{\bm{w}}(\theta^1, \theta^2)$$<p>This formulation accounts for continuous transverse thickness stretching, enabling complete 3D constitutive laws without artificial artificial numerical locking.</p>
+<hr>
+<h2 id="12-energy-principles--foundations-of-the-finite-element-method">12. Energy Principles &amp; Foundations of the Finite Element Method</h2>
+<p>When exact closed-form solutions of differential equations are intractable, variational methods provide rigorous approximations <span class="cite-group"><a class="cite-ref" href="#bib-reddy2006" data-cite-key="reddy2006" role="doc-biblioref" aria-label="Citation: reddy2006"><span class="cite-num">[reddy2006]</span></a></span>
+ <span class="cite-group"><a class="cite-ref" href="#bib-hughes1987" data-cite-key="hughes1987" role="doc-biblioref" aria-label="Citation: hughes1987"><span class="cite-num">[hughes1987]</span></a></span>
+.</p>
+<h3 id="principle-of-virtual-work">Principle of Virtual Work</h3>
+<p>For any kinematically admissible virtual displacement $\delta\bm{u}$:
+</p>
+$$\delta W_{\text{int}} = \delta W_{\text{ext}} \quad \leftrightarrow \quad \int_{\mathcal{V}} \bm{\sigma} : \delta\bm{\varepsilon} \, dV = \int_{\mathcal{V}} \bm{b} \cdot \delta\bm{u} \, dV + \int_{\partial \mathcal{V}_t} \bm{t} \cdot \delta\bm{u} \, dA$$<h3 id="the-rayleigh-ritz-method">The Rayleigh-Ritz Method</h3>
+<ol>
+<li>Formulate the total potential energy functional: $\Pi(\bm{u}) = U(\bm{u}) - W_{\text{ext}}(\bm{u})$.</li>
+<li>Assume an ansatz fulfilling all essential (kinematic) boundary conditions:
+
+$$w(x) \approx \sum_{i=1}^n c_i \phi_i(x)$$</li>
+<li>Minimize potential energy with respect to generalized coordinates $c_i$:
+
+$$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
+<li>Solving the resulting linear algebraic system yields the best energy-optimal polynomial approximation to the true continuum deformation.</li>
+</ol>
+<hr>
+<section class="smidr-bibliography-section" id="bib-sec-1792239481332248733" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+    <h2 class="bib-section-title">
+      <span>📚</span> <span>References &amp; Citations</span>
+    </h2>
+    <div class="bib-header-controls">
+      <div class="bib-style-switcher" role="group" aria-label="Citation Style">
+        <span class="bib-control-label">Style:</span>
+        <button type="button" class="bib-ctrl-btn bib-style-btn" data-style="numeric" title="Numeric citation style [1]">Numeric</button>
+        <button type="button" class="bib-ctrl-btn bib-style-btn" data-style="author-year" title="Author-Year citation style (Author, Year)">Author-Year</button>
+        <button type="button" class="bib-ctrl-btn bib-style-btn" data-style="alphabetic" title="Alphabetic citation style [AutYY]">Alpha</button>
+      </div>
+      <div class="bib-filter-switcher" role="group" aria-label="Filter Bibliography">
+        <button type="button" class="bib-ctrl-btn bib-filter-btn" data-filter="cited" title="Show only citations cited in this article">Cited (<span class="bib-count-cited">0</span>)</button>
+        <button type="button" class="bib-ctrl-btn bib-filter-btn" data-filter="all" title="Show all entries in bibliography">All (<span class="bib-count-all">0</span>)</button>
+      </div>
+    </div>
+  </div><div class="smidr-bibliography">
+    <script type="text/bibtex" class="bibtex-source">
+
+@book{timoshenko1970,
+  title = {Theory of Elasticity},
+  author = {Timoshenko, Stephen P. and Goodier, J. N.},
+  edition = {3rd},
+  publisher = {McGraw-Hill},
+  year = {1970},
+  address = {New York}
+}
+
+@book{reddy2006,
+  title = {An Introduction to the Finite Element Method},
+  author = {Reddy, J. N.},
+  edition = {3rd},
+  publisher = {McGraw-Hill},
+  year = {2006},
+  address = {New York}
+}
+
+@article{mindlin1951,
+  title = {Influence of Rotatory Inertia and Shear on Flexural Motions of Isotropic, Elastic Plates},
+  author = {Mindlin, Raymond D.},
+  journal = {Journal of Applied Mechanics},
+  volume = {18},
+  pages = {31--38},
+  year = {1951}
+}
+
+@article{reissner1945,
+  title = {The Effect of Transverse Shear Deformation on the Bending of Elastic Plates},
+  author = {Reissner, Eric},
+  journal = {Journal of Applied Mechanics},
+  volume = {12},
+  number = {2},
+  pages = {A69--A77},
+  year = {1945}
+}
+
+@book{hughes1987,
+  title = {The Finite Element Method: Linear Static and Dynamic Finite Element Analysis},
+  author = {Hughes, Thomas J. R.},
+  publisher = {Prentice-Hall},
+  year = {1987},
+  address = {Englewood Cliffs, NJ}
+}
+
+    </script>
+    <ol class="bib-entries-list">
+      
+    </ol>
+  </div>
+</section>
+]]></description><content:encoded><![CDATA[<p>Structural mechanics provides the rigorous mathematical framework connecting fundamental continuum physics to real-world load-bearing structures. This guide synthesizes two core pillars: <strong>Part I: Continuum Mechanics and Three-Dimensional Linear Elasticity</strong>, and <strong>Part II: Structural Elements (Beams, Plates, Shells, Torsion) and Variational Principles</strong>.</p>
+<hr>
+<h1 id="part-i-continuum-mechanics--linear-elasticity">Part I: Continuum Mechanics &amp; Linear Elasticity</h1>
+<h2 id="1-tensor-calculus-foundations">1. Tensor Calculus Foundations</h2>
+<h3 id="scalars-vectors-and-tensors">Scalars, Vectors, and Tensors</h3>
+<p>In continuum mechanics, physical quantities are invariant under coordinate rotations <span class="cite-group"><a class="cite-ref" href="#bib-timoshenko1970" data-cite-key="timoshenko1970" role="doc-biblioref" aria-label="Citation: timoshenko1970"><span class="cite-num">[timoshenko1970]</span></a></span>
+:</p>
+<ul>
+<li><strong>Scalars (0th-order):</strong> Magnitude only (e.g., mass density $\rho$, temperature $\theta$).</li>
+<li><strong>Vectors (1st-order):</strong> Magnitude and spatial orientation: $\bm{v} = v_i \bm{e}_i$.</li>
+<li><strong>Second-Order Tensors:</strong> Linear operators mapping vectors to vectors:
+
+$$\bm{T}(\alpha \bm{u} + \beta \bm{v}) = \alpha \bm{T}\bm{u} + \beta \bm{T}\bm{v}$$</li>
+<li><strong>Action on Basis Vectors:</strong> $\bm{T}\bm{e}_i = T_{ji} \bm{e}_j$, with components:
+
+$$[\bm{T}] = \begin{bmatrix} T_{11} & T_{12} & T_{13} \\ T_{21} & T_{22} & T_{23} \\ T_{31} & T_{32} & T_{33} \end{bmatrix} \quad \leftrightarrow \quad T_{ij} = \bm{e}_i \cdot \bm{T} \bm{e}_j$$</li>
+</ul>
+<h3 id="core-tensor-operations">Core Tensor Operations</h3>
+<ul>
+<li><strong>Scalar Product (Vectors):</strong> $\bm{u} \cdot \bm{v} = u_i v_i$.</li>
+<li><strong>Vector Product:</strong> $\bm{u} \times \bm{v} = \epsilon_{ijk} u_i v_j \bm{e}_k$.</li>
+<li><strong>Dyadic Product:</strong> $(\bm{a} \otimes \bm{b})\bm{v} = (\bm{b} \cdot \bm{v})\bm{a}$, with components $[\bm{a} \otimes \bm{b}]_{ij} = a_i b_j$.</li>
+<li><strong>Double Contraction (Tensor Inner Product):</strong>
+
+$$\bm{S} : \bm{D} = \text{tr}(\bm{S}^T \bm{D}) = S_{ij} D_{ij}$$</li>
+<li><strong>Trace &amp; Determinant:</strong> $\text{tr}(\bm{T}) = T_{ii}$ and $\det \bm{T} = \epsilon_{ijk} T_{1i} T_{2j} T_{3k}$ (both frame-invariant).</li>
+<li><strong>Symmetric &amp; Skew-Symmetric Decomposition:</strong>
+
+$$\bm{T} = \bm{E} + \bm{W}, \quad \bm{E} = \frac{1}{2}(\bm{T} + \bm{T}^T), \quad \bm{W} = \frac{1}{2}(\bm{T} - \bm{T}^T)$$</li>
+<li><strong>Orthogonal &amp; Rotation Tensors:</strong> $\bm{Q}^T = \bm{Q}^{-1}$ ($\det\bm{Q} = \pm 1$). A proper rotation tensor satisfies $\det\bm{R} = +1$.</li>
+</ul>
+<h3 id="coordinate-transformations">Coordinate Transformations</h3>
+<p>Changing from basis $\bm{e}_i$ to rotated basis $\bm{e}'_i = Q_{mi} \bm{e}_m$:</p>
+<ul>
+<li>Direction cosines: $Q_{ij} = \bm{e}_i \cdot \bm{e}'_j$.</li>
+<li>Vector components: $[\bm{v}]_{\bm{e}'} = \bm{Q}^T [\bm{v}]_{\bm{e}}$ ($v'_i = Q_{ki} v_k$).</li>
+<li>Tensor components: $[\bm{T}]_{\bm{e}'} = \bm{Q}^T [\bm{T}]_{\bm{e}} \bm{Q}$ ($T'_{ij} = Q_{ki} T_{kl} Q_{lj}$).</li>
+</ul>
+<h3 id="principal-values--invariants">Principal Values &amp; Invariants</h3>
+<p>For any symmetric second-order tensor $\bm{S}$, the eigenvalue problem $\bm{S}\bm{n} = \lambda \bm{n}$ yields the characteristic equation:
+</p>
+$$\lambda^3 - I_1 \lambda^2 + I_2 \lambda - I_3 = 0$$<p>where the principal invariants are:
+</p>
+$$\begin{aligned}
+I_1(\bm{S}) &= \text{tr}(\bm{S}) = \lambda_1 + \lambda_2 + \lambda_3 \\
+I_2(\bm{S}) &= \frac{1}{2}[(\text{tr}\bm{S})^2 - \text{tr}(\bm{S}^2)] = \lambda_1\lambda_2 + \lambda_2\lambda_3 + \lambda_3\lambda_1 \\
+I_3(\bm{S}) &= \det \bm{S} = \lambda_1\lambda_2\lambda_3
+\end{aligned}$$<p>Spectral decomposition expresses the tensor along its principal directions:
+</p>
+$$\bm{S} = \sum_{i=1}^3 \lambda_i (\bm{n}_i \otimes \bm{n}_i) = \bm{Q} \bm{\Lambda} \bm{Q}^T$$<h3 id="differential-operators--integral-theorems">Differential Operators &amp; Integral Theorems</h3>
+<ul>
+<li><strong>Gradient:</strong> $\nabla \phi = \frac{\partial \phi}{\partial x_i} \bm{e}_i$, $\nabla \bm{v} = v_{i,j} \bm{e}_i \otimes \bm{e}_j$.</li>
+<li><strong>Divergence:</strong> $\nabla \cdot \bm{v} = v_{i,i}$, $(\nabla \cdot \bm{S})_i = S_{ij,j}$.</li>
+<li><strong>Gauss&rsquo; Divergence Theorem:</strong>
+
+$$\int_{\partial \mathcal{B}} \bm{v} \cdot \bm{n} \, dA = \int_{\mathcal{B}} \nabla \cdot \bm{v} \, dV \quad \leftrightarrow \quad \int_{\partial \mathcal{B}} v_i n_i \, dA = \int_{\mathcal{B}} v_{i,i} \, dV$$</li>
+<li><strong>Stokes&rsquo; Theorem:</strong>
+
+$$\int_{\Gamma} (\nabla \times \bm{v}) \cdot \bm{n} \, dA = \oint_{\partial \Gamma} \bm{v} \cdot \bm{t} \, ds$$</li>
+</ul>
+<hr>
+<h2 id="2-kinematics--strain-measures">2. Kinematics &amp; Strain Measures</h2>
+<h3 id="material-vs-spatial-descriptions">Material vs. Spatial Descriptions</h3>
+<p>Let $\bm{X}$ denote the reference (material) configuration and $\bm{x} = \bm{\phi}(\bm{X}, t)$ the deformed (spatial) configuration.</p>
+<ul>
+<li><strong>Displacement:</strong> $\bm{u}(\bm{X}, t) = \bm{x} - \bm{X}$.</li>
+<li><strong>Velocity &amp; Material Derivative:</strong>
+
+$$\bm{v} = \frac{\partial \bm{\phi}}{\partial t}\Big|_{\bm{X}}, \quad \frac{D(\cdot)}{Dt} = \frac{\partial(\cdot)}{\partial t} + \bm{v} \cdot \nabla(\cdot)$$</li>
+</ul>
+<h3 id="deformation-gradient--finite-strain">Deformation Gradient &amp; Finite Strain</h3>
+<ul>
+<li><strong>Deformation Gradient Tensor:</strong>
+
+$$\bm{F} = \frac{\partial \bm{x}}{\partial \bm{X}} = \nabla_{\bm{X}} \bm{\phi}, \quad F_{ij} = \frac{\partial x_i}{\partial X_j}$$</li>
+<li><strong>Volume Ratio (Jacobian):</strong> $J = \det\bm{F} > 0$. An isochoric (incompressible) motion satisfies $J=1$.</li>
+<li><strong>Right Cauchy-Green Tensor:</strong> $\bm{C} = \bm{F}^T \bm{F}$ ($C_{IJ} = F_{kI} F_{kJ}$).</li>
+<li><strong>Green-Lagrange Strain Tensor:</strong>
+
+$$\bm{E} = \frac{1}{2}(\bm{C} - \bm{I}) = \frac{1}{2}\left(\nabla_{\bm{X}}\bm{U} + \nabla_{\bm{X}}\bm{U}^T + \nabla_{\bm{X}}\bm{U}^T \nabla_{\bm{X}}\bm{U}\right)$$</li>
+<li><strong>Stretch Ratio $\lambda$ in Direction $\bm{N}$:</strong> $\lambda = \frac{\|d\bm{x}\|}{\|d\bm{X}\|} = \sqrt{\bm{N} \cdot \bm{C} \bm{N}}$.</li>
+</ul>
+<h3 id="infinitesimal-strain-tensor">Infinitesimal Strain Tensor</h3>
+<p>Under the assumption of small displacement gradients ($\|\nabla \bm{u}\| \ll 1$):
+</p>
+$$\bm{\varepsilon} = \frac{1}{2}(\nabla\bm{u} + \nabla\bm{u}^T) \quad \leftrightarrow \quad \varepsilon_{ij} = \frac{1}{2}(u_{i,j} + u_{j,i})$$<ul>
+<li><strong>Normal Strain:</strong> $\varepsilon_{nn} = \bm{n} \cdot \bm{\varepsilon} \bm{n} \approx \frac{ds - dS}{dS}$ represents fractional elongation.</li>
+<li><strong>Engineering Shear Strain:</strong> $\gamma_{mn} = 2 \varepsilon_{mn} = 2(\bm{m} \cdot \bm{\varepsilon} \bm{n})$ represents the decrease in the right angle between orthogonal directions $\bm{m}$ and $\bm{n}$.</li>
+<li><strong>Volumetric Strain:</strong> $e = \text{tr}(\bm{\varepsilon}) = \varepsilon_{kk} \approx \frac{\Delta V}{V_0}$.</li>
+</ul>
+<h3 id="saint-venant-compatibility-conditions">Saint-Venant Compatibility Conditions</h3>
+<p>To guarantee that a symmetric strain tensor field $\varepsilon_{ij}(\bm{x})$ can be integrated into a single-valued, continuous displacement field $\bm{u}(\bm{x})$ in a simply-connected domain:
+</p>
+$$\varepsilon_{ij,kl} + \varepsilon_{kl,ij} - \varepsilon_{ik,jl} - \varepsilon_{jl,ik} = 0$$<p>In 3D Cartesian coordinates, this expands to six independent equations:
+</p>
+$$\begin{aligned}
+\frac{\partial^2 \varepsilon_{11}}{\partial x_2^2} + \frac{\partial^2 \varepsilon_{22}}{\partial x_1^2} &= 2 \frac{\partial^2 \varepsilon_{12}}{\partial x_1 \partial x_2}, & \frac{\partial^2 \varepsilon_{11}}{\partial x_2 \partial x_3} &= \frac{\partial}{\partial x_1} \left( -\frac{\partial \varepsilon_{23}}{\partial x_1} + \frac{\partial \varepsilon_{13}}{\partial x_2} + \frac{\partial \varepsilon_{12}}{\partial x_3} \right) \\
+\frac{\partial^2 \varepsilon_{22}}{\partial x_3^2} + \frac{\partial^2 \varepsilon_{33}}{\partial x_2^2} &= 2 \frac{\partial^2 \varepsilon_{23}}{\partial x_2 \partial x_3}, & \frac{\partial^2 \varepsilon_{22}}{\partial x_3 \partial x_1} &= \frac{\partial}{\partial x_2} \left( \frac{\partial \varepsilon_{23}}{\partial x_1} - \frac{\partial \varepsilon_{13}}{\partial x_2} + \frac{\partial \varepsilon_{12}}{\partial x_3} \right) \\
+\frac{\partial^2 \varepsilon_{33}}{\partial x_1^2} + \frac{\partial^2 \varepsilon_{11}}{\partial x_3^2} &= 2 \frac{\partial^2 \varepsilon_{13}}{\partial x_3 \partial x_1}, & \frac{\partial^2 \varepsilon_{33}}{\partial x_1 \partial x_2} &= \frac{\partial}{\partial x_3} \left( \frac{\partial \varepsilon_{23}}{\partial x_1} + \frac{\partial \varepsilon_{13}}{\partial x_2} - \frac{\partial \varepsilon_{12}}{\partial x_3} \right)
+\end{aligned}$$<div class="callout callout-note" role="region" aria-label="Note">
+  <div class="callout-icon" aria-hidden="true">📝</div>
+  <div class="callout-body">
+    <div class="callout-title">Note</div>
+    <div class="callout-content">
+      If all strain components $\varepsilon_{ij}$ are linear functions of coordinates $(x_1, x_2, x_3)$, all second derivatives vanish identically, so compatibility is automatically satisfied.
+    </div>
+  </div>
+</div>
+
+
+<hr>
+<h2 id="3-motion-equilibrium--conservation-laws">3. Motion, Equilibrium &amp; Conservation Laws</h2>
+<h3 id="cauchy-stress-principle--traction">Cauchy Stress Principle &amp; Traction</h3>
+<p>Surface force per unit area on a cutting plane with unit normal $\bm{n}$:
+</p>
+$$\bm{t}_{\bm{n}} = \lim_{\Delta A \to 0} \frac{\Delta \bm{F}}{\Delta A} = \bm{\sigma} \bm{n}$$<ul>
+<li><strong>Normal Traction Component:</strong> $t_n = \bm{n} \cdot \bm{t}_{\bm{n}} = \bm{n} \cdot \bm{\sigma} \bm{n}$ ($t_n > 0$ tensile, $t_n < 0$ compressive).</li>
+<li><strong>Shear Traction Component:</strong> $t_s = \sqrt{\|\bm{\sigma}\bm{n}\|^2 - (\bm{n} \cdot \bm{\sigma} \bm{n})^2}$.</li>
+<li><strong>Maximum Shear Stress:</strong> $\tau_{max} = \frac{\lambda_{max} - \lambda_{min}}{2}$, acting on planes bisecting the principal stress axes.</li>
+</ul>
+<h3 id="cauchy-stress-state-on-a-differential-element">Cauchy Stress State on a Differential Element</h3>
+<p>The conservation of angular momentum requires the Cauchy stress tensor to be symmetric: $\sigma_{ij} = \sigma_{ji}$.</p>
+<figure class="tikz-container" id="tikz-1792239481332021054">
+  <div class="tikz-wrapper">
+    <script type="text/tikz">
+
+\begin{tikzpicture}[scale=0.9, every node/.style={scale=0.85}]
+    \draw[thick] (0,0) rectangle (4,2.5);
+    \node at (2,1.25) {$dA$};
+    \node at (2,0.3) {$\Delta x_1$};
+    \node at (0.5,1.25) {$\Delta x_2$};
+    
+    % Left Face (-e1)
+    \draw[thick, -&gt;] (0,1.25) -- (-1,1.25) node[left] {$\sigma_{11}$};
+    \draw[thick, -&gt;] (-0.2,1.75) -- (-0.2,0.75) node[left] {$\sigma_{21}$};
+    
+    % Right Face (&#43;e1)
+    \draw[thick, -&gt;] (4,1.25) -- (5,1.25) node[right] {$\sigma_{11} &#43; \frac{\partial \sigma_{11}}{\partial x_1}\Delta x_1$};
+    \draw[thick, -&gt;] (4.2,0.75) -- (4.2,1.75) node[right] {$\sigma_{21} &#43; \frac{\partial \sigma_{21}}{\partial x_1}\Delta x_1$};
+    
+    % Bottom Face (-e2)
+    \draw[thick, -&gt;] (2,0) -- (2,-1) node[below] {$\sigma_{22}$};
+    \draw[thick, -&gt;] (2.5,-0.2) -- (1.5,-0.2) node[below] {$\sigma_{12}$};
+
+    % Top Face (&#43;e2)
+    \draw[thick, -&gt;] (2,2.5) -- (2,3.5) node[above] {$\sigma_{22} &#43; \frac{\partial \sigma_{22}}{\partial x_2}\Delta x_2$};
+    \draw[thick, -&gt;] (1.5,2.7) -- (2.5,2.7) node[above] {$\sigma_{12} &#43; \frac{\partial \sigma_{12}}{\partial x_2}\Delta x_2$};
+
+    % Coordinate Frame
+    \begin{scope}[shift={(-0.8,-0.8)}]
+        \draw[thick, -&gt;] (0,0) -- (0.8,0) node[right] {$x_1$};
+        \draw[thick, -&gt;] (0,0) -- (0,0.8) node[above] {$x_2$};
+    \end{scope}
+\end{tikzpicture}
+
+    </script>
+  </div>
+  
+  <figcaption class="tikz-caption">
+    <span class="tikz-caption-prefix">Figure:</span> Two-dimensional state of stress on a differential continuum element with normal and shear tractions.
+  </figcaption>
+  
+</figure>
+
+<h3 id="equations-of-linear-momentum-equilibrium">Equations of Linear Momentum (Equilibrium)</h3>
+<p>Balancing forces on the differential volume yields the Navier-Cauchy equations of motion:
+</p>
+$$\nabla \cdot \bm{\sigma} + \rho \bm{b} = \rho \ddot{\bm{u}} \quad \leftrightarrow \quad \sigma_{ij,j} + \rho b_i = \rho \ddot{u}_i$$<p>For static equilibrium in the absence of body forces ($\bm{b} = \bm{0}$):
+</p>
+$$\sigma_{ij,j} = 0$$<hr>
+<h2 id="4-constitutive-laws--linear-elastic-solids">4. Constitutive Laws &amp; Linear Elastic Solids</h2>
+<figure class="tikz-container" id="tikz-1792239481332039151">
+  <div class="tikz-wrapper">
+    <script type="text/tikz">
+
+\begin{tikzpicture}[scale=0.7, &gt;=latex]
+    % Linear Elastic
+    \begin{scope}[shift={(0,0)}]
+        \draw[-&gt;] (0,0) -- (3,0) node[below] {$\varepsilon$};
+        \draw[-&gt;] (0,0) -- (0,3) node[left] {$\sigma$};
+        \draw[thick, cyan] (0,0) -- (2.4,2.4);
+        \draw[-&gt;, cyan] (0.5, 0.8) -- (1.6, 1.9);
+        \draw[-&gt;, cyan] (1.8, 1.5) -- (0.7, 0.4);
+        \node[below, align=center] at (1.5, -0.5) {\textbf{Linear}\\\textbf{Elastic}};
+    \end{scope}
+
+    % Non-Linear Elastic
+    \begin{scope}[shift={(4.5,0)}]
+        \draw[-&gt;] (0,0) -- (3,0) node[below] {$\varepsilon$};
+        \draw[-&gt;] (0,0) -- (0,3) node[left] {$\sigma$};
+        \draw[thick, purple] (0,0) to[out=70, in=200] (2.4,2.4);
+        \draw[-&gt;, purple] (0.4, 1.4) to[out=65, in=210] (1.6, 2.3);
+        \draw[-&gt;, purple] (1.9, 1.8) to[out=210, in=75] (0.7, 0.6);
+        \node[below, align=center] at (1.5, -0.5) {\textbf{Non-Linear}\\\textbf{Elastic}};
+    \end{scope}
+
+    % Inelastic
+    \begin{scope}[shift={(9,0)}]
+        \draw[-&gt;] (0,0) -- (3,0) node[below] {$\varepsilon$};
+        \draw[-&gt;] (0,0) -- (0,3) node[left] {$\sigma$};
+        \draw[thick, red] (0,0) to[out=70, in=200] (2.4,2.4);
+        \draw[thick, dashed, red] (2.4,2.4) -- (1.6,0);
+        \draw[-&gt;, red] (0.4, 1.4) to[out=65, in=210] (1.6, 2.3);
+        \draw[-&gt;, red] (2.4, 1.8) -- (1.9, 0.5);
+        \node[below, align=center] at (1.5, -0.5) {\textbf{Inelastic}\\\textbf{(Plastic)}};
+    \end{scope}
+\end{tikzpicture}
+
+    </script>
+  </div>
+  
+  <figcaption class="tikz-caption">
+    <span class="tikz-caption-prefix">Figure:</span> Material constitutive behaviors: linear elastic, non-linear elastic, and inelastic (plastic) responses.
+  </figcaption>
+  
+</figure>
+
+<h3 id="generalized-hookes-law--symmetries">Generalized Hooke&rsquo;s Law &amp; Symmetries</h3>
+<p>For linear elastic materials, the fourth-order elasticity tensor $\mathbb{C}$ relates stress to strain:
+</p>
+$$\sigma_{ij} = C_{ijkl} \varepsilon_{kl}$$<ul>
+<li><strong>Total Components:</strong> $3^4 = 81$.</li>
+<li><strong>Minor Symmetries:</strong> Due to $\bm{\sigma} = \bm{\sigma}^T$ and $\bm{\varepsilon} = \bm{\varepsilon}^T$, $C_{ijkl} = C_{jikl} = C_{ijlk} \implies$ <strong>36 components</strong>.</li>
+<li><strong>Major Symmetry (Hyperelasticity):</strong> The existence of a strain energy density function $U(\bm{\varepsilon})$ such that $\sigma_{ij} = \frac{\partial U}{\partial \varepsilon_{ij}}$ implies $C_{ijkl} = C_{klij} \implies$ <strong>21 independent components</strong>.</li>
+</ul>
+<h3 id="isotropic-linear-elasticity">Isotropic Linear Elasticity</h3>
+<p>For materials whose mechanical properties are direction-independent, the 21 constants collapse to just <strong>two independent Lamé parameters</strong> ($\lambda, \mu$):
+</p>
+$$\sigma_{ij} = \lambda \delta_{ij} \varepsilon_{kk} + 2\mu \varepsilon_{ij} \quad \leftrightarrow \quad \bm{\sigma} = \lambda \text{tr}(\bm{\varepsilon})\bm{I} + 2\mu \bm{\varepsilon}$$<p>Inverting this relationship gives Hooke&rsquo;s Law in terms of Young&rsquo;s modulus $E$ and Poisson&rsquo;s ratio $\nu$:
+</p>
+$$\varepsilon_{ij} = \frac{1+\nu}{E} \sigma_{ij} - \frac{\nu}{E} \sigma_{kk} \delta_{ij} \quad \leftrightarrow \quad \bm{\varepsilon} = \frac{1+\nu}{E} \bm{\sigma} - \frac{\nu}{E} \text{tr}(\bm{\sigma})\bm{I}$$<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Modulus</th>
+					<th style="text-align: left">Definition</th>
+					<th style="text-align: left">Relationship to Lamé Constants</th>
+					<th style="text-align: left">Physical Application</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>Young&rsquo;s Modulus ($E$)</strong></td>
+					<td style="text-align: left">Tensile/compressive stiffness</td>
+					<td style="text-align: left">$E = \frac{\mu(3\lambda + 2\mu)}{\lambda + \mu}$</td>
+					<td style="text-align: left">Beams, trusses, columns</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Shear Modulus ($G = \mu$)</strong></td>
+					<td style="text-align: left">Resistance to shear deformation</td>
+					<td style="text-align: left">$G = \mu = \frac{E}{2(1+\nu)}$</td>
+					<td style="text-align: left">Torsion, transverse shear</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Bulk Modulus ($K$)</strong></td>
+					<td style="text-align: left">Resistance to volume change</td>
+					<td style="text-align: left">$K = \lambda + \frac{2}{3}\mu = \frac{E}{3(1-2\nu)}$</td>
+					<td style="text-align: left">Hydrostatic pressure, fluids</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Poisson&rsquo;s Ratio ($\nu$)</strong></td>
+					<td style="text-align: left">Transverse contraction ratio</td>
+					<td style="text-align: left">$\nu = \frac{\lambda}{2(\lambda+\mu)}$</td>
+					<td style="text-align: left">Lateral necking, auxetics ($\nu < 0$)</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="hydrostatic--deviatoric-stress-decomposition">Hydrostatic &amp; Deviatoric Stress Decomposition</h3>
+<p>Any stress state can be decoupled into volumetric changes and shape distortion:
+</p>
+$$\sigma_{ij} = H_{ij} + S_{ij} = \underbrace{\frac{1}{3}\sigma_{kk} \delta_{ij}}_{\text{Hydrostatic (Volume)}} + \underbrace{\left(\sigma_{ij} - \frac{1}{3}\sigma_{kk}\delta_{ij}\right)}_{\text{Deviatoric (Distortion)}}$$<h3 id="naviers-displacement-equations">Navier&rsquo;s Displacement Equations</h3>
+<p>Substituting kinematics and constitutive relations into linear momentum equilibrium yields Navier&rsquo;s equations:
+</p>
+$$\mu \nabla^2 \bm{u} + (\lambda + \mu) \nabla(\nabla \cdot \bm{u}) + \rho \bm{b} = \bm{0} \quad \leftrightarrow \quad \mu u_{i,jj} + (\lambda + \mu) u_{j,ij} + \rho b_i = 0$$<hr>
+<h2 id="5-two-dimensional-continua--airy-stress-functions">5. Two-Dimensional Continua &amp; Airy Stress Functions</h2>
+<h3 id="plane-strain-vs-plane-stress">Plane Strain vs. Plane Stress</h3>
+$$\begin{array}{l|c|c}
+\textbf{Property} & \textbf{Plane Strain (Thick Bodies, Dams, Tunnels)} & \textbf{Plane Stress (Thin Plates, Membranes)} \\
+\hline
+\textbf{Kinematic Constraint} & \varepsilon_{33} = \varepsilon_{13} = \varepsilon_{23} = 0 & \sigma_{33} = \sigma_{13} = \sigma_{23} = 0 \\
+\textbf{Out-of-Plane Component} & \sigma_{33} = \nu(\sigma_{11} + \sigma_{22}) \neq 0 & \varepsilon_{33} = -\frac{\nu}{E}(\sigma_{11} + \sigma_{22}) \neq 0 \\
+\textbf{Constitutive Matrix} & \bar{E} = \frac{E}{1-\nu^2}, \; \bar{\nu} = \frac{\nu}{1-\nu} & E, \; \nu \text{ (Standard)}
+\end{array}$$<h3 id="airy-stress-function--biharmonic-equation">Airy Stress Function &amp; Biharmonic Equation</h3>
+<p>For 2D problems with negligible body forces, equilibrium is identically satisfied by defining the stress components via an <strong>Airy stress function</strong> $\Phi(x_1, x_2)$:
+</p>
+$$\sigma_{11} = \frac{\partial^2 \Phi}{\partial x_2^2}, \quad \sigma_{22} = \frac{\partial^2 \Phi}{\partial x_1^2}, \quad \sigma_{12} = -\frac{\partial^2 \Phi}{\partial x_1 \partial x_2}$$<p>Substituting these stresses into the compatibility equation proves that $\Phi$ must satisfy the <strong>Biharmonic Equation</strong>:
+</p>
+$$\nabla^4 \Phi = \frac{\partial^4 \Phi}{\partial x_1^4} + 2\frac{\partial^4 \Phi}{\partial x_1^2 \partial x_2^2} + \frac{\partial^4 \Phi}{\partial x_2^4} = 0$$<hr>
+<h2 id="6-worked-benchmark-problems">6. Worked Benchmark Problems</h2>
+<h3 id="benchmark-1-mars-rover-solar-panel-tractions">Benchmark 1: Mars Rover Solar Panel Tractions</h3>
+<details class="smidr-collapse" open>
+  <summary class="smidr-collapse-summary">
+    <span class="smidr-collapse-title-wrap">
+      <span class="smidr-collapse-icon">▸</span>
+      <span class="smidr-collapse-title">Problem Statement &amp; Derivation</span>
+    </span>
+    <span class="smidr-collapse-chevron" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </span>
+  </summary>
+  <div class="smidr-collapse-content">
+    <p><strong>Problem:</strong> The stress field in the solar panel of a planetary rover is modeled by the quadratic Airy stress function:
+</p>
+$$\Phi(x_1, x_2) = a_1 x_1^2 + a_2 x_1 x_2 + a_3 x_2^2$$<p><strong>1. Biharmonic Check:</strong> Fourth derivatives vanish identically, so $\nabla^4 \Phi = 0$ is satisfied.<br>
+<strong>2. Stress Recovery:</strong>
+</p>
+$$\sigma_{11} = \frac{\partial^2 \Phi}{\partial x_2^2} = 2a_3, \quad \sigma_{22} = \frac{\partial^2 \Phi}{\partial x_1^2} = 2a_1, \quad \sigma_{12} = -\frac{\partial^2 \Phi}{\partial x_1 \partial x_2} = -a_2$$<p>
+<strong>3. Boundary Tractions:</strong> On boundaries with normal $\bm{n}$, $\bm{t} = \bm{\sigma}\bm{n}$.</p>
+
+  </div>
+</details>
+
+<figure class="tikz-container" id="tikz-1792239481332093209">
+  <div class="tikz-wrapper">
+    <script type="text/tikz">
+
+\begin{tikzpicture}[scale=0.75]
+    % Coordinate System
+    \draw[thick, |-&gt;] (0,-1) -- (0.9,-1) node[below] {$\bm{e}_1$};
+    \draw[thick, |-&gt;] (0,-1) -- (0,-0.1) node[left] {$\bm{e}_2$};
+
+    % Plate boundaries
+    \draw[thick, cyan] (0,0) rectangle (6,4);
+    
+    % Normal Stresses Sigma_11 = 2a3
+    \foreach \y in {0.5, 1.5, 2.5, 3.5} {
+        \draw[thick, cyan, &lt;-] (-1, \y) -- (-0.1, \y);
+        \draw[thick, cyan, -&gt;] (6.1, \y) -- (7, \y);
+    }
+    \node[cyan, left] at (-1, 2) {$\sigma_{11}=2a_3$};
+    \node[cyan, right] at (7, 2) {$\sigma_{11}=2a_3$};
+
+    % Normal Stresses Sigma_22 = 2a1
+    \foreach \x in {1, 2, 3, 4, 5} {
+        \draw[thick, cyan, -&gt;] (\x, 4.1) -- (\x, 5);
+        \draw[thick, cyan, -&gt;] (\x, -0.1) -- (\x, -1);
+    }
+    \node[cyan, above] at (3, 5) {$\sigma_{22}=2a_1$};
+    \node[cyan, below] at (3, -1) {$\sigma_{22}=2a_1$};
+
+    % Shear Stresses Sigma_12 = -a2
+    \foreach \x in {5.5, 4.5, ..., 0.5} {
+        \draw[thick, purple, -&gt;] (\x&#43;0.5, 3.8) -- (\x, 3.8);
+    }
+    \node[purple, below] at (3, 3.8) {$\sigma_{12}=-a_2$};
+    
+    \foreach \y in {3.5, 2.5, ..., 0.5} {
+        \draw[thick, purple, -&gt;] (5.8, \y&#43;0.5) -- (5.8, \y);
+    }
+    \node[purple, left] at (5.8, 2) {$\sigma_{12}=-a_2$};
+
+    \foreach \x in {0.5, 1.5, ..., 5.5} {
+        \draw[thick, purple, -&gt;] (\x, 0.2) -- (\x&#43;0.5, 0.2);
+    }
+    \node[purple, above] at (3, 0.2) {$\sigma_{12}=-a_2$};
+
+    \foreach \y in {0.5, 1.5, ..., 3.5} {
+        \draw[thick, purple, -&gt;] (0.2, \y) -- (0.2, \y&#43;0.5);
+    }
+    \node[purple, right] at (0.2, 2) {$\sigma_{12}=-a_2$};
+    
+    \node[below] at (6,0) {$b$};
+    \node[left] at (0,4) {$c$};
+\end{tikzpicture}
+
+    </script>
+  </div>
+  
+  <figcaption class="tikz-caption">
+    <span class="tikz-caption-prefix">Figure:</span> Boundary normal and shear tractions acting on the rectangular Mars rover solar panel.
+  </figcaption>
+  
+</figure>
+
+<hr>
+<h3 id="benchmark-2-hydrostatic-gravity-dam">Benchmark 2: Hydrostatic Gravity Dam</h3>
+<details class="smidr-collapse" open>
+  <summary class="smidr-collapse-summary">
+    <span class="smidr-collapse-title-wrap">
+      <span class="smidr-collapse-icon">▸</span>
+      <span class="smidr-collapse-title">Problem Statement &amp; Derivation</span>
+    </span>
+    <span class="smidr-collapse-chevron" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </span>
+  </summary>
+  <div class="smidr-collapse-content">
+    <p><strong>Problem:</strong> A triangular dam under plane strain is subjected to hydrostatic water pressure $p(y) = \rho g y$ on its vertical face $AB$ ($x=0$), with free surface $AC$ ($x=y$):
+</p>
+$$\Phi(x, y) = \frac{1}{6}a_1 x^3 + \frac{1}{2}a_2 x^2 y + \frac{1}{2}a_3 x y^2 + \frac{1}{6}a_4 y^3$$<p>Matching boundary conditions reveals the unique coefficients:
+</p>
+$$a_1 = -2\rho g, \quad a_2 = \rho g, \quad a_3 = 0, \quad a_4 = -\rho g$$<p>The resulting base reaction traction on $BC$ ($y=l$) is:
+</p>
+$$\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2$$
+  </div>
+</details>
+
+<figure class="tikz-container" id="tikz-1792239481332165234">
+  <div class="tikz-wrapper">
+    <script type="text/tikz">
+
+\begin{tikzpicture}[scale=0.9]
+    \coordinate (A) at (4,4); 
+    \coordinate (B) at (4,0); 
+    \coordinate (C) at (0,0); 
+    
+    \draw[line width=1.5pt] (A) -- (B) -- (C) -- cycle;
+    \fill[pattern=north east lines, pattern color=cyan!40] (A) -- (B) -- (C) -- cycle;
+    
+    \node[above] at (A) {$A$};
+    \node[below right] at (B) {$B$};
+    \node[below left] at (C) {$C$};
+    
+    % Coordinates
+    \draw[|-&gt;] (4, 4.5) -- (3, 4.5) node[below] {$x$};
+    \draw[|-&gt;] (5, 4) -- (5, 3) node[right] {$y$};
+    
+    % Dimensions
+    \draw[&lt;-&gt;] (-0.5, 0) -- (-0.5, 4) node[midway, left] {$l$};
+    \draw[&lt;-&gt;] (0, -0.6) -- (4, -0.6) node[midway, below] {$l$};
+
+    % Hydrostatic Pressure
+    \draw (4,4) -- (5.5,0);
+    \draw (4,0) -- (5.5,0);
+    \foreach \y in {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5} {
+        \draw[-&gt;, blue] ({4 &#43; (4-\y)*1.5/4}, \y) -- (4, \y);
+    }
+    \node[right, blue] at (5, 2) {$p(y)=\rho g y$};
+    
+    % Base Tractions
+    \foreach \x in {0.5, 1.5, 2.5, 3.5} {
+        \draw[-&gt;, purple] (\x, -0.15) -- (\x&#43;0.5, -0.15);
+    }
+    \node[below, purple] at (2, -0.2) {$t_{x} = -\rho g x$};
+    
+    % Vertical Traction
+    \draw (0,-1.6) -- (4,-1.6);
+    \foreach \x in {0.2, 0.6, ..., 4.0} {
+         \pgfmathsetmacro{\h}{1.0 - 0.5*\x}
+         \draw[-&gt;, orange] (\x, -1.6) -- (\x, {-1.6 &#43; \h});
+    }
+    \node[left, orange] at (0, -0.6) {$&#43;\rho g l$};
+    \node[right, orange] at (4, -2.1) {$-\rho g l$};
+\end{tikzpicture}
+
+    </script>
+  </div>
+  
+  <figcaption class="tikz-caption">
+    <span class="tikz-caption-prefix">Figure:</span> Triangular gravity dam under hydrostatic water pressure and resulting base reaction tractions.
+  </figcaption>
+  
+</figure>
+
+<hr>
+<h1 id="part-ii-structural-elements--variational-principles">Part II: Structural Elements &amp; Variational Principles</h1>
+<h2 id="7-beam-formulations-euler-bernoulli-vs-timoshenko">7. Beam Formulations: Euler-Bernoulli vs. Timoshenko</h2>
+<p>1D structural models approximate slender structural members ($L \gg h, b$).</p>
+<h3 id="kinematic-hypotheses">Kinematic Hypotheses</h3>
+<ul>
+<li>
+<p><strong>Timoshenko Beam Theory (Thick/Shear-Deformable):</strong><br>
+Plane sections remain plane but <strong>not</strong> necessarily perpendicular to the deformed neutral axis. Cross-sectional rotation $\beta(x)$ is independent of deflection slope $w'(x)$:
+</p>
+$$u(x,z) = u_0(x) + z\beta(x), \quad w(x,z) = w(x)$$<p>
+</p>
+$$\text{Shear Strain: } \gamma = w'(x) + \beta(x)$$<p>
+</p>
+$$\text{Constitutive: } N = EA u_0', \quad M = EI \beta', \quad V = GA_V (w' + \beta)$$<p>
+</p>
+$$\text{Equilibrium: } N' + p_x = 0, \quad V' + p_z = 0, \quad M' - V = 0$$</li>
+<li>
+<p><strong>Euler-Bernoulli Beam Theory (Thin/Shear-Rigid):</strong><br>
+Plane sections remain plane and strictly perpendicular to the neutral axis ($\gamma = 0 \implies \beta(x) = -w'(x)$):
+</p>
+$$(EI w'')'' = p_z$$</li>
+</ul>
+<h3 id="systematic-integration-procedure">Systematic Integration Procedure</h3>
+<ol>
+<li><strong>Equilibrium Integration:</strong>
+
+$$V(x) = -\int p_z(x) dx + C_1$$
+
+$$M(x) = \int V(x) dx + C_2$$</li>
+<li><strong>Kinematic Integration:</strong>
+<ul>
+<li><em>Timoshenko:</em> $\beta(x) = \int \frac{M(x)}{EI} dx + C_3$, $\quad w(x) = \int \left(\frac{V(x)}{GA_V} - \beta(x)\right) dx + C_4$.</li>
+<li><em>Euler-Bernoulli:</em> $w'(x) = -\int \frac{M(x)}{EI} dx + C_3$, $\quad w(x) = \int w'(x) dx + C_4$.</li>
+</ul>
+</li>
+<li><strong>Boundary Condition Enforcement:</strong></li>
+</ol>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Support Type</th>
+					<th style="text-align: center">Diagram Representation</th>
+					<th style="text-align: center">Kinematic BCs</th>
+					<th style="text-align: center">Dynamic / Force BCs</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>Clamped</strong></td>
+					<td style="text-align: center">Rigid wall</td>
+					<td style="text-align: center">$w = 0, \quad \beta = 0$</td>
+					<td style="text-align: center">$M \neq 0, \quad V \neq 0$</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Pinned (Hinged)</strong></td>
+					<td style="text-align: center">Triangular support</td>
+					<td style="text-align: center">$w = 0$</td>
+					<td style="text-align: center">$M = 0$</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Free Tip</strong></td>
+					<td style="text-align: center">Unconstrained end</td>
+					<td style="text-align: center">None</td>
+					<td style="text-align: center">$M = 0, \quad V = 0$</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Guided / Slider</strong></td>
+					<td style="text-align: center">Vertical roller sleeve</td>
+					<td style="text-align: center">$\beta = 0$</td>
+					<td style="text-align: center">$V = 0$</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Tip Load / Moment</strong></td>
+					<td style="text-align: center">Point load $\widehat{F}$, moment $\widehat{M}$</td>
+					<td style="text-align: center">None</td>
+					<td style="text-align: center">$M = \widehat{M}, \quad V = \widehat{F}$</td>
+			</tr>
+	</tbody>
+</table>
+<hr>
+<h2 id="8-plate-theory-kirchhoff-love-vs-reissner-mindlin">8. Plate Theory: Kirchhoff-Love vs. Reissner-Mindlin</h2>
+<p>Plates are 2D flat structures ($t \ll L_x, L_y$) resisting transverse loads primarily through internal bending moments ($M_{xx}, M_{yy}$), twisting moments ($M_{xy}$), and transverse shears ($Q_x, Q_y$) <span class="cite-group"><a class="cite-ref" href="#bib-mindlin1951" data-cite-key="mindlin1951" role="doc-biblioref" aria-label="Citation: mindlin1951"><span class="cite-num">[mindlin1951]</span></a></span>
+ <span class="cite-group"><a class="cite-ref" href="#bib-reissner1945" data-cite-key="reissner1945" role="doc-biblioref" aria-label="Citation: reissner1945"><span class="cite-num">[reissner1945]</span></a></span>
+.</p>
+<ul>
+<li><strong>Kirchhoff Bending Stiffness:</strong> $K = \frac{Et^3}{12(1-\nu^2)}$.</li>
+<li><strong>Biharmonic Plate Equation:</strong>
+
+$$\Delta\Delta w = \frac{\partial^4 w}{\partial x^4} + 2\frac{\partial^4 w}{\partial x^2 \partial y^2} + \frac{\partial^4 w}{\partial y^4} = \frac{p(x,y)}{K}$$</li>
+</ul>
+<h3 id="axisymmetric-circular-plates">Axisymmetric Circular Plates</h3>
+<p>Under rotationally symmetric loads $p(r)$, the plate equation simplifies in polar coordinates:
+</p>
+$$\frac{1}{r} \frac{d}{dr} \left\{ r \frac{d}{dr} \left[ \frac{1}{r} \frac{d}{dr} \left( r \frac{dw}{dr} \right) \right] \right\} = \frac{p(r)}{K}$$<p>Integrating four times yields the general solution:
+</p>
+$$w(r) = C_1 + C_2 r^2 + C_3 \ln r + C_4 r^2 \ln r + w_{\text{particular}}(r)$$<p>For solid circular plates without a central hole, $C_3 = C_4 = 0$ to avoid logarithmic singularity at $r = 0$.</p>
+<h3 id="classical-plate-boundary-conditions">Classical Plate Boundary Conditions</h3>
+$$\begin{array}{l|l|l}
+\textbf{Edge Type} & \textbf{Kirchhoff-Love (KL)} & \textbf{Reissner-Mindlin (RM)} \\
+\hline
+\textbf{Clamped} & w = 0, \quad \frac{\partial w}{\partial n} = 0 & w = 0, \quad \varphi_n = 0, \quad \varphi_s = 0 \\
+\textbf{Simply Supported} & w = 0, \quad M_n = 0 & w = 0, \quad M_n = 0, \quad \varphi_s = 0 \text{ (Hard)} \\
+\textbf{Free Edge} & M_n = 0, \quad V_{\text{eff}} = Q_n + \frac{\partial M_{ns}}{\partial s} = 0 & M_n = 0, \quad M_{ns} = 0, \quad Q_n = 0
+\end{array}$$<hr>
+<h2 id="9-saint-venant-torsion">9. Saint-Venant Torsion</h2>
+<p>Applying a twisting moment $M_T$ generates a constant rate of twist $\vartheta' = \frac{d\vartheta}{dx}$:
+</p>
+$$M_T = G I_T \vartheta'$$<h3 id="cross-sectional-torsion-constants">Cross-Sectional Torsion Constants</h3>
+$$\begin{array}{l|l|l}
+\textbf{Cross-Section Type} & \textbf{Torsional Constant } I_T & \textbf{Peak Shear Stress } \tau_{max} \\
+\hline
+\textbf{Solid Circular / Tube} & I_T = I_p = \frac{\pi r^4}{2} & \tau_{max} = \frac{M_T r}{I_p} \\
+\textbf{Thin-Walled Open (I-beam, C-channel)} & I_T \approx \sum \frac{1}{3} b_i t_i^3 & \tau_{max} \approx G t_{max} \vartheta' = \frac{M_T t_{max}}{I_T} \\
+\textbf{Thin-Walled Closed (Bredt Box)} & I_T = \frac{4 A_m^2}{\oint \frac{ds}{t}} & \tau = \frac{q}{t} = \frac{M_T}{2 A_m t}
+\end{array}$$<p>where $A_m$ is the area enclosed by the mean wall perimeter line.</p>
+<hr>
+<h2 id="10-truss-systems--matrix-structural-analysis">10. Truss Systems &amp; Matrix Structural Analysis</h2>
+<p>Trusses are networks of pin-jointed bars carrying axial forces only.</p>
+<h3 id="static-determinacy-criterion">Static Determinacy Criterion</h3>
+<p>For a 2D planar truss with $k$ nodes, $s$ members (bars), and $r$ support reactions:
+</p>
+$$f = 2k - s - r$$<ul>
+<li>$f = 0$: Statically determinate. Solved via nodal equilibrium.</li>
+<li>$f < 0$: Statically indeterminate. Requires the direct stiffness method.</li>
+</ul>
+<h3 id="element-stiffness-matrix-in-2d-global-coordinates">Element Stiffness Matrix in 2D Global Coordinates</h3>
+<p>For a bar inclined at angle $\alpha$ with $c = \cos\alpha$ and $s = \sin\alpha$:
+</p>
+$$\mathbf{k}^{(e)} = \frac{EA}{L} \begin{bmatrix}
+c^2 & cs & -c^2 & -cs \\
+cs & s^2 & -cs & -s^2 \\
+-c^2 & -cs & c^2 & cs \\
+-cs & -s^2 & cs & s^2
+\end{bmatrix}$$<p>Assembling into the global system $\mathbf{K}\mathbf{u} = \mathbf{f}$ and enforcing boundary constraints yields the nodal displacement vector $\mathbf{u}$.</p>
+<hr>
+<h2 id="11-thin-walled-shells--the-7-parameter-model">11. Thin-Walled Shells &amp; the 7-Parameter Model</h2>
+<p>Shells combine <strong>membrane action</strong> (in-plane forces $N_{\alpha\beta}$, highly efficient) with <strong>bending action</strong> (moments $M_{\alpha\beta}$, flexible). In modern computational finite element formulations, standard shell elements suffer from shear locking and Poisson thickness locking.</p>
+<p>The advanced <strong>7-parameter shell model</strong> expands displacement kinematics:
+</p>
+$$\bm{u}(\theta^1, \theta^2, \theta^3) = \bm{v}(\theta^1, \theta^2) + \theta^3 \bm{w}(\theta^1, \theta^2) + (\theta^3)^2 \widetilde{\bm{w}}(\theta^1, \theta^2)$$<p>This formulation accounts for continuous transverse thickness stretching, enabling complete 3D constitutive laws without artificial artificial numerical locking.</p>
+<hr>
+<h2 id="12-energy-principles--foundations-of-the-finite-element-method">12. Energy Principles &amp; Foundations of the Finite Element Method</h2>
+<p>When exact closed-form solutions of differential equations are intractable, variational methods provide rigorous approximations <span class="cite-group"><a class="cite-ref" href="#bib-reddy2006" data-cite-key="reddy2006" role="doc-biblioref" aria-label="Citation: reddy2006"><span class="cite-num">[reddy2006]</span></a></span>
+ <span class="cite-group"><a class="cite-ref" href="#bib-hughes1987" data-cite-key="hughes1987" role="doc-biblioref" aria-label="Citation: hughes1987"><span class="cite-num">[hughes1987]</span></a></span>
+.</p>
+<h3 id="principle-of-virtual-work">Principle of Virtual Work</h3>
+<p>For any kinematically admissible virtual displacement $\delta\bm{u}$:
+</p>
+$$\delta W_{\text{int}} = \delta W_{\text{ext}} \quad \leftrightarrow \quad \int_{\mathcal{V}} \bm{\sigma} : \delta\bm{\varepsilon} \, dV = \int_{\mathcal{V}} \bm{b} \cdot \delta\bm{u} \, dV + \int_{\partial \mathcal{V}_t} \bm{t} \cdot \delta\bm{u} \, dA$$<h3 id="the-rayleigh-ritz-method">The Rayleigh-Ritz Method</h3>
+<ol>
+<li>Formulate the total potential energy functional: $\Pi(\bm{u}) = U(\bm{u}) - W_{\text{ext}}(\bm{u})$.</li>
+<li>Assume an ansatz fulfilling all essential (kinematic) boundary conditions:
+
+$$w(x) \approx \sum_{i=1}^n c_i \phi_i(x)$$</li>
+<li>Minimize potential energy with respect to generalized coordinates $c_i$:
+
+$$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
+<li>Solving the resulting linear algebraic system yields the best energy-optimal polynomial approximation to the true continuum deformation.</li>
+</ol>
+<hr>
+<section class="smidr-bibliography-section" id="bib-sec-1792239481332248733" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+    <h2 class="bib-section-title">
+      <span>📚</span> <span>References &amp; Citations</span>
+    </h2>
+    <div class="bib-header-controls">
+      <div class="bib-style-switcher" role="group" aria-label="Citation Style">
+        <span class="bib-control-label">Style:</span>
+        <button type="button" class="bib-ctrl-btn bib-style-btn" data-style="numeric" title="Numeric citation style [1]">Numeric</button>
+        <button type="button" class="bib-ctrl-btn bib-style-btn" data-style="author-year" title="Author-Year citation style (Author, Year)">Author-Year</button>
+        <button type="button" class="bib-ctrl-btn bib-style-btn" data-style="alphabetic" title="Alphabetic citation style [AutYY]">Alpha</button>
+      </div>
+      <div class="bib-filter-switcher" role="group" aria-label="Filter Bibliography">
+        <button type="button" class="bib-ctrl-btn bib-filter-btn" data-filter="cited" title="Show only citations cited in this article">Cited (<span class="bib-count-cited">0</span>)</button>
+        <button type="button" class="bib-ctrl-btn bib-filter-btn" data-filter="all" title="Show all entries in bibliography">All (<span class="bib-count-all">0</span>)</button>
+      </div>
+    </div>
+  </div><div class="smidr-bibliography">
+    <script type="text/bibtex" class="bibtex-source">
+
+@book{timoshenko1970,
+  title = {Theory of Elasticity},
+  author = {Timoshenko, Stephen P. and Goodier, J. N.},
+  edition = {3rd},
+  publisher = {McGraw-Hill},
+  year = {1970},
+  address = {New York}
+}
+
+@book{reddy2006,
+  title = {An Introduction to the Finite Element Method},
+  author = {Reddy, J. N.},
+  edition = {3rd},
+  publisher = {McGraw-Hill},
+  year = {2006},
+  address = {New York}
+}
+
+@article{mindlin1951,
+  title = {Influence of Rotatory Inertia and Shear on Flexural Motions of Isotropic, Elastic Plates},
+  author = {Mindlin, Raymond D.},
+  journal = {Journal of Applied Mechanics},
+  volume = {18},
+  pages = {31--38},
+  year = {1951}
+}
+
+@article{reissner1945,
+  title = {The Effect of Transverse Shear Deformation on the Bending of Elastic Plates},
+  author = {Reissner, Eric},
+  journal = {Journal of Applied Mechanics},
+  volume = {12},
+  number = {2},
+  pages = {A69--A77},
+  year = {1945}
+}
+
+@book{hughes1987,
+  title = {The Finite Element Method: Linear Static and Dynamic Finite Element Analysis},
+  author = {Hughes, Thomas J. R.},
+  publisher = {Prentice-Hall},
+  year = {1987},
+  address = {Englewood Cliffs, NJ}
+}
+
+    </script>
+    <ol class="bib-entries-list">
+      
+    </ol>
+  </div>
+</section>
+]]></content:encoded><category>Structural Mechanics</category><category>Continuum Mechanics</category><category>Elasticity</category><category>FEM</category><category>Tensors</category><category>Beams</category><category>Plates</category></item><item><title>Ergonomic Typing with Neo Layout (Bone Variant)</title><link>https://jokobus.github.io/posts/neoylayout/</link><pubDate>Mon, 16 Jun 2025 14:51:26 +0200</pubDate><guid>https://jokobus.github.io/posts/neoylayout/</guid><description><![CDATA[<p>This is a concise guide to the essentials of the <a href="https://neo-layout.org">Neo Keyboard Layout</a> variant <a href="https://neo-layout.org/Layouts/bone/"><strong>Bone</strong></a> for faster, healthier typing and streamlined mathematical notation.</p>
 <h2 id="windows">Windows</h2>
 <p>To use it on Windows follow these steps.</p>
 <h3 id="install">Install</h3>
@@ -8939,7 +10315,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792239071885840638" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792239481417036987" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -9056,7 +10432,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792239071885840638");
+  const root = document.getElementById("neuron-1792239481417036987");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -9531,7 +10907,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792239071885840638" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792239481417036987" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -9648,7 +11024,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792239071885840638");
+  const root = document.getElementById("neuron-1792239481417036987");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");

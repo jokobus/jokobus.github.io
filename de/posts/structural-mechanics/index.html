@@ -1,0 +1,311 @@
+<!doctype html><html lang=de dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="ie=edge"><title>Strukturmechanik: Kontinuumsmechanik, Bauteiltheorien & Variationsprinzipien | Jokobus</title><meta name=description content="Umfassendes Kompendium der Strukturmechanik: Von 3D-Tensorrechnung und linearen Elastizitätsgesetzen über Airy-Spannungsfunktionen bis zu Euler-Bernoulli/Timoshenko-Balken, Kirchhoff/Reissner-Mindlin-Platten und FEM-Variationsmethoden."><link rel=canonical href=https://jokobus.github.io/de/posts/structural-mechanics/><meta property="og:title" content="Strukturmechanik: Kontinuumsmechanik, Bauteiltheorien & Variationsprinzipien"><meta property="og:description" content="Umfassendes Kompendium der Strukturmechanik: Von 3D-Tensorrechnung und linearen Elastizitätsgesetzen über Airy-Spannungsfunktionen bis zu Euler-Bernoulli/Timoshenko-Balken, Kirchhoff/Reissner-Mindlin-Platten und FEM-Variationsmethoden."><meta property="og:type" content="article"><meta property="og:url" content="https://jokobus.github.io/de/posts/structural-mechanics/"><meta property="og:site_name" content="Jokobus"><meta property="article:published_time" content="2026-02-25T19:45:00+01:00"><meta property="article:modified_time" content="2026-02-25T19:45:00+01:00"><meta property="article:tag" content="Strukturmechanik"><meta property="article:tag" content="Kontinuumsmechanik"><meta property="article:tag" content="Elastizität"><meta property="article:tag" content="FEM"><meta property="article:tag" content="Tensoren"><meta property="article:tag" content="Balken"><meta property="article:tag" content="Platten"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Strukturmechanik: Kontinuumsmechanik, Bauteiltheorien & Variationsprinzipien"><meta name=twitter:description content="Umfassendes Kompendium der Strukturmechanik: Von 3D-Tensorrechnung und linearen Elastizitätsgesetzen über Airy-Spannungsfunktionen bis zu Euler-Bernoulli/Timoshenko-Balken, Kirchhoff/Reissner-Mindlin-Platten und FEM-Variationsmethoden."><link rel=icon type=image/svg+xml href=/favicon.svg><link rel=icon type=image/x-icon href=/favicon.ico><link rel="shortcut icon" href=/favicon.ico><link rel=apple-touch-icon href=/favicon.svg><link rel=alternate type=application/rss+xml title=Jokobus href=/index.xml><script src=/js/theme-init.min.7a06c4fc6e3d4b60d8f2f06f4b5a6104a1e8cf5f1c06894452bebf098cb5dc7b.js></script><link rel=stylesheet href=/css/smidr-bundle.min.89fdd3187502b12ea1e38a6195b72200b9354bbcdc1b38b72cdfcb361cdf319f.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js crossorigin=anonymous></script><link rel=stylesheet href=https://tikzjax.com/v1/fonts.css><script defer src=https://tikzjax.com/v1/tikzjax.js></script></head><body><a href=#main-content class=skip-link>Zum Inhalt springen</a><header class=site-header role=banner><div class="container-wide header-inner"><a href=/de/ class=site-logo aria-label="Jokobus Home"><span class=logo-badge title=Jokobus><svg class="logo-hammer-svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><defs><linearGradient id="headerHammerGrad" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0" stop-color="#00f0ff"/><stop offset="50%" stop-color="#8a2be2"/><stop offset="100%" stop-color="#ff007a"/></linearGradient><linearGradient id="headerMetalShaft" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0" stop-color="#cbd5e1"/><stop offset="50%" stop-color="#64748b"/><stop offset="100%" stop-color="#1e293b"/></linearGradient></defs><g transform="translate(50, 52) rotate(-35) translate(-50, -50)"><path d="M46 44h8l1 42H45z" fill="url(#headerMetalShaft)"/><rect x="44.5" y="60" width="11" height="3" rx="1.5" fill="#00f0ff"/><rect x="44.5" y="68" width="11" height="3" rx="1.5" fill="#a855f7"/><rect x="44.5" y="76" width="11" height="3" rx="1.5" fill="#ff007a"/><rect x="43" y="85" width="14" height="4" rx="2" fill="url(#headerHammerGrad)"/><path d="M22 24H78l4 6-2 14-4 4H24l-4-4-2-14z" fill="url(#headerHammerGrad)"/><polygon points="18,30 22,24 22,48 20,44" fill="#fff" opacity=".85"/><polygon points="78,24 82,30 80,44 76,48" fill="#00f0ff" opacity=".9"/><rect x="36" y="32" width="28" height="8" rx="2" fill="#090d16" opacity=".7"/><line x1="38" y1="36" x2="62" y2="36" stroke="#00f0ff" stroke-width="2" stroke-linecap="round"/><circle cx="50" cy="36" r="2.5" fill="#ff007a"/></g></svg>
+</span><span class=logo-text>Jokobus</span></a><nav class="site-nav desktop-nav" aria-label="Main Navigation"><ul class=nav-menu><li><a class=nav-link href=/de/>Start</a></li><li><a class="nav-link active" href=/de/posts/>Blog</a></li><li><a class=nav-link href=/de/about/>Über mich</a></li><li><a class=nav-link href=/de/contact/>Kontakt</a></li></ul></nav><div class=header-actions><button id=search-trigger-btn class=search-trigger-btn type=button data-action=open-search aria-label="Drücke Strg+K oder Cmd+K zum Suchen">
+<span>🔍</span>
+<span class=search-btn-text>Befehl...</span>
+<kbd class=search-kbd>⌘K</kbd>
+</button>
+<a class=btn-icon href=/posts/structural-mechanics/ title="Sprache wechseln: English" aria-label="Sprache wechseln: English">🇬🇧
+</a><button class=btn-icon type=button data-action=toggle-theme aria-label="Farbschema wechseln">
+<span class=theme-icon>☀️</span>
+</button>
+<button id=mobile-menu-btn class="btn-icon mobile-menu-btn" type=button aria-label="Toggle navigation menu" aria-expanded=false>
+<span class=hamburger-icon>☰</span></button></div></div><div id=mobile-nav-drawer class=mobile-nav-drawer aria-hidden=true><div class=container><ul class=mobile-menu-list><li><a class=mobile-nav-link href=/de/>Start</a></li><li><a class="mobile-nav-link active" href=/de/posts/>Blog</a></li><li><a class=mobile-nav-link href=/de/about/>Über mich</a></li><li><a class=mobile-nav-link href=/de/contact/>Kontakt</a></li><li class=mobile-menu-divider></li><li><button type=button class=mobile-nav-link data-action=open-search style="width:100%;text-align:left;background:0 0;border:none;cursor:pointer;font-family:inherit;font-size:inherit;color:inherit;padding:.75rem .5rem;display:flex;align-items:center;gap:.5rem">
+<span>🔍</span>
+<span>Befehl eingeben oder Beiträge durchsuchen...</span></button></li><li><a class=mobile-nav-link href=/de/categories/>📂 Kategorien</a></li><li><a class=mobile-nav-link href=/de/tags/>🏷️ Schlagwörter</a></li></ul></div></div></header><main id=main-content class=site-main role=main><div class=container><article class=article-container itemscope itemtype=http://schema.org/BlogPosting><header class=article-header><h1 class=article-title itemprop=headline>Strukturmechanik: Kontinuumsmechanik, Bauteiltheorien & Variationsprinzipien</h1><div class=article-meta-bar><span class=meta-item><span>📅</span>
+<time datetime=2026-02-25T19:45:00+01:00>25. Feb 2026</time>
+</span><span class=meta-item><span>⏱️</span>
+<span>~11 Min. Lesezeit</span>
+<span class=meta-words>(2238 Wörter)</span>
+</span><span class="meta-item post-tags"><a href=/de/tags/strukturmechanik class=tag-badge>#Strukturmechanik</a>
+<a href=/de/tags/kontinuumsmechanik class=tag-badge>#Kontinuumsmechanik</a>
+<a href=/de/tags/elastizit%C3%A4t class=tag-badge>#Elastizität</a>
+<a href=/de/tags/fem class=tag-badge>#FEM</a>
+<a href=/de/tags/tensoren class=tag-badge>#Tensoren</a>
+<a href=/de/tags/balken class=tag-badge>#Balken</a>
+<a href=/de/tags/platten class=tag-badge>#Platten</a></span></div></header><aside class=toc-box aria-label=Inhaltsverzeichnis><details class=toc-details open><summary class=toc-summary><span class=toc-title><span class=toc-icon>📑</span>
+<span>Inhaltsverzeichnis</span>
+</span><span class=toc-chevron>▾</span></summary><div class=toc-nav-wrapper><nav id=TableOfContents><ul><li><a href=#1-grundlagen-der-tensorrechnung>1. Grundlagen der Tensorrechnung</a><ul><li><a href=#skalare-vektoren-und-tensoren>Skalare, Vektoren und Tensoren</a></li><li><a href=#wichtige-tensoroperationen>Wichtige Tensoroperationen</a></li><li><a href=#koordinatentransformation>Koordinatentransformation</a></li><li><a href=#hauptwerte--invarianten>Hauptwerte & Invarianten</a></li><li><a href=#differentialoperatoren--integralsätze>Differentialoperatoren & Integralsätze</a></li></ul></li><li><a href=#2-kinematik--verzerrungsmaße>2. Kinematik & Verzerrungsmaße</a><ul><li><a href=#materielle-und-räumliche-koordinaten>Materielle und räumliche Koordinaten</a></li><li><a href=#deformationsgradient--finite-dehnungsmaße>Deformationsgradient & finite Dehnungsmaße</a></li><li><a href=#linearer-verzerrungstensor>Linearer Verzerrungstensor</a></li><li><a href=#saint-venantsche-kompatibilitätsbedingungen>Saint-Venantsche Kompatibilitätsbedingungen</a></li></ul></li><li><a href=#3-gleichgewicht--spannungszustand>3. Gleichgewicht & Spannungszustand</a><ul><li><a href=#cauchysches-spannungsprinzip--spannungsvektor>Cauchysches Spannungsprinzip & Spannungsvektor</a></li><li><a href=#spannungszustand-am-differentiellen-volumenelement>Spannungszustand am differentiellen Volumenelement</a></li><li><a href=#impulssatz-lokales-gleichgewicht>Impulssatz (Lokales Gleichgewicht)</a></li></ul></li><li><a href=#4-materialgesetze--lineare-isotrope-elastizität>4. Materialgesetze & lineare isotrope Elastizität</a><ul><li><a href=#verallgemeinertes-hookesches-gesetz>Verallgemeinertes Hookesches Gesetz</a></li><li><a href=#isotropes-materialgesetz>Isotropes Materialgesetz</a></li><li><a href=#hydrostatische--deviatorische-spannungszerlegung>Hydrostatische & deviatorische Spannungszerlegung</a></li><li><a href=#navier-gleichungen-der-elastostatik>Navier-Gleichungen der Elastostatik</a></li></ul></li><li><a href=#5-zweidimensionale-kontinua--airy-spannungsfunktion>5. Zweidimensionale Kontinua & Airy-Spannungsfunktion</a><ul><li><a href=#ebener-verzerrungszustand-evz-vs-ebener-spannungszustand-esz>Ebener Verzerrungszustand (EVZ) vs. Ebener Spannungszustand (ESZ)</a></li><li><a href=#airy-spannungsfunktion--biharmonische-gleichung>Airy-Spannungsfunktion & Biharmonische Gleichung</a></li></ul></li><li><a href=#6-berechnungsbeispiele--benchmark-probleme>6. Berechnungsbeispiele & Benchmark-Probleme</a><ul><li><a href=#benchmark-1-mars-rover-solarpaneel-randspannungen>Benchmark 1: Mars-Rover Solarpaneel-Randspannungen</a></li><li><a href=#benchmark-2-staumauer-unter-hydrostatischem-wasserdruck>Benchmark 2: Staumauer unter hydrostatischem Wasserdruck</a></li></ul></li></ul><ul><li><a href=#7-balkentheorien-euler-bernoulli-vs-timoshenko>7. Balkentheorien: Euler-Bernoulli vs. Timoshenko</a><ul><li><a href=#kinematische-hypothesen>Kinematische Hypothesen</a></li><li><a href=#systematische-lösungsprozedur>Systematische Lösungsprozedur</a></li></ul></li><li><a href=#8-plattentheorie-kirchhoff-love-vs-reissner-mindlin>8. Plattentheorie: Kirchhoff-Love vs. Reissner-Mindlin</a><ul><li><a href=#axialsymmetrische-kreisplatten>Axialsymmetrische Kreisplatten</a></li><li><a href=#randbedingungen-für-platten>Randbedingungen für Platten</a></li></ul></li><li><a href=#9-saint-venantsche-torsion>9. Saint-Venantsche Torsion</a><ul><li><a href=#torsionssteifigkeiten-verschiedener-querschnitte>Torsionssteifigkeiten verschiedener Querschnitte</a></li></ul></li><li><a href=#10-fachwerke--direkte-steifigkeitsmethode>10. Fachwerke & direkte Steifigkeitsmethode</a><ul><li><a href=#statische-bestimmtheit>Statische Bestimmtheit</a></li><li><a href=#elementsteifigkeitsmatrix-im-globalen-koordinatensystem>Elementsteifigkeitsmatrix im globalen Koordinatensystem</a></li></ul></li><li><a href=#11-schalentheorie--das-7-parameter-modell>11. Schalentheorie & das 7-Parameter-Modell</a></li><li><a href=#12-variationsprinzipien--grundlagen-der-fem>12. Variationsprinzipien & Grundlagen der FEM</a><ul><li><a href=#prinzip-der-virtuellen-arbeit>Prinzip der virtuellen Arbeit</a></li><li><a href=#das-ritz-verfahren>Das Ritz-Verfahren</a></li></ul></li></ul></nav></div></details></aside><div class=article-content itemprop=articleBody><p>Die Strukturmechanik bildet das theoretische und numerische Fundament zur Dimensionierung und Analyse tragender Bauteile. Dieses Kompendium fasst zwei wesentliche Säulen zusammen: <strong>Teil I: Kontinuumsmechanik und dreidimensionale lineare Elastizitätstheorie</strong> sowie <strong>Teil II: Strukturtheorien (Balken, Platten, Schalen, Torsion) und Variationsprinzipien</strong>.</p><hr><h1 id=teil-i-kontinuumsmechanik--lineare-elastizität>Teil I: Kontinuumsmechanik & lineare Elastizität</h1><h2 id=1-grundlagen-der-tensorrechnung>1. Grundlagen der Tensorrechnung</h2><h3 id=skalare-vektoren-und-tensoren>Skalare, Vektoren und Tensoren</h3><p>Physikalische Größen in der Kontinuumsmechanik sind koordinatenunabhängig <span class=cite-group><a class=cite-ref href=#bib-timoshenko1970 data-cite-key=timoshenko1970 role=doc-biblioref aria-label="Citation: timoshenko1970"><span class=cite-num>[timoshenko1970]</span></a></span>
+:</p><ul><li><strong>Skalare (0. Stufe):</strong> Reine Maßzahlen (z. B. Massendichte $\rho$, Temperatur $\theta$).</li><li><strong>Vektoren (1. Stufe):</strong> Betrag und Raumrichtung: $\bm{v} = v_i \bm{e}_i$.</li><li><strong>Tensoren 2. Stufe:</strong> Lineare Abbildungen von Vektoren auf Vektoren:
+$$\bm{T}(\alpha \bm{u} + \beta \bm{v}) = \alpha \bm{T}\bm{u} + \beta \bm{T}\bm{v}$$</li><li><strong>Wirkung auf Basisvektoren:</strong> $\bm{T}\bm{e}_i = T_{ji} \bm{e}_j$ mit Matrixdarstellung:
+$$[\bm{T}] = \begin{bmatrix} T_{11} & T_{12} & T_{13} \\ T_{21} & T_{22} & T_{23} \\ T_{31} & T_{32} & T_{33} \end{bmatrix} \quad \leftrightarrow \quad T_{ij} = \bm{e}_i \cdot \bm{T} \bm{e}_j$$</li></ul><h3 id=wichtige-tensoroperationen>Wichtige Tensoroperationen</h3><ul><li><strong>Skalarprodukt (Vektoren):</strong> $\bm{u} \cdot \bm{v} = u_i v_i$.</li><li><strong>Kreuzprodukt:</strong> $\bm{u} \times \bm{v} = \epsilon_{ijk} u_i v_j \bm{e}_k$.</li><li><strong>Dyadisches Produkt:</strong> $(\bm{a} \otimes \bm{b})\bm{v} = (\bm{b} \cdot \bm{v})\bm{a}$, Komponenten: $[\bm{a} \otimes \bm{b}]_{ij} = a_i b_j$.</li><li><strong>Doppelkontraktion (Tensor-Skalarprodukt):</strong>
+$$\bm{S} : \bm{D} = \text{tr}(\bm{S}^T \bm{D}) = S_{ij} D_{ij}$$</li><li><strong>Spur & Determinante:</strong> $\text{tr}(\bm{T}) = T_{ii}$ und $\det \bm{T} = \epsilon_{ijk} T_{1i} T_{2j} T_{3k}$ (beides Invarianten).</li><li><strong>Symmetrische und schiefsymmetrische Zerlegung:</strong>
+$$\bm{T} = \bm{E} + \bm{W}, \quad \bm{E} = \frac{1}{2}(\bm{T} + \bm{T}^T), \quad \bm{W} = \frac{1}{2}(\bm{T} - \bm{T}^T)$$</li><li><strong>Orthogonale Tensoren & Drehungen:</strong> $\bm{Q}^T = \bm{Q}^{-1}$ ($\det\bm{Q} = \pm 1$). Eine echte Drehung erfüllt $\det\bm{R} = +1$.</li></ul><h3 id=koordinatentransformation>Koordinatentransformation</h3><p>Basiswechsel von $\bm{e}_i$ auf das gedrehte Basissystem $\bm{e}'_i = Q_{mi} \bm{e}_m$:</p><ul><li>Transformationsmatrix: $Q_{ij} = \bm{e}_i \cdot \bm{e}'_j$.</li><li>Vektortransformation: $[\bm{v}]_{\bm{e}'} = \bm{Q}^T [\bm{v}]_{\bm{e}}$ ($v'_i = Q_{ki} v_k$).</li><li>Tensortransformation: $[\bm{T}]_{\bm{e}'} = \bm{Q}^T [\bm{T}]_{\bm{e}} \bm{Q}$ ($T'_{ij} = Q_{ki} T_{kl} Q_{lj}$).</li></ul><h3 id=hauptwerte--invarianten>Hauptwerte & Invarianten</h3><p>Das Eigenwertproblem $\bm{S}\bm{n} = \lambda \bm{n}$ eines symmetrischen Tensors liefert die charakteristische Gleichung:</p>$$\lambda^3 - I_1 \lambda^2 + I_2 \lambda - I_3 = 0$$<p>mit den drei Hauptinvarianten:</p>$$\begin{aligned}
+I_1(\bm{S}) &= \text{tr}(\bm{S}) = \lambda_1 + \lambda_2 + \lambda_3 \\
+I_2(\bm{S}) &= \frac{1}{2}[(\text{tr}\bm{S})^2 - \text{tr}(\bm{S}^2)] = \lambda_1\lambda_2 + \lambda_2\lambda_3 + \lambda_3\lambda_1 \\
+I_3(\bm{S}) &= \det \bm{S} = \lambda_1\lambda_2\lambda_3
+\end{aligned}$$<p>Die Spektralzerlegung lautet:</p>$$\bm{S} = \sum_{i=1}^3 \lambda_i (\bm{n}_i \otimes \bm{n}_i) = \bm{Q} \bm{\Lambda} \bm{Q}^T$$<h3 id=differentialoperatoren--integralsätze>Differentialoperatoren & Integralsätze</h3><ul><li><strong>Gradient:</strong> $\nabla \phi = \frac{\partial \phi}{\partial x_i} \bm{e}_i$, $\nabla \bm{v} = v_{i,j} \bm{e}_i \otimes \bm{e}_j$.</li><li><strong>Divergenz:</strong> $\nabla \cdot \bm{v} = v_{i,i}$, $(\nabla \cdot \bm{S})_i = S_{ij,j}$.</li><li><strong>Gaußscher Integralsatz (Divergenzsatz):</strong>
+$$\int_{\partial \mathcal{B}} \bm{v} \cdot \bm{n} \, dA = \int_{\mathcal{B}} \nabla \cdot \bm{v} \, dV \quad \leftrightarrow \quad \int_{\partial \mathcal{B}} v_i n_i \, dA = \int_{\mathcal{B}} v_{i,i} \, dV$$</li><li><strong>Stokesscher Integralsatz:</strong>
+$$\int_{\Gamma} (\nabla \times \bm{v}) \cdot \bm{n} \, dA = \oint_{\partial \Gamma} \bm{v} \cdot \bm{t} \, ds$$</li></ul><hr><h2 id=2-kinematik--verzerrungsmaße>2. Kinematik & Verzerrungsmaße</h2><h3 id=materielle-und-räumliche-koordinaten>Materielle und räumliche Koordinaten</h3><p>Sei $\bm{X}$ die Ausgangskonfiguration (materiell) und $\bm{x} = \bm{\phi}(\bm{X}, t)$ die Momentankonfiguration (räumlich).</p><ul><li><strong>Verschiebung:</strong> $\bm{u}(\bm{X}, t) = \bm{x} - \bm{X}$.</li><li><strong>Geschwindigkeit & substantielle Zeitableitung:</strong>
+$$\bm{v} = \frac{\partial \bm{\phi}}{\partial t}\Big|_{\bm{X}}, \quad \frac{D(\cdot)}{Dt} = \frac{\partial(\cdot)}{\partial t} + \bm{v} \cdot \nabla(\cdot)$$</li></ul><h3 id=deformationsgradient--finite-dehnungsmaße>Deformationsgradient & finite Dehnungsmaße</h3><ul><li><strong>Deformationsgradient:</strong>
+$$\bm{F} = \frac{\partial \bm{x}}{\partial \bm{X}} = \nabla_{\bm{X}} \bm{\phi}, \quad F_{ij} = \frac{\partial x_i}{\partial X_j}$$</li><li><strong>Volumenänderung (Jacobi-Determinante):</strong> $J = \det\bm{F} > 0$. Bei inkompressibler Deformation gilt $J = 1$.</li><li><strong>Rechter Cauchy-Green-Tensor:</strong> $\bm{C} = \bm{F}^T \bm{F}$ ($C_{IJ} = F_{kI} F_{kJ}$).</li><li><strong>Green-Lagrange-Verzerrungstensor:</strong>
+$$\bm{E} = \frac{1}{2}(\bm{C} - \bm{I}) = \frac{1}{2}\left(\nabla_{\bm{X}}\bm{U} + \nabla_{\bm{X}}\bm{U}^T + \nabla_{\bm{X}}\bm{U}^T \nabla_{\bm{X}}\bm{U}\right)$$</li><li><strong>Faserstreckung $\lambda$ in Richtung $\bm{N}$:</strong> $\lambda = \frac{\|d\bm{x}\|}{\|d\bm{X}\|} = \sqrt{\bm{N} \cdot \bm{C} \bm{N}}$.</li></ul><h3 id=linearer-verzerrungstensor>Linearer Verzerrungstensor</h3><p>Unter der Annahme kleiner Verschiebungsgradienten ($\|\nabla \bm{u}\| \ll 1$):</p>$$\bm{\varepsilon} = \frac{1}{2}(\nabla\bm{u} + \nabla\bm{u}^T) \quad \leftrightarrow \quad \varepsilon_{ij} = \frac{1}{2}(u_{i,j} + u_{j,i})$$<ul><li><strong>Dehnung:</strong> $\varepsilon_{nn} = \bm{n} \cdot \bm{\varepsilon} \bm{n} \approx \frac{ds - dS}{dS}$ beschreibt die relative Längenänderung.</li><li><strong>Gleitungen:</strong> $\gamma_{mn} = 2 \varepsilon_{mn} = 2(\bm{m} \cdot \bm{\varepsilon} \bm{n})$ beschreibt die Winkeländerung zwischen ursprünglich orthogonalen Richtungen $\bm{m}$ und $\bm{n}$.</li><li><strong>Volumendehnung:</strong> $e = \text{tr}(\bm{\varepsilon}) = \varepsilon_{kk} \approx \frac{\Delta V}{V_0}$.</li></ul><h3 id=saint-venantsche-kompatibilitätsbedingungen>Saint-Venantsche Kompatibilitätsbedingungen</h3><p>Damit aus einem gegebenen symmetrischen Dehnungsfeld $\varepsilon_{ij}(\bm{x})$ ein eindeutiges, stetiges Verschiebungsfeld $\bm{u}(\bm{x})$ integriert werden kann, muss gelten:</p>$$\varepsilon_{ij,kl} + \varepsilon_{kl,ij} - \varepsilon_{ik,jl} - \varepsilon_{jl,ik} = 0$$<p>In 3D-Koordinaten entspricht dies den 6 bekannten Gleichungen:</p>$$\begin{aligned}
+\frac{\partial^2 \varepsilon_{11}}{\partial x_2^2} + \frac{\partial^2 \varepsilon_{22}}{\partial x_1^2} &= 2 \frac{\partial^2 \varepsilon_{12}}{\partial x_1 \partial x_2}, & \frac{\partial^2 \varepsilon_{11}}{\partial x_2 \partial x_3} &= \frac{\partial}{\partial x_1} \left( -\frac{\partial \varepsilon_{23}}{\partial x_1} + \frac{\partial \varepsilon_{13}}{\partial x_2} + \frac{\partial \varepsilon_{12}}{\partial x_3} \right) \\
+\frac{\partial^2 \varepsilon_{22}}{\partial x_3^2} + \frac{\partial^2 \varepsilon_{33}}{\partial x_2^2} &= 2 \frac{\partial^2 \varepsilon_{23}}{\partial x_2 \partial x_3}, & \frac{\partial^2 \varepsilon_{22}}{\partial x_3 \partial x_1} &= \frac{\partial}{\partial x_2} \left( \frac{\partial \varepsilon_{23}}{\partial x_1} - \frac{\partial \varepsilon_{13}}{\partial x_2} + \frac{\partial \varepsilon_{12}}{\partial x_3} \right) \\
+\frac{\partial^2 \varepsilon_{33}}{\partial x_1^2} + \frac{\partial^2 \varepsilon_{11}}{\partial x_3^2} &= 2 \frac{\partial^2 \varepsilon_{13}}{\partial x_3 \partial x_1}, & \frac{\partial^2 \varepsilon_{33}}{\partial x_1 \partial x_2} &= \frac{\partial}{\partial x_3} \left( \frac{\partial \varepsilon_{23}}{\partial x_1} + \frac{\partial \varepsilon_{13}}{\partial x_2} - \frac{\partial \varepsilon_{12}}{\partial x_3} \right)
+\end{aligned}$$<hr><h2 id=3-gleichgewicht--spannungszustand>3. Gleichgewicht & Spannungszustand</h2><h3 id=cauchysches-spannungsprinzip--spannungsvektor>Cauchysches Spannungsprinzip & Spannungsvektor</h3><p>Die Oberflächenkraft pro Flächeneinheit auf einem Schnitt mit Normalenvektor $\bm{n}$ ist:</p>$$\bm{t}_{\bm{n}} = \lim_{\Delta A \to 0} \frac{\Delta \bm{F}}{\Delta A} = \bm{\sigma} \bm{n}$$<ul><li><strong>Normalspannung:</strong> $t_n = \bm{n} \cdot \bm{t}_{\bm{n}} = \bm{n} \cdot \bm{\sigma} \bm{n}$ ($t_n > 0$ Zug, $t_n < 0$ Druck).</li><li><strong>Schubspannung:</strong> $t_s = \sqrt{\|\bm{\sigma}\bm{n}\|^2 - (\bm{n} \cdot \bm{\sigma} \bm{n})^2}$.</li><li><strong>Maximale Schubspannung:</strong> $\tau_{max} = \frac{\lambda_{max} - \lambda_{min}}{2}$.</li></ul><h3 id=spannungszustand-am-differentiellen-volumenelement>Spannungszustand am differentiellen Volumenelement</h3><p>Aus dem Drehimpulssatz folgt unmittelbar die Symmetrie des Cauchy-Spannungstensors: $\sigma_{ij} = \sigma_{ji}$.</p><figure class=tikz-container id=tikz-1792239481496215236><div class=tikz-wrapper><script type=text/tikz>
+
+\begin{tikzpicture}[scale=0.9, every node/.style={scale=0.85}]
+    \draw[thick] (0,0) rectangle (4,2.5);
+    \node at (2,1.25) {$dA$};
+    \node at (2,0.3) {$\Delta x_1$};
+    \node at (0.5,1.25) {$\Delta x_2$};
+    
+    % Left Face (-e1)
+    \draw[thick, -&gt;] (0,1.25) -- (-1,1.25) node[left] {$\sigma_{11}$};
+    \draw[thick, -&gt;] (-0.2,1.75) -- (-0.2,0.75) node[left] {$\sigma_{21}$};
+    
+    % Right Face (&#43;e1)
+    \draw[thick, -&gt;] (4,1.25) -- (5,1.25) node[right] {$\sigma_{11} &#43; \frac{\partial \sigma_{11}}{\partial x_1}\Delta x_1$};
+    \draw[thick, -&gt;] (4.2,0.75) -- (4.2,1.75) node[right] {$\sigma_{21} &#43; \frac{\partial \sigma_{21}}{\partial x_1}\Delta x_1$};
+    
+    % Bottom Face (-e2)
+    \draw[thick, -&gt;] (2,0) -- (2,-1) node[below] {$\sigma_{22}$};
+    \draw[thick, -&gt;] (2.5,-0.2) -- (1.5,-0.2) node[below] {$\sigma_{12}$};
+
+    % Top Face (&#43;e2)
+    \draw[thick, -&gt;] (2,2.5) -- (2,3.5) node[above] {$\sigma_{22} &#43; \frac{\partial \sigma_{22}}{\partial x_2}\Delta x_2$};
+    \draw[thick, -&gt;] (1.5,2.7) -- (2.5,2.7) node[above] {$\sigma_{12} &#43; \frac{\partial \sigma_{12}}{\partial x_2}\Delta x_2$};
+
+    % Coordinate Frame
+    \begin{scope}[shift={(-0.8,-0.8)}]
+        \draw[thick, -&gt;] (0,0) -- (0.8,0) node[right] {$x_1$};
+        \draw[thick, -&gt;] (0,0) -- (0.8,0) node[above] {$x_2$};
+    \end{scope}
+\end{tikzpicture}
+
+    </script></div><figcaption class=tikz-caption><span class=tikz-caption-prefix>Figure:</span> Zweidimensionaler Spannungszustand an einem differentiellen Kontinuumselement mit Normal- und Schubspannungen.</figcaption></figure><h3 id=impulssatz-lokales-gleichgewicht>Impulssatz (Lokales Gleichgewicht)</h3><p>Das Kräftegleichgewicht am Volumenelement liefert:</p>$$\nabla \cdot \bm{\sigma} + \rho \bm{b} = \rho \ddot{\bm{u}} \quad \leftrightarrow \quad \sigma_{ij,j} + \rho b_i = \rho \ddot{u}_i$$<p>Für statisches Gleichgewicht ohne Volumenkräfte ($\bm{b} = \bm{0}$):</p>$$\sigma_{ij,j} = 0$$<hr><h2 id=4-materialgesetze--lineare-isotrope-elastizität>4. Materialgesetze & lineare isotrope Elastizität</h2><figure class=tikz-container id=tikz-1792239481496242992><div class=tikz-wrapper><script type=text/tikz>
+
+\begin{tikzpicture}[scale=0.7, &gt;=latex]
+    % Linear Elastic
+    \begin{scope}[shift={(0,0)}]
+        \draw[-&gt;] (0,0) -- (3,0) node[below] {$\varepsilon$};
+        \draw[-&gt;] (0,0) -- (0,3) node[left] {$\sigma$};
+        \draw[thick, cyan] (0,0) -- (2.4,2.4);
+        \draw[-&gt;, cyan] (0.5, 0.8) -- (1.6, 1.9);
+        \draw[-&gt;, cyan] (1.8, 1.5) -- (0.7, 0.4);
+        \node[below, align=center] at (1.5, -0.5) {\textbf{Linear}\\\textbf{elastisch}};
+    \end{scope}
+
+    % Non-Linear Elastic
+    \begin{scope}[shift={(4.5,0)}]
+        \draw[-&gt;] (0,0) -- (3,0) node[below] {$\varepsilon$};
+        \draw[-&gt;] (0,0) -- (0,3) node[left] {$\sigma$};
+        \draw[thick, purple] (0,0) to[out=70, in=200] (2.4,2.4);
+        \draw[-&gt;, purple] (0.4, 1.4) to[out=65, in=210] (1.6, 2.3);
+        \draw[-&gt;, purple] (1.9, 1.8) to[out=210, in=75] (0.7, 0.6);
+        \node[below, align=center] at (1.5, -0.5) {\textbf{Nichtlinear}\\\textbf{elastisch}};
+    \end{scope}
+
+    % Inelastic
+    \begin{scope}[shift={(9,0)}]
+        \draw[-&gt;] (0,0) -- (3,0) node[below] {$\varepsilon$};
+        \draw[-&gt;] (0,0) -- (0,3) node[left] {$\sigma$};
+        \draw[thick, red] (0,0) to[out=70, in=200] (2.4,2.4);
+        \draw[thick, dashed, red] (2.4,2.4) -- (1.6,0);
+        \draw[-&gt;, red] (0.4, 1.4) to[out=65, in=210] (1.6, 2.3);
+        \draw[-&gt;, red] (2.4, 1.8) -- (1.9, 0.5);
+        \node[below, align=center] at (1.5, -0.5) {\textbf{Inelastisch}\\\textbf{(Plastisch)}};
+    \end{scope}
+\end{tikzpicture}
+
+    </script></div><figcaption class=tikz-caption><span class=tikz-caption-prefix>Figure:</span> Materialverhalten: linear-elastisch, nichtlinear-elastisch und inelastisch (plastisch).</figcaption></figure><h3 id=verallgemeinertes-hookesches-gesetz>Verallgemeinertes Hookesches Gesetz</h3>$$\sigma_{ij} = C_{ijkl} \varepsilon_{kl}$$<ul><li>81 Komponenten reduzieren sich durch Nebensymmetrien ($C_{ijkl} = C_{jikl} = C_{ijlk}$) auf 36.</li><li>Bei Existenz einer Deformationsenergie $U$ (Hyperelastizität) gilt die Hauptsymmetrie $C_{ijkl} = C_{klij} \implies$ <strong>21 unabhängige Konstanten</strong>.</li></ul><h3 id=isotropes-materialgesetz>Isotropes Materialgesetz</h3><p>Für richtungsunabhängige Materialien genügen <strong>zwei Lamé-Konstanten</strong> ($\lambda, \mu$):</p>$$\sigma_{ij} = \lambda \delta_{ij} \varepsilon_{kk} + 2\mu \varepsilon_{ij} \quad \leftrightarrow \quad \bm{\sigma} = \lambda \text{tr}(\bm{\varepsilon})\bm{I} + 2\mu \bm{\varepsilon}$$<p>Invertierte Form mit E-Modul $E$ und Querdehnzahl $\nu$:</p>$$\varepsilon_{ij} = \frac{1+\nu}{E} \sigma_{ij} - \frac{\nu}{E} \sigma_{kk} \delta_{ij}$$<table><thead><tr><th style=text-align:left>Kenngröße</th><th style=text-align:left>Bedeutung</th><th style=text-align:left>Beziehung zu Lamé-Konstanten</th><th style=text-align:left>Anwendungsbereich</th></tr></thead><tbody><tr><td style=text-align:left><strong>Elastizitätsmodul ($E$)</strong></td><td style=text-align:left>Zug-/Drucksteifigkeit</td><td style=text-align:left>$E = \frac{\mu(3\lambda + 2\mu)}{\lambda + \mu}$</td><td style=text-align:left>Balken, Stäbe, Rahmen</td></tr><tr><td style=text-align:left><strong>Schubmodul ($G = \mu$)</strong></td><td style=text-align:left>Schubsteifigkeit</td><td style=text-align:left>$G = \mu = \frac{E}{2(1+\nu)}$</td><td style=text-align:left>Torsion, Querkraftbiegung</td></tr><tr><td style=text-align:left><strong>Kompressionsmodul ($K$)</strong></td><td style=text-align:left>Widerstand gegen Volumenänderung</td><td style=text-align:left>$K = \lambda + \frac{2}{3}\mu = \frac{E}{3(1-2\nu)}$</td><td style=text-align:left>Hydrostatik, Fluide</td></tr><tr><td style=text-align:left><strong>Poissonzahl ($\nu$)</strong></td><td style=text-align:left>Querkontraktionszahl</td><td style=text-align:left>$\nu = \frac{\lambda}{2(\lambda+\mu)}$</td><td style=text-align:left>Querdehnung, auxetisch ($\nu < 0$)</td></tr></tbody></table><h3 id=hydrostatische--deviatorische-spannungszerlegung>Hydrostatische & deviatorische Spannungszerlegung</h3>$$\sigma_{ij} = \underbrace{\frac{1}{3}\sigma_{kk} \delta_{ij}}_{\text{Hydrostatischer Anteil (Volumen)}} + \underbrace{\left(\sigma_{ij} - \frac{1}{3}\sigma_{kk}\delta_{ij}\right)}_{\text{Deviatorischer Anteil (Gestaltänderung)}}$$<h3 id=navier-gleichungen-der-elastostatik>Navier-Gleichungen der Elastostatik</h3>$$\mu \nabla^2 \bm{u} + (\lambda + \mu) \nabla(\nabla \cdot \bm{u}) + \rho \bm{b} = \bm{0} \quad \leftrightarrow \quad \mu u_{i,jj} + (\lambda + \mu) u_{j,ij} + \rho b_i = 0$$<hr><h2 id=5-zweidimensionale-kontinua--airy-spannungsfunktion>5. Zweidimensionale Kontinua & Airy-Spannungsfunktion</h2><h3 id=ebener-verzerrungszustand-evz-vs-ebener-spannungszustand-esz>Ebener Verzerrungszustand (EVZ) vs. Ebener Spannungszustand (ESZ)</h3>$$\begin{array}{l|c|c}
+\textbf{Eigenschaft} & \textbf{Ebener Verzerrungszustand (EVZ)} & \textbf{Ebener Spannungszustand (ESZ)} \\
+\hline
+\textbf{Geometrie / Körper} & Dicke Bauteile (Dämme, Tunnel) & Dünne Scheiben ($h \ll L$) \\
+\textbf{Kinematischer Ansatz} & \varepsilon_{33} = \varepsilon_{13} = \varepsilon_{23} = 0 & \sigma_{33} = \sigma_{13} = \sigma_{23} = 0 \\
+\textbf{Out-of-Plane Komponente} & \sigma_{33} = \nu(\sigma_{11} + \sigma_{22}) \neq 0 & \varepsilon_{33} = -\frac{\nu}{E}(\sigma_{11} + \sigma_{22}) \neq 0 \\
+\textbf{Materialkoeffizienten} & \bar{E} = \frac{E}{1-\nu^2}, \; \bar{\nu} = \frac{\nu}{1-\nu} & E, \; \nu \text{ (Standardwerte)}
+\end{array}$$<h3 id=airy-spannungsfunktion--biharmonische-gleichung>Airy-Spannungsfunktion & Biharmonische Gleichung</h3><p>Bei vernachlässigbaren Volumenkräften wird das Gleichgewicht identisch erfüllt durch:</p>$$\sigma_{11} = \frac{\partial^2 \Phi}{\partial x_2^2}, \quad \sigma_{22} = \frac{\partial^2 \Phi}{\partial x_1^2}, \quad \sigma_{12} = -\frac{\partial^2 \Phi}{\partial x_1 \partial x_2}$$<p>Einsetzen in die Kompatibilitätsbedingung erfordert, dass $\Phi$ die <strong>Biharmonische Gleichung</strong> erfüllt:</p>$$\nabla^4 \Phi = \frac{\partial^4 \Phi}{\partial x_1^4} + 2\frac{\partial^4 \Phi}{\partial x_1^2 \partial x_2^2} + \frac{\partial^4 \Phi}{\partial x_2^4} = 0$$<hr><h2 id=6-berechnungsbeispiele--benchmark-probleme>6. Berechnungsbeispiele & Benchmark-Probleme</h2><h3 id=benchmark-1-mars-rover-solarpaneel-randspannungen>Benchmark 1: Mars-Rover Solarpaneel-Randspannungen</h3><details class=smidr-collapse open><summary class=smidr-collapse-summary><span class=smidr-collapse-title-wrap><span class=smidr-collapse-icon>▸</span>
+<span class=smidr-collapse-title>Aufgabenstellung & analytische Lösung</span>
+</span><span class=smidr-collapse-chevron aria-hidden=true><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary><div class=smidr-collapse-content><p><strong>Aufgabe:</strong> Spannungen im Solarpaneel eines Mars-Rovers werden durch eine quadratische Airy-Funktion angenähert:</p>$$\Phi(x_1, x_2) = a_1 x_1^2 + a_2 x_1 x_2 + a_3 x_2^2$$<p><strong>1. Biharmonische Prüfung:</strong> Vierte Ableitungen sind identisch 0 $\implies \nabla^4\Phi = 0$ ist erfüllt.<br><strong>2. Spannungsberechnung:</strong></p>$$\sigma_{11} = 2a_3, \quad \sigma_{22} = 2a_1, \quad \sigma_{12} = -a_2$$<p><strong>3. Randtraktionen:</strong> An Rändern mit Normalenvektor $\bm{n}$ gilt $\bm{t} = \bm{\sigma}\bm{n}$.</p></div></details><figure class=tikz-container id=tikz-1792239481496378334><div class=tikz-wrapper><script type=text/tikz>
+
+\begin{tikzpicture}[scale=0.75]
+    \draw[thick, |-&gt;] (0,-1) -- (0.9,-1) node[below] {$\bm{e}_1$};
+    \draw[thick, |-&gt;] (0,-1) -- (0,-0.1) node[left] {$\bm{e}_2$};
+
+    \draw[thick, cyan] (0,0) rectangle (6,4);
+    
+    % Normal Stresses Sigma_11 = 2a3
+    \foreach \y in {0.5, 1.5, 2.5, 3.5} {
+        \draw[thick, cyan, &lt;-] (-1, \y) -- (-0.1, \y);
+        \draw[thick, cyan, -&gt;] (6.1, \y) -- (7, \y);
+    }
+    \node[cyan, left] at (-1, 2) {$\sigma_{11}=2a_3$};
+    \node[cyan, right] at (7, 2) {$\sigma_{11}=2a_3$};
+
+    % Normal Stresses Sigma_22 = 2a1
+    \foreach \x in {1, 2, 3, 4, 5} {
+        \draw[thick, cyan, -&gt;] (\x, 4.1) -- (\x, 5);
+        \draw[thick, cyan, -&gt;] (\x, -0.1) -- (\x, -1);
+    }
+    \node[cyan, above] at (3, 5) {$\sigma_{22}=2a_1$};
+    \node[cyan, below] at (3, -1) {$\sigma_{22}=2a_1$};
+
+    % Shear Stresses Sigma_12 = -a2
+    \foreach \x in {5.5, 4.5, ..., 0.5} {
+        \draw[thick, purple, -&gt;] (\x&#43;0.5, 3.8) -- (\x, 3.8);
+    }
+    \node[purple, below] at (3, 3.8) {$\sigma_{12}=-a_2$};
+    
+    \foreach \y in {3.5, 2.5, ..., 0.5} {
+        \draw[thick, purple, -&gt;] (5.8, \y&#43;0.5) -- (5.8, \y);
+    }
+    \node[purple, left] at (5.8, 2) {$\sigma_{12}=-a_2$};
+
+    \foreach \x in {0.5, 1.5, ..., 5.5} {
+        \draw[thick, purple, -&gt;] (\x, 0.2) -- (\x&#43;0.5, 0.2);
+    }
+    \node[purple, above] at (3, 0.2) {$\sigma_{12}=-a_2$};
+
+    \foreach \y in {0.5, 1.5, ..., 3.5} {
+        \draw[thick, purple, -&gt;] (0.2, \y) -- (0.2, \y&#43;0.5);
+    }
+    \node[purple, right] at (0.2, 2) {$\sigma_{12}=-a_2$};
+    
+    \node[below] at (6,0) {$b$};
+    \node[left] at (0,4) {$c$};
+\end{tikzpicture}
+
+    </script></div><figcaption class=tikz-caption><span class=tikz-caption-prefix>Figure:</span> Normal- und Schubspannungen an den Rändern des rechteckigen Mars-Rover-Solarpaneels.</figcaption></figure><hr><h3 id=benchmark-2-staumauer-unter-hydrostatischem-wasserdruck>Benchmark 2: Staumauer unter hydrostatischem Wasserdruck</h3><details class=smidr-collapse open><summary class=smidr-collapse-summary><span class=smidr-collapse-title-wrap><span class=smidr-collapse-icon>▸</span>
+<span class=smidr-collapse-title>Aufgabenstellung & analytische Lösung</span>
+</span><span class=smidr-collapse-chevron aria-hidden=true><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></summary><div class=smidr-collapse-content><p><strong>Aufgabe:</strong> Eine dreieckige Staumauer im EVZ unter hydrostatischem Druck $p(y) = \rho g y$ an der Vertikalwand $AB$ ($x=0$) und freier Oberfläche $AC$ ($x=y$):</p>$$\Phi(x, y) = \frac{1}{6}a_1 x^3 + \frac{1}{2}a_2 x^2 y + \frac{1}{2}a_3 x y^2 + \frac{1}{6}a_4 y^3$$<p>Das Abgleichen der Randbedingungen liefert:</p>$$a_1 = -2\rho g, \quad a_2 = \rho g, \quad a_3 = 0, \quad a_4 = -\rho g$$<p>Damit ergibt sich die Sohlflächen-Reaktion auf $BC$ ($y=l$):</p>$$\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2$$</div></details><figure class=tikz-container id=tikz-1792239481496481652><div class=tikz-wrapper><script type=text/tikz>
+
+\begin{tikzpicture}[scale=0.9]
+    \coordinate (A) at (4,4); 
+    \coordinate (B) at (4,0); 
+    \coordinate (C) at (0,0); 
+    
+    \draw[line width=1.5pt] (A) -- (B) -- (C) -- cycle;
+    \fill[pattern=north east lines, pattern color=cyan!40] (A) -- (B) -- (C) -- cycle;
+    
+    \node[above] at (A) {$A$};
+    \node[below right] at (B) {$B$};
+    \node[below left] at (C) {$C$};
+    
+    % Coordinates
+    \draw[|-&gt;] (4, 4.5) -- (3, 4.5) node[below] {$x$};
+    \draw[|-&gt;] (5, 4) -- (5, 3) node[right] {$y$};
+    
+    % Dimensions
+    \draw[&lt;-&gt;] (-0.5, 0) -- (-0.5, 4) node[midway, left] {$l$};
+    \draw[&lt;-&gt;] (0, -0.6) -- (4, -0.6) node[midway, below] {$l$};
+
+    % Hydrostatic Pressure
+    \draw (4,4) -- (5.5,0);
+    \draw (4,0) -- (5.5,0);
+    \foreach \y in {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5} {
+        \draw[-&gt;, blue] ({4 &#43; (4-\y)*1.5/4}, \y) -- (4, \y);
+    }
+    \node[right, blue] at (5, 2) {$p(y)=\rho g y$};
+    
+    % Base Tractions
+    \foreach \x in {0.5, 1.5, 2.5, 3.5} {
+        \draw[-&gt;, purple] (\x, -0.15) -- (\x&#43;0.5, -0.15);
+    }
+    \node[below, purple] at (2, -0.2) {$t_{x} = -\rho g x$};
+    
+    % Vertical Traction
+    \draw (0,-1.6) -- (4,-1.6);
+    \foreach \x in {0.2, 0.6, ..., 4.0} {
+         \pgfmathsetmacro{\h}{1.0 - 0.5*\x}
+         \draw[-&gt;, orange] (\x, -1.6) -- (\x, {-1.6 &#43; \h});
+    }
+    \node[left, orange] at (0, -0.6) {$&#43;\rho g l$};
+    \node[right, orange] at (4, -2.1) {$-\rho g l$};
+\end{tikzpicture}
+
+    </script></div><figcaption class=tikz-caption><span class=tikz-caption-prefix>Figure:</span> Dreieckige Staumauer unter Wasserdruck und resultierende Sohlflächenspannungen.</figcaption></figure><hr><h1 id=teil-ii-strukturtheorien--variationsprinzipien>Teil II: Strukturtheorien & Variationsprinzipien</h1><h2 id=7-balkentheorien-euler-bernoulli-vs-timoshenko>7. Balkentheorien: Euler-Bernoulli vs. Timoshenko</h2><p>1D-Strukturmodelle reduzieren schlanke Träger ($L \gg h, b$).</p><h3 id=kinematische-hypothesen>Kinematische Hypothesen</h3><ul><li><p><strong>Timoshenko-Balkentheorie (Schubweich):</strong><br>Querschnitte bleiben eben, stehen aber nach Deformation <strong>nicht</strong> mehr senkrecht auf der Biegelinie. Die Querschnittsverdrehung $\beta(x)$ ist unabhängig von der Neigung $w'(x)$:</p>$$u(x,z) = u_0(x) + z\beta(x), \quad w(x,z) = w(x)$$<p></p>$$\text{Schubverzerrung: } \gamma = w'(x) + \beta(x)$$<p></p>$$\text{Schnittgrößen: } N = EA u_0', \quad M = EI \beta', \quad V = GA_V (w' + \beta)$$<p></p>$$\text{Gleichgewicht: } N' + p_x = 0, \quad V' + p_z = 0, \quad M' - V = 0$$</li><li><p><strong>Euler-Bernoulli-Balkentheorie (Schubstarr):</strong><br>Querschnitte bleiben eben und senkrecht zur Biegelinie ($\gamma = 0 \implies \beta(x) = -w'(x)$):</p>$$(EI w'')'' = p_z$$</li></ul><h3 id=systematische-lösungsprozedur>Systematische Lösungsprozedur</h3><ol><li><strong>Gleichgewichtsintegration:</strong>
+$$V(x) = -\int p_z(x) dx + C_1$$
+$$M(x) = \int V(x) dx + C_2$$</li><li><strong>Kinematische Integration:</strong><ul><li><em>Timoshenko:</em> $\beta(x) = \int \frac{M(x)}{EI} dx + C_3$, $\quad w(x) = \int \left(\frac{V(x)}{GA_V} - \beta(x)\right) dx + C_4$.</li><li><em>Euler-Bernoulli:</em> $w'(x) = -\int \frac{M(x)}{EI} dx + C_3$, $\quad w(x) = \int w'(x) dx + C_4$.</li></ul></li><li><strong>Randbedingungen (Auflagerbedingungen):</strong></li></ol><table><thead><tr><th style=text-align:left>Lagertyp</th><th style=text-align:center>Skizze</th><th style=text-align:center>Geometrische RB (Kinematik)</th><th style=text-align:center>Dynamische RB (Kräfte)</th></tr></thead><tbody><tr><td style=text-align:left><strong>Einspannung (fest)</strong></td><td style=text-align:center>Starre Wand</td><td style=text-align:center>$w = 0, \quad \beta = 0$</td><td style=text-align:center>$M \neq 0, \quad V \neq 0$</td></tr><tr><td style=text-align:left><strong>Gelenkig gelagert</strong></td><td style=text-align:center>Dreieckslager</td><td style=text-align:center>$w = 0$</td><td style=text-align:center>$M = 0$</td></tr><tr><td style=text-align:left><strong>Freies Ende</strong></td><td style=text-align:center>Ungehalten</td><td style=text-align:center>Keine</td><td style=text-align:center>$M = 0, \quad V = 0$</td></tr><tr><td style=text-align:left><strong>Gleitlager (geführt)</strong></td><td style=text-align:center>Führungshülse</td><td style=text-align:center>$\beta = 0$</td><td style=text-align:center>$V = 0$</td></tr><tr><td style=text-align:left><strong>Punktlast / Moment</strong></td><td style=text-align:center>Einzellast $\widehat{F}$, Moment $\widehat{M}$</td><td style=text-align:center>Keine</td><td style=text-align:center>$M = \widehat{M}, \quad V = \widehat{F}$</td></tr></tbody></table><hr><h2 id=8-plattentheorie-kirchhoff-love-vs-reissner-mindlin>8. Plattentheorie: Kirchhoff-Love vs. Reissner-Mindlin</h2><p>Platten sind ebene Flächentragwerke ($t \ll L_x, L_y$), die Querkräfte, Biegemomente ($M_{xx}, M_{yy}$) und Drillmomente ($M_{xy}$) aufnehmen <span class=cite-group><a class=cite-ref href=#bib-mindlin1951 data-cite-key=mindlin1951 role=doc-biblioref aria-label="Citation: mindlin1951"><span class=cite-num>[mindlin1951]</span></a></span>
+<span class=cite-group><a class=cite-ref href=#bib-reissner1945 data-cite-key=reissner1945 role=doc-biblioref aria-label="Citation: reissner1945"><span class=cite-num>[reissner1945]</span></a></span>
+.</p><ul><li><strong>Plattenbiegesteifigkeit:</strong> $K = \frac{Et^3}{12(1-\nu^2)}$.</li><li><strong>Biharmonische Plattengleichung:</strong>
+$$\Delta\Delta w = \frac{\partial^4 w}{\partial x^4} + 2\frac{\partial^4 w}{\partial x^2 \partial y^2} + \frac{\partial^4 w}{\partial y^4} = \frac{p(x,y)}{K}$$</li></ul><h3 id=axialsymmetrische-kreisplatten>Axialsymmetrische Kreisplatten</h3><p>Unter rotationssymmetrischer Belastung $p(r)$ lautet die Differentialgleichung in Polarkoordinaten:</p>$$\frac{1}{r} \frac{d}{dr} \left\{ r \frac{d}{dr} \left[ \frac{1}{r} \frac{d}{dr} \left( r \frac{dw}{dr} \right) \right] \right\} = \frac{p(r)}{K}$$<p>Vierfache Integration liefert die geschlossene Lösung:</p>$$w(r) = C_1 + C_2 r^2 + C_3 \ln r + C_4 r^2 \ln r + w_{\text{partikulär}}(r)$$<p>Für Vollkreisplatten ohne Loch im Zentrum entfallen die logarithmischen Terme ($C_3 = C_4 = 0$).</p><h3 id=randbedingungen-für-platten>Randbedingungen für Platten</h3>$$\begin{array}{l|l|l}
+\textbf{Randbedingung} & \textbf{Kirchhoff-Love (KL)} & \textbf{Reissner-Mindlin (RM)} \\
+\hline
+\textbf{Eingespannt} & w = 0, \quad \frac{\partial w}{\partial n} = 0 & w = 0, \quad \varphi_n = 0, \quad \varphi_s = 0 \\
+\textbf{Gelenkig gelagert} & w = 0, \quad M_n = 0 & w = 0, \quad M_n = 0, \quad \varphi_s = 0 \text{ (Hart)} \\
+\textbf{Freier Rand} & M_n = 0, \quad V_{\text{eff}} = Q_n + \frac{\partial M_{ns}}{\partial s} = 0 & M_n = 0, \quad M_{ns} = 0, \quad Q_n = 0
+\end{array}$$<hr><h2 id=9-saint-venantsche-torsion>9. Saint-Venantsche Torsion</h2><p>Ein Torsionsmoment $M_T$ erzeugt eine konstante Verdrillung $\vartheta' = \frac{d\vartheta}{dx}$:</p>$$M_T = G I_T \vartheta'$$<h3 id=torsionssteifigkeiten-verschiedener-querschnitte>Torsionssteifigkeiten verschiedener Querschnitte</h3>$$\begin{array}{l|l|l}
+\textbf{Querschnittstyp} & \textbf{Torsionsflächenmoment } I_T & \textbf{Maximale Schubspannung } \tau_{max} \\
+\hline
+\textbf{Kreisvollquerschnitt} & I_T = I_p = \frac{\pi r^4}{2} & \tau_{max} = \frac{M_T r}{I_p} \\
+\textbf{Dünnwandig offen (I-, U-Profil)} & I_T \approx \sum \frac{1}{3} b_i t_i^3 & \tau_{max} \approx G t_{max} \vartheta' = \frac{M_T t_{max}}{I_T} \\
+\textbf{Dünnwandig geschlossen (Bredt)} & I_T = \frac{4 A_m^2}{\oint \frac{ds}{t}} & \tau = \frac{q}{t} = \frac{M_T}{2 A_m t}
+\end{array}$$<p>wobei $A_m$ die von der mittleren Profilkontur umschlossene Fläche bezeichnet.</p><hr><h2 id=10-fachwerke--direkte-steifigkeitsmethode>10. Fachwerke & direkte Steifigkeitsmethode</h2><p>Fachwerke sind gelenkig miteinander verbundene Stabwerke, die ausschließlich Normalkräfte übertragen.</p><h3 id=statische-bestimmtheit>Statische Bestimmtheit</h3><p>In 2D mit $k$ Knoten, $s$ Stäben und $r$ Auflagerreaktionen:</p>$$f = 2k - s - r$$<ul><li>$f = 0$: Statisch bestimmt. Lösbar über Knotengleichgewicht.</li><li>$f < 0$: Statisch unbestimmt. Lösbar über die direkte Steifigkeitsmethode.</li></ul><h3 id=elementsteifigkeitsmatrix-im-globalen-koordinatensystem>Elementsteifigkeitsmatrix im globalen Koordinatensystem</h3><p>Für einen Stab mit Neigungswinkel $\alpha$ ($c = \cos\alpha, s = \sin\alpha$):</p>$$\mathbf{k}^{(e)} = \frac{EA}{L} \begin{bmatrix}
+c^2 & cs & -c^2 & -cs \\
+cs & s^2 & -cs & -s^2 \\
+-c^2 & -cs & c^2 & cs \\
+-cs & -s^2 & cs & s^2
+\end{bmatrix}$$<hr><h2 id=11-schalentheorie--das-7-parameter-modell>11. Schalentheorie & das 7-Parameter-Modell</h2><p>Schalen vereinen <strong>Membranwirkung</strong> (Normalkräfte in der Schalenebene, extrem tragfähig) mit <strong>Biegewirkung</strong> (Momente, biegeweich).</p><p>Das moderne <strong>7-Parameter-Schalenmodell</strong> erweitert das Verschiebungsfeld:</p>$$\bm{u}(\theta^1, \theta^2, \theta^3) = \bm{v}(\theta^1, \theta^2) + \theta^3 \bm{w}(\theta^1, \theta^2) + (\theta^3)^2 \widetilde{\bm{w}}(\theta^1, \theta^2)$$<p>Dadurch wird eine Dickenstreckung erfasst, was die direkte Nutzung dreidimensionaler Materialgesetze ohne künstliches Poisson-Locking ermöglicht.</p><hr><h2 id=12-variationsprinzipien--grundlagen-der-fem>12. Variationsprinzipien & Grundlagen der FEM</h2><p>Wenn geschlossene analytische Lösungen nicht existieren, liefern Variationsmethoden optimale Näherungen <span class=cite-group><a class=cite-ref href=#bib-reddy2006 data-cite-key=reddy2006 role=doc-biblioref aria-label="Citation: reddy2006"><span class=cite-num>[reddy2006]</span></a></span>
+<span class=cite-group><a class=cite-ref href=#bib-hughes1987 data-cite-key=hughes1987 role=doc-biblioref aria-label="Citation: hughes1987"><span class=cite-num>[hughes1987]</span></a></span>
+.</p><h3 id=prinzip-der-virtuellen-arbeit>Prinzip der virtuellen Arbeit</h3>$$\delta W_{\text{int}} = \delta W_{\text{ext}} \quad \leftrightarrow \quad \int_{\mathcal{V}} \bm{\sigma} : \delta\bm{\varepsilon} \, dV = \int_{\mathcal{V}} \bm{b} \cdot \delta\bm{u} \, dV + \int_{\partial \mathcal{V}_t} \bm{t} \cdot \delta\bm{u} \, dA$$<h3 id=das-ritz-verfahren>Das Ritz-Verfahren</h3><ol><li>Aufstellen des Funktionals der potentiellen Energie: $\Pi(\bm{u}) = U(\bm{u}) - W_{\text{ext}}(\bm{u})$.</li><li>Wahl eines Ansatzes, der alle geometrischen (wesentlichen) Randbedingungen erfüllt:
+$$w(x) \approx \sum_{i=1}^n c_i \phi_i(x)$$</li><li>Minimierung bezüglich der generalisierten Parameter $c_i$:
+$$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li><li>Das resultierende lineare Gleichungssystem liefert die energie-optimale Annäherung an das reale Deformationsfeld.</li></ol><hr><section class=smidr-bibliography-section id=bib-sec-1792239481496635582 aria-label="Literaturverzeichnis & Zitate" data-default-style=numeric data-show-all=false><div class=bib-section-header><h2 class=bib-section-title><span>📚</span> <span>Literaturverzeichnis & Zitate</span></h2><div class=bib-header-controls><div class=bib-style-switcher role=group aria-label="Citation Style"><span class=bib-control-label>Style:</span>
+<button type=button class="bib-ctrl-btn bib-style-btn" data-style=numeric title="Numeric citation style [1]">Numeric</button>
+<button type=button class="bib-ctrl-btn bib-style-btn" data-style=author-year title="Author-Year citation style (Author, Year)">Author-Year</button>
+<button type=button class="bib-ctrl-btn bib-style-btn" data-style=alphabetic title="Alphabetic citation style [AutYY]">Alpha</button></div><div class=bib-filter-switcher role=group aria-label="Filter Bibliography"><button type=button class="bib-ctrl-btn bib-filter-btn" data-filter=cited title="Show only citations cited in this article">Cited (<span class=bib-count-cited>0</span>)</button>
+<button type=button class="bib-ctrl-btn bib-filter-btn" data-filter=all title="Show all entries in bibliography">All (<span class=bib-count-all>0</span>)</button></div></div></div><div class=smidr-bibliography><script type=text/bibtex class=bibtex-source>
+
+@book{timoshenko1970,
+  title = {Theory of Elasticity},
+  author = {Timoshenko, Stephen P. and Goodier, J. N.},
+  edition = {3rd},
+  publisher = {McGraw-Hill},
+  year = {1970},
+  address = {New York}
+}
+
+@book{reddy2006,
+  title = {An Introduction to the Finite Element Method},
+  author = {Reddy, J. N.},
+  edition = {3rd},
+  publisher = {McGraw-Hill},
+  year = {2006},
+  address = {New York}
+}
+
+@article{mindlin1951,
+  title = {Influence of Rotatory Inertia and Shear on Flexural Motions of Isotropic, Elastic Plates},
+  author = {Mindlin, Raymond D.},
+  journal = {Journal of Applied Mechanics},
+  volume = {18},
+  pages = {31--38},
+  year = {1951}
+}
+
+@article{reissner1945,
+  title = {The Effect of Transverse Shear Deformation on the Bending of Elastic Plates},
+  author = {Reissner, Eric},
+  journal = {Journal of Applied Mechanics},
+  volume = {12},
+  number = {2},
+  pages = {A69--A77},
+  year = {1945}
+}
+
+@book{hughes1987,
+  title = {The Finite Element Method: Linear Static and Dynamic Finite Element Analysis},
+  author = {Hughes, Thomas J. R.},
+  publisher = {Prentice-Hall},
+  year = {1987},
+  address = {Englewood Cliffs, NJ}
+}
+
+    </script><ol class=bib-entries-list></ol></div></section></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--color-border);flex-wrap:wrap;gap:1rem"><div class=post-tags><a href=/de/tags/strukturmechanik class=tag-badge>#Strukturmechanik</a>
+<a href=/de/tags/kontinuumsmechanik class=tag-badge>#Kontinuumsmechanik</a>
+<a href=/de/tags/elastizit%C3%A4t class=tag-badge>#Elastizität</a>
+<a href=/de/tags/fem class=tag-badge>#FEM</a>
+<a href=/de/tags/tensoren class=tag-badge>#Tensoren</a>
+<a href=/de/tags/balken class=tag-badge>#Balken</a>
+<a href=/de/tags/platten class=tag-badge>#Platten</a></div><button onclick='navigator.clipboard.writeText(window.location.href),alert("Link in Zwischenablage kopiert!")' class=code-copy-btn type=button style="padding:.4rem .8rem;font-size:.85rem">
+<span>🔗</span>
+<span>Link kopieren</span></button></div><section class=backlinks-section aria-label="Kontextuelle Rückverweise"><div class=backlinks-header-wrap><h3 class=backlinks-header><span class=backlink-icon>🔗</span>
+<span>Kontextuelle Rückverweise</span></h3><span class=backlink-count-badge>1 reference</span></div><div class=backlinks-grid><a href=/de/posts/create_hugo_blog/ class=backlink-card aria-label="Reference in Blog mit Hugo und Smidr erstellen (Komplette Anleitung)"><div class=backlink-top><span class=backlink-badge>Erwähnt in</span>
+<time class=backlink-date datetime=2024-06-27>27. Jun 2024</time></div><h4 class=backlink-title>Blog mit Hugo und Smidr erstellen (Komplette Anleitung)</h4><p class=backlink-snippet>Eine Schritt-für-Schritt-Anleitung zur Einrichtung, Konfiguration und Veröffentlichung eines modernen, …</p><div class=backlink-meta><span>⏱️ ~7 Min. Lesezeit</span><span class=backlink-arrow>&rarr;</span></div></a></div></section><section style=margin-top:3rem><h3 style=font-size:1.25rem;font-weight:700;margin-bottom:1rem;color:var(--color-text)>🕸️ Wissensgraph</h3><div class=garden-graph-container aria-label=Wissensgraph><div class=garden-graph-header><div class=garden-title-wrap><span class=garden-graph-icon>🕸️</span>
+<strong>Wissensgraph</strong>
+<span class=garden-stats-badge>8 nodes &bull; 7 edges</span></div><span class=meta-words style=font-size:.8rem;opacity:.8>Interaktive Vernetzung von Beiträgen, Themen und Tags</span></div><canvas class=garden-canvas></canvas>
+<script type=application/json class=garden-data>{"currentNodeId":"/de/posts/structural-mechanics/","links":[{"source":"/de/posts/structural-mechanics/","target":"tag:Strukturmechanik"},{"source":"/de/posts/structural-mechanics/","target":"tag:Kontinuumsmechanik"},{"source":"/de/posts/structural-mechanics/","target":"tag:Elastizität"},{"source":"/de/posts/structural-mechanics/","target":"tag:FEM"},{"source":"/de/posts/structural-mechanics/","target":"tag:Tensoren"},{"source":"/de/posts/structural-mechanics/","target":"tag:Balken"},{"source":"/de/posts/structural-mechanics/","target":"tag:Platten"}],"nodes":[{"id":"/de/posts/structural-mechanics/","isCurrent":true,"title":"Strukturmechanik: Kontinuumsmechanik, Bauteiltheorien \u0026 Variationsprinzipien","type":"post","url":"/de/posts/structural-mechanics/"},{"id":"tag:Strukturmechanik","isCurrent":false,"title":"#Strukturmechanik","type":"tag","url":"/de/tags/strukturmechanik"},{"id":"tag:Kontinuumsmechanik","isCurrent":false,"title":"#Kontinuumsmechanik","type":"tag","url":"/de/tags/kontinuumsmechanik"},{"id":"tag:Elastizität","isCurrent":false,"title":"#Elastizität","type":"tag","url":"/de/tags/elastizit%C3%A4t"},{"id":"tag:FEM","isCurrent":false,"title":"#FEM","type":"tag","url":"/de/tags/fem"},{"id":"tag:Tensoren","isCurrent":false,"title":"#Tensoren","type":"tag","url":"/de/tags/tensoren"},{"id":"tag:Balken","isCurrent":false,"title":"#Balken","type":"tag","url":"/de/tags/balken"},{"id":"tag:Platten","isCurrent":false,"title":"#Platten","type":"tag","url":"/de/tags/platten"}]}</script></div></section><nav style="display:flex;justify-content:space-between;gap:1rem;margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--color-border)" aria-label="Adjacent Posts"><a href=/de/posts/neoylayout/ class=backlink-card style=flex:1;text-align:left><span style=font-size:.75rem;text-transform:uppercase;color:var(--color-primary);font-family:var(--font-mono)>&larr; Vorheriger Beitrag</span><div style=font-weight:600;margin-top:.25rem>Ergonomisches Tippen mit dem Neo-Tastaturlayout (Bone-Variante)</div></a><a href=/de/posts/vscodium_tune4python/ class=backlink-card style=flex:1;text-align:right><span style=font-size:.75rem;text-transform:uppercase;color:var(--color-primary);font-family:var(--font-mono)>Nächster Beitrag &rarr;</span><div style=font-weight:600;margin-top:.25rem>VSCodium optimal für Python konfigurieren</div></a></nav></article></div></main><footer class=site-footer role=contentinfo><div class=container-wide><div class=footer-grid><div class=footer-left><p class=footer-copyright>&copy;2024-2026
+<strong>Jokobus</strong>.
+Alle Rechte vorbehalten.</p><p class=footer-credits>Geschmiedet mit <a href=https://github.com/jokobus/smidr target=_blank rel="noopener noreferrer" style=color:var(--color-primary);font-weight:600;text-decoration:underline;text-underline-offset:2px>Smidr</a> auf <a href=https://gohugo.io target=_blank rel="noopener noreferrer" style=color:var(--color-primary);font-weight:600;text-decoration:underline;text-underline-offset:2px>Hugo</a></p></div><nav class=footer-right aria-label="Footer Navigation"><ul class=footer-links><li><a class=footer-link href=/de/imprint/>Impressum</a></li><li><a class=footer-link href=/de/privacy/>Datenschutz</a></li><li><a class=footer-link href=/index.xml>RSS-Feed</a></li></ul></nav></div></div></footer><div id=command-palette class=command-palette-backdrop aria-hidden=true role=dialog aria-modal=true aria-label="Befehl eingeben oder Beiträge durchsuchen..."><div class=command-palette-modal><div class=palette-input-wrap><span class=palette-input-icon>🔍</span>
+<input id=palette-search-input class=palette-input type=search inputmode=search enterkeyhint=search autocapitalize=off autocorrect=off placeholder="Befehl eingeben oder Beiträge durchsuchen..." autocomplete=off spellcheck=false>
+<kbd class=palette-esc-kbd>ESC</kbd></div><ul id=palette-results class=palette-results role=listbox></ul></div></div><script defer src=/js/smidr-bundle.min.e0559bc6d005931d0c68e206efad8a99805726bfea29fb95e99ed32adff795d1.js></script></body></html>
