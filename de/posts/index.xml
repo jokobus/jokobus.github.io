@@ -1,4 +1,150 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet type="text/xsl" href="/rss-style.xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/"><channel><title>Posts on Jokobus</title><link>https://jokobus.github.io/de/posts/</link><description>Recent dispatches in Posts on Jokobus</description><generator>Hugo -- gohugo.io</generator><language>de</language><lastBuildDate>Wed, 12 Aug 2026 09:41:54 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/de/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Einzelschlange vs. Mehrere Schlangen: Eine mathematische Analyse</title><link>https://jokobus.github.io/de/posts/single-vs-multi-lane-waiting/</link><pubDate>Wed, 12 Aug 2026 09:41:54 +0200</pubDate><guid>https://jokobus.github.io/de/posts/single-vs-multi-lane-waiting/</guid><description><![CDATA[<h2 id="einleitung">Einleitung</h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet type="text/xsl" href="/rss-style.xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/"><channel><title>Posts on Jokobus</title><link>https://jokobus.github.io/de/posts/</link><description>Recent dispatches in Posts on Jokobus</description><generator>Hugo -- gohugo.io</generator><language>de</language><lastBuildDate>Sat, 17 Oct 2026 12:00:00 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/de/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Interaktives Periodensystem der Elemente (PSE)</title><link>https://jokobus.github.io/de/pse/</link><pubDate>Sat, 17 Oct 2026 12:00:00 +0200</pubDate><guid>https://jokobus.github.io/de/pse/</guid><description><![CDATA[<p>Willkommen beim <strong>Interaktiven Periodensystem der Elemente (PSE)</strong>. Entwickelt für Ingenieure, Naturwissenschaftler, Studierende und Schüler vereint diese Übersicht alle 118 bekannten chemischen Elemente mit maximaler Informationsdichte, responsiver Darstellung und nativer Unterstützung für Dark- und Bright-Mode.</p>
+<div class="callout callout-tip" role="region" aria-label="Interaktive Funktionen">
+  <div class="callout-icon" aria-hidden="true">💡</div>
+  <div class="callout-body">
+    <div class="callout-title">Interaktive Funktionen</div>
+    <div class="callout-content">
+      <ul>
+<li><strong>Klick auf ein Element</strong>: Öffnet den detaillierten <strong>Steckbrief</strong> mit Elektronenkonfiguration, Oxidationsstufen, Schmelz- und Siedepunkten, Dichte, Entdeckungsjahr und direktem Link zum offiziellen Wikipedia-Artikel.</li>
+<li><strong>Nebengruppen (3–12) ausblenden</strong>: Lässt die Übergangsmetalle kollabieren und schaltet die Tabelle nahtlos in die klassische <strong>8-Hauptgruppen-Ansicht (I bis VIII)</strong> um – ideal für Stöchiometrie, Lewis-Formeln und Unterricht.</li>
+<li><strong>Lanthanoide &amp; Actinoide</strong>: Lässt den f-Block am unteren Rand ein- oder ausblenden.</li>
+<li><strong>Echtzeit-Suche</strong>: Suche nach Symbol (<code>Fe</code>), Elementname (<code>Eisen</code>), oder Ordnungszahl (<code>26</code>).</li>
+<li><strong>Direktlink (Deep Link)</strong>: Über Hash-URLs wie <a href="https://jokobus.github.io/de/pse/#el-Au">#/de/pse/#el-Au</a> oder <a href="https://jokobus.github.io/de/pse/#26">#/de/pse/#26</a> kann jedes Element direkt verlinkt werden!</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+
+
+<link rel="stylesheet" href="https://jokobus.github.io/css/pse.min.c490d8537554bbb456bb688833392d0e1cad62d42eb1528c576f412eb77cd1fc.css" integrity="sha256-xJDYU3VUu7RWu2iIMzktDhytYtQusVKMV29BLrd80fw=">
+
+<div class="pse-container" data-lang="de">
+  <noscript>
+    <p style="padding: 1rem; border: 1px solid var(--color-border); border-radius: 8px;">
+      Please enable JavaScript to view the interactive Periodic Table of the Elements.
+    </p>
+  </noscript>
+</div>
+
+<script defer src="https://jokobus.github.io/js/pse-data.min.b574f91f5518a2af7a25082844f666e41b6203f85a2f48fdd2b665571f600cc2.js" integrity="sha256-tXT5H1UYoq96JQgoRPZm5BtiA/haL0j90rZlVx9gDMI="></script>
+<script defer src="https://jokobus.github.io/js/pse.min.0fc2ab94725812a50c1a97aa86001cb7ef7d1565e942df12443575ee62654b27.js" integrity="sha256-D8KrlHJYEqUMGpeqhgAct&#43;99FWXpQt8SRDV17mJlSyc="></script>
+
+<hr>
+<h3 id="aufbau-der-elementkacheln">Aufbau der Elementkacheln</h3>
+<p>Jede Kachel fasst die zentralen physikalischen und chemischen Kenngrößen zusammen, angelehnt an wissenschaftliche Standard-Periodensysteme:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">┌──────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│  1.008 (Atommasse Ar)           2.20 (EN)    │
+</span></span><span class="line"><span class="cl">│                                              │
+</span></span><span class="line"><span class="cl">│  1 (Ordnungszahl Z)           H (Symbol)     │
+</span></span><span class="line"><span class="cl">│                                              │
+</span></span><span class="line"><span class="cl">│  -259° / -253° (Smp/Sdp) Wasserstoff 0.09 g/L│
+</span></span><span class="line"><span class="cl">└──────────────────────────────────────────────┘
+</span></span></code></pre></div><ol>
+<li><strong>Oben links</strong>: Relative Atommasse ($A_r$) gemäß IUPAC. Bei radioaktiven Elementen ohne stabile Isotope steht die Massenzahl des langlebigsten Nuklids in eckigen Klammern.</li>
+<li><strong>Oben rechts</strong>: Elektronegativität nach der Pauling-Skala.</li>
+<li><strong>Mitte links</strong>: Ordnungszahl bzw. Kernladungszahl ($Z$), entsprechend der Anzahl der Protonen im Atomkern.</li>
+<li><strong>Mitte</strong>: Chemisches Elementsymbol, farblich codiert nach dem Aggregatzustand bei $20\,^\circ\text{C}$ (Schwarz/Weiß für Feststoffe, Blau für Flüssigkeiten, Rot für Gase, Grau für künstliche Elemente).</li>
+<li><strong>Unten links</strong>: Schmelz- und Siedepunkt in Grad Celsius ($^\circ\text{C}$).</li>
+<li><strong>Unten Mitte</strong>: Deutscher Elementname (bzw. Englisch per Schalter oben).</li>
+<li><strong>Unten rechts</strong>: Dichte bei $20\,^\circ\text{C}$ ($1\,\text{bar}$).</li>
+</ol>
+<hr>
+<h3 id="periodizität-und-gesetzmäßigkeiten-im-pse">Periodizität und Gesetzmäßigkeiten im PSE</h3>
+<p>Die Anordnung nach steigender Kernladungszahl und periodisch wiederkehrender Valenzelektronenkonfiguration führt zu charakteristischen Gesetzmäßigkeiten:</p>
+<h4 id="1-elektronegativität-">1. Elektronegativität ($\chi$)</h4>
+<p>Die Elektronegativität beschreibt das relative Vermögen eines Atoms, in einer chemischen Bindung die Bindungselektronenpaare an sich zu ziehen:</p>
+<ul>
+<li><strong>Innerhalb einer Periode (von links nach rechts)</strong>: $\chi$ steigt systematisch an, da die effektive Kernladung ($Z_{\text{eff}}$) wächst und die Valenzelektronen bei gleichbleibender Hauptquantenzahl stärker angezogen werden.</li>
+<li><strong>Innerhalb einer Gruppe (von oben nach unten)</strong>: $\chi$ sinkt, da zusätzliche Elektronenschalen hinzukommen und die Valenzelektronen weiter vom Kern entfernt sowie durch innere Schalen elektrostatisch abgeschirmt werden.</li>
+<li><strong>Extreme</strong>: Fluor ($\chi = 3{,}98$) ist das elektronegativste Element; Cäsium ($\chi \approx 0{,}79$) und Francium zählen zu den elektropositivsten Metallen.</li>
+</ul>
+<h4 id="2-atomradien--lanthanoidenkontraktion">2. Atomradien &amp; Lanthanoidenkontraktion</h4>
+<ul>
+<li>Die Atomradien nehmen innerhalb einer Periode von links nach rechts <strong>ab</strong>, da die wachsende Kernladung die Elektronenhülle stärker kontrahiert.</li>
+<li>Von oben nach unten nehmen die Atomradien mit jeder neuen Schale <strong>zu</strong>.</li>
+<li>In Periode 6 führt das schrittweise Auffüllen des innenliegenden $4f$-Orbitals (Lanthanoide, $Z=57$ bis $71$) zur bekannten <strong>Lanthanoidenkontraktion</strong>. Da $f$-Elektronen den Kern nur mangelhaft abschirmen, sind die auf die Lanthanoide folgenden Übergangsmetalle (Hafnium, Tantal, Wolfram, Gold) praktisch gleich groß wie ihre leichteren Homologen der 5. Periode (Zirconium, Niob, Molybdän, Silber).</li>
+</ul>
+<h4 id="3-hauptgruppen-vs-nebengruppen">3. Hauptgruppen vs. Nebengruppen</h4>
+<p>In der Schulchemie und allgemeinen Chemie steht das Verständnis der <strong>8 Hauptgruppen</strong> im Vordergrund:</p>
+<ul>
+<li>Die Hauptgruppennummer (I bis VIII) entspricht exakt der Anzahl der Valenzelektronen ($s$- und $p$-Orbitale der äußeren Schale).</li>
+<li>Durch Klick auf den Button <strong>Nebengruppen (3–12)</strong> lassen sich die d-Block-Metalle ausblenden, wodurch sich das PSE direkt auf die 8 Hauptgruppen zusammenzieht.</li>
+</ul>
+]]></description><content:encoded><![CDATA[<p>Willkommen beim <strong>Interaktiven Periodensystem der Elemente (PSE)</strong>. Entwickelt für Ingenieure, Naturwissenschaftler, Studierende und Schüler vereint diese Übersicht alle 118 bekannten chemischen Elemente mit maximaler Informationsdichte, responsiver Darstellung und nativer Unterstützung für Dark- und Bright-Mode.</p>
+<div class="callout callout-tip" role="region" aria-label="Interaktive Funktionen">
+  <div class="callout-icon" aria-hidden="true">💡</div>
+  <div class="callout-body">
+    <div class="callout-title">Interaktive Funktionen</div>
+    <div class="callout-content">
+      <ul>
+<li><strong>Klick auf ein Element</strong>: Öffnet den detaillierten <strong>Steckbrief</strong> mit Elektronenkonfiguration, Oxidationsstufen, Schmelz- und Siedepunkten, Dichte, Entdeckungsjahr und direktem Link zum offiziellen Wikipedia-Artikel.</li>
+<li><strong>Nebengruppen (3–12) ausblenden</strong>: Lässt die Übergangsmetalle kollabieren und schaltet die Tabelle nahtlos in die klassische <strong>8-Hauptgruppen-Ansicht (I bis VIII)</strong> um – ideal für Stöchiometrie, Lewis-Formeln und Unterricht.</li>
+<li><strong>Lanthanoide &amp; Actinoide</strong>: Lässt den f-Block am unteren Rand ein- oder ausblenden.</li>
+<li><strong>Echtzeit-Suche</strong>: Suche nach Symbol (<code>Fe</code>), Elementname (<code>Eisen</code>), oder Ordnungszahl (<code>26</code>).</li>
+<li><strong>Direktlink (Deep Link)</strong>: Über Hash-URLs wie <a href="https://jokobus.github.io/de/pse/#el-Au">#/de/pse/#el-Au</a> oder <a href="https://jokobus.github.io/de/pse/#26">#/de/pse/#26</a> kann jedes Element direkt verlinkt werden!</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+
+
+<link rel="stylesheet" href="https://jokobus.github.io/css/pse.min.c490d8537554bbb456bb688833392d0e1cad62d42eb1528c576f412eb77cd1fc.css" integrity="sha256-xJDYU3VUu7RWu2iIMzktDhytYtQusVKMV29BLrd80fw=">
+
+<div class="pse-container" data-lang="de">
+  <noscript>
+    <p style="padding: 1rem; border: 1px solid var(--color-border); border-radius: 8px;">
+      Please enable JavaScript to view the interactive Periodic Table of the Elements.
+    </p>
+  </noscript>
+</div>
+
+<script defer src="https://jokobus.github.io/js/pse-data.min.b574f91f5518a2af7a25082844f666e41b6203f85a2f48fdd2b665571f600cc2.js" integrity="sha256-tXT5H1UYoq96JQgoRPZm5BtiA/haL0j90rZlVx9gDMI="></script>
+<script defer src="https://jokobus.github.io/js/pse.min.0fc2ab94725812a50c1a97aa86001cb7ef7d1565e942df12443575ee62654b27.js" integrity="sha256-D8KrlHJYEqUMGpeqhgAct&#43;99FWXpQt8SRDV17mJlSyc="></script>
+
+<hr>
+<h3 id="aufbau-der-elementkacheln">Aufbau der Elementkacheln</h3>
+<p>Jede Kachel fasst die zentralen physikalischen und chemischen Kenngrößen zusammen, angelehnt an wissenschaftliche Standard-Periodensysteme:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">┌──────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│  1.008 (Atommasse Ar)           2.20 (EN)    │
+</span></span><span class="line"><span class="cl">│                                              │
+</span></span><span class="line"><span class="cl">│  1 (Ordnungszahl Z)           H (Symbol)     │
+</span></span><span class="line"><span class="cl">│                                              │
+</span></span><span class="line"><span class="cl">│  -259° / -253° (Smp/Sdp) Wasserstoff 0.09 g/L│
+</span></span><span class="line"><span class="cl">└──────────────────────────────────────────────┘
+</span></span></code></pre></div><ol>
+<li><strong>Oben links</strong>: Relative Atommasse ($A_r$) gemäß IUPAC. Bei radioaktiven Elementen ohne stabile Isotope steht die Massenzahl des langlebigsten Nuklids in eckigen Klammern.</li>
+<li><strong>Oben rechts</strong>: Elektronegativität nach der Pauling-Skala.</li>
+<li><strong>Mitte links</strong>: Ordnungszahl bzw. Kernladungszahl ($Z$), entsprechend der Anzahl der Protonen im Atomkern.</li>
+<li><strong>Mitte</strong>: Chemisches Elementsymbol, farblich codiert nach dem Aggregatzustand bei $20\,^\circ\text{C}$ (Schwarz/Weiß für Feststoffe, Blau für Flüssigkeiten, Rot für Gase, Grau für künstliche Elemente).</li>
+<li><strong>Unten links</strong>: Schmelz- und Siedepunkt in Grad Celsius ($^\circ\text{C}$).</li>
+<li><strong>Unten Mitte</strong>: Deutscher Elementname (bzw. Englisch per Schalter oben).</li>
+<li><strong>Unten rechts</strong>: Dichte bei $20\,^\circ\text{C}$ ($1\,\text{bar}$).</li>
+</ol>
+<hr>
+<h3 id="periodizität-und-gesetzmäßigkeiten-im-pse">Periodizität und Gesetzmäßigkeiten im PSE</h3>
+<p>Die Anordnung nach steigender Kernladungszahl und periodisch wiederkehrender Valenzelektronenkonfiguration führt zu charakteristischen Gesetzmäßigkeiten:</p>
+<h4 id="1-elektronegativität-">1. Elektronegativität ($\chi$)</h4>
+<p>Die Elektronegativität beschreibt das relative Vermögen eines Atoms, in einer chemischen Bindung die Bindungselektronenpaare an sich zu ziehen:</p>
+<ul>
+<li><strong>Innerhalb einer Periode (von links nach rechts)</strong>: $\chi$ steigt systematisch an, da die effektive Kernladung ($Z_{\text{eff}}$) wächst und die Valenzelektronen bei gleichbleibender Hauptquantenzahl stärker angezogen werden.</li>
+<li><strong>Innerhalb einer Gruppe (von oben nach unten)</strong>: $\chi$ sinkt, da zusätzliche Elektronenschalen hinzukommen und die Valenzelektronen weiter vom Kern entfernt sowie durch innere Schalen elektrostatisch abgeschirmt werden.</li>
+<li><strong>Extreme</strong>: Fluor ($\chi = 3{,}98$) ist das elektronegativste Element; Cäsium ($\chi \approx 0{,}79$) und Francium zählen zu den elektropositivsten Metallen.</li>
+</ul>
+<h4 id="2-atomradien--lanthanoidenkontraktion">2. Atomradien &amp; Lanthanoidenkontraktion</h4>
+<ul>
+<li>Die Atomradien nehmen innerhalb einer Periode von links nach rechts <strong>ab</strong>, da die wachsende Kernladung die Elektronenhülle stärker kontrahiert.</li>
+<li>Von oben nach unten nehmen die Atomradien mit jeder neuen Schale <strong>zu</strong>.</li>
+<li>In Periode 6 führt das schrittweise Auffüllen des innenliegenden $4f$-Orbitals (Lanthanoide, $Z=57$ bis $71$) zur bekannten <strong>Lanthanoidenkontraktion</strong>. Da $f$-Elektronen den Kern nur mangelhaft abschirmen, sind die auf die Lanthanoide folgenden Übergangsmetalle (Hafnium, Tantal, Wolfram, Gold) praktisch gleich groß wie ihre leichteren Homologen der 5. Periode (Zirconium, Niob, Molybdän, Silber).</li>
+</ul>
+<h4 id="3-hauptgruppen-vs-nebengruppen">3. Hauptgruppen vs. Nebengruppen</h4>
+<p>In der Schulchemie und allgemeinen Chemie steht das Verständnis der <strong>8 Hauptgruppen</strong> im Vordergrund:</p>
+<ul>
+<li>Die Hauptgruppennummer (I bis VIII) entspricht exakt der Anzahl der Valenzelektronen ($s$- und $p$-Orbitale der äußeren Schale).</li>
+<li>Durch Klick auf den Button <strong>Nebengruppen (3–12)</strong> lassen sich die d-Block-Metalle ausblenden, wodurch sich das PSE direkt auf die 8 Hauptgruppen zusammenzieht.</li>
+</ul>
+]]></content:encoded><category>Chemie</category><category>Wissenschaft</category><category>Periodensystem</category><category>Interaktiv</category><category>Ingenieurwesen</category></item><item><title>Einzelschlange vs. Mehrere Schlangen: Eine mathematische Analyse</title><link>https://jokobus.github.io/de/posts/single-vs-multi-lane-waiting/</link><pubDate>Wed, 12 Aug 2026 09:41:54 +0200</pubDate><guid>https://jokobus.github.io/de/posts/single-vs-multi-lane-waiting/</guid><description><![CDATA[<h2 id="einleitung">Einleitung</h2>
 <p>Ob im Supermarkt, am Flughafen-Check-in oder am Bankschalter – wir begegnen stets zwei grundlegenden Systemdesigns:</p>
 <ol>
 <li><strong>Mehrere getrennte Schlangen ($c \times M/M/1$):</strong> Jede Kasse oder jeder Schalter besitzt eine eigene Schlange. Kunden stellen sich an einer Kasse an und verbleiben dort.</li>
@@ -1343,7 +1489,7 @@ $$\bm{t}_{\bm{n}} = \lim_{\Delta A \to 0} \frac{\Delta \bm{F}}{\Delta A} = \bm{\
 </ul>
 <h3 id="spannungszustand-am-differentiellen-volumenelement">Spannungszustand am differentiellen Volumenelement</h3>
 <p>Aus dem Drehimpulssatz folgt unmittelbar die Symmetrie des Cauchy-Spannungstensors: $\sigma_{ij} = \sigma_{ji}$.</p>
-<figure class="tikz-container" id="tikz-1792239481900195569">
+<figure class="tikz-container" id="tikz-1792240415093187696">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -1392,7 +1538,7 @@ $$\nabla \cdot \bm{\sigma} + \rho \bm{b} = \rho \ddot{\bm{u}} \quad \leftrightar
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-materialgesetze--lineare-isotrope-elastizität">4. Materialgesetze &amp; lineare isotrope Elastizität</h2>
-<figure class="tikz-container" id="tikz-1792239481900211651">
+<figure class="tikz-container" id="tikz-1792240415093210998">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -1528,7 +1674,7 @@ $$\sigma_{11} = 2a_3, \quad \sigma_{22} = 2a_1, \quad \sigma_{12} = -a_2$$<p>
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792239481900270049">
+<figure class="tikz-container" id="tikz-1792240415093309247">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -1613,7 +1759,7 @@ $$\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2$$
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792239481900324909">
+<figure class="tikz-container" id="tikz-1792240415093395414">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -1828,7 +1974,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li>Das resultierende lineare Gleichungssystem liefert die energie-optimale Annäherung an das reale Deformationsfeld.</li>
 </ol>
 <hr>
-<section class="smidr-bibliography-section" id="bib-sec-1792239481900407105" aria-label="Literaturverzeichnis &amp; Zitate" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792240415093526743" aria-label="Literaturverzeichnis &amp; Zitate" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literaturverzeichnis &amp; Zitate</span>
     </h2>
@@ -2009,7 +2155,7 @@ $$\bm{t}_{\bm{n}} = \lim_{\Delta A \to 0} \frac{\Delta \bm{F}}{\Delta A} = \bm{\
 </ul>
 <h3 id="spannungszustand-am-differentiellen-volumenelement">Spannungszustand am differentiellen Volumenelement</h3>
 <p>Aus dem Drehimpulssatz folgt unmittelbar die Symmetrie des Cauchy-Spannungstensors: $\sigma_{ij} = \sigma_{ji}$.</p>
-<figure class="tikz-container" id="tikz-1792239481900195569">
+<figure class="tikz-container" id="tikz-1792240415093187696">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2058,7 +2204,7 @@ $$\nabla \cdot \bm{\sigma} + \rho \bm{b} = \rho \ddot{\bm{u}} \quad \leftrightar
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-materialgesetze--lineare-isotrope-elastizität">4. Materialgesetze &amp; lineare isotrope Elastizität</h2>
-<figure class="tikz-container" id="tikz-1792239481900211651">
+<figure class="tikz-container" id="tikz-1792240415093210998">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2194,7 +2340,7 @@ $$\sigma_{11} = 2a_3, \quad \sigma_{22} = 2a_1, \quad \sigma_{12} = -a_2$$<p>
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792239481900270049">
+<figure class="tikz-container" id="tikz-1792240415093309247">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2279,7 +2425,7 @@ $$\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2$$
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792239481900324909">
+<figure class="tikz-container" id="tikz-1792240415093395414">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2494,7 +2640,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li>Das resultierende lineare Gleichungssystem liefert die energie-optimale Annäherung an das reale Deformationsfeld.</li>
 </ol>
 <hr>
-<section class="smidr-bibliography-section" id="bib-sec-1792239481900407105" aria-label="Literaturverzeichnis &amp; Zitate" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792240415093526743" aria-label="Literaturverzeichnis &amp; Zitate" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literaturverzeichnis &amp; Zitate</span>
     </h2>
@@ -8055,7 +8201,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792239481935950485" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792240415147845488" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -8172,7 +8318,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792239481935950485");
+  const root = document.getElementById("neuron-1792240415147845488");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -8644,7 +8790,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792239481935950485" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792240415147845488" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -8761,7 +8907,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792239481935950485");
+  const root = document.getElementById("neuron-1792240415147845488");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");

@@ -1,4 +1,152 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet type="text/xsl" href="/rss-style.xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/"><channel><title>Jokobus</title><link>https://jokobus.github.io/</link><description>Recent dispatches on Jokobus</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 01 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://jokobus.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Single vs Multi Lane Waiting</title><link>https://jokobus.github.io/posts/single-vs-multi-lane-waiting/</link><pubDate>Wed, 12 Aug 2026 09:41:54 +0200</pubDate><guid>https://jokobus.github.io/posts/single-vs-multi-lane-waiting/</guid><description><![CDATA[<h2 id="introduction">Introduction</h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet type="text/xsl" href="/rss-style.xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/"><channel><title>Jokobus</title><link>https://jokobus.github.io/</link><description>Recent dispatches on Jokobus</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 17 Oct 2026 12:00:00 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Interactive Periodic Table of the Elements</title><link>https://jokobus.github.io/pse/</link><pubDate>Sat, 17 Oct 2026 12:00:00 +0200</pubDate><guid>https://jokobus.github.io/pse/</guid><description><![CDATA[<p>Welcome to the <strong>Interactive Periodic Table of the Elements</strong> (<em>Periodensystem der Elemente</em>). Designed for scientists, engineers, students, and educators, this table brings all 118 chemical elements to life with high information density, responsive layouts, and seamless light/dark mode integration.</p>
+<div class="callout callout-tip" role="region" aria-label="Interactive Controls">
+  <div class="callout-icon" aria-hidden="true">💡</div>
+  <div class="callout-body">
+    <div class="callout-title">Interactive Controls</div>
+    <div class="callout-content">
+      <ul>
+<li><strong>Click any element</strong> to open its detailed <strong>Steckbrief</strong> modal, including electron configurations, oxidation states, melting/boiling points, density, discovery details, and official Wikipedia links.</li>
+<li><strong>Toggle Transition Metals (3–12)</strong> to seamlessly collapse the table into the classic <strong>8 Main Groups (I to VIII)</strong> layout.</li>
+<li><strong>Toggle Lanthanoids &amp; Actinoids</strong> to expand or collapse the f-block.</li>
+<li><strong>Instant Search</strong>: Type element symbols (e.g. <code>Fe</code>), names (<code>Iron</code>), or atomic numbers (<code>26</code>) in the search bar.</li>
+<li><strong>Direct Link</strong>: Use URL hashes like <a href="https://jokobus.github.io/pse/#el-Au">#/pse/#el-Au</a> or <a href="https://jokobus.github.io/pse/#26">#/pse/#26</a> to jump straight to any element!</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+
+
+<link rel="stylesheet" href="https://jokobus.github.io/css/pse.min.c490d8537554bbb456bb688833392d0e1cad62d42eb1528c576f412eb77cd1fc.css" integrity="sha256-xJDYU3VUu7RWu2iIMzktDhytYtQusVKMV29BLrd80fw=">
+
+<div class="pse-container" data-lang="en">
+  <noscript>
+    <p style="padding: 1rem; border: 1px solid var(--color-border); border-radius: 8px;">
+      Please enable JavaScript to view the interactive Periodic Table of the Elements.
+    </p>
+  </noscript>
+</div>
+
+<script defer src="https://jokobus.github.io/js/pse-data.min.b574f91f5518a2af7a25082844f666e41b6203f85a2f48fdd2b665571f600cc2.js" integrity="sha256-tXT5H1UYoq96JQgoRPZm5BtiA/haL0j90rZlVx9gDMI="></script>
+<script defer src="https://jokobus.github.io/js/pse.min.0fc2ab94725812a50c1a97aa86001cb7ef7d1565e942df12443575ee62654b27.js" integrity="sha256-D8KrlHJYEqUMGpeqhgAct&#43;99FWXpQt8SRDV17mJlSyc="></script>
+
+<hr>
+<h3 id="reading-the-element-tile">Reading the Element Tile</h3>
+<p>Each tile is packed with physical and chemical constants, matching the layout of standard scientific reference charts:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">┌──────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│  1.008 (Atomic Mass Ar)         2.20 (EN)    │
+</span></span><span class="line"><span class="cl">│                                              │
+</span></span><span class="line"><span class="cl">│  1 (Atomic Number Z)          H (Symbol)     │
+</span></span><span class="line"><span class="cl">│                                              │
+</span></span><span class="line"><span class="cl">│  -259° / -253° (mp/bp)   Hydrogen   0.09 g/L │
+</span></span><span class="line"><span class="cl">└──────────────────────────────────────────────┘
+</span></span></code></pre></div><ol>
+<li><strong>Top-Left</strong>: Relative atomic mass ($A_r$), based on standard atomic weights (IUPAC). For synthetic radioactive elements without stable isotopes, the mass number of the longest-lived isotope is bracketed.</li>
+<li><strong>Top-Right</strong>: Electronegativity according to the Pauling scale.</li>
+<li><strong>Center-Left</strong>: Atomic number ($Z$), representing nuclear proton count.</li>
+<li><strong>Center</strong>: Chemical symbol, styled and color-coded by its thermodynamic state of matter at $20\,^\circ\text{C}$ (solid, liquid, gas, or synthetic).</li>
+<li><strong>Bottom-Left</strong>: Melting point and boiling point in degrees Celsius ($^\circ\text{C}$).</li>
+<li><strong>Bottom-Center</strong>: Element name in English (or German when toggled).</li>
+<li><strong>Bottom-Right</strong>: Density at $20\,^\circ\text{C}$ ($1\,\text{atm}$).</li>
+</ol>
+<hr>
+<h3 id="key-periodic-trends">Key Periodic Trends</h3>
+<p>The Periodic Table arranges elements by atomic number $Z$ and recurrent valence electron configurations. This gives rise to predictable physical and chemical trends:</p>
+<h4 id="1-electronegativity">1. Electronegativity</h4>
+<p>Electronegativity ($\chi$) quantifies an atom&rsquo;s ability to attract shared electron pairs in covalent chemical bonds:</p>
+<ul>
+<li><strong>Across a Period (left to right)</strong>: $\chi$ increases systematically due to increasing effective nuclear charge ($Z_{\text{eff}}$) pulling valence electrons tighter without adding new shielding shells.</li>
+<li><strong>Down a Group (top to bottom)</strong>: $\chi$ decreases as valence electrons occupy shells further from the nucleus, shielded by inner electron cores.</li>
+<li><strong>Extremes</strong>: Cesium ($\chi \approx 0.79$) and Francium ($\chi \approx 0.7$) are the least electronegative metals, while Fluorine ($\chi = 3.98$) is the most electronegative element.</li>
+</ul>
+<h4 id="2-atomic-radius--lanthanide-contraction">2. Atomic Radius &amp; Lanthanide Contraction</h4>
+<p>The spatial extent of electron probability distributions defines atomic radius:</p>
+<ul>
+<li>Atomic radii <strong>decrease</strong> from left to right across periods due to stronger Coulomb attraction from the unshielded nuclear charge.</li>
+<li>Atomic radii <strong>increase</strong> down groups as principal quantum number $n$ increases.</li>
+<li>In Period 6, the filling of the $4f$ subshell between Lanthanum ($Z=57$) and Lutetium ($Z=71$) causes the famous <strong>Lanthanide Contraction</strong>. Because $f$-electrons provide poor electrostatic shielding, elements following the lanthanides (e.g. Hafnium, Tantalum, Gold) exhibit nearly identical atomic radii to their lighter Period 5 congeners (Zirconium, Niobium, Silver), making their chemical separation exceptionally challenging.</li>
+</ul>
+<h4 id="3-transition-metals--main-groups-view">3. Transition Metals &amp; Main Groups View</h4>
+<p>In introductory chemistry and stoichiometry, understanding valence electrons is simplified by focusing solely on the <strong>s- and p-block elements</strong>:</p>
+<ul>
+<li>The <strong>8 Main Groups</strong> (I A through VIII A) correspond to valence electron numbers from 1 to 8, directly determining Lewis octet structures, ionic charges (e.g. $\text{Na}^+$, $\text{Ca}^{2+}$, $\text{Cl}^-$, $\text{O}^{2-}$), and bonding valencies.</li>
+<li>By toggling the <strong>Transition Metals (3–12)</strong> button above, you can collapse the d-block to isolate these fundamental relationships.</li>
+</ul>
+]]></description><content:encoded><![CDATA[<p>Welcome to the <strong>Interactive Periodic Table of the Elements</strong> (<em>Periodensystem der Elemente</em>). Designed for scientists, engineers, students, and educators, this table brings all 118 chemical elements to life with high information density, responsive layouts, and seamless light/dark mode integration.</p>
+<div class="callout callout-tip" role="region" aria-label="Interactive Controls">
+  <div class="callout-icon" aria-hidden="true">💡</div>
+  <div class="callout-body">
+    <div class="callout-title">Interactive Controls</div>
+    <div class="callout-content">
+      <ul>
+<li><strong>Click any element</strong> to open its detailed <strong>Steckbrief</strong> modal, including electron configurations, oxidation states, melting/boiling points, density, discovery details, and official Wikipedia links.</li>
+<li><strong>Toggle Transition Metals (3–12)</strong> to seamlessly collapse the table into the classic <strong>8 Main Groups (I to VIII)</strong> layout.</li>
+<li><strong>Toggle Lanthanoids &amp; Actinoids</strong> to expand or collapse the f-block.</li>
+<li><strong>Instant Search</strong>: Type element symbols (e.g. <code>Fe</code>), names (<code>Iron</code>), or atomic numbers (<code>26</code>) in the search bar.</li>
+<li><strong>Direct Link</strong>: Use URL hashes like <a href="https://jokobus.github.io/pse/#el-Au">#/pse/#el-Au</a> or <a href="https://jokobus.github.io/pse/#26">#/pse/#26</a> to jump straight to any element!</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+
+
+<link rel="stylesheet" href="https://jokobus.github.io/css/pse.min.c490d8537554bbb456bb688833392d0e1cad62d42eb1528c576f412eb77cd1fc.css" integrity="sha256-xJDYU3VUu7RWu2iIMzktDhytYtQusVKMV29BLrd80fw=">
+
+<div class="pse-container" data-lang="en">
+  <noscript>
+    <p style="padding: 1rem; border: 1px solid var(--color-border); border-radius: 8px;">
+      Please enable JavaScript to view the interactive Periodic Table of the Elements.
+    </p>
+  </noscript>
+</div>
+
+<script defer src="https://jokobus.github.io/js/pse-data.min.b574f91f5518a2af7a25082844f666e41b6203f85a2f48fdd2b665571f600cc2.js" integrity="sha256-tXT5H1UYoq96JQgoRPZm5BtiA/haL0j90rZlVx9gDMI="></script>
+<script defer src="https://jokobus.github.io/js/pse.min.0fc2ab94725812a50c1a97aa86001cb7ef7d1565e942df12443575ee62654b27.js" integrity="sha256-D8KrlHJYEqUMGpeqhgAct&#43;99FWXpQt8SRDV17mJlSyc="></script>
+
+<hr>
+<h3 id="reading-the-element-tile">Reading the Element Tile</h3>
+<p>Each tile is packed with physical and chemical constants, matching the layout of standard scientific reference charts:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">┌──────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│  1.008 (Atomic Mass Ar)         2.20 (EN)    │
+</span></span><span class="line"><span class="cl">│                                              │
+</span></span><span class="line"><span class="cl">│  1 (Atomic Number Z)          H (Symbol)     │
+</span></span><span class="line"><span class="cl">│                                              │
+</span></span><span class="line"><span class="cl">│  -259° / -253° (mp/bp)   Hydrogen   0.09 g/L │
+</span></span><span class="line"><span class="cl">└──────────────────────────────────────────────┘
+</span></span></code></pre></div><ol>
+<li><strong>Top-Left</strong>: Relative atomic mass ($A_r$), based on standard atomic weights (IUPAC). For synthetic radioactive elements without stable isotopes, the mass number of the longest-lived isotope is bracketed.</li>
+<li><strong>Top-Right</strong>: Electronegativity according to the Pauling scale.</li>
+<li><strong>Center-Left</strong>: Atomic number ($Z$), representing nuclear proton count.</li>
+<li><strong>Center</strong>: Chemical symbol, styled and color-coded by its thermodynamic state of matter at $20\,^\circ\text{C}$ (solid, liquid, gas, or synthetic).</li>
+<li><strong>Bottom-Left</strong>: Melting point and boiling point in degrees Celsius ($^\circ\text{C}$).</li>
+<li><strong>Bottom-Center</strong>: Element name in English (or German when toggled).</li>
+<li><strong>Bottom-Right</strong>: Density at $20\,^\circ\text{C}$ ($1\,\text{atm}$).</li>
+</ol>
+<hr>
+<h3 id="key-periodic-trends">Key Periodic Trends</h3>
+<p>The Periodic Table arranges elements by atomic number $Z$ and recurrent valence electron configurations. This gives rise to predictable physical and chemical trends:</p>
+<h4 id="1-electronegativity">1. Electronegativity</h4>
+<p>Electronegativity ($\chi$) quantifies an atom&rsquo;s ability to attract shared electron pairs in covalent chemical bonds:</p>
+<ul>
+<li><strong>Across a Period (left to right)</strong>: $\chi$ increases systematically due to increasing effective nuclear charge ($Z_{\text{eff}}$) pulling valence electrons tighter without adding new shielding shells.</li>
+<li><strong>Down a Group (top to bottom)</strong>: $\chi$ decreases as valence electrons occupy shells further from the nucleus, shielded by inner electron cores.</li>
+<li><strong>Extremes</strong>: Cesium ($\chi \approx 0.79$) and Francium ($\chi \approx 0.7$) are the least electronegative metals, while Fluorine ($\chi = 3.98$) is the most electronegative element.</li>
+</ul>
+<h4 id="2-atomic-radius--lanthanide-contraction">2. Atomic Radius &amp; Lanthanide Contraction</h4>
+<p>The spatial extent of electron probability distributions defines atomic radius:</p>
+<ul>
+<li>Atomic radii <strong>decrease</strong> from left to right across periods due to stronger Coulomb attraction from the unshielded nuclear charge.</li>
+<li>Atomic radii <strong>increase</strong> down groups as principal quantum number $n$ increases.</li>
+<li>In Period 6, the filling of the $4f$ subshell between Lanthanum ($Z=57$) and Lutetium ($Z=71$) causes the famous <strong>Lanthanide Contraction</strong>. Because $f$-electrons provide poor electrostatic shielding, elements following the lanthanides (e.g. Hafnium, Tantalum, Gold) exhibit nearly identical atomic radii to their lighter Period 5 congeners (Zirconium, Niobium, Silver), making their chemical separation exceptionally challenging.</li>
+</ul>
+<h4 id="3-transition-metals--main-groups-view">3. Transition Metals &amp; Main Groups View</h4>
+<p>In introductory chemistry and stoichiometry, understanding valence electrons is simplified by focusing solely on the <strong>s- and p-block elements</strong>:</p>
+<ul>
+<li>The <strong>8 Main Groups</strong> (I A through VIII A) correspond to valence electron numbers from 1 to 8, directly determining Lewis octet structures, ionic charges (e.g. $\text{Na}^+$, $\text{Ca}^{2+}$, $\text{Cl}^-$, $\text{O}^{2-}$), and bonding valencies.</li>
+<li>By toggling the <strong>Transition Metals (3–12)</strong> button above, you can collapse the d-block to isolate these fundamental relationships.</li>
+</ul>
+]]></content:encoded><category>Chemistry</category><category>Science</category><category>Periodic Table</category><category>Interactive</category><category>Engineering</category></item><item><title>Single vs Multi Lane Waiting</title><link>https://jokobus.github.io/posts/single-vs-multi-lane-waiting/</link><pubDate>Wed, 12 Aug 2026 09:41:54 +0200</pubDate><guid>https://jokobus.github.io/posts/single-vs-multi-lane-waiting/</guid><description><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Whenever you step into a bank or a grocery store, you encounter one of two queueing designs:</p>
 <ol>
 <li><strong>Multi-Line Queuing ($c \times M/M/1$):</strong> Each register or counter has its own dedicated line. Customers pick a line and wait.</li>
@@ -1860,7 +2008,7 @@ $$\bm{t}_{\bm{n}} = \lim_{\Delta A \to 0} \frac{\Delta \bm{F}}{\Delta A} = \bm{\
 </ul>
 <h3 id="cauchy-stress-state-on-a-differential-element">Cauchy Stress State on a Differential Element</h3>
 <p>The conservation of angular momentum requires the Cauchy stress tensor to be symmetric: $\sigma_{ij} = \sigma_{ji}$.</p>
-<figure class="tikz-container" id="tikz-1792239481332021054">
+<figure class="tikz-container" id="tikz-1792240414473625327">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -1909,7 +2057,7 @@ $$\nabla \cdot \bm{\sigma} + \rho \bm{b} = \rho \ddot{\bm{u}} \quad \leftrightar
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-constitutive-laws--linear-elastic-solids">4. Constitutive Laws &amp; Linear Elastic Solids</h2>
-<figure class="tikz-container" id="tikz-1792239481332039151">
+<figure class="tikz-container" id="tikz-1792240414473646274">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2051,7 +2199,7 @@ $$\sigma_{11} = \frac{\partial^2 \Phi}{\partial x_2^2} = 2a_3, \quad \sigma_{22}
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792239481332093209">
+<figure class="tikz-container" id="tikz-1792240414473757227">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2138,7 +2286,7 @@ $$\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2$$
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792239481332165234">
+<figure class="tikz-container" id="tikz-1792240414473843454">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2356,7 +2504,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li>Solving the resulting linear algebraic system yields the best energy-optimal polynomial approximation to the true continuum deformation.</li>
 </ol>
 <hr>
-<section class="smidr-bibliography-section" id="bib-sec-1792239481332248733" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792240414473992485" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>References &amp; Citations</span>
     </h2>
@@ -2548,7 +2696,7 @@ $$\bm{t}_{\bm{n}} = \lim_{\Delta A \to 0} \frac{\Delta \bm{F}}{\Delta A} = \bm{\
 </ul>
 <h3 id="cauchy-stress-state-on-a-differential-element">Cauchy Stress State on a Differential Element</h3>
 <p>The conservation of angular momentum requires the Cauchy stress tensor to be symmetric: $\sigma_{ij} = \sigma_{ji}$.</p>
-<figure class="tikz-container" id="tikz-1792239481332021054">
+<figure class="tikz-container" id="tikz-1792240414473625327">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2597,7 +2745,7 @@ $$\nabla \cdot \bm{\sigma} + \rho \bm{b} = \rho \ddot{\bm{u}} \quad \leftrightar
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-constitutive-laws--linear-elastic-solids">4. Constitutive Laws &amp; Linear Elastic Solids</h2>
-<figure class="tikz-container" id="tikz-1792239481332039151">
+<figure class="tikz-container" id="tikz-1792240414473646274">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2739,7 +2887,7 @@ $$\sigma_{11} = \frac{\partial^2 \Phi}{\partial x_2^2} = 2a_3, \quad \sigma_{22}
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792239481332093209">
+<figure class="tikz-container" id="tikz-1792240414473757227">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2826,7 +2974,7 @@ $$\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2$$
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792239481332165234">
+<figure class="tikz-container" id="tikz-1792240414473843454">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -3044,7 +3192,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li>Solving the resulting linear algebraic system yields the best energy-optimal polynomial approximation to the true continuum deformation.</li>
 </ol>
 <hr>
-<section class="smidr-bibliography-section" id="bib-sec-1792239481332248733" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792240414473992485" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>References &amp; Citations</span>
     </h2>
@@ -10315,7 +10463,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792239481417036987" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792240414590803233" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -10432,7 +10580,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792239481417036987");
+  const root = document.getElementById("neuron-1792240414590803233");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -10907,7 +11055,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792239481417036987" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792240414590803233" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -11024,7 +11172,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792239481417036987");
+  const root = document.getElementById("neuron-1792240414590803233");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
