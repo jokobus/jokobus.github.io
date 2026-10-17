@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet type="text/xsl" href="/rss-style.xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/"><channel><title>Jokobus</title><link>https://jokobus.github.io/de/</link><description>Recent dispatches on Jokobus</description><generator>Hugo -- gohugo.io</generator><language>de</language><lastBuildDate>Wed, 12 Aug 2026 09:41:54 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/de/index.xml" rel="self" type="application/rss+xml"/><item><title>Einzelschlange vs. Mehrere Schlangen: Eine mathematische Analyse</title><link>https://jokobus.github.io/de/posts/single-vs-multi-lane-waiting/</link><pubDate>Wed, 12 Aug 2026 09:41:54 +0200</pubDate><guid>https://jokobus.github.io/de/posts/single-vs-multi-lane-waiting/</guid><description><![CDATA[<h2 id="einleitung">Einleitung</h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet type="text/xsl" href="/rss-style.xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/"><channel><title>Jokobus</title><link>https://jokobus.github.io/de/</link><description>Recent dispatches on Jokobus</description><generator>Hugo -- gohugo.io</generator><language>de</language><lastBuildDate>Thu, 01 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://jokobus.github.io/de/index.xml" rel="self" type="application/rss+xml"/><item><title>Einzelschlange vs. Mehrere Schlangen: Eine mathematische Analyse</title><link>https://jokobus.github.io/de/posts/single-vs-multi-lane-waiting/</link><pubDate>Wed, 12 Aug 2026 09:41:54 +0200</pubDate><guid>https://jokobus.github.io/de/posts/single-vs-multi-lane-waiting/</guid><description><![CDATA[<h2 id="einleitung">Einleitung</h2>
 <p>Ob im Supermarkt, am Flughafen-Check-in oder am Bankschalter – wir begegnen stets zwei grundlegenden Systemdesigns:</p>
 <ol>
 <li><strong>Mehrere getrennte Schlangen ($c \times M/M/1$):</strong> Jede Kasse oder jeder Schalter besitzt eine eigene Schlange. Kunden stellen sich an einer Kasse an und verbleiben dort.</li>
@@ -4243,7 +4243,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792225424443983312" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792234684284794899" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -4360,7 +4360,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792225424443983312");
+  const root = document.getElementById("neuron-1792234684284794899");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -4828,7 +4828,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792225424443983312" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792234684284794899" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -4945,7 +4945,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792225424443983312");
+  const root = document.getElementById("neuron-1792234684284794899");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
