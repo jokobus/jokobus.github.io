@@ -24,10 +24,20 @@ Disclaimer: Der Artikel …</p><div class=post-card-meta><span>⏱️ ~8 Min. Le
 <button type=button id=filter-mode-btn class="filter-mode-btn mode-and" title="Toggle between matching ALL selected tags (AND) or ANY selected tag (OR)">
 <span class=mode-text>AND</span></button></div><button type=button id=filter-clear-btn class=filter-clear-btn style=display:none title="Deselect all filters">
 Clear All</button></div><div id=filter-count-label class=active-count-label style=display:none></div></div><div class="tax-sidebar-card sort-card"><h3 class=tax-sidebar-heading><span>🔀</span>
-<span>Sort Order</span></h3><div class=sort-select-wrapper><select id=posts-sort-select class=posts-sort-select aria-label="Sort posts by"><option value=date-desc>Date: Newest First</option><option value=date-asc>Date: Oldest First</option><option value=title-asc>Title: A → Z</option><option value=title-desc>Title: Z → A</option><option value=time-asc>Read Time: Shortest</option><option value=time-desc>Read Time: Longest</option></select></div></div><div class=tax-sidebar-card><h3 class=tax-sidebar-heading>📂 Kategorien</h3><div class=tax-checkbox-list><button type=button class=tax-checkbox-btn data-type=category data-value=guide role=checkbox aria-checked=false>
+<span>Sort Order</span></h3><div class=sort-select-wrapper><select id=posts-sort-select class=posts-sort-select aria-label="Sort posts by"><option value=date-desc>Date: Newest First</option><option value=date-asc>Date: Oldest First</option><option value=title-asc>Title: A → Z</option><option value=title-desc>Title: Z → A</option><option value=time-asc>Read Time: Shortest</option><option value=time-desc>Read Time: Longest</option></select></div></div><div class=tax-sidebar-card><h3 class=tax-sidebar-heading>📂 Kategorien</h3><div class=tax-checkbox-list><button type=button class=tax-checkbox-btn data-type=category data-value="eingebettete systeme" role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>Eingebettete Systeme</span>
+<span class=tax-count>1</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=category data-value=guide role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>Guide</span>
 <span class=tax-count>9</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=category data-value=hardware role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>Hardware</span>
+<span class=tax-count>1</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=category data-value=howto role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
@@ -42,7 +52,22 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <button type=button class=tax-checkbox-btn data-type=category data-value=simulation role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>Simulation</span>
-<span class=tax-count>1</span></button></div></div><div class=tax-sidebar-card><h3 class=tax-sidebar-heading>🏷️ Schlagwörter</h3><div class=tax-checkbox-list><button type=button class=tax-checkbox-btn data-type=tag data-value=caddy role=checkbox aria-checked=false>
+<span class=tax-count>1</span></button></div></div><div class=tax-sidebar-card><h3 class=tax-sidebar-heading>🏷️ Schlagwörter</h3><div class=tax-checkbox-list><button type=button class=tax-checkbox-btn data-type=tag data-value=arduino role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Arduino</span>
+<span class=tax-count>1</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=avr role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#AVR</span>
+<span class=tax-count>1</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=c++ role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#C++</span>
+<span class=tax-count>1</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=caddy role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Caddy</span>
 <span class=tax-count>1</span>
@@ -67,6 +92,11 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=tax-title>#DevOps</span>
 <span class=tax-count>2</span>
 </button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=eeprom role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#EEPROM</span>
+<span class=tax-count>1</span>
+</button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value="github actions" role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#GitHub Actions</span>
@@ -82,6 +112,11 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=tax-title>#Hugo</span>
 <span class=tax-count>2</span>
 </button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=interrupts role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Interrupts</span>
+<span class=tax-count>1</span>
+</button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value="machine learning" role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Machine Learning</span>
@@ -96,6 +131,11 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Mathematik</span>
 <span class=tax-count>2</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=morsecode role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Morsecode</span>
+<span class=tax-count>1</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value="neural network" role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
@@ -122,6 +162,11 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=tax-title>#Smidr</span>
 <span class=tax-count>1</span>
 </button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=timer1 role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Timer1</span>
+<span class=tax-count>1</span>
+</button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=wahrscheinlichkeitsrechnung role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Wahrscheinlichkeitsrechnung</span>
@@ -135,6 +180,11 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <button type=button class=tax-checkbox-btn data-type=tag data-value=webentwicklung role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Webentwicklung</span>
+<span class=tax-count>1</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=ws2812b role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#WS2812B</span>
 <span class=tax-count>1</span></button></div></div></div></details></aside></div></div></main><footer class=site-footer role=contentinfo><div class=container-wide><div class=footer-grid><div class=footer-left><p class=footer-copyright>&copy;2024-2026
 <strong>Jokobus</strong>.
 Alle Rechte vorbehalten.</p><p class=footer-credits>Geschmiedet mit <a href=https://github.com/jokobus/smidr target=_blank rel="noopener noreferrer" style=color:var(--color-primary);font-weight:600;text-decoration:underline;text-underline-offset:2px>Smidr</a> auf <a href=https://gohugo.io target=_blank rel="noopener noreferrer" style=color:var(--color-primary);font-weight:600;text-decoration:underline;text-underline-offset:2px>Hugo</a></p></div><nav class=footer-right aria-label="Footer Navigation"><ul class=footer-links><li><a class=footer-link href=/de/imprint/>Impressum</a></li><li><a class=footer-link href=/de/privacy/>Datenschutz</a></li><li><a class=footer-link href=/index.xml>RSS-Feed</a></li></ul></nav></div></div></footer><div id=command-palette class=command-palette-backdrop aria-hidden=true role=dialog aria-modal=true aria-label="Befehl eingeben oder Beiträge durchsuchen..."><div class=command-palette-modal><div class=palette-input-wrap><span class=palette-input-icon>🔍</span>

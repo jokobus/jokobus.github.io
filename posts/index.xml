@@ -6660,7 +6660,837 @@ solve_ols(sample_data)</textarea>
   </div>
 </div>
 
-]]></content:encoded><category>Machine Learning</category></item><item><title>Backpropagation in Matrix Calculus</title><link>https://jokobus.github.io/posts/backpropagation_matrix_calculus/</link><pubDate>Mon, 27 May 2024 19:27:30 -0700</pubDate><guid>https://jokobus.github.io/posts/backpropagation_matrix_calculus/</guid><description><![CDATA[<h2 id="introduction">Introduction</h2>
+]]></content:encoded><category>Machine Learning</category></item><item><title>Interrupt-Driven Morse Code Transmitter on Arduino (WS2812B &amp; Timer1)</title><link>https://jokobus.github.io/posts/morse-transmitter/</link><pubDate>Sat, 15 Jun 2024 14:00:00 +0200</pubDate><guid>https://jokobus.github.io/posts/morse-transmitter/</guid><description><![CDATA[<div style="background: var(--color-bg-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+<div>
+<span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); font-weight: 800;">Open Source Hardware Project</span>
+<div style="font-size: 1.15rem; font-weight: 700; color: var(--color-text); margin-top: 0.2rem;">
+Interactive Morse Transmitter with WS2812B Wave Effects
+</div>
+<div style="font-size: 0.88rem; color: var(--color-text-dim); margin-top: 0.2rem;">
+Hardware Timer1 CTC • Empty loop() • Non-volatile EEPROM Toggle
+</div>
+</div>
+<a href="https://github.com/jokobus/morse-transmitter" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--color-primary); color: #090d16; font-weight: 700; font-size: 0.9rem; padding: 0.6rem 1.1rem; border-radius: var(--radius-sm); text-decoration: none; box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);">
+<span>📦</span> View on GitHub
+</a>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>Morse code, developed by Samuel Morse in the 1830s, represents one of humanity&rsquo;s earliest digital signaling protocols. By encoding textual information into sequences of short pulses (<strong>dots</strong>) and long pulses (<strong>dashes</strong>), it transformed global telecommunications over electrical telegraphs.</p>
+<p>While standard hobbyist implementations typically rely on crude, blocking <code>delay()</code> loops that freeze the microcontroller, this project approaches visual Morse transmission with real-world embedded systems engineering principles:</p>
+<ul>
+<li><strong>100% Interrupt-Driven</strong>: Utilizing hardware <strong>Timer1</strong> in CTC mode (<em>Clear Timer on Compare Match</em>), leaving the Arduino <code>loop()</code> function completely empty.</li>
+<li><strong>Lighthouse Wave Effect</strong>: Instead of harsh, binary blinking, light sweeps across an addressable <strong>WS2812B LED strip</strong> in a fluid wave resembling a rotating coastal beacon.</li>
+<li><strong>Non-Volatile Single-Button UI</strong>: Repurposing the onboard Arduino Nano <strong>Reset button</strong> as a toggle switch by persisting state flags in the internal <strong>EEPROM</strong>.</li>
+<li><strong>Memory Optimization</strong>: Storing symbol lookup tables and messages in flash memory (<strong>PROGMEM</strong>) to preserve the ATmega328P&rsquo;s scarce 2 KB SRAM.</li>
+</ul>
+<hr>
+<h2 id="video-demonstration">Video Demonstration</h2>
+<p>The video below shows the system transmitting the message <strong><code>&quot;IN&quot;</code></strong> (<code>..</code> / <code>-.</code>) on an 8-LED WS2812B strip using the sweeping lighthouse wave animation:</p>
+<div style="max-width: 760px; margin: 1.5rem auto; text-align: center;">
+<video controls width="100%" preload="metadata" playsinline style="border-radius: var(--radius-md); border: 1px solid var(--color-border); box-shadow: var(--shadow-md); display: block;">
+<source src="https://raw.githubusercontent.com/jokobus/morse-transmitter/main/morse.mp4" type="video/mp4">
+Your browser does not support the HTML5 video tag. You can inspect the video directly on <a href="https://github.com/jokobus/morse-transmitter/blob/main/morse.mp4" target="_blank" rel="noopener">GitHub</a>.
+</video>
+<p style="font-size: 0.85rem; color: var(--color-text-dim); margin-top: 0.5rem;">
+Direct video file hosted on <a href="https://github.com/jokobus/morse-transmitter/blob/main/morse.mp4" target="_blank" rel="noopener">GitHub (morse.mp4)</a>
+</p>
+</div>
+<hr>
+<h2 id="hardware-architecture--wiring">Hardware Architecture &amp; Wiring</h2>
+<p>The project is built on the <strong>Arduino Nano (ATmega328P)</strong> mounted onto a breakout expansion board. The ATmega328P operates at 5V logic with a 16 MHz crystal clock, perfectly matching the timing requirements of WS2812B addressable LEDs without requiring logic-level shifters.</p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph LR
+    subgraph Power [&#34;Power Supply&#34;]
+        V5[&#34;5V Rail&#34;]
+        GND[&#34;GND Rail&#34;]
+    end
+
+    subgraph Arduino [&#34;Arduino Nano (ATmega328P)&#34;]
+        Pin6[&#34;Digital Pin 6 (PD6)&#34;]
+        Timer1[&#34;16-bit Timer1 (CTC Mode)&#34;]
+        EEPROM[&#34;Internal EEPROM (Byte 0)&#34;]
+        ResetBtn[&#34;Onboard Reset Button&#34;]
+    end
+
+    subgraph Strip [&#34;WS2812B LED Strip (8 LEDs)&#34;]
+        DIN[&#34;Data In (DIN)&#34;]
+        LED0[&#34;LED 0&#34;]
+        LED1[&#34;LED 1&#34;]
+        LEDdots[&#34;...&#34;]
+        LED7[&#34;LED 7&#34;]
+    end
+
+    Pin6 --&gt; DIN
+    DIN --&gt; LED0 --&gt; LED1 --&gt; LEDdots --&gt; LED7
+    V5 --&gt; Strip
+    GND --&gt; Strip
+    ResetBtn -.-&gt;|&#34;Toggles State on Boot&#34;| EEPROM
+    Timer1 -.-&gt;|&#34;COMPA ISR (15.625 kHz)&#34;| Pin6
+</code></pre><h3 id="pinout-connections">Pinout Connections</h3>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Component</th>
+					<th style="text-align: left">Pin / Interface</th>
+					<th style="text-align: left">Arduino Nano Pin</th>
+					<th style="text-align: left">Notes</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>WS2812B Strip</strong></td>
+					<td style="text-align: left">Data Input (<code>DIN</code>)</td>
+					<td style="text-align: left"><strong>Digital Pin 6 (PD6)</strong></td>
+					<td style="text-align: left">800 kHz single-wire high-speed serial</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>WS2812B Strip</strong></td>
+					<td style="text-align: left">Power (<code>+5V</code>)</td>
+					<td style="text-align: left"><strong>5V</strong></td>
+					<td style="text-align: left">~60 mA max per LED (software capped at 1% brightness)</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>WS2812B Strip</strong></td>
+					<td style="text-align: left">Ground (<code>GND</code>)</td>
+					<td style="text-align: left"><strong>GND</strong></td>
+					<td style="text-align: left">Shared common ground</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>User Interface</strong></td>
+					<td style="text-align: left">Reset Button</td>
+					<td style="text-align: left"><strong>RST</strong></td>
+					<td style="text-align: left">Toggles transmission state via EEPROM across power cycles</td>
+			</tr>
+	</tbody>
+</table>
+<blockquote>
+<p>[!TIP]
+<strong>Brightness Safety</strong>: WS2812B LEDs at 100% white can draw nearly 500 mA for 8 LEDs and cause severe eye glare when viewed directly on a workbench. The code caps brightness to <strong>1%</strong> (<code>BRIGHTNESS = 1</code>), which provides crisp visual visibility while drawing minimal current from the USB rail.</p>
+</blockquote>
+<hr>
+<h2 id="morse-timing-standards--timer-calculations">Morse Timing Standards &amp; Timer Calculations</h2>
+<p>Morse code timing is defined around the fundamental unit of time: the <strong>Dot duration</strong> ($t_{\text{dot}}$). Standard international Morse ratios dictate:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Element</th>
+					<th style="text-align: left">Standard Ratio</th>
+					<th style="text-align: left">Implemented Duration</th>
+					<th style="text-align: left">Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>Dot (<code>.</code>)</strong></td>
+					<td style="text-align: left">$1 \times t_{\text{dot}}$</td>
+					<td style="text-align: left"><strong>500 ms</strong></td>
+					<td style="text-align: left">Short signal pulse</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Dash (<code>-</code>)</strong></td>
+					<td style="text-align: left">$3 \times t_{\text{dot}}$</td>
+					<td style="text-align: left"><strong>1500 ms</strong></td>
+					<td style="text-align: left">Long signal pulse</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Intra-character gap</strong></td>
+					<td style="text-align: left">$1 \times t_{\text{dot}}$</td>
+					<td style="text-align: left"><strong>500 ms</strong></td>
+					<td style="text-align: left">Pause between dots and dashes in the same letter</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Inter-character gap</strong></td>
+					<td style="text-align: left">$3 \times t_{\text{dot}}$</td>
+					<td style="text-align: left"><strong>1500 ms</strong></td>
+					<td style="text-align: left">Pause between letters in a word</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Word gap</strong></td>
+					<td style="text-align: left">$7 \times t_{\text{dot}}$</td>
+					<td style="text-align: left"><strong>3500 ms</strong></td>
+					<td style="text-align: left">Pause between distinct words</td>
+			</tr>
+	</tbody>
+</table>
+<p><em>Note: While acoustic telegraphy typically uses dots around 100–200 ms, a 500 ms base dot was chosen to allow human observers to comfortably appreciate the visual wave effect.</em></p>
+<h3 id="hardware-timer1-configuration">Hardware Timer1 Configuration</h3>
+<p>To keep the main <code>loop()</code> completely empty and avoid CPU starvation, all timing is offloaded to the 16-bit <strong>Timer1</strong>:</p>
+<ol>
+<li><strong>Clock Frequency</strong>: $f_{\text{cpu}} = 16\,\text{MHz}$</li>
+<li><strong>Prescaler</strong>: 1024 (via register bits <code>CS12</code> and <code>CS10</code>)</li>
+<li><strong>Timer Clock</strong>:
+
+$$f_{\text{timer}} = \frac{16\,\text{MHz}}{1024} = 15{,}625\,\text{Hz}$$</li>
+<li><strong>Tick Duration</strong>:
+
+$$\Delta t_{\text{tick}} = \frac{1}{15{,}625\,\text{Hz}} = 64\,\mu\text{s}$$</li>
+<li><strong>Maximum Achievable Interval</strong>:
+
+$$T_{\text{max}} = 65{,}536 \times 64\,\mu\text{s} \approx 4.194\,\text{seconds}$$</li>
+</ol>
+<p>Because our longest interval (the 3500 ms word gap) is well under 4.194 seconds, Timer1 can handle all Morse timing intervals natively without secondary software counters.</p>
+<p>The compare match value loaded into register <code>OCR1A</code> is calculated on each step transition via:</p>
+$$\text{OCR1A} = \left(\frac{\text{Duration}_{\text{ms}} \times 15625}{1000}\right) - 1$$<h3 id="timing-precision--error-analysis">Timing Precision &amp; Error Analysis</h3>
+<p>With a $64\,\mu\text{s}$ time base, the relative quantization error for our 500 ms dot interval is virtually non-existent:</p>
+$$\text{Relative Error} = \frac{64\,\mu\text{s}}{500\,\text{ms}} = 0.0128\%$$<hr>
+<h2 id="software-architecture--key-mechanisms">Software Architecture &amp; Key Mechanisms</h2>
+<h3 id="1-the-sweeping-lighthouse-wave-effect">1. The Sweeping Lighthouse Wave Effect</h3>
+<p>Instead of blinking all 8 LEDs simultaneously, the transmission duration is divided into sub-intervals across the strip:</p>
+$$\text{Duration per LED} = \frac{\text{Symbol Duration}}{\text{LED Count}} = \frac{500\,\text{ms}}{8} = 62.5\,\text{ms}$$<p>As the Timer1 interrupt fires, the active center moves sequentially from LED 0 to LED 7. The parameter <code>WAVE_WIDTH = 5</code> illuminates the center LED and its immediate neighbors to create a smooth, moving optical beam with soft edges:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">LED 0   [ █ ] [ █ ] [ ░ ] [   ] [   ] [   ] [   ] [   ]   (Beginning of pulse)
+</span></span><span class="line"><span class="cl">LED 3   [   ] [ ░ ] [ █ ] [ █ ] [ █ ] [ ░ ] [   ] [   ]   (Mid-pulse sweep)
+</span></span><span class="line"><span class="cl">LED 7   [   ] [   ] [   ] [   ] [   ] [ ░ ] [ █ ] [ █ ]   (End of pulse)
+</span></span></code></pre></div><p>Boundary checking prevents index wrapping across the edges of the strip. Setting <code>WAVE_WIDTH = 0</code> reverts the transmitter to standard synchronous blinking.</p>
+<h3 id="2-single-button-ui-via-non-volatile-eeprom">2. Single-Button UI via Non-Volatile EEPROM</h3>
+<p>Because the Arduino Nano board contains only a single physical pushbutton (the hardware <strong>Reset button</strong>), we store the current running state in <strong>EEPROM byte 0</strong>:</p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">stateDiagram-v2
+    [*] --&gt; HardwareReset: Press Reset Button
+    HardwareReset --&gt; ReadEEPROM: Bootloader executes setup()
+    ReadEEPROM --&gt; ToggleState: Read byte 0 &amp; invert value
+    
+    state ToggleState &lt;&lt;choice&gt;&gt;
+    ToggleState --&gt; StartPlay: State == 1 (Play)
+    ToggleState --&gt; StopPlay: State == 0 (Stop)
+    
+    StartPlay --&gt; ShowGreen: Visual Sequence (Red → Green → Off)
+    ShowGreen --&gt; EnableTimer: Enable Timer1 COMPA ISR
+    EnableTimer --&gt; EmptyLoop: loop() runs empty
+    
+    StopPlay --&gt; ShowRed: Visual Sequence (Green → Red → Off)
+    StopPlay --&gt; DisableTimer: Stop Timer1 &amp; Clear Strip
+    DisableTimer --&gt; EmptyLoop: loop() runs empty
+</code></pre><h4 id="wear-leveling-safeguard">Wear-Leveling Safeguard</h4>
+<p>The ATmega328P EEPROM is rated for approximately 100,000 write cycles. Writing blindly on every boot could prematurely wear out the cell. By checking <code>if (EEPROM.read(0) != state)</code> prior to <code>EEPROM.write(0, state)</code>, unnecessary write cycles are eliminated.</p>
+<hr>
+<h2 id="complete-arduino-source-code-morseino">Complete Arduino Source Code (<code>morse.ino</code>)</h2>
+<p>Below is the complete, heavily documented source code as found in the repository:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Arduino: Nano Atmel mega328p
+</span></span></span><span class="line"><span class="cl"><span class="c1">// LED: WS2812B (CJMCU-2812-8)
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Used: Timer1 CTC, prescaler 1024, Button interupt
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;Arduino.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;Adafruit_NeoPixel.h&gt;</span><span class="cp">    </span><span class="c1">// LED control
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;EEPROM.h&gt;</span><span class="cp">               </span><span class="c1">// State persistence across resets
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Target message to transmit
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span> <span class="n">MESSAGE</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;IN&#34;</span><span class="p">;</span>      <span class="c1">///&lt; Change this to any desired text
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Hardware configuration
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">LED_PIN</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>        <span class="c1">///&lt; Digital output pin for WS2812B data
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">WAVE_WIDTH</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>     <span class="c1">///&lt; 0 = normal blinking, &gt;0 = lighthouse sweeping effect
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">LED_COUNT</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>      <span class="c1">///&lt; Total LEDs on the strip
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Morse Code Timing Standards (in milliseconds)
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">TIME_DOT</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>          <span class="c1">///&lt; Base dot duration
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">TIME_DASH</span> <span class="o">=</span> <span class="mi">1500</span><span class="p">;</span>        <span class="c1">///&lt; Dash duration (3x dot)
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">TIME_SYMBOL_GAP</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>   <span class="c1">///&lt; Gap between dots/dashes
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">TIME_LETTER_GAP</span> <span class="o">=</span> <span class="mi">1500</span><span class="p">;</span>  <span class="c1">///&lt; Gap between characters
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">TIME_WORD_GAP</span> <span class="o">=</span> <span class="mi">3500</span><span class="p">;</span>    <span class="c1">///&lt; Gap between words
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">BRIGHTNESS</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>           <span class="c1">///&lt; Dim 1% brightness to protect eyes
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// NeoPixel strip object instantiation
+</span></span></span><span class="line"><span class="cl"><span class="n">Adafruit_NeoPixel</span> <span class="nf">led_strip</span><span class="p">(</span><span class="n">LED_COUNT</span><span class="p">,</span> <span class="n">LED_PIN</span><span class="p">,</span> <span class="n">NEO_GRB</span> <span class="o">+</span> <span class="n">NEO_KHZ800</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Hardware Timer1 calibration (16MHz / 1024 = 15625 Hz)
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">TICKS_PER_SECOND</span> <span class="o">=</span> <span class="mi">15625</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">MAX_STEPS</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Dynamic animation step arrays
+</span></span></span><span class="line"><span class="cl"><span class="kt">uint16_t</span> <span class="n">durations</span><span class="p">[</span><span class="n">MAX_STEPS</span><span class="p">];</span>            <span class="c1">///&lt; Step duration in ms
+</span></span></span><span class="line"><span class="cl"><span class="kt">uint32_t</span> <span class="n">colors</span><span class="p">[</span><span class="n">MAX_STEPS</span><span class="p">];</span>               <span class="c1">///&lt; Step RGB color
+</span></span></span><span class="line"><span class="cl"><span class="kt">uint8_t</span> <span class="n">ledIndex</span><span class="p">[</span><span class="n">MAX_STEPS</span><span class="p">];</span>              <span class="c1">///&lt; Target center LED (255 = all)
+</span></span></span><span class="line"><span class="cl"><span class="kt">uint8_t</span> <span class="n">stepCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">volatile</span> <span class="kt">uint8_t</span> <span class="n">currentStep</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @brief Flash-based lookup table converting ASCII characters to Morse dots &amp; dashes.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">morseCode</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;A&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.-&#34;</span><span class="p">;</span>   <span class="k">case</span> <span class="sc">&#39;B&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-...&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;C&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-.-.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;D&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-..&#34;</span><span class="p">;</span>  <span class="k">case</span> <span class="sc">&#39;E&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.&#34;</span><span class="p">;</span>    <span class="k">case</span> <span class="sc">&#39;F&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;..-.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;G&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;--.&#34;</span><span class="p">;</span>  <span class="k">case</span> <span class="sc">&#39;H&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;....&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;I&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;..&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;J&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.---&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;K&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-.-&#34;</span><span class="p">;</span>  <span class="k">case</span> <span class="sc">&#39;L&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.-..&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;M&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;--&#34;</span><span class="p">;</span>   <span class="k">case</span> <span class="sc">&#39;N&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-.&#34;</span><span class="p">;</span>   <span class="k">case</span> <span class="sc">&#39;O&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;---&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;P&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.--.&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;Q&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;--.-&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;R&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.-.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;S&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;...&#34;</span><span class="p">;</span>  <span class="k">case</span> <span class="sc">&#39;T&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-&#34;</span><span class="p">;</span>    <span class="k">case</span> <span class="sc">&#39;U&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;..-&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;V&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;...-&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;W&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.--&#34;</span><span class="p">;</span>  <span class="k">case</span> <span class="sc">&#39;X&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-..-&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;Y&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-.--&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;Z&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;--..&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;0&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-----&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;1&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.----&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;2&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;..---&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;3&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;...--&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;4&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;....-&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;5&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.....&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;6&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-....&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;7&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;--...&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;8&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;---..&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;9&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;----.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="o">:</span>  <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @brief Records a discrete animation step into the sequence buffer.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">addStep</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">duration_ms</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">color</span><span class="p">,</span> <span class="kt">uint8_t</span> <span class="n">ledIdx</span> <span class="o">=</span> <span class="mi">255</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">stepCount</span> <span class="o">&lt;</span> <span class="n">MAX_STEPS</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">durations</span><span class="p">[</span><span class="n">stepCount</span><span class="p">]</span> <span class="o">=</span> <span class="n">duration_ms</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">colors</span><span class="p">[</span><span class="n">stepCount</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ledIndex</span><span class="p">[</span><span class="n">stepCount</span><span class="p">]</span> <span class="o">=</span> <span class="n">ledIdx</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stepCount</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @brief Compiles the ASCII message into a sequence of LED animation steps.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">buildSequence</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">stepCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="kt">uint32_t</span> <span class="n">WHITE</span> <span class="o">=</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="kt">uint32_t</span> <span class="n">OFF</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">MESSAGE</span><span class="p">;</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">toupper</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">addStep</span><span class="p">(</span><span class="n">TIME_WORD_GAP</span><span class="p">,</span> <span class="n">OFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">code</span> <span class="o">=</span> <span class="n">morseCode</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!*</span><span class="n">code</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span> <span class="o">=</span> <span class="n">code</span><span class="p">;</span> <span class="o">*</span><span class="n">s</span><span class="p">;</span> <span class="o">++</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">uint16_t</span> <span class="n">onDur</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">s</span> <span class="o">==</span> <span class="sc">&#39;.&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nl">TIME_DOT</span> <span class="p">:</span> <span class="n">TIME_DASH</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">uint16_t</span> <span class="n">perLedDur</span> <span class="o">=</span> <span class="n">onDur</span> <span class="o">/</span> <span class="n">LED_COUNT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">      <span class="c1">// Sweep light sequentially across the strip
+</span></span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span><span class="kt">uint8_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">LED_COUNT</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">addStep</span><span class="p">(</span><span class="n">perLedDur</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">addStep</span><span class="p">(</span><span class="n">TIME_SYMBOL_GAP</span><span class="p">,</span> <span class="n">OFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">addStep</span><span class="p">(</span><span class="n">TIME_LETTER_GAP</span><span class="p">,</span> <span class="n">OFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">addStep</span><span class="p">(</span><span class="n">TIME_WORD_GAP</span><span class="p">,</span> <span class="n">OFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// Visual return wave before looping
+</span></span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kt">uint8_t</span> <span class="n">i</span> <span class="o">=</span> <span class="n">LED_COUNT</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">addStep</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">addStep</span><span class="p">(</span><span class="n">TIME_WORD_GAP</span><span class="p">,</span> <span class="n">OFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @brief Timer1 Compare Match A Interrupt Service Routine.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Executes on each step transition, updates the LEDs, and dynamically reloads OCR1A.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="n">ISR</span><span class="p">(</span><span class="n">TIMER1_COMPA_vect</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">ledIndex</span><span class="p">[</span><span class="n">currentStep</span><span class="p">]</span> <span class="o">==</span> <span class="mi">255</span> <span class="o">||</span> <span class="n">WAVE_WIDTH</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">currentStep</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">led_strip</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">currentStep</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">int8_t</span> <span class="n">center</span> <span class="o">=</span> <span class="n">ledIndex</span><span class="p">[</span><span class="n">currentStep</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">int8_t</span> <span class="n">halfWidth</span> <span class="o">=</span> <span class="n">WAVE_WIDTH</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span><span class="kt">int8_t</span> <span class="n">offset</span> <span class="o">=</span> <span class="o">-</span><span class="n">halfWidth</span><span class="p">;</span> <span class="n">offset</span> <span class="o">&lt;=</span> <span class="n">halfWidth</span><span class="p">;</span> <span class="n">offset</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int8_t</span> <span class="n">ledPos</span> <span class="o">=</span> <span class="n">center</span> <span class="o">+</span> <span class="n">offset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">ledPos</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">ledPos</span> <span class="o">&lt;</span> <span class="n">LED_COUNT</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">led_strip</span><span class="p">.</span><span class="n">setPixelColor</span><span class="p">(</span><span class="n">ledPos</span><span class="p">,</span> <span class="n">colors</span><span class="p">[</span><span class="n">currentStep</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// Reload compare register for the next step&#39;s duration
+</span></span></span><span class="line"><span class="cl">  <span class="kt">uint32_t</span> <span class="n">ticks</span> <span class="o">=</span> <span class="p">((</span><span class="kt">uint32_t</span><span class="p">)</span><span class="n">durations</span><span class="p">[</span><span class="n">currentStep</span><span class="p">]</span> <span class="o">*</span> <span class="n">TICKS_PER_SECOND</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000UL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">ticks</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="n">ticks</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">OCR1A</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)(</span><span class="n">ticks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">currentStep</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">currentStep</span> <span class="o">&gt;=</span> <span class="n">stepCount</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">currentStep</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">showStartupSequence</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="n">led_strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span> <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="n">led_strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span> <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span> <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">showShutdownSequence</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="n">led_strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span> <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="n">led_strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span> <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span> <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">setBrightness</span><span class="p">((</span><span class="mi">255</span> <span class="o">*</span> <span class="n">BRIGHTNESS</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// Read and toggle non-volatile running state from EEPROM
+</span></span></span><span class="line"><span class="cl">  <span class="n">byte</span> <span class="n">state</span> <span class="o">=</span> <span class="n">EEPROM</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">state</span> <span class="o">=</span> <span class="o">!</span><span class="n">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">EEPROM</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">!=</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">EEPROM</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">state</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">showStartupSequence</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">currentStep</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">buildSequence</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Configure Timer1 for CTC mode with 1024 prescaler
+</span></span></span><span class="line"><span class="cl">    <span class="n">cli</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TCCR1A</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TCCR1B</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TCCR1B</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">WGM12</span><span class="p">);</span>              <span class="c1">// CTC mode
+</span></span></span><span class="line"><span class="cl">    <span class="n">TCCR1B</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">CS12</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">CS10</span><span class="p">);</span> <span class="c1">// Prescaler 1024
+</span></span></span><span class="line"><span class="cl">    <span class="n">OCR1A</span> <span class="o">=</span> <span class="mi">1562</span><span class="p">;</span>                        <span class="c1">// Initial ~100ms trigger
+</span></span></span><span class="line"><span class="cl">    <span class="n">TIMSK1</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">OCIE1A</span><span class="p">);</span>             <span class="c1">// Enable Timer1 Compare Match A interrupt
+</span></span></span><span class="line"><span class="cl">    <span class="n">sei</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">showShutdownSequence</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TIMSK1</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">OCIE1A</span><span class="p">);</span>            <span class="c1">// Disable interrupt
+</span></span></span><span class="line"><span class="cl">    <span class="n">TCCR1B</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                          <span class="c1">// Stop clock
+</span></span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Main loop remains 100% free for async processing or power savings
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><hr>
+<h2 id="key-engineering-takeaways">Key Engineering Takeaways</h2>
+<ol>
+<li><strong>Deterministic Execution</strong>:
+Because the timing is generated directly by hardware counters, software interrupts ensure that the pulse intervals never stutter or drift, even if background communications are added later.</li>
+<li><strong>ISR Execution Overhead vs. WS2812B Bit-Banging</strong>:
+The WS2812B protocol is timing-sensitive and requires $24\,\text{bits} \times 8\,\text{LEDs} \times 1.25\,\mu\text{s} \approx 240\,\mu\text{s}$ of bit-banging inside <code>led_strip.show()</code>. While executing long blocking tasks inside an ISR is generally discouraged, $240\,\mu\text{s}$ represents <strong>less than 0.05%</strong> of our shortest 500 ms Morse interval, producing zero measurable timing jitter.</li>
+<li><strong>RAM Preservation</strong>:
+With only 2048 bytes of SRAM available on the ATmega328P, keeping the sequence buffer at 100 steps consumes roughly 700 bytes, leaving over 1.3 KB of memory free.</li>
+</ol>
+<hr>
+<h2 id="project-resources--links">Project Resources &amp; Links</h2>
+<ul>
+<li>📦 <strong>GitHub Repository:</strong> <a href="https://github.com/jokobus/morse-transmitter">https://github.com/jokobus/morse-transmitter</a></li>
+<li>🎥 <strong>Demonstration Video:</strong> <a href="https://github.com/jokobus/morse-transmitter/blob/main/morse.mp4">morse.mp4 on GitHub</a></li>
+<li>📄 <strong>Arduino Sketch:</strong> <a href="https://jokobus.github.io/posts/morse-transmitter/morse.ino">morse.ino</a></li>
+<li>📑 <strong>Academic Project Report (LaTeX):</strong> <a href="https://jokobus.github.io/posts/morse-transmitter/report.tex">report.tex</a></li>
+</ul>
+]]></description><content:encoded><![CDATA[<div style="background: var(--color-bg-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+<div>
+<span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); font-weight: 800;">Open Source Hardware Project</span>
+<div style="font-size: 1.15rem; font-weight: 700; color: var(--color-text); margin-top: 0.2rem;">
+Interactive Morse Transmitter with WS2812B Wave Effects
+</div>
+<div style="font-size: 0.88rem; color: var(--color-text-dim); margin-top: 0.2rem;">
+Hardware Timer1 CTC • Empty loop() • Non-volatile EEPROM Toggle
+</div>
+</div>
+<a href="https://github.com/jokobus/morse-transmitter" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--color-primary); color: #090d16; font-weight: 700; font-size: 0.9rem; padding: 0.6rem 1.1rem; border-radius: var(--radius-sm); text-decoration: none; box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);">
+<span>📦</span> View on GitHub
+</a>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>Morse code, developed by Samuel Morse in the 1830s, represents one of humanity&rsquo;s earliest digital signaling protocols. By encoding textual information into sequences of short pulses (<strong>dots</strong>) and long pulses (<strong>dashes</strong>), it transformed global telecommunications over electrical telegraphs.</p>
+<p>While standard hobbyist implementations typically rely on crude, blocking <code>delay()</code> loops that freeze the microcontroller, this project approaches visual Morse transmission with real-world embedded systems engineering principles:</p>
+<ul>
+<li><strong>100% Interrupt-Driven</strong>: Utilizing hardware <strong>Timer1</strong> in CTC mode (<em>Clear Timer on Compare Match</em>), leaving the Arduino <code>loop()</code> function completely empty.</li>
+<li><strong>Lighthouse Wave Effect</strong>: Instead of harsh, binary blinking, light sweeps across an addressable <strong>WS2812B LED strip</strong> in a fluid wave resembling a rotating coastal beacon.</li>
+<li><strong>Non-Volatile Single-Button UI</strong>: Repurposing the onboard Arduino Nano <strong>Reset button</strong> as a toggle switch by persisting state flags in the internal <strong>EEPROM</strong>.</li>
+<li><strong>Memory Optimization</strong>: Storing symbol lookup tables and messages in flash memory (<strong>PROGMEM</strong>) to preserve the ATmega328P&rsquo;s scarce 2 KB SRAM.</li>
+</ul>
+<hr>
+<h2 id="video-demonstration">Video Demonstration</h2>
+<p>The video below shows the system transmitting the message <strong><code>&quot;IN&quot;</code></strong> (<code>..</code> / <code>-.</code>) on an 8-LED WS2812B strip using the sweeping lighthouse wave animation:</p>
+<div style="max-width: 760px; margin: 1.5rem auto; text-align: center;">
+<video controls width="100%" preload="metadata" playsinline style="border-radius: var(--radius-md); border: 1px solid var(--color-border); box-shadow: var(--shadow-md); display: block;">
+<source src="https://raw.githubusercontent.com/jokobus/morse-transmitter/main/morse.mp4" type="video/mp4">
+Your browser does not support the HTML5 video tag. You can inspect the video directly on <a href="https://github.com/jokobus/morse-transmitter/blob/main/morse.mp4" target="_blank" rel="noopener">GitHub</a>.
+</video>
+<p style="font-size: 0.85rem; color: var(--color-text-dim); margin-top: 0.5rem;">
+Direct video file hosted on <a href="https://github.com/jokobus/morse-transmitter/blob/main/morse.mp4" target="_blank" rel="noopener">GitHub (morse.mp4)</a>
+</p>
+</div>
+<hr>
+<h2 id="hardware-architecture--wiring">Hardware Architecture &amp; Wiring</h2>
+<p>The project is built on the <strong>Arduino Nano (ATmega328P)</strong> mounted onto a breakout expansion board. The ATmega328P operates at 5V logic with a 16 MHz crystal clock, perfectly matching the timing requirements of WS2812B addressable LEDs without requiring logic-level shifters.</p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph LR
+    subgraph Power [&#34;Power Supply&#34;]
+        V5[&#34;5V Rail&#34;]
+        GND[&#34;GND Rail&#34;]
+    end
+
+    subgraph Arduino [&#34;Arduino Nano (ATmega328P)&#34;]
+        Pin6[&#34;Digital Pin 6 (PD6)&#34;]
+        Timer1[&#34;16-bit Timer1 (CTC Mode)&#34;]
+        EEPROM[&#34;Internal EEPROM (Byte 0)&#34;]
+        ResetBtn[&#34;Onboard Reset Button&#34;]
+    end
+
+    subgraph Strip [&#34;WS2812B LED Strip (8 LEDs)&#34;]
+        DIN[&#34;Data In (DIN)&#34;]
+        LED0[&#34;LED 0&#34;]
+        LED1[&#34;LED 1&#34;]
+        LEDdots[&#34;...&#34;]
+        LED7[&#34;LED 7&#34;]
+    end
+
+    Pin6 --&gt; DIN
+    DIN --&gt; LED0 --&gt; LED1 --&gt; LEDdots --&gt; LED7
+    V5 --&gt; Strip
+    GND --&gt; Strip
+    ResetBtn -.-&gt;|&#34;Toggles State on Boot&#34;| EEPROM
+    Timer1 -.-&gt;|&#34;COMPA ISR (15.625 kHz)&#34;| Pin6
+</code></pre><h3 id="pinout-connections">Pinout Connections</h3>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Component</th>
+					<th style="text-align: left">Pin / Interface</th>
+					<th style="text-align: left">Arduino Nano Pin</th>
+					<th style="text-align: left">Notes</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>WS2812B Strip</strong></td>
+					<td style="text-align: left">Data Input (<code>DIN</code>)</td>
+					<td style="text-align: left"><strong>Digital Pin 6 (PD6)</strong></td>
+					<td style="text-align: left">800 kHz single-wire high-speed serial</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>WS2812B Strip</strong></td>
+					<td style="text-align: left">Power (<code>+5V</code>)</td>
+					<td style="text-align: left"><strong>5V</strong></td>
+					<td style="text-align: left">~60 mA max per LED (software capped at 1% brightness)</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>WS2812B Strip</strong></td>
+					<td style="text-align: left">Ground (<code>GND</code>)</td>
+					<td style="text-align: left"><strong>GND</strong></td>
+					<td style="text-align: left">Shared common ground</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>User Interface</strong></td>
+					<td style="text-align: left">Reset Button</td>
+					<td style="text-align: left"><strong>RST</strong></td>
+					<td style="text-align: left">Toggles transmission state via EEPROM across power cycles</td>
+			</tr>
+	</tbody>
+</table>
+<blockquote>
+<p>[!TIP]
+<strong>Brightness Safety</strong>: WS2812B LEDs at 100% white can draw nearly 500 mA for 8 LEDs and cause severe eye glare when viewed directly on a workbench. The code caps brightness to <strong>1%</strong> (<code>BRIGHTNESS = 1</code>), which provides crisp visual visibility while drawing minimal current from the USB rail.</p>
+</blockquote>
+<hr>
+<h2 id="morse-timing-standards--timer-calculations">Morse Timing Standards &amp; Timer Calculations</h2>
+<p>Morse code timing is defined around the fundamental unit of time: the <strong>Dot duration</strong> ($t_{\text{dot}}$). Standard international Morse ratios dictate:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Element</th>
+					<th style="text-align: left">Standard Ratio</th>
+					<th style="text-align: left">Implemented Duration</th>
+					<th style="text-align: left">Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>Dot (<code>.</code>)</strong></td>
+					<td style="text-align: left">$1 \times t_{\text{dot}}$</td>
+					<td style="text-align: left"><strong>500 ms</strong></td>
+					<td style="text-align: left">Short signal pulse</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Dash (<code>-</code>)</strong></td>
+					<td style="text-align: left">$3 \times t_{\text{dot}}$</td>
+					<td style="text-align: left"><strong>1500 ms</strong></td>
+					<td style="text-align: left">Long signal pulse</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Intra-character gap</strong></td>
+					<td style="text-align: left">$1 \times t_{\text{dot}}$</td>
+					<td style="text-align: left"><strong>500 ms</strong></td>
+					<td style="text-align: left">Pause between dots and dashes in the same letter</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Inter-character gap</strong></td>
+					<td style="text-align: left">$3 \times t_{\text{dot}}$</td>
+					<td style="text-align: left"><strong>1500 ms</strong></td>
+					<td style="text-align: left">Pause between letters in a word</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Word gap</strong></td>
+					<td style="text-align: left">$7 \times t_{\text{dot}}$</td>
+					<td style="text-align: left"><strong>3500 ms</strong></td>
+					<td style="text-align: left">Pause between distinct words</td>
+			</tr>
+	</tbody>
+</table>
+<p><em>Note: While acoustic telegraphy typically uses dots around 100–200 ms, a 500 ms base dot was chosen to allow human observers to comfortably appreciate the visual wave effect.</em></p>
+<h3 id="hardware-timer1-configuration">Hardware Timer1 Configuration</h3>
+<p>To keep the main <code>loop()</code> completely empty and avoid CPU starvation, all timing is offloaded to the 16-bit <strong>Timer1</strong>:</p>
+<ol>
+<li><strong>Clock Frequency</strong>: $f_{\text{cpu}} = 16\,\text{MHz}$</li>
+<li><strong>Prescaler</strong>: 1024 (via register bits <code>CS12</code> and <code>CS10</code>)</li>
+<li><strong>Timer Clock</strong>:
+
+$$f_{\text{timer}} = \frac{16\,\text{MHz}}{1024} = 15{,}625\,\text{Hz}$$</li>
+<li><strong>Tick Duration</strong>:
+
+$$\Delta t_{\text{tick}} = \frac{1}{15{,}625\,\text{Hz}} = 64\,\mu\text{s}$$</li>
+<li><strong>Maximum Achievable Interval</strong>:
+
+$$T_{\text{max}} = 65{,}536 \times 64\,\mu\text{s} \approx 4.194\,\text{seconds}$$</li>
+</ol>
+<p>Because our longest interval (the 3500 ms word gap) is well under 4.194 seconds, Timer1 can handle all Morse timing intervals natively without secondary software counters.</p>
+<p>The compare match value loaded into register <code>OCR1A</code> is calculated on each step transition via:</p>
+$$\text{OCR1A} = \left(\frac{\text{Duration}_{\text{ms}} \times 15625}{1000}\right) - 1$$<h3 id="timing-precision--error-analysis">Timing Precision &amp; Error Analysis</h3>
+<p>With a $64\,\mu\text{s}$ time base, the relative quantization error for our 500 ms dot interval is virtually non-existent:</p>
+$$\text{Relative Error} = \frac{64\,\mu\text{s}}{500\,\text{ms}} = 0.0128\%$$<hr>
+<h2 id="software-architecture--key-mechanisms">Software Architecture &amp; Key Mechanisms</h2>
+<h3 id="1-the-sweeping-lighthouse-wave-effect">1. The Sweeping Lighthouse Wave Effect</h3>
+<p>Instead of blinking all 8 LEDs simultaneously, the transmission duration is divided into sub-intervals across the strip:</p>
+$$\text{Duration per LED} = \frac{\text{Symbol Duration}}{\text{LED Count}} = \frac{500\,\text{ms}}{8} = 62.5\,\text{ms}$$<p>As the Timer1 interrupt fires, the active center moves sequentially from LED 0 to LED 7. The parameter <code>WAVE_WIDTH = 5</code> illuminates the center LED and its immediate neighbors to create a smooth, moving optical beam with soft edges:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">LED 0   [ █ ] [ █ ] [ ░ ] [   ] [   ] [   ] [   ] [   ]   (Beginning of pulse)
+</span></span><span class="line"><span class="cl">LED 3   [   ] [ ░ ] [ █ ] [ █ ] [ █ ] [ ░ ] [   ] [   ]   (Mid-pulse sweep)
+</span></span><span class="line"><span class="cl">LED 7   [   ] [   ] [   ] [   ] [   ] [ ░ ] [ █ ] [ █ ]   (End of pulse)
+</span></span></code></pre></div><p>Boundary checking prevents index wrapping across the edges of the strip. Setting <code>WAVE_WIDTH = 0</code> reverts the transmitter to standard synchronous blinking.</p>
+<h3 id="2-single-button-ui-via-non-volatile-eeprom">2. Single-Button UI via Non-Volatile EEPROM</h3>
+<p>Because the Arduino Nano board contains only a single physical pushbutton (the hardware <strong>Reset button</strong>), we store the current running state in <strong>EEPROM byte 0</strong>:</p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">stateDiagram-v2
+    [*] --&gt; HardwareReset: Press Reset Button
+    HardwareReset --&gt; ReadEEPROM: Bootloader executes setup()
+    ReadEEPROM --&gt; ToggleState: Read byte 0 &amp; invert value
+    
+    state ToggleState &lt;&lt;choice&gt;&gt;
+    ToggleState --&gt; StartPlay: State == 1 (Play)
+    ToggleState --&gt; StopPlay: State == 0 (Stop)
+    
+    StartPlay --&gt; ShowGreen: Visual Sequence (Red → Green → Off)
+    ShowGreen --&gt; EnableTimer: Enable Timer1 COMPA ISR
+    EnableTimer --&gt; EmptyLoop: loop() runs empty
+    
+    StopPlay --&gt; ShowRed: Visual Sequence (Green → Red → Off)
+    StopPlay --&gt; DisableTimer: Stop Timer1 &amp; Clear Strip
+    DisableTimer --&gt; EmptyLoop: loop() runs empty
+</code></pre><h4 id="wear-leveling-safeguard">Wear-Leveling Safeguard</h4>
+<p>The ATmega328P EEPROM is rated for approximately 100,000 write cycles. Writing blindly on every boot could prematurely wear out the cell. By checking <code>if (EEPROM.read(0) != state)</code> prior to <code>EEPROM.write(0, state)</code>, unnecessary write cycles are eliminated.</p>
+<hr>
+<h2 id="complete-arduino-source-code-morseino">Complete Arduino Source Code (<code>morse.ino</code>)</h2>
+<p>Below is the complete, heavily documented source code as found in the repository:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Arduino: Nano Atmel mega328p
+</span></span></span><span class="line"><span class="cl"><span class="c1">// LED: WS2812B (CJMCU-2812-8)
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Used: Timer1 CTC, prescaler 1024, Button interupt
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;Arduino.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;Adafruit_NeoPixel.h&gt;</span><span class="cp">    </span><span class="c1">// LED control
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;EEPROM.h&gt;</span><span class="cp">               </span><span class="c1">// State persistence across resets
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Target message to transmit
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span> <span class="n">MESSAGE</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;IN&#34;</span><span class="p">;</span>      <span class="c1">///&lt; Change this to any desired text
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Hardware configuration
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">LED_PIN</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>        <span class="c1">///&lt; Digital output pin for WS2812B data
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">WAVE_WIDTH</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>     <span class="c1">///&lt; 0 = normal blinking, &gt;0 = lighthouse sweeping effect
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">LED_COUNT</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>      <span class="c1">///&lt; Total LEDs on the strip
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Morse Code Timing Standards (in milliseconds)
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">TIME_DOT</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>          <span class="c1">///&lt; Base dot duration
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">TIME_DASH</span> <span class="o">=</span> <span class="mi">1500</span><span class="p">;</span>        <span class="c1">///&lt; Dash duration (3x dot)
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">TIME_SYMBOL_GAP</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>   <span class="c1">///&lt; Gap between dots/dashes
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">TIME_LETTER_GAP</span> <span class="o">=</span> <span class="mi">1500</span><span class="p">;</span>  <span class="c1">///&lt; Gap between characters
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">TIME_WORD_GAP</span> <span class="o">=</span> <span class="mi">3500</span><span class="p">;</span>    <span class="c1">///&lt; Gap between words
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">BRIGHTNESS</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>           <span class="c1">///&lt; Dim 1% brightness to protect eyes
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// NeoPixel strip object instantiation
+</span></span></span><span class="line"><span class="cl"><span class="n">Adafruit_NeoPixel</span> <span class="nf">led_strip</span><span class="p">(</span><span class="n">LED_COUNT</span><span class="p">,</span> <span class="n">LED_PIN</span><span class="p">,</span> <span class="n">NEO_GRB</span> <span class="o">+</span> <span class="n">NEO_KHZ800</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Hardware Timer1 calibration (16MHz / 1024 = 15625 Hz)
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">TICKS_PER_SECOND</span> <span class="o">=</span> <span class="mi">15625</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">MAX_STEPS</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Dynamic animation step arrays
+</span></span></span><span class="line"><span class="cl"><span class="kt">uint16_t</span> <span class="n">durations</span><span class="p">[</span><span class="n">MAX_STEPS</span><span class="p">];</span>            <span class="c1">///&lt; Step duration in ms
+</span></span></span><span class="line"><span class="cl"><span class="kt">uint32_t</span> <span class="n">colors</span><span class="p">[</span><span class="n">MAX_STEPS</span><span class="p">];</span>               <span class="c1">///&lt; Step RGB color
+</span></span></span><span class="line"><span class="cl"><span class="kt">uint8_t</span> <span class="n">ledIndex</span><span class="p">[</span><span class="n">MAX_STEPS</span><span class="p">];</span>              <span class="c1">///&lt; Target center LED (255 = all)
+</span></span></span><span class="line"><span class="cl"><span class="kt">uint8_t</span> <span class="n">stepCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">volatile</span> <span class="kt">uint8_t</span> <span class="n">currentStep</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @brief Flash-based lookup table converting ASCII characters to Morse dots &amp; dashes.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">morseCode</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;A&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.-&#34;</span><span class="p">;</span>   <span class="k">case</span> <span class="sc">&#39;B&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-...&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;C&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-.-.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;D&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-..&#34;</span><span class="p">;</span>  <span class="k">case</span> <span class="sc">&#39;E&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.&#34;</span><span class="p">;</span>    <span class="k">case</span> <span class="sc">&#39;F&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;..-.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;G&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;--.&#34;</span><span class="p">;</span>  <span class="k">case</span> <span class="sc">&#39;H&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;....&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;I&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;..&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;J&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.---&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;K&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-.-&#34;</span><span class="p">;</span>  <span class="k">case</span> <span class="sc">&#39;L&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.-..&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;M&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;--&#34;</span><span class="p">;</span>   <span class="k">case</span> <span class="sc">&#39;N&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-.&#34;</span><span class="p">;</span>   <span class="k">case</span> <span class="sc">&#39;O&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;---&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;P&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.--.&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;Q&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;--.-&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;R&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.-.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;S&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;...&#34;</span><span class="p">;</span>  <span class="k">case</span> <span class="sc">&#39;T&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-&#34;</span><span class="p">;</span>    <span class="k">case</span> <span class="sc">&#39;U&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;..-&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;V&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;...-&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;W&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.--&#34;</span><span class="p">;</span>  <span class="k">case</span> <span class="sc">&#39;X&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-..-&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;Y&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-.--&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;Z&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;--..&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;0&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-----&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;1&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.----&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;2&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;..---&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;3&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;...--&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;4&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;....-&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;5&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;.....&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;6&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;-....&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;7&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;--...&#34;</span><span class="p">;</span> <span class="k">case</span> <span class="sc">&#39;8&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;---..&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="sc">&#39;9&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;----.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="o">:</span>  <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @brief Records a discrete animation step into the sequence buffer.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">addStep</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">duration_ms</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">color</span><span class="p">,</span> <span class="kt">uint8_t</span> <span class="n">ledIdx</span> <span class="o">=</span> <span class="mi">255</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">stepCount</span> <span class="o">&lt;</span> <span class="n">MAX_STEPS</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">durations</span><span class="p">[</span><span class="n">stepCount</span><span class="p">]</span> <span class="o">=</span> <span class="n">duration_ms</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">colors</span><span class="p">[</span><span class="n">stepCount</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ledIndex</span><span class="p">[</span><span class="n">stepCount</span><span class="p">]</span> <span class="o">=</span> <span class="n">ledIdx</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stepCount</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @brief Compiles the ASCII message into a sequence of LED animation steps.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">buildSequence</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">stepCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="kt">uint32_t</span> <span class="n">WHITE</span> <span class="o">=</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="kt">uint32_t</span> <span class="n">OFF</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">MESSAGE</span><span class="p">;</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span> <span class="o">++</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">toupper</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">addStep</span><span class="p">(</span><span class="n">TIME_WORD_GAP</span><span class="p">,</span> <span class="n">OFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">code</span> <span class="o">=</span> <span class="n">morseCode</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!*</span><span class="n">code</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span> <span class="o">=</span> <span class="n">code</span><span class="p">;</span> <span class="o">*</span><span class="n">s</span><span class="p">;</span> <span class="o">++</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">uint16_t</span> <span class="n">onDur</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">s</span> <span class="o">==</span> <span class="sc">&#39;.&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nl">TIME_DOT</span> <span class="p">:</span> <span class="n">TIME_DASH</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">uint16_t</span> <span class="n">perLedDur</span> <span class="o">=</span> <span class="n">onDur</span> <span class="o">/</span> <span class="n">LED_COUNT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">      <span class="c1">// Sweep light sequentially across the strip
+</span></span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span><span class="kt">uint8_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">LED_COUNT</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">addStep</span><span class="p">(</span><span class="n">perLedDur</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">addStep</span><span class="p">(</span><span class="n">TIME_SYMBOL_GAP</span><span class="p">,</span> <span class="n">OFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">addStep</span><span class="p">(</span><span class="n">TIME_LETTER_GAP</span><span class="p">,</span> <span class="n">OFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">addStep</span><span class="p">(</span><span class="n">TIME_WORD_GAP</span><span class="p">,</span> <span class="n">OFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// Visual return wave before looping
+</span></span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kt">uint8_t</span> <span class="n">i</span> <span class="o">=</span> <span class="n">LED_COUNT</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">addStep</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">addStep</span><span class="p">(</span><span class="n">TIME_WORD_GAP</span><span class="p">,</span> <span class="n">OFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @brief Timer1 Compare Match A Interrupt Service Routine.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Executes on each step transition, updates the LEDs, and dynamically reloads OCR1A.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="n">ISR</span><span class="p">(</span><span class="n">TIMER1_COMPA_vect</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">ledIndex</span><span class="p">[</span><span class="n">currentStep</span><span class="p">]</span> <span class="o">==</span> <span class="mi">255</span> <span class="o">||</span> <span class="n">WAVE_WIDTH</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">currentStep</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">led_strip</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">currentStep</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">int8_t</span> <span class="n">center</span> <span class="o">=</span> <span class="n">ledIndex</span><span class="p">[</span><span class="n">currentStep</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">int8_t</span> <span class="n">halfWidth</span> <span class="o">=</span> <span class="n">WAVE_WIDTH</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span><span class="kt">int8_t</span> <span class="n">offset</span> <span class="o">=</span> <span class="o">-</span><span class="n">halfWidth</span><span class="p">;</span> <span class="n">offset</span> <span class="o">&lt;=</span> <span class="n">halfWidth</span><span class="p">;</span> <span class="n">offset</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int8_t</span> <span class="n">ledPos</span> <span class="o">=</span> <span class="n">center</span> <span class="o">+</span> <span class="n">offset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">ledPos</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">ledPos</span> <span class="o">&lt;</span> <span class="n">LED_COUNT</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">led_strip</span><span class="p">.</span><span class="n">setPixelColor</span><span class="p">(</span><span class="n">ledPos</span><span class="p">,</span> <span class="n">colors</span><span class="p">[</span><span class="n">currentStep</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// Reload compare register for the next step&#39;s duration
+</span></span></span><span class="line"><span class="cl">  <span class="kt">uint32_t</span> <span class="n">ticks</span> <span class="o">=</span> <span class="p">((</span><span class="kt">uint32_t</span><span class="p">)</span><span class="n">durations</span><span class="p">[</span><span class="n">currentStep</span><span class="p">]</span> <span class="o">*</span> <span class="n">TICKS_PER_SECOND</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000UL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">ticks</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="n">ticks</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">OCR1A</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)(</span><span class="n">ticks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">currentStep</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">currentStep</span> <span class="o">&gt;=</span> <span class="n">stepCount</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">currentStep</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">showStartupSequence</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="n">led_strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span> <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="n">led_strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span> <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span> <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">showShutdownSequence</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="n">led_strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span> <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="n">led_strip</span><span class="p">.</span><span class="n">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span> <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">led_strip</span><span class="p">.</span><span class="n">show</span><span class="p">();</span> <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">led_strip</span><span class="p">.</span><span class="n">setBrightness</span><span class="p">((</span><span class="mi">255</span> <span class="o">*</span> <span class="n">BRIGHTNESS</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// Read and toggle non-volatile running state from EEPROM
+</span></span></span><span class="line"><span class="cl">  <span class="n">byte</span> <span class="n">state</span> <span class="o">=</span> <span class="n">EEPROM</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">state</span> <span class="o">=</span> <span class="o">!</span><span class="n">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">EEPROM</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">!=</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">EEPROM</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">state</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">showStartupSequence</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">currentStep</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">buildSequence</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Configure Timer1 for CTC mode with 1024 prescaler
+</span></span></span><span class="line"><span class="cl">    <span class="n">cli</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TCCR1A</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TCCR1B</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TCCR1B</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">WGM12</span><span class="p">);</span>              <span class="c1">// CTC mode
+</span></span></span><span class="line"><span class="cl">    <span class="n">TCCR1B</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">CS12</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">CS10</span><span class="p">);</span> <span class="c1">// Prescaler 1024
+</span></span></span><span class="line"><span class="cl">    <span class="n">OCR1A</span> <span class="o">=</span> <span class="mi">1562</span><span class="p">;</span>                        <span class="c1">// Initial ~100ms trigger
+</span></span></span><span class="line"><span class="cl">    <span class="n">TIMSK1</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">OCIE1A</span><span class="p">);</span>             <span class="c1">// Enable Timer1 Compare Match A interrupt
+</span></span></span><span class="line"><span class="cl">    <span class="n">sei</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">showShutdownSequence</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TIMSK1</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">OCIE1A</span><span class="p">);</span>            <span class="c1">// Disable interrupt
+</span></span></span><span class="line"><span class="cl">    <span class="n">TCCR1B</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                          <span class="c1">// Stop clock
+</span></span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Main loop remains 100% free for async processing or power savings
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><hr>
+<h2 id="key-engineering-takeaways">Key Engineering Takeaways</h2>
+<ol>
+<li><strong>Deterministic Execution</strong>:
+Because the timing is generated directly by hardware counters, software interrupts ensure that the pulse intervals never stutter or drift, even if background communications are added later.</li>
+<li><strong>ISR Execution Overhead vs. WS2812B Bit-Banging</strong>:
+The WS2812B protocol is timing-sensitive and requires $24\,\text{bits} \times 8\,\text{LEDs} \times 1.25\,\mu\text{s} \approx 240\,\mu\text{s}$ of bit-banging inside <code>led_strip.show()</code>. While executing long blocking tasks inside an ISR is generally discouraged, $240\,\mu\text{s}$ represents <strong>less than 0.05%</strong> of our shortest 500 ms Morse interval, producing zero measurable timing jitter.</li>
+<li><strong>RAM Preservation</strong>:
+With only 2048 bytes of SRAM available on the ATmega328P, keeping the sequence buffer at 100 steps consumes roughly 700 bytes, leaving over 1.3 KB of memory free.</li>
+</ol>
+<hr>
+<h2 id="project-resources--links">Project Resources &amp; Links</h2>
+<ul>
+<li>📦 <strong>GitHub Repository:</strong> <a href="https://github.com/jokobus/morse-transmitter">https://github.com/jokobus/morse-transmitter</a></li>
+<li>🎥 <strong>Demonstration Video:</strong> <a href="https://github.com/jokobus/morse-transmitter/blob/main/morse.mp4">morse.mp4 on GitHub</a></li>
+<li>📄 <strong>Arduino Sketch:</strong> <a href="https://jokobus.github.io/posts/morse-transmitter/morse.ino">morse.ino</a></li>
+<li>📑 <strong>Academic Project Report (LaTeX):</strong> <a href="https://jokobus.github.io/posts/morse-transmitter/report.tex">report.tex</a></li>
+</ul>
+]]></content:encoded><category>Arduino</category><category>AVR</category><category>WS2812B</category><category>C++</category><category>Morse Code</category><category>Interrupts</category><category>EEPROM</category><category>Timer1</category></item><item><title>Backpropagation in Matrix Calculus</title><link>https://jokobus.github.io/posts/backpropagation_matrix_calculus/</link><pubDate>Mon, 27 May 2024 19:27:30 -0700</pubDate><guid>https://jokobus.github.io/posts/backpropagation_matrix_calculus/</guid><description><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>In our previous article, <a href="https://jokobus.github.io/posts/backpropagation/">Backpropagation in Standard Calculus</a>, we derived the gradient update equations using scalar notation. While standard calculus builds an intuitive understanding of how error flows through individual connections, writing code using scalar loops is computationally inefficient.</p>
 <p>In practice, modern machine learning libraries (like PyTorch or TensorFlow) compute updates over entire layers simultaneously using <strong>Matrix Calculus</strong> and linear algebra routines optimized for GPUs.</p>
 <p>This article formalizes backpropagation in vector and matrix notation.</p>
@@ -7096,7 +7926,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792191411410886035" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792224751242532426" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -7213,7 +8043,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792191411410886035");
+  const root = document.getElementById("neuron-1792224751242532426");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -7683,7 +8513,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792191411410886035" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792224751242532426" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -7800,7 +8630,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792191411410886035");
+  const root = document.getElementById("neuron-1792224751242532426");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
