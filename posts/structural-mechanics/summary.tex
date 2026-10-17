@@ -54,7 +54,7 @@ $N = EA u'$, $M = EI \beta'$, $V = GA_V (w'+\beta)$.
 $N' + p_x = 0$, $V' + p_z = 0$, $M' - V = 0$.
 
 \textbf{Euler-Bernoulli}:
-Constraint $\beta(x) = -\frac{w(x)}{dx}$ and $\gamma = \frac{\partial \beta}{\partial x}$.
+Constraint $\beta(x) = -\frac{dw}{dx}$ and $\gamma = w' + \beta = 0$ (curvature $\kappa = \frac{d\beta}{dx} = -w''$).
 Equation: $(EI w'')'' = p_z$.
 
 \subsection{Problem Solving Strategy: Beams}
@@ -329,16 +329,16 @@ Governing Eq: $\mathbf{K}\mathbf{u} = \mathbf{f}$.
 \subsection{Problem Solving Strategy: Trusses}
 
 \step{Check} \textbf{Static Determinacy:} 
-$f(x) = 2k-s-r = 2\text{\#nodes}-\text{\#bars}-\text{\#support reactions}$. 
+$f = 2k-s-r = 2\text{\#nodes}-\text{\#bars}-\text{\#support reactions}$. 
 If $f=0$, statically determinate. Determine forces by nodal equilibrium or (A,B,C). 
-If $f>0$, statically indeterminate. Need extra relationship. 
-If $f<0$, statically indeterminate. Need stiffness method (C).
+If $f>0$, kinematically underdetermined (mechanism/unstable). 
+If $f<0$, statically indeterminate ($n=-f$). Need stiffness method (D).
 
 (A) If $f=0$ \textbf{Elongation of bar i:} $\Delta l_i = \frac{N_i l_i}{EA}$ 1) Normal force $N_i$ 2) Plugin $\Delta l_i$. 
 
-(B) \textbf{Unit vector: } $e_{0,i}$ of bar $i$ between nodes $A$, $B$. $e_{0,i} = (x_B-x_A, y_B-y_A)^T$
+(B) \textbf{Unit vector: } $\bm{e}_{0,i}$ of bar $i$ between nodes $A$, $B$: $\bm{e}_{0,i} = \frac{1}{l_i}(x_B-x_A, y_B-y_A)^T$
 
-(C) \textbf{Relationship } $\Delta l_i$ and velocity vector $q_i=(u_i, w_i)^T$: 1) $\Delta l_i$ 2) $e_i's$ 3) $\Delta l_i = e_{0,i} (q_{B,i} - q_{A,i}) = \bm{Aq} \rightarrow \bm{q}$.
+(C) \textbf{Relationship between } $\Delta l_i$ and displacement vector $\bm{q}_i=(u_i, w_i)^T$: 1) $\Delta l_i$ 2) $\bm{e}_{0,i}$'s 3) $\Delta l_i = \bm{e}_{0,i} \cdot (\bm{q}_{B,i} - \bm{q}_{A,i}) \implies \bm{\Delta l} = \bm{A}\bm{q} \rightarrow \bm{q}$.
 $\bm{\Delta l}=(\Delta l_1, \Delta l_2, \cdots)^T, \bm{q} = (u_1, w_1, u_2, w_2, \cdots)^T$.
 
 (D) If $f<0$ \textbf{Stiffness Method (Indeterminate)}

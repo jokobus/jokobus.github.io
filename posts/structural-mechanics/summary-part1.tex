@@ -169,7 +169,7 @@ Under assumption of small displacement gradients ($||\nabla \bm{u}|| \ll 1$): $\
     1) $F_{ij} = \frac{\partial x_i}{\partial X_j} = \dots$ 
     2) $d \bm{x}^{(k)} = \bm{F}\,d\bm{X^{k}} = \bm{F}\,(dS_k\dots)$ \\
     C) Find stretches: $\frac{ds_k}{dS_k} = \frac{||d\bm{x}||}{dS_k}$ or their length changes $ds_k$: $(ds_k)^2 = d\bm{X}_k^T \bm{C} d\bm{X}_k$ and their change of angle: $ds_1 ds_2cos\phi = d\bm{X}^T_1 \bm{C} d\bm{X}_2 \rightarrow \text{change is: } \frac{\pi}{2}-\phi$.
-    \textit{Note: Cauchy-Green $\bm{C}$ either $\bm{F}^T\bm{F}$ (Green-Lagrange Strain E) or $\bm{F}+\bm{F}^T$ (Finite Strain)}.
+    \textit{Note: Cauchy-Green $\bm{C} = \bm{F}^T\bm{F}$ (Green-Lagrange Strain $\bm{E} = \frac{1}{2}(\bm{C}-\bm{I})$); finite engineering strain is $\bm{\varepsilon} = \frac{1}{2}(\bm{F}+\bm{F}^T) - \bm{I}$}.
 \end{itemize}
 
 \subsection{Compatibility Conditions (Saint-Venant)}
@@ -199,8 +199,8 @@ or 6 equations:
     Normal component $t_n = \bm{n}\cdot\bm{t_n}$; $t_n > 0$ tensile, $t_n < 0$ compressive. 
     Shearing component $t_s = \sqrt{||\bm{\sigma}\bm{n}||^2-(\bm{n\cdot\sigma n})^2}$. \\
     \textit{Note:} $\bm{t}_{-\bm{n}} = \lim_{\Delta A \to 0} \frac{-\Delta \bm{F}}{\Delta A} = -\bm{t}_{\bm{n}}$.
-    \textit{Howto Max shearing stress:} Find eigenvectors $\lambda_i$, then $\frac{\lambda_max-\lambda_min}{2}$ acting on plane $\hat{v}_{\lambda_{max}}, \hat{v}_{\lambda_{min}}   $. 
-    \item \textbf{Resulting Force and Momentum: } $\bm{F}=\int_A \bm{t_n} dA$. Get $\bm{M}$ by TM1 or $\bm{M}\int_A \bm{x} \times \bm{t_n}dA$. 
+    \textit{Howto Max shearing stress:} Find eigenvalues $\lambda_i$, then $\tau_{\max} = \frac{\lambda_{\max}-\lambda_{\min}}{2}$ acting on planes bisecting $\bm{n}_{\lambda_{\max}}, \bm{n}_{\lambda_{\min}}$. 
+    \item \textbf{Resulting Force and Moment: } $\bm{F}=\int_A \bm{t_n} dA$. Get $\bm{M} = \int_A \bm{x} \times \bm{t_n} \, dA$. 
     \item \textbf{Cauchy Stress Tensor $\bm{\sigma}$:} Symmetric $\bm{\sigma} = \bm{\sigma}^T$ \\
     \textbf{Stress Vectors:} $\bm{t}_{\bm{e}_j} = \bm{\sigma} \bm{e}_j$ (Acting on plane with normal $\bm{e}_j$). \\
     Decomposition: $\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} \bm{e}_3$. \\
@@ -314,9 +314,9 @@ Generalized Hooke's Law for linear elastic material: $\bm{\sigma} = \mathbb{C} :
     \item \textbf{Internal Strain Energy Density $U$:} Energy per unit volume $[J/m^{3}]$.
         \subitem General Case: $U(\bm{\varepsilon}) = \frac{1}{2} C_{ijkl} \varepsilon_{ij} \varepsilon_{kl} = \frac{1}{2} \sigma_{ij} \varepsilon_{ij}$. 
         \subitem Isotropic Case: $U = \frac{1}{2} (\lambda \varepsilon_{kk} \varepsilon_{ii} + 2\mu \varepsilon_{ij} \varepsilon_{ij}) = $
-        \subitem $ = \frac{1}{2E}((1+\nu)\sigma_{ij}\sigma_{ij}-\nu\sigma_{kk}\sigma_{ii}) = \frac{\lambda-2\mu}{2} I^{(\varepsilon)^2}_1 + 2\mu I_2^{(\varepsilon)}$.        
+        \subitem $ = \frac{1}{2E}((1+\nu)\sigma_{ij}\sigma_{ij}-\nu\sigma_{kk}\sigma_{ii}) = \frac{\lambda+2\mu}{2} (I_1^{(\bm{\varepsilon})})^2 - 2\mu I_2^{(\bm{\varepsilon})}$.        
         \subitem Loading Scenarios:
-            \subitem \textit{Uniaxial:} $I = \frac{\sigma_0^2}{2E}$
+            \subitem \textit{Uniaxial:} $U = \frac{\sigma_0^2}{2E}$
             \subitem \textit{Pure Shear:} $U = \frac{\tau_0^2}{2G}$
             \subitem \textit{Hydrostatic:} $U = \frac{p^2}{2K}$
         \subitem \textbf{Hyperelastic:} $\sigma_{ij} = \frac{\partial U}{\partial \varepsilon_{ij}}$ and $C_{ijkl} = \frac{\partial^2 U}{\partial \varepsilon_{ij} \partial \varepsilon_{kl}}$.
@@ -334,7 +334,7 @@ Material properties independent of direction. Characterized by 2 constants ($\la
 Alternative Inverse Forms:
 \[ \varepsilon_{ij} = \frac{1}{2\mu} \sigma_{ij} - \frac{\lambda}{2\mu} \varepsilon_{kk} \delta_{ij} = \frac{1}{2\mu} \sigma_{ij} - \frac{\lambda}{2\mu(3\lambda+2\mu)} \sigma_{kk} \delta_{ij} \]
 Inverted form (Hooke's Law):
-\[ \boxed{\varepsilon_{ij} = \frac{1}{E} [(1+\mu)\sigma_{ij} - \mu \delta_{ij} \sigma_{kk}]} \quad\leftrightarrow\quad \bm{\varepsilon} = \frac{1+\nu}{E} \bm{\sigma} - \frac{\nu}{E} \text{tr}(\bm{\sigma})\bm{I} \]
+\[ \boxed{\varepsilon_{ij} = \frac{1}{E} [(1+\nu)\sigma_{ij} - \nu \delta_{ij} \sigma_{kk}]} \quad\leftrightarrow\quad \bm{\varepsilon} = \frac{1+\nu}{E} \bm{\sigma} - \frac{\nu}{E} \text{tr}(\bm{\sigma})\bm{I} \]
 Material Constants and Relations:
 \begin{itemize}
     \item $\lambda, \mu$: Lamé parameters. $G = \mu$ (Shear modulus).
@@ -432,16 +432,16 @@ Using constitutive laws (Hooke's Law):
 \begin{itemize}
     \item \textbf{Plane Stress:}
     \begin{align*}
-        &\sigma_{11} = \frac{1}{E}\left(\frac{\partial^2 \phi}{\partial x_2^2} - \nu \frac{\partial^2 \phi}{\partial x_1^2}\right) = \frac{\partial^2 \phi}{\partial x_2^2} \\
-        &\sigma_{22} = \frac{1}{E}\left(\frac{\partial^2 \phi}{\partial x_1^2} - \nu \frac{\partial^2 \phi}{\partial x_2^2}\right) = \frac{\partial^2 \phi}{\partial x_1^2} \\
-        &\sigma_{12} = -\frac{1+\nu}{E} \frac{\partial^2 \phi}{\partial x_1 \partial x_2} = -\frac{\partial^2 \phi}{\partial x_1 \partial x_2}
+        &\sigma_{11} = \frac{\partial^2 \phi}{\partial x_2^2}, \quad \sigma_{22} = \frac{\partial^2 \phi}{\partial x_1^2}, \quad \sigma_{12} = -\frac{\partial^2 \phi}{\partial x_1 \partial x_2} \\
+        &\varepsilon_{11} = \frac{1}{E}\left(\frac{\partial^2 \phi}{\partial x_2^2} - \nu \frac{\partial^2 \phi}{\partial x_1^2}\right), \quad \varepsilon_{22} = \frac{1}{E}\left(\frac{\partial^2 \phi}{\partial x_1^2} - \nu \frac{\partial^2 \phi}{\partial x_2^2}\right) \\
+        &\varepsilon_{12} = -\frac{1+\nu}{E} \frac{\partial^2 \phi}{\partial x_1 \partial x_2}, \quad \varepsilon_{33} = -\frac{\nu}{E}(\sigma_{11} + \sigma_{22}) = -\frac{\nu}{E} \left(\frac{\partial^2 \phi}{\partial x_1^2} + \frac{\partial^2 \phi}{\partial x_2^2}\right)
     \end{align*}
     \item \textbf{Plane Strain:}
     \begin{align*}
-        &\varepsilon_{11} = \frac{1+\nu}{E}\left((1-\nu)\frac{\partial^2 \phi}{\partial x_2^2} - \nu \frac{\partial^2 \phi}{\partial x_1^2}\right) = \frac{1}{E} (\sigma_{11} - \nu \sigma_{22}) \\
-        &\varepsilon_{22} = \frac{1+\nu}{E}\left((1-\nu)\frac{\partial^2 \phi}{\partial x_1^2} - \nu \frac{\partial^2 \phi}{\partial x_2^2}\right) = \frac{1}{E} (\sigma_{22} - \nu \sigma_{11}) \\
-        &\varepsilon_{12} = -\frac{1+\nu}{E} \frac{\partial^2 \phi}{\partial x_1 \partial x_2} = - \frac{\nu}{E} (\sigma_{11} + \sigma_{22}) \\
-        &\varepsilon_{13} = \varepsilon_{23} = 0
+        &\sigma_{11} = \frac{\partial^2 \phi}{\partial x_2^2}, \quad \sigma_{22} = \frac{\partial^2 \phi}{\partial x_1^2}, \quad \sigma_{12} = -\frac{\partial^2 \phi}{\partial x_1 \partial x_2}, \quad \sigma_{33} = \nu(\sigma_{11} + \sigma_{22}) \\
+        &\varepsilon_{11} = \frac{1+\nu}{E}\left((1-\nu)\frac{\partial^2 \phi}{\partial x_2^2} - \nu \frac{\partial^2 \phi}{\partial x_1^2}\right) = \frac{1+\nu}{E} ((1-\nu)\sigma_{11} - \nu \sigma_{22}) \\
+        &\varepsilon_{22} = \frac{1+\nu}{E}\left((1-\nu)\frac{\partial^2 \phi}{\partial x_1^2} - \nu \frac{\partial^2 \phi}{\partial x_2^2}\right) = \frac{1+\nu}{E} ((1-\nu)\sigma_{22} - \nu \sigma_{11}) \\
+        &\varepsilon_{12} = -\frac{1+\nu}{E} \frac{\partial^2 \phi}{\partial x_1 \partial x_2}, \quad \varepsilon_{33} = 0, \quad \varepsilon_{13} = \varepsilon_{23} = 0
     \end{align*}
     \item \textbf{Total external Forces at $x_1=L$:} 
     \subitem1) $\bm{t} = \bm{\sigma} \bm{n}$ ($\bm{n}$ normal vector, here $x_1$) 
