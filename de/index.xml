@@ -46,6 +46,7 @@ In einem Mehrfachsystem ($c \times M/M/1$) kann Kasse 1 leerstehen (Bedienleistu
   </div>
 </div>
 
+
 <hr>
 <h2 id="interaktive-simulation-direkt-im-browser-ausführen">Interaktive Simulation (Direkt im Browser ausführen)</h2>
 <p>Ändern Sie Ankunftsrate <code>total_lambda</code>, Bedienrate <code>mu</code> oder Schalteranzahl <code>c</code> und klicken Sie auf <strong>Run (WASM)</strong>, um den Wartezeit-Vorteil live zu berechnen:</p>
@@ -150,6 +151,7 @@ simulate_queues(total_lambda=1.6, mu=1.0, c=2)</textarea>
     <pre class="runner-stderr"></pre>
   </div>
 </div>
+
 
 ]]></description><content:encoded><![CDATA[<h2 id="einleitung">Einleitung</h2>
 <p>Ob im Supermarkt, am Flughafen-Check-in oder am Bankschalter – wir begegnen stets zwei grundlegenden Systemdesigns:</p>
@@ -199,6 +201,7 @@ In einem Mehrfachsystem ($c \times M/M/1$) kann Kasse 1 leerstehen (Bedienleistu
   </div>
 </div>
 
+
 <hr>
 <h2 id="interaktive-simulation-direkt-im-browser-ausführen">Interaktive Simulation (Direkt im Browser ausführen)</h2>
 <p>Ändern Sie Ankunftsrate <code>total_lambda</code>, Bedienrate <code>mu</code> oder Schalteranzahl <code>c</code> und klicken Sie auf <strong>Run (WASM)</strong>, um den Wartezeit-Vorteil live zu berechnen:</p>
@@ -303,6 +306,7 @@ simulate_queues(total_lambda=1.6, mu=1.0, c=2)</textarea>
     <pre class="runner-stderr"></pre>
   </div>
 </div>
+
 
 ]]></content:encoded><category>Warteschlangentheorie</category><category>Markow-Ketten</category><category>Wahrscheinlichkeitsrechnung</category></item><item><title>Installation von PyTorch mit CUDA &amp; PyG in Conda</title><link>https://jokobus.github.io/de/posts/conda-cuda-pytorch/</link><pubDate>Tue, 30 Jun 2026 23:31:14 +0200</pubDate><guid>https://jokobus.github.io/de/posts/conda-cuda-pytorch/</guid><description><![CDATA[<p>Die Einrichtung von PyTorch mit Hardwarebeschleunigung (CUDA) und kompilierten C++/CUDA-Erweiterungsbibliotheken (wie PyTorch Geometric / PyG) führt bei unpassenden Versionen häufig zu Binärkonflikten. Der folgende Ablauf stellt die konsistente Kompatibilität zwischen PyTorch, der CUDA-Laufzeit und den PyG-Wheels sicher.</p>
 <hr>
@@ -1802,6 +1806,7 @@ simulate_queues(total_lambda=1.6, mu=1.0, c=2)</textarea>
   </div>
 </div>
 
+
 <p>Committe und pushe die Datei ins Quell-Repository:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .github/workflows/compile.yml
 </span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Automatisches Deployment via GitHub Actions hinzugefügt&#34;</span>
@@ -1882,6 +1887,7 @@ simulate_queues(total_lambda=1.6, mu=1.0, c=2)</textarea>
     </div>
   </div>
 </div>
+
 
 <p>Caddy neu laden:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl reload caddy
@@ -2011,6 +2017,7 @@ simulate_queues(total_lambda=1.6, mu=1.0, c=2)</textarea>
   </div>
 </div>
 
+
 <p>Committe und pushe die Datei ins Quell-Repository:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .github/workflows/compile.yml
 </span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Automatisches Deployment via GitHub Actions hinzugefügt&#34;</span>
@@ -2092,6 +2099,7 @@ simulate_queues(total_lambda=1.6, mu=1.0, c=2)</textarea>
   </div>
 </div>
 
+
 <p>Caddy neu laden:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl reload caddy
 </span></span></code></pre></div><hr>
@@ -2166,6 +2174,7 @@ simulate_queues(total_lambda=1.6, mu=1.0, c=2)</textarea>
     </div>
   </div>
 </div>
+
 
 <ul>
 <li><strong>Windows:</strong>
@@ -2506,6 +2515,7 @@ $$E=mc^2$$).</li>
   </div>
 </div>
 
+
 <ul>
 <li><strong>Windows:</strong>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">winget</span> <span class="n">install</span> <span class="n">Hugo</span><span class="p">.</span><span class="py">Hugo</span><span class="p">.</span><span class="py">Extended</span>
@@ -2814,6 +2824,7 @@ $$\nabla_\theta J(\theta) = X^T X \theta - X^T y = 0$$$$\mathbf{\theta = (X^T X)
   </div>
 </div>
 
+
 <hr>
 <h2 id="interaktiver-code-runner-lineare-regression-live-im-browser">Interaktiver Code-Runner: Lineare Regression live im Browser</h2>
 <p>Führen Sie die Berechnung der Methode der kleinsten Quadrate direkt auf den 5 Beispielpunkten des Artikels aus:</p>
@@ -2898,6 +2909,7 @@ solve_ols(sample_data)</textarea>
     <pre class="runner-stderr"></pre>
   </div>
 </div>
+
 
 ]]></description><content:encoded><![CDATA[<h2 id="überblick">Überblick</h2>
 <p>Lineare Regression dient der Vorhersage stetiger Zielwerte bei Annahme eines linearen Zusammenhangs. In 2D modellieren wir Datenpunkte entlang einer Regressionsgeraden:</p>
@@ -2931,6 +2943,7 @@ $$\nabla_\theta J(\theta) = X^T X \theta - X^T y = 0$$$$\mathbf{\theta = (X^T X)
   </div>
 </div>
 
+
 <hr>
 <h2 id="interaktiver-code-runner-lineare-regression-live-im-browser">Interaktiver Code-Runner: Lineare Regression live im Browser</h2>
 <p>Führen Sie die Berechnung der Methode der kleinsten Quadrate direkt auf den 5 Beispielpunkten des Artikels aus:</p>
@@ -3015,6 +3028,7 @@ solve_ols(sample_data)</textarea>
     <pre class="runner-stderr"></pre>
   </div>
 </div>
+
 
 ]]></content:encoded><category>Machine Learning</category><category>Mathematik</category></item><item><title>Interrupt-gesteuerter Morse-Transmitter auf dem Arduino (WS2812B &amp; Timer1)</title><link>https://jokobus.github.io/de/posts/morse-transmitter/</link><pubDate>Sat, 15 Jun 2024 14:00:00 +0200</pubDate><guid>https://jokobus.github.io/de/posts/morse-transmitter/</guid><description><![CDATA[<div style="background: var(--color-bg-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
 <div>
@@ -4029,6 +4043,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
   </div>
 </div>
 
+
 ]]></description><content:encoded><![CDATA[<h2 id="einleitung">Einleitung</h2>
 <p>In unserem Artikel <a href="https://jokobus.github.io/de/posts/backpropagation/">Backpropagation in Standardschreibweise</a> haben wir die Gradienten-Updates für einzelne Gewichte skalar hergeleitet. Dies vermittelt ein tiefes Verständnis dafür, wie Fehler durch individuelle Verbindungen fließen – die iterative Auswertung in Schleifen ist in der Praxis jedoch rechentechnisch ineffizient.</p>
 <p>Moderne Deep-Learning-Bibliotheken (wie PyTorch, TensorFlow oder JAX) berechnen Gradienten ganzer Schichten simultan über <strong>Matrix-Kalkül</strong> und GPU-beschleunigte BLAS-Routinen.</p>
@@ -4212,6 +4227,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
   </div>
 </div>
 
+
 ]]></content:encoded><category>Neural Network</category><category>Machine Learning</category><category>Mathematik</category><media:content url="https://jokobus.github.io/images/backprop_matrix_flow.svg" medium="image"/></item><item><title>Feedforward Phase</title><link>https://jokobus.github.io/de/posts/feedforward/</link><pubDate>Mon, 27 May 2024 19:27:30 -0700</pubDate><guid>https://jokobus.github.io/de/posts/feedforward/</guid><description><![CDATA[<h2 id="einleitung">Einleitung</h2>
 <p>Dieser Artikel gibt einen kurzen Überblick über die Feedforward-Phase eines Neuronalen Netzes.</p>
 <p>Disclaimer: Der Artikel wurde teilweise unter Verwendung von deepl.com aus dem englischen Original übersetzt.</p>
@@ -4243,7 +4259,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792234684284794899" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792235696142401873" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -4360,7 +4376,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792234684284794899");
+  const root = document.getElementById("neuron-1792235696142401873");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -4695,6 +4711,7 @@ $</p>
   </div>
 </div>
 
+
 <hr>
 <h2 id="interaktiver-code-runner-live-vorwärtsrechnung-reines-python">Interaktiver Code-Runner: Live-Vorwärtsrechnung (Reines Python)</h2>
 <p>Führen Sie den 3-Schichten-Vorwärtsdurchlauf direkt im Browser aus. Verändern Sie die Eingaben $x_1, x_2$ oder Gewichte und beobachten Sie die Aktivierungen:</p>
@@ -4796,6 +4813,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
     <pre class="runner-stderr"></pre>
   </div>
 </div>
+
 
 ]]></description><content:encoded><![CDATA[<h2 id="einleitung">Einleitung</h2>
 <p>Dieser Artikel gibt einen kurzen Überblick über die Feedforward-Phase eines Neuronalen Netzes.</p>
@@ -4828,7 +4846,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792234684284794899" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792235696142401873" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -4945,7 +4963,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792234684284794899");
+  const root = document.getElementById("neuron-1792235696142401873");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -5280,6 +5298,7 @@ $</p>
   </div>
 </div>
 
+
 <hr>
 <h2 id="interaktiver-code-runner-live-vorwärtsrechnung-reines-python">Interaktiver Code-Runner: Live-Vorwärtsrechnung (Reines Python)</h2>
 <p>Führen Sie den 3-Schichten-Vorwärtsdurchlauf direkt im Browser aus. Verändern Sie die Eingaben $x_1, x_2$ oder Gewichte und beobachten Sie die Aktivierungen:</p>
@@ -5381,6 +5400,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
     <pre class="runner-stderr"></pre>
   </div>
 </div>
+
 
 ]]></content:encoded><category>Neural Network</category><category>Machine Learning</category></item><item><title>Backpropagation</title><link>https://jokobus.github.io/de/posts/backpropagation/</link><pubDate>Mon, 27 May 2024 16:18:17 -0700</pubDate><guid>https://jokobus.github.io/de/posts/backpropagation/</guid><description><![CDATA[<h2 id="einleitung">Einleitung</h2>
 <p>Dieser Artikel erklärt die Backpropagation eines Neuronalen Netzes in normaler Notation. Wenn Sie wissen wollen, wie die Backpropagation in Matrixform erfolgt, lesen Sie diesen Artikel: <a href="https://jokobus.github.io/de/posts/backpropagation_matrix_calculus/">Backpropagation in Matrixschreibweise</a></p>

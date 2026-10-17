@@ -114,6 +114,7 @@ $$W_q^{(M/M/2)} = \frac{0.711}{2(1) - 1.6} = \frac{0.711}{0.4} = \mathbf{1.78 \t
   </div>
 </div>
 
+
 <hr>
 <h2 id="interactive-simulation-run-directly-in-browser">Interactive Simulation (Run Directly in Browser)</h2>
 <p>Tweak the arrival rate <code>total_lambda</code>, service rate <code>mu</code>, or number of checkout counters <code>c</code>, then click <strong>Run (WASM)</strong> to compute the wait time reduction live:</p>
@@ -218,6 +219,7 @@ simulate_queues(total_lambda=1.6, mu=1.0, c=2)</textarea>
     <pre class="runner-stderr"></pre>
   </div>
 </div>
+
 
 ]]></description><content:encoded><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Whenever you step into a bank or a grocery store, you encounter one of two queueing designs:</p>
@@ -335,6 +337,7 @@ $$W_q^{(M/M/2)} = \frac{0.711}{2(1) - 1.6} = \frac{0.711}{0.4} = \mathbf{1.78 \t
   </div>
 </div>
 
+
 <hr>
 <h2 id="interactive-simulation-run-directly-in-browser">Interactive Simulation (Run Directly in Browser)</h2>
 <p>Tweak the arrival rate <code>total_lambda</code>, service rate <code>mu</code>, or number of checkout counters <code>c</code>, then click <strong>Run (WASM)</strong> to compute the wait time reduction live:</p>
@@ -439,6 +442,7 @@ simulate_queues(total_lambda=1.6, mu=1.0, c=2)</textarea>
     <pre class="runner-stderr"></pre>
   </div>
 </div>
+
 
 ]]></content:encoded><category>Queueing Theory</category><category>Markov Chains</category><category>Probability</category></item><item><title>Installing PyTorch with CUDA &amp; PyG in Conda</title><link>https://jokobus.github.io/posts/conda-cuda-pytorch/</link><pubDate>Tue, 30 Jun 2026 23:31:14 +0200</pubDate><guid>https://jokobus.github.io/posts/conda-cuda-pytorch/</guid><description><![CDATA[<p>Setting up PyTorch with GPU acceleration and compiled C++/CUDA extension libraries (like PyTorch Geometric / PyG) often leads to subtle binary mismatch errors. Following this verified sequence ensures complete binary compatibility between PyTorch, the CUDA runtime, and PyG wheels.</p>
 <hr>
@@ -5041,6 +5045,7 @@ alias lfswf=setxkbmap -layout de
   </div>
 </div>
 
+
 <p>Commit and push this file to your <code>hugo-source</code> repository:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .github/workflows/compile.yml
 </span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Add automated Hugo compilation workflow&#34;</span>
@@ -5127,6 +5132,7 @@ alias lfswf=setxkbmap -layout de
     </div>
   </div>
 </div>
+
 
 <h3 id="reload-caddy">Reload Caddy</h3>
 <p>Apply the changes to Caddy:</p>
@@ -5271,6 +5277,7 @@ alias lfswf=setxkbmap -layout de
   </div>
 </div>
 
+
 <p>Commit and push this file to your <code>hugo-source</code> repository:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .github/workflows/compile.yml
 </span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Add automated Hugo compilation workflow&#34;</span>
@@ -5357,6 +5364,7 @@ alias lfswf=setxkbmap -layout de
     </div>
   </div>
 </div>
+
 
 <h3 id="reload-caddy">Reload Caddy</h3>
 <p>Apply the changes to Caddy:</p>
@@ -5445,6 +5453,7 @@ alias lfswf=setxkbmap -layout de
     </div>
   </div>
 </div>
+
 
 <ul>
 <li><strong>Windows:</strong>
@@ -5828,6 +5837,7 @@ $$E=mc^2$$).</li>
     </div>
   </div>
 </div>
+
 
 <ul>
 <li><strong>Windows:</strong>
@@ -6319,6 +6329,7 @@ $$\mathbf{\theta = (X^T X)^{-1} X^T y}$$<div class="callout callout-tip" role="r
   </div>
 </div>
 
+
 <hr>
 <h2 id="interactive-code-runner-live-linear-regression-in-browser">Interactive Code Runner: Live Linear Regression in Browser</h2>
 <p>Run the Ordinary Least Squares (OLS) solver directly on the article&rsquo;s 5 data points $(0,1), (1,1), (2,2), (3,2), (4,3)$:</p>
@@ -6403,6 +6414,7 @@ solve_ols(sample_data)</textarea>
     <pre class="runner-stderr"></pre>
   </div>
 </div>
+
 
 ]]></description><content:encoded><![CDATA[<h2 id="overview">Overview</h2>
 <p>Why and when do we need linear regression? In a nutshell, linear regression is used to predict data that has a <strong>linear</strong> relationship. That means all the datapoints are roughly on a straight line (in 2D), resp. on a hyperplane (in 3D). Firstly, we find some expression for the linear relationship (e.g. in 2D: $y=a\cdot x + b$; where $a$ is the slope and $b$ is the y-intercept). Secondly, we use this expression to insert some data where we only know the $x$ value, but want to predict their unknown $y$ value.</p>
@@ -6575,6 +6587,7 @@ $$\mathbf{\theta = (X^T X)^{-1} X^T y}$$<div class="callout callout-tip" role="r
   </div>
 </div>
 
+
 <hr>
 <h2 id="interactive-code-runner-live-linear-regression-in-browser">Interactive Code Runner: Live Linear Regression in Browser</h2>
 <p>Run the Ordinary Least Squares (OLS) solver directly on the article&rsquo;s 5 data points $(0,1), (1,1), (2,2), (3,2), (4,3)$:</p>
@@ -6659,6 +6672,7 @@ solve_ols(sample_data)</textarea>
     <pre class="runner-stderr"></pre>
   </div>
 </div>
+
 
 ]]></content:encoded><category>Machine Learning</category></item><item><title>Interrupt-Driven Morse Code Transmitter on Arduino (WS2812B &amp; Timer1)</title><link>https://jokobus.github.io/posts/morse-transmitter/</link><pubDate>Sat, 15 Jun 2024 14:00:00 +0200</pubDate><guid>https://jokobus.github.io/posts/morse-transmitter/</guid><description><![CDATA[<div style="background: var(--color-bg-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
 <div>
@@ -6771,6 +6785,7 @@ Direct video file hosted on <a href="https://github.com/jokobus/morse-transmitte
     </div>
   </div>
 </div>
+
 
 <hr>
 <h2 id="morse-timing-standards--timer-calculations">Morse Timing Standards &amp; Timer Calculations</h2>
@@ -7192,6 +7207,7 @@ Direct video file hosted on <a href="https://github.com/jokobus/morse-transmitte
     </div>
   </div>
 </div>
+
 
 <hr>
 <h2 id="morse-timing-standards--timer-calculations">Morse Timing Standards &amp; Timer Calculations</h2>
@@ -7705,6 +7721,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
   </div>
 </div>
 
+
 ]]></description><content:encoded><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>In our previous article, <a href="https://jokobus.github.io/posts/backpropagation/">Backpropagation in Standard Calculus</a>, we derived the gradient update equations using scalar notation. While standard calculus builds an intuitive understanding of how error flows through individual connections, writing code using scalar loops is computationally inefficient.</p>
 <p>In practice, modern machine learning libraries (like PyTorch or TensorFlow) compute updates over entire layers simultaneously using <strong>Matrix Calculus</strong> and linear algebra routines optimized for GPUs.</p>
@@ -7908,6 +7925,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
   </div>
 </div>
 
+
 ]]></content:encoded><category>Neural Network</category><category>Machine Learning</category><media:content url="https://jokobus.github.io/images/backprop_matrix_flow.svg" medium="image"/></item><item><title>Feedforward Phase</title><link>https://jokobus.github.io/posts/feedforward/</link><pubDate>Mon, 27 May 2024 19:27:30 -0700</pubDate><guid>https://jokobus.github.io/posts/feedforward/</guid><description><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>This article gives a quick overview over the feedforward phase of a Neural Network.</p>
 <h2 id="nodes">Nodes</h2>
@@ -7938,7 +7956,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792234684011055667" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792235695650413085" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -8055,7 +8073,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792234684011055667");
+  const root = document.getElementById("neuron-1792235695650413085");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -8393,6 +8411,7 @@ $</p>
   </div>
 </div>
 
+
 <hr>
 <h2 id="interactive-code-runner-live-forward-pass-pure-python">Interactive Code Runner: Live Forward Pass (Pure Python)</h2>
 <p>Execute the 3-layer forward pass directly in your browser. Modify inputs $x_1, x_2$ or weights to see the predictions update:</p>
@@ -8494,6 +8513,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
     <pre class="runner-stderr"></pre>
   </div>
 </div>
+
 
 ]]></description><content:encoded><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>This article gives a quick overview over the feedforward phase of a Neural Network.</p>
@@ -8525,7 +8545,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792234684011055667" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792235695650413085" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -8642,7 +8662,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792234684011055667");
+  const root = document.getElementById("neuron-1792235695650413085");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -8980,6 +9000,7 @@ $</p>
   </div>
 </div>
 
+
 <hr>
 <h2 id="interactive-code-runner-live-forward-pass-pure-python">Interactive Code Runner: Live Forward Pass (Pure Python)</h2>
 <p>Execute the 3-layer forward pass directly in your browser. Modify inputs $x_1, x_2$ or weights to see the predictions update:</p>
@@ -9081,6 +9102,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
     <pre class="runner-stderr"></pre>
   </div>
 </div>
+
 
 ]]></content:encoded><category>Neural Network</category><category>Machine Learning</category></item><item><title>Backpropagation in Standard Calculus</title><link>https://jokobus.github.io/posts/backpropagation/</link><pubDate>Mon, 27 May 2024 16:18:17 -0700</pubDate><guid>https://jokobus.github.io/posts/backpropagation/</guid><description><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>This article explains backpropagation of a Neural Network using standard scalar calculus notation. If you want to know how backpropagation is done using vectors and matrices, read this article: <a href="https://jokobus.github.io/posts/backpropagation_matrix_calculus/">Backpropagation in Matrix Calculus</a></p>
