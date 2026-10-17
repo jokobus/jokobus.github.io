@@ -1489,7 +1489,7 @@ $$\bm{t}_{\bm{n}} = \lim_{\Delta A \to 0} \frac{\Delta \bm{F}}{\Delta A} = \bm{\
 </ul>
 <h3 id="spannungszustand-am-differentiellen-volumenelement">Spannungszustand am differentiellen Volumenelement</h3>
 <p>Aus dem Drehimpulssatz folgt unmittelbar die Symmetrie des Cauchy-Spannungstensors: $\sigma_{ij} = \sigma_{ji}$.</p>
-<figure class="tikz-container" id="tikz-1792240415093187696">
+<figure class="tikz-container" id="tikz-1792240677524632384">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -1538,7 +1538,7 @@ $$\nabla \cdot \bm{\sigma} + \rho \bm{b} = \rho \ddot{\bm{u}} \quad \leftrightar
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-materialgesetze--lineare-isotrope-elastizität">4. Materialgesetze &amp; lineare isotrope Elastizität</h2>
-<figure class="tikz-container" id="tikz-1792240415093210998">
+<figure class="tikz-container" id="tikz-1792240677524655325">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -1674,7 +1674,7 @@ $$\sigma_{11} = 2a_3, \quad \sigma_{22} = 2a_1, \quad \sigma_{12} = -a_2$$<p>
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792240415093309247">
+<figure class="tikz-container" id="tikz-1792240677524755885">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -1759,7 +1759,7 @@ $$\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2$$
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792240415093395414">
+<figure class="tikz-container" id="tikz-1792240677524826492">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -1974,7 +1974,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li>Das resultierende lineare Gleichungssystem liefert die energie-optimale Annäherung an das reale Deformationsfeld.</li>
 </ol>
 <hr>
-<section class="smidr-bibliography-section" id="bib-sec-1792240415093526743" aria-label="Literaturverzeichnis &amp; Zitate" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792240677524967072" aria-label="Literaturverzeichnis &amp; Zitate" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literaturverzeichnis &amp; Zitate</span>
     </h2>
@@ -2155,7 +2155,7 @@ $$\bm{t}_{\bm{n}} = \lim_{\Delta A \to 0} \frac{\Delta \bm{F}}{\Delta A} = \bm{\
 </ul>
 <h3 id="spannungszustand-am-differentiellen-volumenelement">Spannungszustand am differentiellen Volumenelement</h3>
 <p>Aus dem Drehimpulssatz folgt unmittelbar die Symmetrie des Cauchy-Spannungstensors: $\sigma_{ij} = \sigma_{ji}$.</p>
-<figure class="tikz-container" id="tikz-1792240415093187696">
+<figure class="tikz-container" id="tikz-1792240677524632384">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2204,7 +2204,7 @@ $$\nabla \cdot \bm{\sigma} + \rho \bm{b} = \rho \ddot{\bm{u}} \quad \leftrightar
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-materialgesetze--lineare-isotrope-elastizität">4. Materialgesetze &amp; lineare isotrope Elastizität</h2>
-<figure class="tikz-container" id="tikz-1792240415093210998">
+<figure class="tikz-container" id="tikz-1792240677524655325">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2340,7 +2340,7 @@ $$\sigma_{11} = 2a_3, \quad \sigma_{22} = 2a_1, \quad \sigma_{12} = -a_2$$<p>
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792240415093309247">
+<figure class="tikz-container" id="tikz-1792240677524755885">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2425,7 +2425,7 @@ $$\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2$$
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792240415093395414">
+<figure class="tikz-container" id="tikz-1792240677524826492">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2640,7 +2640,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li>Das resultierende lineare Gleichungssystem liefert die energie-optimale Annäherung an das reale Deformationsfeld.</li>
 </ol>
 <hr>
-<section class="smidr-bibliography-section" id="bib-sec-1792240415093526743" aria-label="Literaturverzeichnis &amp; Zitate" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792240677524967072" aria-label="Literaturverzeichnis &amp; Zitate" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literaturverzeichnis &amp; Zitate</span>
     </h2>
@@ -8201,7 +8201,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792240415147845488" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792240677573251459" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -8318,7 +8318,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792240415147845488");
+  const root = document.getElementById("neuron-1792240677573251459");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -8790,7 +8790,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792240415147845488" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792240677573251459" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -8907,7 +8907,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792240415147845488");
+  const root = document.getElementById("neuron-1792240677573251459");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");

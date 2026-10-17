@@ -2008,7 +2008,7 @@ $$\bm{t}_{\bm{n}} = \lim_{\Delta A \to 0} \frac{\Delta \bm{F}}{\Delta A} = \bm{\
 </ul>
 <h3 id="cauchy-stress-state-on-a-differential-element">Cauchy Stress State on a Differential Element</h3>
 <p>The conservation of angular momentum requires the Cauchy stress tensor to be symmetric: $\sigma_{ij} = \sigma_{ji}$.</p>
-<figure class="tikz-container" id="tikz-1792240414473625327">
+<figure class="tikz-container" id="tikz-1792240676984092652">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2057,7 +2057,7 @@ $$\nabla \cdot \bm{\sigma} + \rho \bm{b} = \rho \ddot{\bm{u}} \quad \leftrightar
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-constitutive-laws--linear-elastic-solids">4. Constitutive Laws &amp; Linear Elastic Solids</h2>
-<figure class="tikz-container" id="tikz-1792240414473646274">
+<figure class="tikz-container" id="tikz-1792240676984114911">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2199,7 +2199,7 @@ $$\sigma_{11} = \frac{\partial^2 \Phi}{\partial x_2^2} = 2a_3, \quad \sigma_{22}
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792240414473757227">
+<figure class="tikz-container" id="tikz-1792240676984195623">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2286,7 +2286,7 @@ $$\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2$$
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792240414473843454">
+<figure class="tikz-container" id="tikz-1792240676984291342">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2504,7 +2504,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li>Solving the resulting linear algebraic system yields the best energy-optimal polynomial approximation to the true continuum deformation.</li>
 </ol>
 <hr>
-<section class="smidr-bibliography-section" id="bib-sec-1792240414473992485" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792240676984397755" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>References &amp; Citations</span>
     </h2>
@@ -2696,7 +2696,7 @@ $$\bm{t}_{\bm{n}} = \lim_{\Delta A \to 0} \frac{\Delta \bm{F}}{\Delta A} = \bm{\
 </ul>
 <h3 id="cauchy-stress-state-on-a-differential-element">Cauchy Stress State on a Differential Element</h3>
 <p>The conservation of angular momentum requires the Cauchy stress tensor to be symmetric: $\sigma_{ij} = \sigma_{ji}$.</p>
-<figure class="tikz-container" id="tikz-1792240414473625327">
+<figure class="tikz-container" id="tikz-1792240676984092652">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2745,7 +2745,7 @@ $$\nabla \cdot \bm{\sigma} + \rho \bm{b} = \rho \ddot{\bm{u}} \quad \leftrightar
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-constitutive-laws--linear-elastic-solids">4. Constitutive Laws &amp; Linear Elastic Solids</h2>
-<figure class="tikz-container" id="tikz-1792240414473646274">
+<figure class="tikz-container" id="tikz-1792240676984114911">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2887,7 +2887,7 @@ $$\sigma_{11} = \frac{\partial^2 \Phi}{\partial x_2^2} = 2a_3, \quad \sigma_{22}
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792240414473757227">
+<figure class="tikz-container" id="tikz-1792240676984195623">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -2974,7 +2974,7 @@ $$\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2$$
   </div>
 </details>
 
-<figure class="tikz-container" id="tikz-1792240414473843454">
+<figure class="tikz-container" id="tikz-1792240676984291342">
   <div class="tikz-wrapper">
     <script type="text/tikz">
 
@@ -3192,7 +3192,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li>Solving the resulting linear algebraic system yields the best energy-optimal polynomial approximation to the true continuum deformation.</li>
 </ol>
 <hr>
-<section class="smidr-bibliography-section" id="bib-sec-1792240414473992485" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792240676984397755" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>References &amp; Citations</span>
     </h2>
@@ -10463,7 +10463,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792240414590803233" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792240677088586458" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -10580,7 +10580,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792240414590803233");
+  const root = document.getElementById("neuron-1792240677088586458");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -11055,7 +11055,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792240414590803233" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792240677088586458" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -11172,7 +11172,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792240414590803233");
+  const root = document.getElementById("neuron-1792240677088586458");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
