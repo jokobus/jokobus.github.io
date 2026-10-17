@@ -4,7 +4,7 @@
 <span class=search-btn-text>Type a...</span>
 <kbd class=search-kbd>⌘K</kbd>
 </button>
-<a class=btn-icon href=/de/ title="Switch language: Deutsch" aria-label="Switch language: Deutsch">🇩🇪
+<a class=btn-icon href=/de/posts/linux/install-custom-applications-on-linux/ title="Switch language: Deutsch" aria-label="Switch language: Deutsch">🇩🇪
 </a><button class=btn-icon type=button data-action=toggle-theme aria-label="Toggle color theme">
 <span class=theme-icon>☀️</span>
 </button>
@@ -30,8 +30,8 @@
 </span></span><span class=line><span class=cl><span class=na>Type</span><span class=o>=</span><span class=s>Application</span>
 </span></span><span class=line><span class=cl><span class=na>Name</span><span class=o>=</span><span class=s>My Application</span>
 </span></span><span class=line><span class=cl><span class=na>Comment</span><span class=o>=</span><span class=s>A short description of the app</span>
-</span></span><span class=line><span class=cl><span class=na>Exec</span><span class=o>=</span><span class=s>/net/rmc-lx0181/home_local/fuer_jk/bin/myapp/executablefile</span>
-</span></span><span class=line><span class=cl><span class=na>Icon</span><span class=o>=</span><span class=s>/net/rmc-lx0181/home_local/fuer_jk/bin/myapp/icon.png</span>
+</span></span><span class=line><span class=cl><span class=na>Exec</span><span class=o>=</span><span class=s>/home/username/bin/myapp/executablefile</span>
+</span></span><span class=line><span class=cl><span class=na>Icon</span><span class=o>=</span><span class=s>/home/username/bin/myapp/icon.png</span>
 </span></span><span class=line><span class=cl><span class=na>Terminal</span><span class=o>=</span><span class=s>false</span>
 </span></span><span class=line><span class=cl><span class=na>Categories</span><span class=o>=</span><span class=s>Utility;Application;</span>
 </span></span></code></pre></div></li></ol><h3 id=5-finalize-and-refresh>5. Finalize and Refresh</h3><p>Make the desktop entry itself executable and update the desktop database.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>chmod +x ~/.local/share/applications/myapp.desktop
