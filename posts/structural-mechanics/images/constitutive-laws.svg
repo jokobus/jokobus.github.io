@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
+  <defs>
+    
+  <style>
+    .stroke-main { stroke: #0f172a; }
+    .fill-main { fill: #0f172a; }
+    .stroke-axis { stroke: #64748b; }
+    .fill-axis { fill: #64748b; }
+    .stroke-cyan { stroke: #0284c7; }
+    .fill-cyan { fill: #0284c7; }
+    .stroke-orange { stroke: #ea580c; }
+    .fill-orange { fill: #ea580c; }
+    .stroke-purple { stroke: #9333ea; }
+    .fill-purple { fill: #9333ea; }
+    .plate-fill { fill: #0284c7; fill-opacity: 0.06; }
+    .dam-fill { stroke: #0284c7; stroke-opacity: 0.35; }
+
+    :root[data-theme="dark"] .stroke-main,
+    @media (prefers-color-scheme: dark) {
+      .stroke-main { stroke: #f1f5f9; }
+      .fill-main { fill: #f1f5f9; }
+      .stroke-axis { stroke: #94a3b8; }
+      .fill-axis { fill: #94a3b8; }
+      .stroke-cyan { stroke: #00f0ff; }
+      .fill-cyan { fill: #00f0ff; }
+      .stroke-orange { stroke: #fb923c; }
+      .fill-orange { fill: #fb923c; }
+      .stroke-purple { stroke: #c084fc; }
+      .fill-purple { fill: #c084fc; }
+      .plate-fill { fill: #00f0ff; fill-opacity: 0.08; }
+      .dam-fill { stroke: #00f0ff; stroke-opacity: 0.4; }
+    }
+    :root[data-theme="light"] .stroke-main { stroke: #0f172a; }
+    :root[data-theme="light"] .fill-main { fill: #0f172a; }
+    :root[data-theme="light"] .stroke-axis { stroke: #64748b; }
+    :root[data-theme="light"] .fill-axis { fill: #64748b; }
+    :root[data-theme="light"] .stroke-cyan { stroke: #0284c7; }
+    :root[data-theme="light"] .fill-cyan { fill: #0284c7; }
+    :root[data-theme="light"] .stroke-orange { stroke: #ea580c; }
+    :root[data-theme="light"] .fill-orange { fill: #ea580c; }
+    :root[data-theme="light"] .stroke-purple { stroke: #9333ea; }
+    :root[data-theme="light"] .fill-purple { fill: #9333ea; }
+    :root[data-theme="light"] .plate-fill { fill: #0284c7; fill-opacity: 0.06; }
+    :root[data-theme="light"] .dam-fill { stroke: #0284c7; stroke-opacity: 0.35; }
+  </style>
+
+    <marker id="arr-axis-2" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-axis"/>
+    </marker>
+    <marker id="arr-cyan-2" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-cyan"/>
+    </marker>
+    <marker id="arr-orange-2" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-orange"/>
+    </marker>
+    <marker id="arr-purple-2" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-purple"/>
+    </marker>
+  </defs>
+
+  <!-- 1. Linear Elastic Subplot -->
+  <g transform="translate(60, 240)">
+    <line x1="0" y1="0" x2="200" y2="0" class="stroke-axis" stroke-width="2" marker-end="url(#arr-axis-2)"/>
+    <line x1="0" y1="0" x2="0" y2="-190" class="stroke-axis" stroke-width="2" marker-end="url(#arr-axis-2)"/>
+    <text x="210" y="5" class="fill-axis" font-size="16" font-style="italic">ε</text>
+    <text x="-15" y="-195" class="fill-axis" font-size="16" font-style="italic">σ</text>
+
+    <line x1="0" y1="0" x2="160" y2="-160" class="stroke-cyan" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="45" y1="-55" x2="115" y2="-125" class="stroke-cyan" stroke-width="1.8" marker-end="url(#arr-cyan-2)"/>
+    <line x1="125" y1="-115" x2="55" y2="-45" class="stroke-cyan" stroke-width="1.8" marker-end="url(#arr-cyan-2)"/>
+
+    <text x="90" y="35" text-anchor="middle" class="fill-cyan" font-size="15" font-weight="700">Linear Elastic</text>
+    <text x="90" y="55" text-anchor="middle" class="fill-axis" font-size="13">σ = E·ε (Reversible)</text>
+  </g>
+
+  <!-- 2. Non-Linear Elastic Subplot -->
+  <g transform="translate(360, 240)">
+    <line x1="0" y1="0" x2="200" y2="0" class="stroke-axis" stroke-width="2" marker-end="url(#arr-axis-2)"/>
+    <line x1="0" y1="0" x2="0" y2="-190" class="stroke-axis" stroke-width="2" marker-end="url(#arr-axis-2)"/>
+    <text x="210" y="5" class="fill-axis" font-size="16" font-style="italic">ε</text>
+    <text x="-15" y="-195" class="fill-axis" font-size="16" font-style="italic">σ</text>
+
+    <path d="M 0 0 C 80 -40, 110 -110, 165 -165" fill="none" class="stroke-orange" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M 40 -20 Q 80 -60 115 -115" fill="none" class="stroke-orange" stroke-width="1.8" marker-end="url(#arr-orange-2)"/>
+    <path d="M 125 -105 Q 90 -50 50 -10" fill="none" class="stroke-orange" stroke-width="1.8" marker-end="url(#arr-orange-2)"/>
+
+    <text x="90" y="35" text-anchor="middle" class="fill-orange" font-size="15" font-weight="700">Non-Linear Elastic</text>
+    <text x="90" y="55" text-anchor="middle" class="fill-axis" font-size="13">Non-linear, path-independent</text>
+  </g>
+
+  <!-- 3. Inelastic (Plastic) Subplot -->
+  <g transform="translate(660, 240)">
+    <line x1="0" y1="0" x2="200" y2="0" class="stroke-axis" stroke-width="2" marker-end="url(#arr-axis-2)"/>
+    <line x1="0" y1="0" x2="0" y2="-190" class="stroke-axis" stroke-width="2" marker-end="url(#arr-axis-2)"/>
+    <text x="210" y="5" class="fill-axis" font-size="16" font-style="italic">ε</text>
+    <text x="-15" y="-195" class="fill-axis" font-size="16" font-style="italic">σ</text>
+
+    <path d="M 0 0 L 70 -140 L 165 -140" fill="none" class="stroke-purple" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="130" y1="-140" x2="60" y2="0" class="stroke-purple" stroke-width="2.5" stroke-dasharray="6,4" stroke-linecap="round"/>
+    
+    <line x1="25" y1="-50" x2="50" y2="-100" class="stroke-purple" stroke-width="1.8" marker-end="url(#arr-purple-2)"/>
+    <line x1="110" y1="-100" x2="85" y2="-50" class="stroke-purple" stroke-width="1.8" marker-end="url(#arr-purple-2)"/>
+
+    <circle cx="60" cy="0" r="3.5" class="fill-purple"/>
+    <text x="60" y="18" text-anchor="middle" class="fill-purple" font-size="13" font-style="italic">ε<tspan font-size="10" dy="3">p</tspan></text>
+    <text x="-5" y="-135" text-anchor="end" class="fill-purple" font-size="13" font-style="italic">σ<tspan font-size="10" dy="3">y</tspan></text>
+
+    <text x="90" y="35" text-anchor="middle" class="fill-purple" font-size="15" font-weight="700">Inelastic (Plastic)</text>
+    <text x="90" y="55" text-anchor="middle" class="fill-axis" font-size="13">Permanent strain ε_p</text>
+  </g>
+</svg>

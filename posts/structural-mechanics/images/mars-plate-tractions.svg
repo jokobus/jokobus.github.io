@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
+  <defs>
+    
+  <style>
+    .stroke-main { stroke: #0f172a; }
+    .fill-main { fill: #0f172a; }
+    .stroke-axis { stroke: #64748b; }
+    .fill-axis { fill: #64748b; }
+    .stroke-cyan { stroke: #0284c7; }
+    .fill-cyan { fill: #0284c7; }
+    .stroke-orange { stroke: #ea580c; }
+    .fill-orange { fill: #ea580c; }
+    .stroke-purple { stroke: #9333ea; }
+    .fill-purple { fill: #9333ea; }
+    .plate-fill { fill: #0284c7; fill-opacity: 0.06; }
+    .dam-fill { stroke: #0284c7; stroke-opacity: 0.35; }
+
+    :root[data-theme="dark"] .stroke-main,
+    @media (prefers-color-scheme: dark) {
+      .stroke-main { stroke: #f1f5f9; }
+      .fill-main { fill: #f1f5f9; }
+      .stroke-axis { stroke: #94a3b8; }
+      .fill-axis { fill: #94a3b8; }
+      .stroke-cyan { stroke: #00f0ff; }
+      .fill-cyan { fill: #00f0ff; }
+      .stroke-orange { stroke: #fb923c; }
+      .fill-orange { fill: #fb923c; }
+      .stroke-purple { stroke: #c084fc; }
+      .fill-purple { fill: #c084fc; }
+      .plate-fill { fill: #00f0ff; fill-opacity: 0.08; }
+      .dam-fill { stroke: #00f0ff; stroke-opacity: 0.4; }
+    }
+    :root[data-theme="light"] .stroke-main { stroke: #0f172a; }
+    :root[data-theme="light"] .fill-main { fill: #0f172a; }
+    :root[data-theme="light"] .stroke-axis { stroke: #64748b; }
+    :root[data-theme="light"] .fill-axis { fill: #64748b; }
+    :root[data-theme="light"] .stroke-cyan { stroke: #0284c7; }
+    :root[data-theme="light"] .fill-cyan { fill: #0284c7; }
+    :root[data-theme="light"] .stroke-orange { stroke: #ea580c; }
+    :root[data-theme="light"] .fill-orange { fill: #ea580c; }
+    :root[data-theme="light"] .stroke-purple { stroke: #9333ea; }
+    :root[data-theme="light"] .fill-purple { fill: #9333ea; }
+    :root[data-theme="light"] .plate-fill { fill: #0284c7; fill-opacity: 0.06; }
+    :root[data-theme="light"] .dam-fill { stroke: #0284c7; stroke-opacity: 0.35; }
+  </style>
+
+    <marker id="arr-axis-3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-axis"/>
+    </marker>
+    <marker id="arr-cyan-3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-cyan"/>
+    </marker>
+    <marker id="arr-orange-3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-orange"/>
+    </marker>
+  </defs>
+
+  <!-- Coordinate Basis -->
+  <g transform="translate(100, 380)">
+    <line x1="0" y1="0" x2="55" y2="0" class="stroke-axis" stroke-width="2" marker-end="url(#arr-axis-3)"/>
+    <line x1="0" y1="0" x2="0" y2="-55" class="stroke-axis" stroke-width="2" marker-end="url(#arr-axis-3)"/>
+    <text x="65" y="5" class="fill-axis" font-size="14" font-weight="600">e<tspan font-size="10" dy="3">1</tspan></text>
+    <text x="-6" y="-62" class="fill-axis" font-size="14" font-weight="600">e<tspan font-size="10" dy="3">2</tspan></text>
+  </g>
+
+  <!-- Rectangular Panel Body -->
+  <rect x="170" y="110" width="400" height="200" rx="3" class="plate-fill stroke-cyan" stroke-width="2.5"/>
+  <text x="575" y="330" class="fill-axis" font-size="15" font-style="italic">x<tspan font-size="11" dy="3">1</tspan> = b</text>
+  <text x="145" y="105" text-anchor="end" class="fill-axis" font-size="15" font-style="italic">x<tspan font-size="11" dy="3">2</tspan> = c</text>
+
+  <!-- Normal Stresses sigma11 = 2*a3 -->
+  <!-- Left face: inward arrows -->
+  <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-3)">
+    <line x1="110" y1="135" x2="165" y2="135"/>
+    <line x1="110" y1="185" x2="165" y2="185"/>
+    <line x1="110" y1="235" x2="165" y2="235"/>
+    <line x1="110" y1="285" x2="165" y2="285"/>
+  </g>
+  <text x="100" y="215" text-anchor="end" class="fill-cyan" font-size="15" font-weight="600">σ<tspan font-size="11" dy="3">11</tspan> = 2a<tspan font-size="11" dy="0">3</tspan></text>
+
+  <!-- Right face: outward arrows -->
+  <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-3)">
+    <line x1="575" y1="135" x2="635" y2="135"/>
+    <line x1="575" y1="185" x2="635" y2="185"/>
+    <line x1="575" y1="235" x2="635" y2="235"/>
+    <line x1="575" y1="285" x2="635" y2="285"/>
+  </g>
+  <text x="645" y="215" class="fill-cyan" font-size="15" font-weight="600">σ<tspan font-size="11" dy="3">11</tspan> = 2a<tspan font-size="11" dy="0">3</tspan></text>
+
+  <!-- Normal Stresses sigma22 = 2*a1 -->
+  <!-- Top face: pointing up -->
+  <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-3)">
+    <line x1="220" y1="105" x2="220" y2="50"/>
+    <line x1="295" y1="105" x2="295" y2="50"/>
+    <line x1="370" y1="105" x2="370" y2="50"/>
+    <line x1="445" y1="105" x2="445" y2="50"/>
+    <line x1="520" y1="105" x2="520" y2="50"/>
+  </g>
+  <text x="370" y="40" text-anchor="middle" class="fill-cyan" font-size="15" font-weight="600">σ<tspan font-size="11" dy="3">22</tspan> = 2a<tspan font-size="11" dy="0">1</tspan></text>
+
+  <!-- Bottom face: pointing down -->
+  <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-3)">
+    <line x1="220" y1="315" x2="220" y2="370"/>
+    <line x1="295" y1="315" x2="295" y2="370"/>
+    <line x1="370" y1="315" x2="370" y2="370"/>
+    <line x1="445" y1="315" x2="445" y2="370"/>
+    <line x1="520" y1="315" x2="520" y2="370"/>
+  </g>
+  <text x="370" y="390" text-anchor="middle" class="fill-cyan" font-size="15" font-weight="600">σ<tspan font-size="11" dy="3">22</tspan> = 2a<tspan font-size="11" dy="0">1</tspan></text>
+
+  <!-- Shear Stresses sigma12 = -a2 -->
+  <!-- Top edge: pointing Left -->
+  <g class="stroke-orange" stroke-width="2" marker-end="url(#arr-orange-3)">
+    <line x1="250" y1="125" x2="200" y2="125"/>
+    <line x1="325" y1="125" x2="275" y2="125"/>
+    <line x1="400" y1="125" x2="350" y2="125"/>
+    <line x1="475" y1="125" x2="425" y2="125"/>
+    <line x1="550" y1="125" x2="500" y2="125"/>
+  </g>
+  <text x="370" y="145" text-anchor="middle" class="fill-orange" font-size="14" font-weight="600">σ<tspan font-size="10" dy="3">12</tspan> = −a<tspan font-size="10" dy="0">2</tspan></text>
+
+  <!-- Right edge: pointing Down -->
+  <g class="stroke-orange" stroke-width="2" marker-end="url(#arr-orange-3)">
+    <line x1="555" y1="130" x2="555" y2="170"/>
+    <line x1="555" y1="190" x2="555" y2="230"/>
+    <line x1="555" y1="250" x2="555" y2="290"/>
+  </g>
+  <text x="540" y="215" text-anchor="end" class="fill-orange" font-size="14" font-weight="600">σ<tspan font-size="10" dy="3">12</tspan> = −a<tspan font-size="10" dy="0">2</tspan></text>
+
+  <!-- Bottom edge: pointing Right -->
+  <g class="stroke-orange" stroke-width="2" marker-end="url(#arr-orange-3)">
+    <line x1="200" y1="295" x2="250" y2="295"/>
+    <line x1="275" y1="295" x2="325" y2="295"/>
+    <line x1="350" y1="295" x2="400" y2="295"/>
+    <line x1="425" y1="295" x2="475" y2="295"/>
+    <line x1="500" y1="295" x2="550" y2="295"/>
+  </g>
+  <text x="370" y="285" text-anchor="middle" class="fill-orange" font-size="14" font-weight="600">σ<tspan font-size="10" dy="3">12</tspan> = −a<tspan font-size="10" dy="0">2</tspan></text>
+
+  <!-- Left edge: pointing Up -->
+  <g class="stroke-orange" stroke-width="2" marker-end="url(#arr-orange-3)">
+    <line x1="185" y1="290" x2="185" y2="250"/>
+    <line x1="185" y1="230" x2="185" y2="190"/>
+    <line x1="185" y1="170" x2="185" y2="130"/>
+  </g>
+  <text x="200" y="215" class="fill-orange" font-size="14" font-weight="600">σ<tspan font-size="10" dy="3">12</tspan> = −a<tspan font-size="10" dy="0">2</tspan></text>
+</svg>
