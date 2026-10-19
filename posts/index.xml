@@ -5436,7 +5436,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1792405335640929559">
+<figure class="tikz-container" id="tikz-1792406965408670177">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -5572,7 +5572,7 @@ where $\bm{b}$ represents body forces per unit mass (gravity, magnetic fields). 
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-constitutive-laws--linear-elastic-solids">4. Constitutive Laws &amp; Linear Elastic Solids</h2>
-<figure class="tikz-container" id="tikz-1792405335641066627">
+<figure class="tikz-container" id="tikz-1792406965408755200">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -6180,7 +6180,7 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1792405335641601644">
+<figure class="tikz-container" id="tikz-1792406965409093268">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -6391,7 +6391,7 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1792405335642019642">
+<figure class="tikz-container" id="tikz-1792406965409371551">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -6911,7 +6911,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Solve System:</strong>
 This produces a symmetric linear system of algebraic equations $\mathbf{K}\mathbf{c} = \mathbf{F}$ yielding the energy-optimal approximation coefficients $c_i$.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1792405335642859583" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792406965409990360" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>References &amp; Citations</span>
     </h2>
@@ -7243,7 +7243,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1792405335640929559">
+<figure class="tikz-container" id="tikz-1792406965408670177">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -7379,7 +7379,7 @@ where $\bm{b}$ represents body forces per unit mass (gravity, magnetic fields). 
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-constitutive-laws--linear-elastic-solids">4. Constitutive Laws &amp; Linear Elastic Solids</h2>
-<figure class="tikz-container" id="tikz-1792405335641066627">
+<figure class="tikz-container" id="tikz-1792406965408755200">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -7987,7 +7987,7 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1792405335641601644">
+<figure class="tikz-container" id="tikz-1792406965409093268">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -8198,7 +8198,7 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1792405335642019642">
+<figure class="tikz-container" id="tikz-1792406965409371551">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -8718,7 +8718,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Solve System:</strong>
 This produces a symmetric linear system of algebraic equations $\mathbf{K}\mathbf{c} = \mathbf{F}$ yielding the energy-optimal approximation coefficients $c_i$.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1792405335642859583" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792406965409990360" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>References &amp; Citations</span>
     </h2>
@@ -15989,7 +15989,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792405335747768410" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792406965488352283" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -16106,7 +16106,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792405335747768410");
+  const root = document.getElementById("neuron-1792406965488352283");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -16581,7 +16581,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792405335747768410" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792406965488352283" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -16698,7 +16698,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792405335747768410");
+  const root = document.getElementById("neuron-1792406965488352283");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
