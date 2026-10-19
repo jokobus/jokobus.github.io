@@ -4928,7 +4928,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1792277846399063550">
+<figure class="tikz-container" id="tikz-1792399246101004678">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -5064,7 +5064,7 @@ wobei $\bm{b}$ die spezifische Volumenkraft (z. B. Schwerebeschleunigung $\bm{g}
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-konstitutivgesetze--lineare-elastizität">4. Konstitutivgesetze &amp; lineare Elastizität</h2>
-<figure class="tikz-container" id="tikz-1792277846399187435">
+<figure class="tikz-container" id="tikz-1792399246101162840">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -5413,11 +5413,16 @@ Für konstante Steifigkeit $EA$: $E A u_1'' + \hat{b}_1 = 0$.</li>
 <hr>
 <h2 id="6-ausgewählte-durchgerechnete-kontinuumsprobleme-teil-i">6. Ausgewählte durchgerechnete Kontinuumsprobleme (Teil I)</h2>
 <h3 id="aufgabe-1-tensoren-eigenwerte--kronecker-delta-algebra">Aufgabe 1: Tensoren, Eigenwerte &amp; Kronecker-Delta-Algebra</h3>
-<details class="smidr-collapse" open>
+<p><strong>Aufgabenstellung:</strong></p>
+<ol>
+<li>Gegeben seien zwei Tensoren 2. Stufe $\mathbf{R}$ und $\mathbf{S}$, die denselben Eigenvektor $\mathbf{n}$ mit den zugehörigen Eigenwerten $r$ bzw. $s$ besitzen. Bestimmen Sie einen Eigenwert und den zugehörigen Eigenvektor des Produkttensors $\mathbf{T} = \mathbf{RS}$.</li>
+<li>Berechnen Sie den Wert des Indexausdrucks $\delta_{1i}\delta_{ij}\delta_{j2}$.</li>
+</ol>
+<details class="smidr-collapse">
   <summary class="smidr-collapse-summary">
     <span class="smidr-collapse-title-wrap">
       <span class="smidr-collapse-icon">▸</span>
-      <span class="smidr-collapse-title">Detaillierte Aufgabenstellung &amp; vollständiger Lösungsweg</span>
+      <span class="smidr-collapse-title">Ausführliche Lösung anzeigen</span>
     </span>
     <span class="smidr-collapse-chevron" aria-hidden="true">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -5426,12 +5431,7 @@ Für konstante Steifigkeit $EA$: $E A u_1'' + \hat{b}_1 = 0$.</li>
     </span>
   </summary>
   <div class="smidr-collapse-content">
-    <p><strong>Aufgabenstellung:</strong></p>
-<ol>
-<li>Gegeben seien zwei Tensoren 2. Stufe $\mathbf{R}$ und $\mathbf{S}$, die denselben Eigenvektor $\mathbf{n}$ mit den zugehörigen Eigenwerten $r$ bzw. $s$ besitzen. Bestimmen Sie einen Eigenwert und den zugehörigen Eigenvektor des Produkttensors $\mathbf{T} = \mathbf{RS}$.</li>
-<li>Berechnen Sie den Wert des Indexausdrucks $\delta_{1i}\delta_{ij}\delta_{j2}$.</li>
-</ol>
-<p><strong>Lösung:</strong></p>
+    <p><strong>Lösung:</strong></p>
 <ol>
 <li>Gemäß Definition des Eigenwertproblems gilt:
 
@@ -5445,17 +5445,21 @@ Folglich ist $\lambda = rs$ ein Eigenwert von $\mathbf{T} = \mathbf{RS}$ mit dem
 $$\delta_{1i} \delta_{ij} \delta_{j2} = \delta_{1i} (\delta_{ij} \delta_{j2}) = \delta_{1i} \delta_{i2} = \delta_{12} = 0$$
 da die Indizes $1 \neq 2$ verschieden sind.</li>
 </ol>
-
   </div>
 </details>
 
 <hr>
 <h3 id="aufgabe-2-verifikation-des-gaußschen-integralsatzes-am-zylinder">Aufgabe 2: Verifikation des Gaußschen Integralsatzes am Zylinder</h3>
-<details class="smidr-collapse" open>
+<p><strong>Aufgabenstellung:</strong>
+Verifizieren Sie den Gaußschen Integralsatz $\int_{\mathcal{B}} \nabla \cdot \mathbf{F} \, dV = \int_{\partial \mathcal{B}} \mathbf{F} \cdot \mathbf{n} \, dA$ für das Zylindergebiet:
+</p>
+$$\mathcal{B}: \quad x_1^2 + x_2^2 \le 1, \quad 0 \le x_3 \le 1$$<p>
+mit dem Vektorfeld $F_i = x_3 \delta_{i3}$, in Vektorform: $\mathbf{F} = [0, 0, x_3]^T$.</p>
+<details class="smidr-collapse">
   <summary class="smidr-collapse-summary">
     <span class="smidr-collapse-title-wrap">
       <span class="smidr-collapse-icon">▸</span>
-      <span class="smidr-collapse-title">Detaillierte Aufgabenstellung &amp; vollständiger Lösungsweg</span>
+      <span class="smidr-collapse-title">Ausführliche Lösung anzeigen</span>
     </span>
     <span class="smidr-collapse-chevron" aria-hidden="true">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -5464,12 +5468,7 @@ da die Indizes $1 \neq 2$ verschieden sind.</li>
     </span>
   </summary>
   <div class="smidr-collapse-content">
-    <p><strong>Aufgabenstellung:</strong>
-Verifizieren Sie den Gaußschen Integralsatz $\int_{\mathcal{B}} \nabla \cdot \mathbf{F} \, dV = \int_{\partial \mathcal{B}} \mathbf{F} \cdot \mathbf{n} \, dA$ für das Zylindergebiet:
-</p>
-$$\mathcal{B}: \quad x_1^2 + x_2^2 \le 1, \quad 0 \le x_3 \le 1$$<p>
-mit dem Vektorfeld $F_i = x_3 \delta_{i3}$, in Vektorform: $\mathbf{F} = [0, 0, x_3]^T$.</p>
-<p><strong>Lösung:</strong></p>
+    <p><strong>Lösung:</strong></p>
 <ul>
 <li><strong>Linke Seite (Volumenintegral der Divergenz):</strong>
 
@@ -5495,17 +5494,21 @@ $$\int_{S^{(3)}} \mathbf{F} \cdot \mathbf{n}^{(3)} \, dA = \int_{S^{(3)}} 0 \, d
 $$\oint_{\partial \mathcal{B}} \mathbf{F} \cdot \mathbf{n} \, dA = 0 + \pi + 0 = \pi$$
 Beide Seiten stimmen exakt mit $\pi$ überein.</li>
 </ul>
-
   </div>
 </details>
 
 <hr>
 <h3 id="aufgabe-3-dreiecksstaumauer-im-evz-mit-vorgegebenem-verschiebungsfeld">Aufgabe 3: Dreiecksstaumauer im EVZ mit vorgegebenem Verschiebungsfeld</h3>
-<details class="smidr-collapse" open>
+<p><strong>Aufgabenstellung:</strong>
+Ein prismatischer Baukörper unter ebenem Verzerrungszustand mit Materialwerten $E = 100\,\text{MPa}$ und $\nu = 0{,}4$ weist das gemessene Verschiebungsfeld auf:
+</p>
+$$u_1(x,y) = -4x^2 - y^2 + 2xy + 2, \quad u_2(x,y) = -4y^2 - x^2 + 2xy + 5$$<p>
+Ermitteln Sie die Verzerrungs- und Spannungsfelder im Bauteil.</p>
+<details class="smidr-collapse">
   <summary class="smidr-collapse-summary">
     <span class="smidr-collapse-title-wrap">
       <span class="smidr-collapse-icon">▸</span>
-      <span class="smidr-collapse-title">Detaillierte Aufgabenstellung &amp; vollständiger Lösungsweg</span>
+      <span class="smidr-collapse-title">Ausführliche Lösung anzeigen</span>
     </span>
     <span class="smidr-collapse-chevron" aria-hidden="true">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -5514,12 +5517,7 @@ Beide Seiten stimmen exakt mit $\pi$ überein.</li>
     </span>
   </summary>
   <div class="smidr-collapse-content">
-    <p><strong>Aufgabenstellung:</strong>
-Ein prismatischer Baukörper unter ebenem Verzerrungszustand mit Materialwerten $E = 100\,\text{MPa}$ und $\nu = 0{,}4$ weist das gemessene Verschiebungsfeld auf:
-</p>
-$$u_1(x,y) = -4x^2 - y^2 + 2xy + 2, \quad u_2(x,y) = -4y^2 - x^2 + 2xy + 5$$<p>
-Ermitteln Sie die Verzerrungs- und Spannungsfelder im Bauteil.</p>
-<p><strong>Lösung:</strong></p>
+    <p><strong>Lösung:</strong></p>
 <ol>
 <li><strong>Berechnung der Dehnungen:</strong>
 
@@ -5551,17 +5549,21 @@ $$\sigma_{12} = G \gamma_{12} = 0$$
 
 $$\sigma_{33} = \nu(\sigma_{11} + \sigma_{22}) = 0{,}4 \left[357{,}14(-6x - 6y)\right] = -857{,}14 (x + y) \quad [\text{MPa}]$$</li>
 </ol>
-
   </div>
 </details>
 
 <hr>
 <h3 id="aufgabe-4-kragträger-mit-airy-spannungsfunktion">Aufgabe 4: Kragträger mit Airy-Spannungsfunktion</h3>
-<details class="smidr-collapse" open>
+<p><strong>Aufgabenstellung:</strong>
+Ein Kragträger der Länge $a$ und Höhe $2b$ ($0 \le x_1 \le a, -b \le x_2 \le b$) unter einer Querkraft $F$ bei $x_1 = 0$ und fester Einspannung bei $x_1 = a$ wird im ebenen Spannungszustand durch die Airy-Spannungsfunktion beschrieben:
+</p>
+$$\Phi(x_1, x_2) = \frac{F}{4b^3} \left(x_1 x_2^3 - 3b^2 x_1 x_2\right)$$<p>
+Überprüfen Sie die biharmonische Gültigkeit, leiten Sie das Spannungsfeld her und weisen Sie die Randlasten nach.</p>
+<details class="smidr-collapse">
   <summary class="smidr-collapse-summary">
     <span class="smidr-collapse-title-wrap">
       <span class="smidr-collapse-icon">▸</span>
-      <span class="smidr-collapse-title">Detaillierte Aufgabenstellung &amp; vollständiger Lösungsweg</span>
+      <span class="smidr-collapse-title">Ausführliche Lösung anzeigen</span>
     </span>
     <span class="smidr-collapse-chevron" aria-hidden="true">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -5570,12 +5572,7 @@ $$\sigma_{33} = \nu(\sigma_{11} + \sigma_{22}) = 0{,}4 \left[357{,}14(-6x - 6y)\
     </span>
   </summary>
   <div class="smidr-collapse-content">
-    <p><strong>Aufgabenstellung:</strong>
-Ein Kragträger der Länge $a$ und Höhe $2b$ ($0 \le x_1 \le a, -b \le x_2 \le b$) unter einer Querkraft $F$ bei $x_1 = 0$ und fester Einspannung bei $x_1 = a$ wird im ebenen Spannungszustand durch die Airy-Spannungsfunktion beschrieben:
-</p>
-$$\Phi(x_1, x_2) = \frac{F}{4b^3} \left(x_1 x_2^3 - 3b^2 x_1 x_2\right)$$<p>
-Überprüfen Sie die biharmonische Gültigkeit, leiten Sie das Spannungsfeld her und weisen Sie die Randlasten nach.</p>
-<p><strong>Lösung:</strong></p>
+    <p><strong>Lösung:</strong></p>
 <ol>
 <li><strong>Biharmonische Verifikation:</strong>
 
@@ -5603,26 +5600,12 @@ Dies stimmt exakt mit der Schnittkraftermittlung der Balkenstatik überein.</li>
 </ul>
 </li>
 </ol>
-
   </div>
 </details>
 
 <hr>
 <h3 id="aufgabe-5-mars-rover-solarpanel-mit-randspannungen">Aufgabe 5: Mars-Rover-Solarpanel mit Randspannungen</h3>
-<details class="smidr-collapse" open>
-  <summary class="smidr-collapse-summary">
-    <span class="smidr-collapse-title-wrap">
-      <span class="smidr-collapse-icon">▸</span>
-      <span class="smidr-collapse-title">Detaillierte Aufgabenstellung &amp; vollständiger Lösungsweg</span>
-    </span>
-    <span class="smidr-collapse-chevron" aria-hidden="true">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
-    </span>
-  </summary>
-  <div class="smidr-collapse-content">
-    <p><strong>Aufgabenstellung:</strong>
+<p><strong>Aufgabenstellung:</strong>
 Der Spannungszustand in einem rechteckigen Solarpanel ($0 \le x_1 \le b, 0 \le x_2 \le c$) eines Planetenrovers wird durch eine quadratische Airy-Spannungsfunktion approximiert:
 </p>
 $$\Phi(x_1, x_2) = a_1 x_1^2 + a_2 x_1 x_2 + a_3 x_2^2$$<ol>
@@ -5632,7 +5615,20 @@ $$\Phi(x_1, x_2) = a_1 x_1^2 + a_2 x_1 x_2 + a_3 x_2^2$$<ol>
 <li>Berechnen Sie 3D-Spannungen und Dehnungen unter EVZ.</li>
 <li>Berechnen Sie 3D-Spannungen und Dehnungen unter ESZ.</li>
 </ol>
-<p><strong>Lösung:</strong></p>
+<details class="smidr-collapse">
+  <summary class="smidr-collapse-summary">
+    <span class="smidr-collapse-title-wrap">
+      <span class="smidr-collapse-icon">▸</span>
+      <span class="smidr-collapse-title">Ausführliche Lösung anzeigen</span>
+    </span>
+    <span class="smidr-collapse-chevron" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </span>
+  </summary>
+  <div class="smidr-collapse-content">
+    <p><strong>Lösung:</strong></p>
 <ol>
 <li><strong>Biharmonischer Nachweis:</strong> Da $\Phi$ ein Polynom 2. Grades ist, sind alle vierten partiellen Ableitungen identisch null: $\nabla^4 \Phi = 0$.</li>
 <li><strong>Spannungskomponenten:</strong>
@@ -5674,14 +5670,9 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-
-  </div>
-</details>
-
-<figure class="tikz-container" id="tikz-1792277846399661414">
+<figure class="tikz-container" id="tikz-1792399246102299417">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
-    
   <style>
     .stroke-main { stroke: #0f172a; }
     .fill-main { fill: #0f172a; }
@@ -5724,18 +5715,17 @@ $$\begin{aligned}
     :root[data-theme="light"] .plate-fill { fill: #0284c7; fill-opacity: 0.06; }
     :root[data-theme="light"] .dam-fill { stroke: #0284c7; stroke-opacity: 0.35; }
   </style>
-
-    <marker id="arr-axis-3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-axis"/>
-    </marker>
-    <marker id="arr-cyan-3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-cyan"/>
-    </marker>
-    <marker id="arr-orange-3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-orange"/>
-    </marker>
+<pre><code>&lt;marker id=&quot;arr-axis-3&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-axis&quot;/&gt;
+&lt;/marker&gt;
+&lt;marker id=&quot;arr-cyan-3&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-cyan&quot;/&gt;
+&lt;/marker&gt;
+&lt;marker id=&quot;arr-orange-3&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-orange&quot;/&gt;
+&lt;/marker&gt;
+</code></pre>
   </defs>
-
   <!-- Coordinate Basis -->
   <g transform="translate(100, 380)">
     <line x1="0" y1="0" x2="55" y2="0" class="stroke-axis" stroke-width="2" marker-end="url(#arr-axis-3)"/>
@@ -5743,12 +5733,10 @@ $$\begin{aligned}
     <text x="65" y="5" class="fill-axis" font-size="14" font-weight="600">e<tspan font-size="10" dy="3">1</tspan></text>
     <text x="-6" y="-62" class="fill-axis" font-size="14" font-weight="600">e<tspan font-size="10" dy="3">2</tspan></text>
   </g>
-
   <!-- Rectangular Panel Body -->
   <rect x="170" y="110" width="400" height="200" rx="3" class="plate-fill stroke-cyan" stroke-width="2.5"/>
   <text x="575" y="330" class="fill-axis" font-size="15" font-style="italic">x<tspan font-size="11" dy="3">1</tspan> = b</text>
   <text x="145" y="105" text-anchor="end" class="fill-axis" font-size="15" font-style="italic">x<tspan font-size="11" dy="3">2</tspan> = c</text>
-
   <!-- Normal Stresses sigma11 = 2*a3 -->
   <!-- Left face: inward arrows -->
   <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-3)">
@@ -5758,7 +5746,6 @@ $$\begin{aligned}
     <line x1="110" y1="285" x2="165" y2="285"/>
   </g>
   <text x="100" y="215" text-anchor="end" class="fill-cyan" font-size="15" font-weight="600">σ<tspan font-size="11" dy="3">11</tspan> = 2a<tspan font-size="11" dy="0">3</tspan></text>
-
   <!-- Right face: outward arrows -->
   <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-3)">
     <line x1="575" y1="135" x2="635" y2="135"/>
@@ -5767,7 +5754,6 @@ $$\begin{aligned}
     <line x1="575" y1="285" x2="635" y2="285"/>
   </g>
   <text x="645" y="215" class="fill-cyan" font-size="15" font-weight="600">σ<tspan font-size="11" dy="3">11</tspan> = 2a<tspan font-size="11" dy="0">3</tspan></text>
-
   <!-- Normal Stresses sigma22 = 2*a1 -->
   <!-- Top face: pointing up -->
   <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-3)">
@@ -5778,7 +5764,6 @@ $$\begin{aligned}
     <line x1="520" y1="105" x2="520" y2="50"/>
   </g>
   <text x="370" y="40" text-anchor="middle" class="fill-cyan" font-size="15" font-weight="600">σ<tspan font-size="11" dy="3">22</tspan> = 2a<tspan font-size="11" dy="0">1</tspan></text>
-
   <!-- Bottom face: pointing down -->
   <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-3)">
     <line x1="220" y1="315" x2="220" y2="370"/>
@@ -5788,7 +5773,6 @@ $$\begin{aligned}
     <line x1="520" y1="315" x2="520" y2="370"/>
   </g>
   <text x="370" y="390" text-anchor="middle" class="fill-cyan" font-size="15" font-weight="600">σ<tspan font-size="11" dy="3">22</tspan> = 2a<tspan font-size="11" dy="0">1</tspan></text>
-
   <!-- Shear Stresses sigma12 = -a2 -->
   <!-- Top edge: pointing Left -->
   <g class="stroke-orange" stroke-width="2" marker-end="url(#arr-orange-3)">
@@ -5799,7 +5783,6 @@ $$\begin{aligned}
     <line x1="550" y1="125" x2="500" y2="125"/>
   </g>
   <text x="370" y="145" text-anchor="middle" class="fill-orange" font-size="14" font-weight="600">σ<tspan font-size="10" dy="3">12</tspan> = −a<tspan font-size="10" dy="0">2</tspan></text>
-
   <!-- Right edge: pointing Down -->
   <g class="stroke-orange" stroke-width="2" marker-end="url(#arr-orange-3)">
     <line x1="555" y1="130" x2="555" y2="170"/>
@@ -5807,7 +5790,6 @@ $$\begin{aligned}
     <line x1="555" y1="250" x2="555" y2="290"/>
   </g>
   <text x="540" y="215" text-anchor="end" class="fill-orange" font-size="14" font-weight="600">σ<tspan font-size="10" dy="3">12</tspan> = −a<tspan font-size="10" dy="0">2</tspan></text>
-
   <!-- Bottom edge: pointing Right -->
   <g class="stroke-orange" stroke-width="2" marker-end="url(#arr-orange-3)">
     <line x1="200" y1="295" x2="250" y2="295"/>
@@ -5817,7 +5799,6 @@ $$\begin{aligned}
     <line x1="500" y1="295" x2="550" y2="295"/>
   </g>
   <text x="370" y="285" text-anchor="middle" class="fill-orange" font-size="14" font-weight="600">σ<tspan font-size="10" dy="3">12</tspan> = −a<tspan font-size="10" dy="0">2</tspan></text>
-
   <!-- Left edge: pointing Up -->
   <g class="stroke-orange" stroke-width="2" marker-end="url(#arr-orange-3)">
     <line x1="185" y1="290" x2="185" y2="250"/>
@@ -5826,29 +5807,16 @@ $$\begin{aligned}
   </g>
   <text x="200" y="215" class="fill-orange" font-size="14" font-weight="600">σ<tspan font-size="10" dy="3">12</tspan> = −a<tspan font-size="10" dy="0">2</tspan></text>
 </svg></div>
-  
   <figcaption class="tikz-caption">
     <span class="tikz-caption-prefix">Figure:</span> Normal- und Schubspannungsvektoren an den vier Berandungen des rechteckigen Mars-Rover-Solarpanels.
   </figcaption>
-  
 </figure>
+  </div>
+</details>
 
 <hr>
 <h3 id="aufgabe-6-dreiecksstaumauer-unter-hydrostatischem-wasserdruck">Aufgabe 6: Dreiecksstaumauer unter hydrostatischem Wasserdruck</h3>
-<details class="smidr-collapse" open>
-  <summary class="smidr-collapse-summary">
-    <span class="smidr-collapse-title-wrap">
-      <span class="smidr-collapse-icon">▸</span>
-      <span class="smidr-collapse-title">Detaillierte Aufgabenstellung &amp; vollständiger Lösungsweg</span>
-    </span>
-    <span class="smidr-collapse-chevron" aria-hidden="true">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
-    </span>
-  </summary>
-  <div class="smidr-collapse-content">
-    <p><strong>Aufgabenstellung:</strong>
+<p><strong>Aufgabenstellung:</strong>
 Eine Gewichtsstaumauer mit dreieckigem Querschnitt $ABC$ (vertikale Wasserseite $AB$ bei $x=0$, Sohlfuge $BC$ bei $y=l$ und geneigte Luftseite $AC$ bei $x=y$) wird unter EVZ mit dem kubischen Ansatz analysiert:
 </p>
 $$\Phi(x, y) = \frac{1}{6}a_1 x^3 + \frac{1}{2}a_2 x^2 y + \frac{1}{2}a_3 x y^2 + \frac{1}{6}a_4 y^3$$<p>
@@ -5857,7 +5825,20 @@ Das Wasser übt den hydrostatischen Druck $p(y) = \rho g y$ auf die Seite $AB$ a
 <li>Ermitteln Sie die Konstanten $a_1, a_2, a_3, a_4$ aus den Randbedingungen.</li>
 <li>Bestimmen Sie den resultierenden Spannungsvektor in der Sohlfuge $BC$ zur Gewährleistung des statischen Gleichgewichts.</li>
 </ol>
-<p><strong>Lösung:</strong></p>
+<details class="smidr-collapse">
+  <summary class="smidr-collapse-summary">
+    <span class="smidr-collapse-title-wrap">
+      <span class="smidr-collapse-icon">▸</span>
+      <span class="smidr-collapse-title">Ausführliche Lösung anzeigen</span>
+    </span>
+    <span class="smidr-collapse-chevron" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </span>
+  </summary>
+  <div class="smidr-collapse-content">
+    <p><strong>Lösung:</strong></p>
 <ol>
 <li><strong>Biharmonische Eignung &amp; Spannungsformeln:</strong>
 Da $\Phi$ ein Polynom 3. Grades ist, sind alle vierten Ableitungen null: $\nabla^4 \Phi = 0$.
@@ -5900,14 +5881,9 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-
-  </div>
-</details>
-
-<figure class="tikz-container" id="tikz-1792277846399830267">
+<figure class="tikz-container" id="tikz-1792399246103062704">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
-    
   <style>
     .stroke-main { stroke: #0f172a; }
     .fill-main { fill: #0f172a; }
@@ -5950,36 +5926,33 @@ $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li
     :root[data-theme="light"] .plate-fill { fill: #0284c7; fill-opacity: 0.06; }
     :root[data-theme="light"] .dam-fill { stroke: #0284c7; stroke-opacity: 0.35; }
   </style>
-
-    <pattern id="dam-hatch" width="12" height="12" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-      <line x1="0" y1="0" x2="0" y2="12" class="dam-fill" stroke-width="1.5"/>
-    </pattern>
-    <marker id="arr-axis-4" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-axis"/>
-    </marker>
-    <marker id="arr-cyan-4" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-cyan"/>
-    </marker>
-    <marker id="arr-orange-4" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-orange"/>
-    </marker>
-    <marker id="arr-purple-4" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-purple"/>
-    </marker>
+<pre><code>&lt;pattern id=&quot;dam-hatch&quot; width=&quot;12&quot; height=&quot;12&quot; patternTransform=&quot;rotate(45 0 0)&quot; patternUnits=&quot;userSpaceOnUse&quot;&gt;
+  &lt;line x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;12&quot; class=&quot;dam-fill&quot; stroke-width=&quot;1.5&quot;/&gt;
+&lt;/pattern&gt;
+&lt;marker id=&quot;arr-axis-4&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-axis&quot;/&gt;
+&lt;/marker&gt;
+&lt;marker id=&quot;arr-cyan-4&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-cyan&quot;/&gt;
+&lt;/marker&gt;
+&lt;marker id=&quot;arr-orange-4&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-orange&quot;/&gt;
+&lt;/marker&gt;
+&lt;marker id=&quot;arr-purple-4&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-purple&quot;/&gt;
+&lt;/marker&gt;
+</code></pre>
   </defs>
-
   <!-- Dam Triangle
        A (Crest, right-top): (460, 80)
        B (Toe, right-bottom): (460, 360)
        C (Heel, left-bottom): (180, 360)
   -->
   <polygon points="460,80 460,360 180,360" fill="url(#dam-hatch)" class="stroke-cyan" stroke-width="2.5"/>
-
   <!-- Vertices labels -->
-  <text x="465" y="70" class="fill-cyan" font-size="18" font-weight="700">A</text>
-  <text x="470" y="375" class="fill-cyan" font-size="18" font-weight="700">B</text>
-  <text x="165" y="375" class="fill-cyan" font-size="18" font-weight="700">C</text>
-
+<p><text x="465" y="70" class="fill-cyan" font-size="18" font-weight="700">A</text>
+<text x="470" y="375" class="fill-cyan" font-size="18" font-weight="700">B</text>
+<text x="165" y="375" class="fill-cyan" font-size="18" font-weight="700">C</text></p>
   <!-- Axes origin near A -->
   <g transform="translate(460, 45)">
     <line x1="0" y1="0" x2="-70" y2="0" class="stroke-axis" stroke-width="2" marker-end="url(#arr-axis-4)"/>
@@ -5987,21 +5960,17 @@ $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li
     <text x="-80" y="5" class="fill-axis" font-size="15" font-style="italic">x</text>
     <text x="60" y="105" class="fill-axis" font-size="15" font-style="italic">y</text>
   </g>
-
   <!-- Dimensions (l x l) -->
   <line x1="140" y1="80" x2="140" y2="360" class="stroke-axis" stroke-width="1.8"/>
   <line x1="130" y1="80" x2="150" y2="80" class="stroke-axis" stroke-width="1.8"/>
   <line x1="130" y1="360" x2="150" y2="360" class="stroke-axis" stroke-width="1.8"/>
   <text x="120" y="225" text-anchor="end" class="fill-axis" font-size="16" font-style="italic">l</text>
-
   <line x1="180" y1="390" x2="460" y2="390" class="stroke-axis" stroke-width="1.8"/>
   <line x1="180" y1="380" x2="180" y2="400" class="stroke-axis" stroke-width="1.8"/>
   <line x1="460" y1="380" x2="460" y2="400" class="stroke-axis" stroke-width="1.8"/>
   <text x="320" y="415" text-anchor="middle" class="fill-axis" font-size="16" font-style="italic">l</text>
-
   <!-- Hydrostatic Water Pressure on Vertical Face AB -->
   <polygon points="460,80 600,360 460,360" class="plate-fill stroke-cyan" stroke-width="1.8"/>
-  
   <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-4)">
     <line x1="480" y1="120" x2="463" y2="120"/>
     <line x1="505" y1="170" x2="463" y2="170"/>
@@ -6011,7 +5980,6 @@ $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li
     <line x1="598" y1="355" x2="463" y2="355"/>
   </g>
   <text x="615" y="240" class="fill-cyan" font-size="16" font-weight="600">p(y) = ρ<tspan font-size="11" dy="3">w</tspan> g y</text>
-
   <!-- Foundation Base Reaction Tractions along BC -->
   <!-- 1. Shear stress tx -->
   <g class="stroke-purple" stroke-width="2" marker-end="url(#arr-purple-4)">
@@ -6021,33 +5989,31 @@ $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li
     <line x1="430" y1="368" x2="455" y2="368"/>
   </g>
   <text x="475" y="372" class="fill-purple" font-size="14" font-weight="600">t<tspan font-size="10" dy="3">x</tspan></text>
-
   <!-- 2. Normal foundation tractions -->
   <line x1="180" y1="460" x2="460" y2="460" class="stroke-axis" stroke-width="1.2" stroke-dasharray="3,3"/>
   <line x1="180" y1="420" x2="460" y2="500" class="stroke-orange" stroke-width="2"/>
-  
   <g class="stroke-orange" stroke-width="1.8" marker-end="url(#arr-orange-4)">
     <line x1="190" y1="460" x2="190" y2="423"/>
     <line x1="225" y1="460" x2="225" y2="433"/>
     <line x1="260" y1="460" x2="260" y2="443"/>
     <line x1="295" y1="460" x2="295" y2="453"/>
-    
-    <line x1="345" y1="460" x2="345" y2="467"/>
-    <line x1="380" y1="460" x2="380" y2="477"/>
-    <line x1="415" y1="460" x2="415" y2="487"/>
-    <line x1="450" y1="460" x2="450" y2="497"/>
+<pre><code>&lt;line x1=&quot;345&quot; y1=&quot;460&quot; x2=&quot;345&quot; y2=&quot;467&quot;/&gt;
+&lt;line x1=&quot;380&quot; y1=&quot;460&quot; x2=&quot;380&quot; y2=&quot;477&quot;/&gt;
+&lt;line x1=&quot;415&quot; y1=&quot;460&quot; x2=&quot;415&quot; y2=&quot;487&quot;/&gt;
+&lt;line x1=&quot;450&quot; y1=&quot;460&quot; x2=&quot;450&quot; y2=&quot;497&quot;/&gt;
+</code></pre>
   </g>
-  
-  <text x="170" y="420" text-anchor="end" class="fill-orange" font-size="14" font-weight="600">+ρ g l</text>
-  <text x="470" y="505" class="fill-orange" font-size="14" font-weight="600">−ρ g l</text>
-  <text x="320" y="475" text-anchor="middle" class="fill-axis" font-size="12">t<tspan font-size="9" dy="2">y</tspan>(x)</text>
-</svg></div>
-  
+<p><text x="170" y="420" text-anchor="end" class="fill-orange" font-size="14" font-weight="600">+ρ g l</text>
+<text x="470" y="505" class="fill-orange" font-size="14" font-weight="600">−ρ g l</text>
+<text x="320" y="475" text-anchor="middle" class="fill-axis" font-size="12">t<tspan font-size="9" dy="2">y</tspan>(x)</text>
+</svg></div></p>
   <figcaption class="tikz-caption">
     <span class="tikz-caption-prefix">Figure:</span> Dreieckige Gewichtsstaumauer unter hydrostatischem Wasserdruck und resultierende Sohlreaktionsspannungen.
   </figcaption>
-  
 </figure>
+
+  </div>
+</details>
 
 <hr>
 <h1 id="teil-ii-strukturtheorien--variationsprinzipien">Teil II: Strukturtheorien &amp; Variationsprinzipien</h1>
@@ -6435,7 +6401,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Gleichungssystem lösen:</strong>
 Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\mathbf{K}\mathbf{c} = \mathbf{F}$, dessen Lösung die energieoptimalen Koeffizienten $c_i$ liefert.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1792277846400034783" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792399246105067564" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur &amp; Referenzen</span>
     </h2>
@@ -6767,7 +6733,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1792277846399063550">
+<figure class="tikz-container" id="tikz-1792399246101004678">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -6903,7 +6869,7 @@ wobei $\bm{b}$ die spezifische Volumenkraft (z. B. Schwerebeschleunigung $\bm{g}
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-konstitutivgesetze--lineare-elastizität">4. Konstitutivgesetze &amp; lineare Elastizität</h2>
-<figure class="tikz-container" id="tikz-1792277846399187435">
+<figure class="tikz-container" id="tikz-1792399246101162840">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -7252,11 +7218,16 @@ Für konstante Steifigkeit $EA$: $E A u_1'' + \hat{b}_1 = 0$.</li>
 <hr>
 <h2 id="6-ausgewählte-durchgerechnete-kontinuumsprobleme-teil-i">6. Ausgewählte durchgerechnete Kontinuumsprobleme (Teil I)</h2>
 <h3 id="aufgabe-1-tensoren-eigenwerte--kronecker-delta-algebra">Aufgabe 1: Tensoren, Eigenwerte &amp; Kronecker-Delta-Algebra</h3>
-<details class="smidr-collapse" open>
+<p><strong>Aufgabenstellung:</strong></p>
+<ol>
+<li>Gegeben seien zwei Tensoren 2. Stufe $\mathbf{R}$ und $\mathbf{S}$, die denselben Eigenvektor $\mathbf{n}$ mit den zugehörigen Eigenwerten $r$ bzw. $s$ besitzen. Bestimmen Sie einen Eigenwert und den zugehörigen Eigenvektor des Produkttensors $\mathbf{T} = \mathbf{RS}$.</li>
+<li>Berechnen Sie den Wert des Indexausdrucks $\delta_{1i}\delta_{ij}\delta_{j2}$.</li>
+</ol>
+<details class="smidr-collapse">
   <summary class="smidr-collapse-summary">
     <span class="smidr-collapse-title-wrap">
       <span class="smidr-collapse-icon">▸</span>
-      <span class="smidr-collapse-title">Detaillierte Aufgabenstellung &amp; vollständiger Lösungsweg</span>
+      <span class="smidr-collapse-title">Ausführliche Lösung anzeigen</span>
     </span>
     <span class="smidr-collapse-chevron" aria-hidden="true">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -7265,12 +7236,7 @@ Für konstante Steifigkeit $EA$: $E A u_1'' + \hat{b}_1 = 0$.</li>
     </span>
   </summary>
   <div class="smidr-collapse-content">
-    <p><strong>Aufgabenstellung:</strong></p>
-<ol>
-<li>Gegeben seien zwei Tensoren 2. Stufe $\mathbf{R}$ und $\mathbf{S}$, die denselben Eigenvektor $\mathbf{n}$ mit den zugehörigen Eigenwerten $r$ bzw. $s$ besitzen. Bestimmen Sie einen Eigenwert und den zugehörigen Eigenvektor des Produkttensors $\mathbf{T} = \mathbf{RS}$.</li>
-<li>Berechnen Sie den Wert des Indexausdrucks $\delta_{1i}\delta_{ij}\delta_{j2}$.</li>
-</ol>
-<p><strong>Lösung:</strong></p>
+    <p><strong>Lösung:</strong></p>
 <ol>
 <li>Gemäß Definition des Eigenwertproblems gilt:
 
@@ -7284,17 +7250,21 @@ Folglich ist $\lambda = rs$ ein Eigenwert von $\mathbf{T} = \mathbf{RS}$ mit dem
 $$\delta_{1i} \delta_{ij} \delta_{j2} = \delta_{1i} (\delta_{ij} \delta_{j2}) = \delta_{1i} \delta_{i2} = \delta_{12} = 0$$
 da die Indizes $1 \neq 2$ verschieden sind.</li>
 </ol>
-
   </div>
 </details>
 
 <hr>
 <h3 id="aufgabe-2-verifikation-des-gaußschen-integralsatzes-am-zylinder">Aufgabe 2: Verifikation des Gaußschen Integralsatzes am Zylinder</h3>
-<details class="smidr-collapse" open>
+<p><strong>Aufgabenstellung:</strong>
+Verifizieren Sie den Gaußschen Integralsatz $\int_{\mathcal{B}} \nabla \cdot \mathbf{F} \, dV = \int_{\partial \mathcal{B}} \mathbf{F} \cdot \mathbf{n} \, dA$ für das Zylindergebiet:
+</p>
+$$\mathcal{B}: \quad x_1^2 + x_2^2 \le 1, \quad 0 \le x_3 \le 1$$<p>
+mit dem Vektorfeld $F_i = x_3 \delta_{i3}$, in Vektorform: $\mathbf{F} = [0, 0, x_3]^T$.</p>
+<details class="smidr-collapse">
   <summary class="smidr-collapse-summary">
     <span class="smidr-collapse-title-wrap">
       <span class="smidr-collapse-icon">▸</span>
-      <span class="smidr-collapse-title">Detaillierte Aufgabenstellung &amp; vollständiger Lösungsweg</span>
+      <span class="smidr-collapse-title">Ausführliche Lösung anzeigen</span>
     </span>
     <span class="smidr-collapse-chevron" aria-hidden="true">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -7303,12 +7273,7 @@ da die Indizes $1 \neq 2$ verschieden sind.</li>
     </span>
   </summary>
   <div class="smidr-collapse-content">
-    <p><strong>Aufgabenstellung:</strong>
-Verifizieren Sie den Gaußschen Integralsatz $\int_{\mathcal{B}} \nabla \cdot \mathbf{F} \, dV = \int_{\partial \mathcal{B}} \mathbf{F} \cdot \mathbf{n} \, dA$ für das Zylindergebiet:
-</p>
-$$\mathcal{B}: \quad x_1^2 + x_2^2 \le 1, \quad 0 \le x_3 \le 1$$<p>
-mit dem Vektorfeld $F_i = x_3 \delta_{i3}$, in Vektorform: $\mathbf{F} = [0, 0, x_3]^T$.</p>
-<p><strong>Lösung:</strong></p>
+    <p><strong>Lösung:</strong></p>
 <ul>
 <li><strong>Linke Seite (Volumenintegral der Divergenz):</strong>
 
@@ -7334,17 +7299,21 @@ $$\int_{S^{(3)}} \mathbf{F} \cdot \mathbf{n}^{(3)} \, dA = \int_{S^{(3)}} 0 \, d
 $$\oint_{\partial \mathcal{B}} \mathbf{F} \cdot \mathbf{n} \, dA = 0 + \pi + 0 = \pi$$
 Beide Seiten stimmen exakt mit $\pi$ überein.</li>
 </ul>
-
   </div>
 </details>
 
 <hr>
 <h3 id="aufgabe-3-dreiecksstaumauer-im-evz-mit-vorgegebenem-verschiebungsfeld">Aufgabe 3: Dreiecksstaumauer im EVZ mit vorgegebenem Verschiebungsfeld</h3>
-<details class="smidr-collapse" open>
+<p><strong>Aufgabenstellung:</strong>
+Ein prismatischer Baukörper unter ebenem Verzerrungszustand mit Materialwerten $E = 100\,\text{MPa}$ und $\nu = 0{,}4$ weist das gemessene Verschiebungsfeld auf:
+</p>
+$$u_1(x,y) = -4x^2 - y^2 + 2xy + 2, \quad u_2(x,y) = -4y^2 - x^2 + 2xy + 5$$<p>
+Ermitteln Sie die Verzerrungs- und Spannungsfelder im Bauteil.</p>
+<details class="smidr-collapse">
   <summary class="smidr-collapse-summary">
     <span class="smidr-collapse-title-wrap">
       <span class="smidr-collapse-icon">▸</span>
-      <span class="smidr-collapse-title">Detaillierte Aufgabenstellung &amp; vollständiger Lösungsweg</span>
+      <span class="smidr-collapse-title">Ausführliche Lösung anzeigen</span>
     </span>
     <span class="smidr-collapse-chevron" aria-hidden="true">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -7353,12 +7322,7 @@ Beide Seiten stimmen exakt mit $\pi$ überein.</li>
     </span>
   </summary>
   <div class="smidr-collapse-content">
-    <p><strong>Aufgabenstellung:</strong>
-Ein prismatischer Baukörper unter ebenem Verzerrungszustand mit Materialwerten $E = 100\,\text{MPa}$ und $\nu = 0{,}4$ weist das gemessene Verschiebungsfeld auf:
-</p>
-$$u_1(x,y) = -4x^2 - y^2 + 2xy + 2, \quad u_2(x,y) = -4y^2 - x^2 + 2xy + 5$$<p>
-Ermitteln Sie die Verzerrungs- und Spannungsfelder im Bauteil.</p>
-<p><strong>Lösung:</strong></p>
+    <p><strong>Lösung:</strong></p>
 <ol>
 <li><strong>Berechnung der Dehnungen:</strong>
 
@@ -7390,17 +7354,21 @@ $$\sigma_{12} = G \gamma_{12} = 0$$
 
 $$\sigma_{33} = \nu(\sigma_{11} + \sigma_{22}) = 0{,}4 \left[357{,}14(-6x - 6y)\right] = -857{,}14 (x + y) \quad [\text{MPa}]$$</li>
 </ol>
-
   </div>
 </details>
 
 <hr>
 <h3 id="aufgabe-4-kragträger-mit-airy-spannungsfunktion">Aufgabe 4: Kragträger mit Airy-Spannungsfunktion</h3>
-<details class="smidr-collapse" open>
+<p><strong>Aufgabenstellung:</strong>
+Ein Kragträger der Länge $a$ und Höhe $2b$ ($0 \le x_1 \le a, -b \le x_2 \le b$) unter einer Querkraft $F$ bei $x_1 = 0$ und fester Einspannung bei $x_1 = a$ wird im ebenen Spannungszustand durch die Airy-Spannungsfunktion beschrieben:
+</p>
+$$\Phi(x_1, x_2) = \frac{F}{4b^3} \left(x_1 x_2^3 - 3b^2 x_1 x_2\right)$$<p>
+Überprüfen Sie die biharmonische Gültigkeit, leiten Sie das Spannungsfeld her und weisen Sie die Randlasten nach.</p>
+<details class="smidr-collapse">
   <summary class="smidr-collapse-summary">
     <span class="smidr-collapse-title-wrap">
       <span class="smidr-collapse-icon">▸</span>
-      <span class="smidr-collapse-title">Detaillierte Aufgabenstellung &amp; vollständiger Lösungsweg</span>
+      <span class="smidr-collapse-title">Ausführliche Lösung anzeigen</span>
     </span>
     <span class="smidr-collapse-chevron" aria-hidden="true">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -7409,12 +7377,7 @@ $$\sigma_{33} = \nu(\sigma_{11} + \sigma_{22}) = 0{,}4 \left[357{,}14(-6x - 6y)\
     </span>
   </summary>
   <div class="smidr-collapse-content">
-    <p><strong>Aufgabenstellung:</strong>
-Ein Kragträger der Länge $a$ und Höhe $2b$ ($0 \le x_1 \le a, -b \le x_2 \le b$) unter einer Querkraft $F$ bei $x_1 = 0$ und fester Einspannung bei $x_1 = a$ wird im ebenen Spannungszustand durch die Airy-Spannungsfunktion beschrieben:
-</p>
-$$\Phi(x_1, x_2) = \frac{F}{4b^3} \left(x_1 x_2^3 - 3b^2 x_1 x_2\right)$$<p>
-Überprüfen Sie die biharmonische Gültigkeit, leiten Sie das Spannungsfeld her und weisen Sie die Randlasten nach.</p>
-<p><strong>Lösung:</strong></p>
+    <p><strong>Lösung:</strong></p>
 <ol>
 <li><strong>Biharmonische Verifikation:</strong>
 
@@ -7442,26 +7405,12 @@ Dies stimmt exakt mit der Schnittkraftermittlung der Balkenstatik überein.</li>
 </ul>
 </li>
 </ol>
-
   </div>
 </details>
 
 <hr>
 <h3 id="aufgabe-5-mars-rover-solarpanel-mit-randspannungen">Aufgabe 5: Mars-Rover-Solarpanel mit Randspannungen</h3>
-<details class="smidr-collapse" open>
-  <summary class="smidr-collapse-summary">
-    <span class="smidr-collapse-title-wrap">
-      <span class="smidr-collapse-icon">▸</span>
-      <span class="smidr-collapse-title">Detaillierte Aufgabenstellung &amp; vollständiger Lösungsweg</span>
-    </span>
-    <span class="smidr-collapse-chevron" aria-hidden="true">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
-    </span>
-  </summary>
-  <div class="smidr-collapse-content">
-    <p><strong>Aufgabenstellung:</strong>
+<p><strong>Aufgabenstellung:</strong>
 Der Spannungszustand in einem rechteckigen Solarpanel ($0 \le x_1 \le b, 0 \le x_2 \le c$) eines Planetenrovers wird durch eine quadratische Airy-Spannungsfunktion approximiert:
 </p>
 $$\Phi(x_1, x_2) = a_1 x_1^2 + a_2 x_1 x_2 + a_3 x_2^2$$<ol>
@@ -7471,7 +7420,20 @@ $$\Phi(x_1, x_2) = a_1 x_1^2 + a_2 x_1 x_2 + a_3 x_2^2$$<ol>
 <li>Berechnen Sie 3D-Spannungen und Dehnungen unter EVZ.</li>
 <li>Berechnen Sie 3D-Spannungen und Dehnungen unter ESZ.</li>
 </ol>
-<p><strong>Lösung:</strong></p>
+<details class="smidr-collapse">
+  <summary class="smidr-collapse-summary">
+    <span class="smidr-collapse-title-wrap">
+      <span class="smidr-collapse-icon">▸</span>
+      <span class="smidr-collapse-title">Ausführliche Lösung anzeigen</span>
+    </span>
+    <span class="smidr-collapse-chevron" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </span>
+  </summary>
+  <div class="smidr-collapse-content">
+    <p><strong>Lösung:</strong></p>
 <ol>
 <li><strong>Biharmonischer Nachweis:</strong> Da $\Phi$ ein Polynom 2. Grades ist, sind alle vierten partiellen Ableitungen identisch null: $\nabla^4 \Phi = 0$.</li>
 <li><strong>Spannungskomponenten:</strong>
@@ -7513,14 +7475,9 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-
-  </div>
-</details>
-
-<figure class="tikz-container" id="tikz-1792277846399661414">
+<figure class="tikz-container" id="tikz-1792399246102299417">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
-    
   <style>
     .stroke-main { stroke: #0f172a; }
     .fill-main { fill: #0f172a; }
@@ -7563,18 +7520,17 @@ $$\begin{aligned}
     :root[data-theme="light"] .plate-fill { fill: #0284c7; fill-opacity: 0.06; }
     :root[data-theme="light"] .dam-fill { stroke: #0284c7; stroke-opacity: 0.35; }
   </style>
-
-    <marker id="arr-axis-3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-axis"/>
-    </marker>
-    <marker id="arr-cyan-3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-cyan"/>
-    </marker>
-    <marker id="arr-orange-3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-orange"/>
-    </marker>
+<pre><code>&lt;marker id=&quot;arr-axis-3&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-axis&quot;/&gt;
+&lt;/marker&gt;
+&lt;marker id=&quot;arr-cyan-3&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-cyan&quot;/&gt;
+&lt;/marker&gt;
+&lt;marker id=&quot;arr-orange-3&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-orange&quot;/&gt;
+&lt;/marker&gt;
+</code></pre>
   </defs>
-
   <!-- Coordinate Basis -->
   <g transform="translate(100, 380)">
     <line x1="0" y1="0" x2="55" y2="0" class="stroke-axis" stroke-width="2" marker-end="url(#arr-axis-3)"/>
@@ -7582,12 +7538,10 @@ $$\begin{aligned}
     <text x="65" y="5" class="fill-axis" font-size="14" font-weight="600">e<tspan font-size="10" dy="3">1</tspan></text>
     <text x="-6" y="-62" class="fill-axis" font-size="14" font-weight="600">e<tspan font-size="10" dy="3">2</tspan></text>
   </g>
-
   <!-- Rectangular Panel Body -->
   <rect x="170" y="110" width="400" height="200" rx="3" class="plate-fill stroke-cyan" stroke-width="2.5"/>
   <text x="575" y="330" class="fill-axis" font-size="15" font-style="italic">x<tspan font-size="11" dy="3">1</tspan> = b</text>
   <text x="145" y="105" text-anchor="end" class="fill-axis" font-size="15" font-style="italic">x<tspan font-size="11" dy="3">2</tspan> = c</text>
-
   <!-- Normal Stresses sigma11 = 2*a3 -->
   <!-- Left face: inward arrows -->
   <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-3)">
@@ -7597,7 +7551,6 @@ $$\begin{aligned}
     <line x1="110" y1="285" x2="165" y2="285"/>
   </g>
   <text x="100" y="215" text-anchor="end" class="fill-cyan" font-size="15" font-weight="600">σ<tspan font-size="11" dy="3">11</tspan> = 2a<tspan font-size="11" dy="0">3</tspan></text>
-
   <!-- Right face: outward arrows -->
   <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-3)">
     <line x1="575" y1="135" x2="635" y2="135"/>
@@ -7606,7 +7559,6 @@ $$\begin{aligned}
     <line x1="575" y1="285" x2="635" y2="285"/>
   </g>
   <text x="645" y="215" class="fill-cyan" font-size="15" font-weight="600">σ<tspan font-size="11" dy="3">11</tspan> = 2a<tspan font-size="11" dy="0">3</tspan></text>
-
   <!-- Normal Stresses sigma22 = 2*a1 -->
   <!-- Top face: pointing up -->
   <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-3)">
@@ -7617,7 +7569,6 @@ $$\begin{aligned}
     <line x1="520" y1="105" x2="520" y2="50"/>
   </g>
   <text x="370" y="40" text-anchor="middle" class="fill-cyan" font-size="15" font-weight="600">σ<tspan font-size="11" dy="3">22</tspan> = 2a<tspan font-size="11" dy="0">1</tspan></text>
-
   <!-- Bottom face: pointing down -->
   <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-3)">
     <line x1="220" y1="315" x2="220" y2="370"/>
@@ -7627,7 +7578,6 @@ $$\begin{aligned}
     <line x1="520" y1="315" x2="520" y2="370"/>
   </g>
   <text x="370" y="390" text-anchor="middle" class="fill-cyan" font-size="15" font-weight="600">σ<tspan font-size="11" dy="3">22</tspan> = 2a<tspan font-size="11" dy="0">1</tspan></text>
-
   <!-- Shear Stresses sigma12 = -a2 -->
   <!-- Top edge: pointing Left -->
   <g class="stroke-orange" stroke-width="2" marker-end="url(#arr-orange-3)">
@@ -7638,7 +7588,6 @@ $$\begin{aligned}
     <line x1="550" y1="125" x2="500" y2="125"/>
   </g>
   <text x="370" y="145" text-anchor="middle" class="fill-orange" font-size="14" font-weight="600">σ<tspan font-size="10" dy="3">12</tspan> = −a<tspan font-size="10" dy="0">2</tspan></text>
-
   <!-- Right edge: pointing Down -->
   <g class="stroke-orange" stroke-width="2" marker-end="url(#arr-orange-3)">
     <line x1="555" y1="130" x2="555" y2="170"/>
@@ -7646,7 +7595,6 @@ $$\begin{aligned}
     <line x1="555" y1="250" x2="555" y2="290"/>
   </g>
   <text x="540" y="215" text-anchor="end" class="fill-orange" font-size="14" font-weight="600">σ<tspan font-size="10" dy="3">12</tspan> = −a<tspan font-size="10" dy="0">2</tspan></text>
-
   <!-- Bottom edge: pointing Right -->
   <g class="stroke-orange" stroke-width="2" marker-end="url(#arr-orange-3)">
     <line x1="200" y1="295" x2="250" y2="295"/>
@@ -7656,7 +7604,6 @@ $$\begin{aligned}
     <line x1="500" y1="295" x2="550" y2="295"/>
   </g>
   <text x="370" y="285" text-anchor="middle" class="fill-orange" font-size="14" font-weight="600">σ<tspan font-size="10" dy="3">12</tspan> = −a<tspan font-size="10" dy="0">2</tspan></text>
-
   <!-- Left edge: pointing Up -->
   <g class="stroke-orange" stroke-width="2" marker-end="url(#arr-orange-3)">
     <line x1="185" y1="290" x2="185" y2="250"/>
@@ -7665,29 +7612,16 @@ $$\begin{aligned}
   </g>
   <text x="200" y="215" class="fill-orange" font-size="14" font-weight="600">σ<tspan font-size="10" dy="3">12</tspan> = −a<tspan font-size="10" dy="0">2</tspan></text>
 </svg></div>
-  
   <figcaption class="tikz-caption">
     <span class="tikz-caption-prefix">Figure:</span> Normal- und Schubspannungsvektoren an den vier Berandungen des rechteckigen Mars-Rover-Solarpanels.
   </figcaption>
-  
 </figure>
+  </div>
+</details>
 
 <hr>
 <h3 id="aufgabe-6-dreiecksstaumauer-unter-hydrostatischem-wasserdruck">Aufgabe 6: Dreiecksstaumauer unter hydrostatischem Wasserdruck</h3>
-<details class="smidr-collapse" open>
-  <summary class="smidr-collapse-summary">
-    <span class="smidr-collapse-title-wrap">
-      <span class="smidr-collapse-icon">▸</span>
-      <span class="smidr-collapse-title">Detaillierte Aufgabenstellung &amp; vollständiger Lösungsweg</span>
-    </span>
-    <span class="smidr-collapse-chevron" aria-hidden="true">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
-    </span>
-  </summary>
-  <div class="smidr-collapse-content">
-    <p><strong>Aufgabenstellung:</strong>
+<p><strong>Aufgabenstellung:</strong>
 Eine Gewichtsstaumauer mit dreieckigem Querschnitt $ABC$ (vertikale Wasserseite $AB$ bei $x=0$, Sohlfuge $BC$ bei $y=l$ und geneigte Luftseite $AC$ bei $x=y$) wird unter EVZ mit dem kubischen Ansatz analysiert:
 </p>
 $$\Phi(x, y) = \frac{1}{6}a_1 x^3 + \frac{1}{2}a_2 x^2 y + \frac{1}{2}a_3 x y^2 + \frac{1}{6}a_4 y^3$$<p>
@@ -7696,7 +7630,20 @@ Das Wasser übt den hydrostatischen Druck $p(y) = \rho g y$ auf die Seite $AB$ a
 <li>Ermitteln Sie die Konstanten $a_1, a_2, a_3, a_4$ aus den Randbedingungen.</li>
 <li>Bestimmen Sie den resultierenden Spannungsvektor in der Sohlfuge $BC$ zur Gewährleistung des statischen Gleichgewichts.</li>
 </ol>
-<p><strong>Lösung:</strong></p>
+<details class="smidr-collapse">
+  <summary class="smidr-collapse-summary">
+    <span class="smidr-collapse-title-wrap">
+      <span class="smidr-collapse-icon">▸</span>
+      <span class="smidr-collapse-title">Ausführliche Lösung anzeigen</span>
+    </span>
+    <span class="smidr-collapse-chevron" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </span>
+  </summary>
+  <div class="smidr-collapse-content">
+    <p><strong>Lösung:</strong></p>
 <ol>
 <li><strong>Biharmonische Eignung &amp; Spannungsformeln:</strong>
 Da $\Phi$ ein Polynom 3. Grades ist, sind alle vierten Ableitungen null: $\nabla^4 \Phi = 0$.
@@ -7739,14 +7686,9 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-
-  </div>
-</details>
-
-<figure class="tikz-container" id="tikz-1792277846399830267">
+<figure class="tikz-container" id="tikz-1792399246103062704">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
-    
   <style>
     .stroke-main { stroke: #0f172a; }
     .fill-main { fill: #0f172a; }
@@ -7789,36 +7731,33 @@ $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li
     :root[data-theme="light"] .plate-fill { fill: #0284c7; fill-opacity: 0.06; }
     :root[data-theme="light"] .dam-fill { stroke: #0284c7; stroke-opacity: 0.35; }
   </style>
-
-    <pattern id="dam-hatch" width="12" height="12" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-      <line x1="0" y1="0" x2="0" y2="12" class="dam-fill" stroke-width="1.5"/>
-    </pattern>
-    <marker id="arr-axis-4" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-axis"/>
-    </marker>
-    <marker id="arr-cyan-4" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-cyan"/>
-    </marker>
-    <marker id="arr-orange-4" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-orange"/>
-    </marker>
-    <marker id="arr-purple-4" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" class="fill-purple"/>
-    </marker>
+<pre><code>&lt;pattern id=&quot;dam-hatch&quot; width=&quot;12&quot; height=&quot;12&quot; patternTransform=&quot;rotate(45 0 0)&quot; patternUnits=&quot;userSpaceOnUse&quot;&gt;
+  &lt;line x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;12&quot; class=&quot;dam-fill&quot; stroke-width=&quot;1.5&quot;/&gt;
+&lt;/pattern&gt;
+&lt;marker id=&quot;arr-axis-4&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-axis&quot;/&gt;
+&lt;/marker&gt;
+&lt;marker id=&quot;arr-cyan-4&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-cyan&quot;/&gt;
+&lt;/marker&gt;
+&lt;marker id=&quot;arr-orange-4&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-orange&quot;/&gt;
+&lt;/marker&gt;
+&lt;marker id=&quot;arr-purple-4&quot; viewBox=&quot;0 0 10 10&quot; refX=&quot;7&quot; refY=&quot;5&quot; markerWidth=&quot;6&quot; markerHeight=&quot;6&quot; orient=&quot;auto-start-reverse&quot;&gt;
+  &lt;path d=&quot;M 0 1.5 L 8 5 L 0 8.5 z&quot; class=&quot;fill-purple&quot;/&gt;
+&lt;/marker&gt;
+</code></pre>
   </defs>
-
   <!-- Dam Triangle
        A (Crest, right-top): (460, 80)
        B (Toe, right-bottom): (460, 360)
        C (Heel, left-bottom): (180, 360)
   -->
   <polygon points="460,80 460,360 180,360" fill="url(#dam-hatch)" class="stroke-cyan" stroke-width="2.5"/>
-
   <!-- Vertices labels -->
-  <text x="465" y="70" class="fill-cyan" font-size="18" font-weight="700">A</text>
-  <text x="470" y="375" class="fill-cyan" font-size="18" font-weight="700">B</text>
-  <text x="165" y="375" class="fill-cyan" font-size="18" font-weight="700">C</text>
-
+<p><text x="465" y="70" class="fill-cyan" font-size="18" font-weight="700">A</text>
+<text x="470" y="375" class="fill-cyan" font-size="18" font-weight="700">B</text>
+<text x="165" y="375" class="fill-cyan" font-size="18" font-weight="700">C</text></p>
   <!-- Axes origin near A -->
   <g transform="translate(460, 45)">
     <line x1="0" y1="0" x2="-70" y2="0" class="stroke-axis" stroke-width="2" marker-end="url(#arr-axis-4)"/>
@@ -7826,21 +7765,17 @@ $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li
     <text x="-80" y="5" class="fill-axis" font-size="15" font-style="italic">x</text>
     <text x="60" y="105" class="fill-axis" font-size="15" font-style="italic">y</text>
   </g>
-
   <!-- Dimensions (l x l) -->
   <line x1="140" y1="80" x2="140" y2="360" class="stroke-axis" stroke-width="1.8"/>
   <line x1="130" y1="80" x2="150" y2="80" class="stroke-axis" stroke-width="1.8"/>
   <line x1="130" y1="360" x2="150" y2="360" class="stroke-axis" stroke-width="1.8"/>
   <text x="120" y="225" text-anchor="end" class="fill-axis" font-size="16" font-style="italic">l</text>
-
   <line x1="180" y1="390" x2="460" y2="390" class="stroke-axis" stroke-width="1.8"/>
   <line x1="180" y1="380" x2="180" y2="400" class="stroke-axis" stroke-width="1.8"/>
   <line x1="460" y1="380" x2="460" y2="400" class="stroke-axis" stroke-width="1.8"/>
   <text x="320" y="415" text-anchor="middle" class="fill-axis" font-size="16" font-style="italic">l</text>
-
   <!-- Hydrostatic Water Pressure on Vertical Face AB -->
   <polygon points="460,80 600,360 460,360" class="plate-fill stroke-cyan" stroke-width="1.8"/>
-  
   <g class="stroke-cyan" stroke-width="2" marker-end="url(#arr-cyan-4)">
     <line x1="480" y1="120" x2="463" y2="120"/>
     <line x1="505" y1="170" x2="463" y2="170"/>
@@ -7850,7 +7785,6 @@ $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li
     <line x1="598" y1="355" x2="463" y2="355"/>
   </g>
   <text x="615" y="240" class="fill-cyan" font-size="16" font-weight="600">p(y) = ρ<tspan font-size="11" dy="3">w</tspan> g y</text>
-
   <!-- Foundation Base Reaction Tractions along BC -->
   <!-- 1. Shear stress tx -->
   <g class="stroke-purple" stroke-width="2" marker-end="url(#arr-purple-4)">
@@ -7860,33 +7794,31 @@ $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li
     <line x1="430" y1="368" x2="455" y2="368"/>
   </g>
   <text x="475" y="372" class="fill-purple" font-size="14" font-weight="600">t<tspan font-size="10" dy="3">x</tspan></text>
-
   <!-- 2. Normal foundation tractions -->
   <line x1="180" y1="460" x2="460" y2="460" class="stroke-axis" stroke-width="1.2" stroke-dasharray="3,3"/>
   <line x1="180" y1="420" x2="460" y2="500" class="stroke-orange" stroke-width="2"/>
-  
   <g class="stroke-orange" stroke-width="1.8" marker-end="url(#arr-orange-4)">
     <line x1="190" y1="460" x2="190" y2="423"/>
     <line x1="225" y1="460" x2="225" y2="433"/>
     <line x1="260" y1="460" x2="260" y2="443"/>
     <line x1="295" y1="460" x2="295" y2="453"/>
-    
-    <line x1="345" y1="460" x2="345" y2="467"/>
-    <line x1="380" y1="460" x2="380" y2="477"/>
-    <line x1="415" y1="460" x2="415" y2="487"/>
-    <line x1="450" y1="460" x2="450" y2="497"/>
+<pre><code>&lt;line x1=&quot;345&quot; y1=&quot;460&quot; x2=&quot;345&quot; y2=&quot;467&quot;/&gt;
+&lt;line x1=&quot;380&quot; y1=&quot;460&quot; x2=&quot;380&quot; y2=&quot;477&quot;/&gt;
+&lt;line x1=&quot;415&quot; y1=&quot;460&quot; x2=&quot;415&quot; y2=&quot;487&quot;/&gt;
+&lt;line x1=&quot;450&quot; y1=&quot;460&quot; x2=&quot;450&quot; y2=&quot;497&quot;/&gt;
+</code></pre>
   </g>
-  
-  <text x="170" y="420" text-anchor="end" class="fill-orange" font-size="14" font-weight="600">+ρ g l</text>
-  <text x="470" y="505" class="fill-orange" font-size="14" font-weight="600">−ρ g l</text>
-  <text x="320" y="475" text-anchor="middle" class="fill-axis" font-size="12">t<tspan font-size="9" dy="2">y</tspan>(x)</text>
-</svg></div>
-  
+<p><text x="170" y="420" text-anchor="end" class="fill-orange" font-size="14" font-weight="600">+ρ g l</text>
+<text x="470" y="505" class="fill-orange" font-size="14" font-weight="600">−ρ g l</text>
+<text x="320" y="475" text-anchor="middle" class="fill-axis" font-size="12">t<tspan font-size="9" dy="2">y</tspan>(x)</text>
+</svg></div></p>
   <figcaption class="tikz-caption">
     <span class="tikz-caption-prefix">Figure:</span> Dreieckige Gewichtsstaumauer unter hydrostatischem Wasserdruck und resultierende Sohlreaktionsspannungen.
   </figcaption>
-  
 </figure>
+
+  </div>
+</details>
 
 <hr>
 <h1 id="teil-ii-strukturtheorien--variationsprinzipien">Teil II: Strukturtheorien &amp; Variationsprinzipien</h1>
@@ -8274,7 +8206,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Gleichungssystem lösen:</strong>
 Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\mathbf{K}\mathbf{c} = \mathbf{F}$, dessen Lösung die energieoptimalen Koeffizienten $c_i$ liefert.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1792277846400034783" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792399246105067564" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur &amp; Referenzen</span>
     </h2>
@@ -13835,7 +13767,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792277846432502894" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792399246163598006" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -13952,7 +13884,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792277846432502894");
+  const root = document.getElementById("neuron-1792399246163598006");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -14424,7 +14356,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792277846432502894" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792399246163598006" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -14541,7 +14473,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792277846432502894");
+  const root = document.getElementById("neuron-1792399246163598006");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
