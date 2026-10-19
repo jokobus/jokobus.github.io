@@ -17,7 +17,7 @@
 </div>
 
 
-<link rel="stylesheet" href="https://jokobus.github.io/css/pse.min.c490d8537554bbb456bb688833392d0e1cad62d42eb1528c576f412eb77cd1fc.css" integrity="sha256-xJDYU3VUu7RWu2iIMzktDhytYtQusVKMV29BLrd80fw=">
+<link rel="stylesheet" href="https://jokobus.github.io/css/pse.min.1f6d8f8b8938ff910ec2d95a9dd0e08cb256fb91f0d4d80155b9a58c83495377.css" integrity="sha256-H22Pi4k4/5EOwtlandDgjLJW&#43;5Hw1NgBVbmljINJU3c=">
 
 <div class="pse-container" data-lang="de">
   <noscript>
@@ -27,27 +27,27 @@
   </noscript>
 </div>
 
-<script defer src="https://jokobus.github.io/js/pse-data.min.b574f91f5518a2af7a25082844f666e41b6203f85a2f48fdd2b665571f600cc2.js" integrity="sha256-tXT5H1UYoq96JQgoRPZm5BtiA/haL0j90rZlVx9gDMI="></script>
-<script defer src="https://jokobus.github.io/js/pse.min.0fc2ab94725812a50c1a97aa86001cb7ef7d1565e942df12443575ee62654b27.js" integrity="sha256-D8KrlHJYEqUMGpeqhgAct&#43;99FWXpQt8SRDV17mJlSyc="></script>
+<script defer src="https://jokobus.github.io/js/pse-data.min.27d3cbff6e167f8f8216c3ab9baf15f8f53422506ca88fd4c1f8291320b0b668.js" integrity="sha256-J9PL/24Wf4&#43;CFsOrm68V&#43;PU0IlBsqI/UwfgpEyCwtmg="></script>
+<script defer src="https://jokobus.github.io/js/pse.min.deaf7f5900b033e22582bb778ad065734b64633988f7f073b537efce8d52d49b.js" integrity="sha256-3q9/WQCwM&#43;Ilgrt3itBlc0tkYzmI9/BztTfvzo1S1Js="></script>
 
 <hr>
 <h3 id="aufbau-der-elementkacheln">Aufbau der Elementkacheln</h3>
 <p>Jede Kachel fasst die zentralen physikalischen und chemischen Kenngrößen zusammen, angelehnt an wissenschaftliche Standard-Periodensysteme:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">┌──────────────────────────────────────────────┐
-</span></span><span class="line"><span class="cl">│  1.008 (Atommasse Ar)           2.20 (EN)    │
-</span></span><span class="line"><span class="cl">│                                              │
-</span></span><span class="line"><span class="cl">│  1 (Ordnungszahl Z)           H (Symbol)     │
-</span></span><span class="line"><span class="cl">│                                              │
-</span></span><span class="line"><span class="cl">│  -259° / -253° (Smp/Sdp) Wasserstoff 0.09 g/L│
-</span></span><span class="line"><span class="cl">└──────────────────────────────────────────────┘
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">┌───────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│  1.008 (Atommasse Ar)           2.20 (EN)     │
+</span></span><span class="line"><span class="cl">│                                               │
+</span></span><span class="line"><span class="cl">│  1 (Ordnungszahl Z)             H (Symbol)    │
+</span></span><span class="line"><span class="cl">│                                               │
+</span></span><span class="line"><span class="cl">│  -259° / -253° (Smp/Sdp) Wasserstoff 0.09 g/L │
+</span></span><span class="line"><span class="cl">└───────────────────────────────────────────────────┘
 </span></span></code></pre></div><ol>
 <li><strong>Oben links</strong>: Relative Atommasse ($A_r$) gemäß IUPAC. Bei radioaktiven Elementen ohne stabile Isotope steht die Massenzahl des langlebigsten Nuklids in eckigen Klammern.</li>
 <li><strong>Oben rechts</strong>: Elektronegativität nach der Pauling-Skala.</li>
 <li><strong>Mitte links</strong>: Ordnungszahl bzw. Kernladungszahl ($Z$), entsprechend der Anzahl der Protonen im Atomkern.</li>
-<li><strong>Mitte</strong>: Chemisches Elementsymbol, farblich codiert nach dem Aggregatzustand bei $20\,^\circ\text{C}$ (Schwarz/Weiß für Feststoffe, Blau für Flüssigkeiten, Rot für Gase, Grau für künstliche Elemente).</li>
+<li><strong>Mitte</strong>: Chemisches Elementsymbol, farblich codiert nach dem Aggregatzustand bei $20^\circ\text{C}$ (Schwarz/Weiß für Feststoffe, Blau für Flüssigkeiten, Rot für Gase, Grau für künstliche Elemente).</li>
 <li><strong>Unten links</strong>: Schmelz- und Siedepunkt in Grad Celsius ($^\circ\text{C}$).</li>
 <li><strong>Unten Mitte</strong>: Deutscher Elementname (bzw. Englisch per Schalter oben).</li>
-<li><strong>Unten rechts</strong>: Dichte bei $20\,^\circ\text{C}$ ($1\,\text{bar}$).</li>
+<li><strong>Unten rechts</strong>: Dichte bei $20^\circ\text{C}$ ($1\,\text{bar}$).</li>
 </ol>
 <hr>
 <h3 id="periodizität-und-gesetzmäßigkeiten-im-pse">Periodizität und Gesetzmäßigkeiten im PSE</h3>
@@ -90,7 +90,7 @@
 </div>
 
 
-<link rel="stylesheet" href="https://jokobus.github.io/css/pse.min.c490d8537554bbb456bb688833392d0e1cad62d42eb1528c576f412eb77cd1fc.css" integrity="sha256-xJDYU3VUu7RWu2iIMzktDhytYtQusVKMV29BLrd80fw=">
+<link rel="stylesheet" href="https://jokobus.github.io/css/pse.min.1f6d8f8b8938ff910ec2d95a9dd0e08cb256fb91f0d4d80155b9a58c83495377.css" integrity="sha256-H22Pi4k4/5EOwtlandDgjLJW&#43;5Hw1NgBVbmljINJU3c=">
 
 <div class="pse-container" data-lang="de">
   <noscript>
@@ -100,27 +100,27 @@
   </noscript>
 </div>
 
-<script defer src="https://jokobus.github.io/js/pse-data.min.b574f91f5518a2af7a25082844f666e41b6203f85a2f48fdd2b665571f600cc2.js" integrity="sha256-tXT5H1UYoq96JQgoRPZm5BtiA/haL0j90rZlVx9gDMI="></script>
-<script defer src="https://jokobus.github.io/js/pse.min.0fc2ab94725812a50c1a97aa86001cb7ef7d1565e942df12443575ee62654b27.js" integrity="sha256-D8KrlHJYEqUMGpeqhgAct&#43;99FWXpQt8SRDV17mJlSyc="></script>
+<script defer src="https://jokobus.github.io/js/pse-data.min.27d3cbff6e167f8f8216c3ab9baf15f8f53422506ca88fd4c1f8291320b0b668.js" integrity="sha256-J9PL/24Wf4&#43;CFsOrm68V&#43;PU0IlBsqI/UwfgpEyCwtmg="></script>
+<script defer src="https://jokobus.github.io/js/pse.min.deaf7f5900b033e22582bb778ad065734b64633988f7f073b537efce8d52d49b.js" integrity="sha256-3q9/WQCwM&#43;Ilgrt3itBlc0tkYzmI9/BztTfvzo1S1Js="></script>
 
 <hr>
 <h3 id="aufbau-der-elementkacheln">Aufbau der Elementkacheln</h3>
 <p>Jede Kachel fasst die zentralen physikalischen und chemischen Kenngrößen zusammen, angelehnt an wissenschaftliche Standard-Periodensysteme:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">┌──────────────────────────────────────────────┐
-</span></span><span class="line"><span class="cl">│  1.008 (Atommasse Ar)           2.20 (EN)    │
-</span></span><span class="line"><span class="cl">│                                              │
-</span></span><span class="line"><span class="cl">│  1 (Ordnungszahl Z)           H (Symbol)     │
-</span></span><span class="line"><span class="cl">│                                              │
-</span></span><span class="line"><span class="cl">│  -259° / -253° (Smp/Sdp) Wasserstoff 0.09 g/L│
-</span></span><span class="line"><span class="cl">└──────────────────────────────────────────────┘
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">┌───────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│  1.008 (Atommasse Ar)           2.20 (EN)     │
+</span></span><span class="line"><span class="cl">│                                               │
+</span></span><span class="line"><span class="cl">│  1 (Ordnungszahl Z)             H (Symbol)    │
+</span></span><span class="line"><span class="cl">│                                               │
+</span></span><span class="line"><span class="cl">│  -259° / -253° (Smp/Sdp) Wasserstoff 0.09 g/L │
+</span></span><span class="line"><span class="cl">└───────────────────────────────────────────────────┘
 </span></span></code></pre></div><ol>
 <li><strong>Oben links</strong>: Relative Atommasse ($A_r$) gemäß IUPAC. Bei radioaktiven Elementen ohne stabile Isotope steht die Massenzahl des langlebigsten Nuklids in eckigen Klammern.</li>
 <li><strong>Oben rechts</strong>: Elektronegativität nach der Pauling-Skala.</li>
 <li><strong>Mitte links</strong>: Ordnungszahl bzw. Kernladungszahl ($Z$), entsprechend der Anzahl der Protonen im Atomkern.</li>
-<li><strong>Mitte</strong>: Chemisches Elementsymbol, farblich codiert nach dem Aggregatzustand bei $20\,^\circ\text{C}$ (Schwarz/Weiß für Feststoffe, Blau für Flüssigkeiten, Rot für Gase, Grau für künstliche Elemente).</li>
+<li><strong>Mitte</strong>: Chemisches Elementsymbol, farblich codiert nach dem Aggregatzustand bei $20^\circ\text{C}$ (Schwarz/Weiß für Feststoffe, Blau für Flüssigkeiten, Rot für Gase, Grau für künstliche Elemente).</li>
 <li><strong>Unten links</strong>: Schmelz- und Siedepunkt in Grad Celsius ($^\circ\text{C}$).</li>
 <li><strong>Unten Mitte</strong>: Deutscher Elementname (bzw. Englisch per Schalter oben).</li>
-<li><strong>Unten rechts</strong>: Dichte bei $20\,^\circ\text{C}$ ($1\,\text{bar}$).</li>
+<li><strong>Unten rechts</strong>: Dichte bei $20^\circ\text{C}$ ($1\,\text{bar}$).</li>
 </ol>
 <hr>
 <h3 id="periodizität-und-gesetzmäßigkeiten-im-pse">Periodizität und Gesetzmäßigkeiten im PSE</h3>
@@ -4928,7 +4928,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1792400411399745219">
+<figure class="tikz-container" id="tikz-1792404323622083581">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -5064,7 +5064,7 @@ wobei $\bm{b}$ die spezifische Volumenkraft (z. B. Schwerebeschleunigung $\bm{g}
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-konstitutivgesetze--lineare-elastizität">4. Konstitutivgesetze &amp; lineare Elastizität</h2>
-<figure class="tikz-container" id="tikz-1792400411400023401">
+<figure class="tikz-container" id="tikz-1792404323622274699">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -5670,7 +5670,7 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1792400411401236193">
+<figure class="tikz-container" id="tikz-1792404323623406950">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -5881,7 +5881,7 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1792400411402107258">
+<figure class="tikz-container" id="tikz-1792404323624237245">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -6401,7 +6401,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Gleichungssystem lösen:</strong>
 Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\mathbf{K}\mathbf{c} = \mathbf{F}$, dessen Lösung die energieoptimalen Koeffizienten $c_i$ liefert.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1792400411403970430" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792404323626540018" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur &amp; Referenzen</span>
     </h2>
@@ -6733,7 +6733,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1792400411399745219">
+<figure class="tikz-container" id="tikz-1792404323622083581">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -6869,7 +6869,7 @@ wobei $\bm{b}$ die spezifische Volumenkraft (z. B. Schwerebeschleunigung $\bm{g}
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-konstitutivgesetze--lineare-elastizität">4. Konstitutivgesetze &amp; lineare Elastizität</h2>
-<figure class="tikz-container" id="tikz-1792400411400023401">
+<figure class="tikz-container" id="tikz-1792404323622274699">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -7475,7 +7475,7 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1792400411401236193">
+<figure class="tikz-container" id="tikz-1792404323623406950">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -7686,7 +7686,7 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1792400411402107258">
+<figure class="tikz-container" id="tikz-1792404323624237245">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -8206,7 +8206,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Gleichungssystem lösen:</strong>
 Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\mathbf{K}\mathbf{c} = \mathbf{F}$, dessen Lösung die energieoptimalen Koeffizienten $c_i$ liefert.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1792400411403970430" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792404323626540018" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur &amp; Referenzen</span>
     </h2>
@@ -13767,7 +13767,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792400411460707243" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792404323686285570" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -13884,7 +13884,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792400411460707243");
+  const root = document.getElementById("neuron-1792404323686285570");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -14356,7 +14356,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792400411460707243" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792404323686285570" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -14473,7 +14473,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792400411460707243");
+  const root = document.getElementById("neuron-1792404323686285570");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
