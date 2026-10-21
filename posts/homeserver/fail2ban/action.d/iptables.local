@@ -1,0 +1,6 @@
+[Init]
+blocktype = REJECT --reject-with icmp-port-unreachable # to reject them and print an error message
+# blocktpe = DROP # to entirely ignore those requests
+[Init?family=inet6]
+blocktype = REJECT --reject-with icmp6-port-unreachable
+# blocktype = DROP

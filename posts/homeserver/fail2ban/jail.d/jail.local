@@ -1,0 +1,5 @@
+[DEFAULT]
+action = %(action_)s
+         smtp.py[sendername="Fail2Ban", host="smtp.strato.de:587", ssl=true, matches="matches"]
+
+# smtp.py[dest="%(destemail)s", sender="%(sender)s", sendername="Fail2Ban", host="smtp.strato.de:587", ssl=true, matches="matches"]

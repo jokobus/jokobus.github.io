@@ -1,0 +1,12 @@
+[vaultwarden-long]
+# if 5 tries in 1 hour fail -> banned for 24 hours
+enabled = true
+port = 80,443,8081
+filter = vaultwarden
+banaction = %(banaction_allports)s
+# banaction = iptables # if fail2ban uses nftables, but docker still iptables (uncomment this line and comment line above)
+logpath = /vwdata/vaultwarden.log
+maxretry = 4
+bantime = 86400
+findtime = 3600
+chain = FORWARD

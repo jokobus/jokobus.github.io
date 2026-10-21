@@ -1,0 +1,14 @@
+# This is the backup of the fstab file located at /etc/ on your SSD
+# This is the fstab you should get after the initial installation
+# During setup (when mounted SSD while running RaspberryPiOS still from the SD) this file is located at /mnt/new/etc/ 
+# Caution: Only modify if you really know what you are doing
+# Tipp: Don't use the 'Tab' character, but only whitespaces
+# Tipp: In case you make changes here and the RaspberryPi is not booting anymore, unplug the SD/SSD, plug it into your PC and edit the fstab (under /mnt/...) to a previous working version
+
+proc                                           /proc            proc    defaults                               0       0
+PARTUUID=5cfec5ed-543f-4af5-be34-d2dbc4ed1850  /boot/firmware   vfat    defaults                               0       2
+PARTUUID=59962271-3556-486f-93ca-5824bb12b837  /                ext4    defaults,noatime                       0       1
+PARTUUID=9cedc338-b5c8-4491-be33-f9adcf074f4e  /mnt/sda4/       btrfs   defaults                               0       0
+
+# a swapfile is not a swap partition, no line here
+#   use  dphys-swapfile swap[on|off]  for that

@@ -1,4 +1,4 @@
-<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="ie=edge"><title>Posts | Jokobus</title><meta name=description content="Quick notes, howtos and deep-dives into robotics, neural network architectures and modern software engineering."><link rel=canonical href=https://jokobus.github.io/posts/><meta property="og:title" content="Posts"><meta property="og:description" content="Quick notes, howtos and deep-dives into robotics, neural network architectures and modern software engineering."><meta property="og:type" content="website"><meta property="og:url" content="https://jokobus.github.io/posts/"><meta property="og:site_name" content="Jokobus"><meta property="article:published_time" content="2026-10-17T12:00:00+02:00"><meta property="article:modified_time" content="2026-10-17T12:00:00+02:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Posts"><meta name=twitter:description content="Quick notes, howtos and deep-dives into robotics, neural network architectures and modern software engineering."><link rel=icon type=image/svg+xml href=/favicon.svg><link rel=icon type=image/x-icon href=/favicon.ico><link rel="shortcut icon" href=/favicon.ico><link rel=apple-touch-icon href=/favicon.svg><link rel=alternate type=application/rss+xml title=Jokobus href=/index.xml><script src=/js/theme-init.min.7a06c4fc6e3d4b60d8f2f06f4b5a6104a1e8cf5f1c06894452bebf098cb5dc7b.js></script><link rel=stylesheet href=/css/smidr-bundle.min.500a7426f9cefd4ad746e5df7ba2218f8ca32406aa8bbe2276dd99386880922c.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js crossorigin=anonymous></script></head><body><a href=#main-content class=skip-link>Skip to content</a><header class=site-header role=banner><div class="container-wide header-inner"><a href=/ class=site-logo aria-label="Jokobus Home"><span class=logo-badge title=Jokobus><svg class="logo-hammer-svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><defs><linearGradient id="headerHammerGrad" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0" stop-color="#00f0ff"/><stop offset="50%" stop-color="#8a2be2"/><stop offset="100%" stop-color="#ff007a"/></linearGradient><linearGradient id="headerMetalShaft" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0" stop-color="#cbd5e1"/><stop offset="50%" stop-color="#64748b"/><stop offset="100%" stop-color="#1e293b"/></linearGradient></defs><g transform="translate(50, 52) rotate(-35) translate(-50, -50)"><path d="M46 44h8l1 42H45z" fill="url(#headerMetalShaft)"/><rect x="44.5" y="60" width="11" height="3" rx="1.5" fill="#00f0ff"/><rect x="44.5" y="68" width="11" height="3" rx="1.5" fill="#a855f7"/><rect x="44.5" y="76" width="11" height="3" rx="1.5" fill="#ff007a"/><rect x="43" y="85" width="14" height="4" rx="2" fill="url(#headerHammerGrad)"/><path d="M22 24H78l4 6-2 14-4 4H24l-4-4-2-14z" fill="url(#headerHammerGrad)"/><polygon points="18,30 22,24 22,48 20,44" fill="#fff" opacity=".85"/><polygon points="78,24 82,30 80,44 76,48" fill="#00f0ff" opacity=".9"/><rect x="36" y="32" width="28" height="8" rx="2" fill="#090d16" opacity=".7"/><line x1="38" y1="36" x2="62" y2="36" stroke="#00f0ff" stroke-width="2" stroke-linecap="round"/><circle cx="50" cy="36" r="2.5" fill="#ff007a"/></g></svg>
+<!doctype html><html lang=en dir=ltr data-palette=cyber data-gradient=true><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="ie=edge"><title>Posts | Jokobus</title><meta name=description content="Quick notes, howtos and deep-dives into robotics, neural network architectures and modern software engineering."><link rel=canonical href=https://jokobus.github.io/posts/><meta property="og:title" content="Posts"><meta property="og:description" content="Quick notes, howtos and deep-dives into robotics, neural network architectures and modern software engineering."><meta property="og:type" content="website"><meta property="og:url" content="https://jokobus.github.io/posts/"><meta property="og:site_name" content="Jokobus"><meta property="article:published_time" content="2026-10-17T12:00:00+02:00"><meta property="article:modified_time" content="2026-10-17T12:00:00+02:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Posts"><meta name=twitter:description content="Quick notes, howtos and deep-dives into robotics, neural network architectures and modern software engineering."><link rel=icon type=image/svg+xml href=/favicon.svg><link rel=icon type=image/x-icon href=/favicon.ico><link rel="shortcut icon" href=/favicon.ico><link rel=apple-touch-icon href=/favicon.svg><link rel=alternate type=application/rss+xml title=Jokobus href=/index.xml><script src=/js/theme-init.min.7a06c4fc6e3d4b60d8f2f06f4b5a6104a1e8cf5f1c06894452bebf098cb5dc7b.js></script><link rel=stylesheet href=/css/smidr-bundle.min.a8402f9f7b1c90848d669d932961aa2f87370b7a368b1e59bfe2ae04af9a66cb.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js crossorigin=anonymous></script></head><body><a href=#main-content class=skip-link>Skip to content</a><header class=site-header role=banner><div class="container-wide header-inner"><a href=/ class=site-logo aria-label="Jokobus Home"><span class=logo-badge title=Jokobus><svg class="logo-hammer-svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><defs><linearGradient id="headerHammerGrad" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0" stop-color="#00f0ff"/><stop offset="50%" stop-color="#8a2be2"/><stop offset="100%" stop-color="#ff007a"/></linearGradient><linearGradient id="headerMetalShaft" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0" stop-color="#cbd5e1"/><stop offset="50%" stop-color="#64748b"/><stop offset="100%" stop-color="#1e293b"/></linearGradient></defs><g transform="translate(50, 52) rotate(-35) translate(-50, -50)"><path d="M46 44h8l1 42H45z" fill="url(#headerMetalShaft)"/><rect x="44.5" y="60" width="11" height="3" rx="1.5" fill="#00f0ff"/><rect x="44.5" y="68" width="11" height="3" rx="1.5" fill="#a855f7"/><rect x="44.5" y="76" width="11" height="3" rx="1.5" fill="#ff007a"/><rect x="43" y="85" width="14" height="4" rx="2" fill="url(#headerHammerGrad)"/><path d="M22 24H78l4 6-2 14-4 4H24l-4-4-2-14z" fill="url(#headerHammerGrad)"/><polygon points="18,30 22,24 22,48 20,44" fill="#fff" opacity=".85"/><polygon points="78,24 82,30 80,44 76,48" fill="#00f0ff" opacity=".9"/><rect x="36" y="32" width="28" height="8" rx="2" fill="#090d16" opacity=".7"/><line x1="38" y1="36" x2="62" y2="36" stroke="#00f0ff" stroke-width="2" stroke-linecap="round"/><circle cx="50" cy="36" r="2.5" fill="#ff007a"/></g></svg>
 </span><span class=logo-text>Jokobus</span></a><nav class="site-nav desktop-nav" aria-label="Main Navigation"><ul class=nav-menu><li><a class=nav-link href=/>Home</a></li><li><a class="nav-link active" href=/posts/>Blog</a></li><li><a class=nav-link href=/about/>About</a></li><li><a class=nav-link href=/contact/>Contact</a></li></ul></nav><div class=header-actions><button id=search-trigger-btn class=search-trigger-btn type=button data-action=open-search aria-label="Press Ctrl+K or Cmd+K to search">
 <span>🔍</span>
 <span class=search-btn-text>Type a...</span>
@@ -12,27 +12,29 @@
 <span class=hamburger-icon>☰</span></button></div></div><div id=mobile-nav-drawer class=mobile-nav-drawer aria-hidden=true><div class=container><ul class=mobile-menu-list><li><a class=mobile-nav-link href=/>Home</a></li><li><a class="mobile-nav-link active" href=/posts/>Blog</a></li><li><a class=mobile-nav-link href=/about/>About</a></li><li><a class=mobile-nav-link href=/contact/>Contact</a></li><li class=mobile-menu-divider></li><li><button type=button class=mobile-nav-link data-action=open-search style="width:100%;text-align:left;background:0 0;border:none;cursor:pointer;font-family:inherit;font-size:inherit;color:inherit;padding:.75rem .5rem;display:flex;align-items:center;gap:.5rem">
 <span>🔍</span>
 <span>Type a command or search posts...</span></button></li><li><a class=mobile-nav-link href=/categories/>📂 Categories</a></li><li><a class=mobile-nav-link href=/tags/>🏷️ Tags</a></li></ul></div></div></header><main id=main-content class=site-main role=main><div class=container-wide><header class=article-header style=margin-bottom:2rem><h1 class=article-title>Posts</h1></header><div class=blog-layout><div class=blog-layout-spacer aria-hidden=true></div><main class=blog-main><div class=posts-grid id=blog-posts-grid><article class=post-card data-title="interactive periodic table of the elements" data-date=1792231200 data-reading-time=3 data-categories="science,interactive tools" data-tags="chemistry,science,periodic table,interactive,engineering"><div class=post-card-date>17. Oct 2026</div><h3 class=post-card-title><a href=/pse/ style=color:inherit;text-decoration:none>Interactive Periodic Table of the Elements</a></h3><p class=post-card-summary>A comprehensive, bilingual, and interactive Periodic Table of the Elements (PSE) featuring all 118 chemical elements, full …</p><div class=post-card-meta><span>⏱️ ~3 min read</span><div class=post-tags><span class=tag-badge>#Chemistry</span>
-<span class=tag-badge>#Science</span></div></div></article><article class=post-card data-title="single vs multi lane waiting" data-date=1786520514 data-reading-time=6 data-categories=mathematics,simulation data-tags="queueing theory,markov chains,probability"><div class=post-card-date>12. Aug 2026</div><h3 class=post-card-title><a href=/posts/single-vs-multi-lane-waiting/ style=color:inherit;text-decoration:none>Single vs Multi Lane Waiting</a></h3><p class=post-card-summary>Why Single-Line Queuing Outperforms Multi-Line Queuing: A Markovian Perspective</p><div class=post-card-meta><span>⏱️ ~6 min read</span><div class=post-tags><span class=tag-badge>#Queueing Theory</span>
+<span class=tag-badge>#Science</span></div></div></article><article class=post-card data-title="complete raspberry pi 4 homeserver guide: nextcloud aio, vaultwarden, immich, caddy & fail2ban on a 4tb ssd" data-date=1792022400 data-reading-time=32 data-categories=guide data-tags="raspberry pi,homeserver,nextcloud,docker,vaultwarden,caddy,immich,linux,self-hosted"><div class=post-card-date>15. Oct 2026</div><h3 class=post-card-title><a href=/posts/homeserver/ style=color:inherit;text-decoration:none>Complete Raspberry Pi 4 Homeserver Guide: Nextcloud AIO, Vaultwarden, Immich, Caddy & Fail2ban on a 4TB SSD</a></h3><p class=post-card-summary>A comprehensive, beginner-friendly blueprint for building a silent, low-power homeserver on Raspberry Pi 4 with GPT SSD boot, …</p><div class=post-card-meta><span>⏱️ ~32 min read</span><div class=post-tags><span class=tag-badge>#Raspberry Pi</span>
+<span class=tag-badge>#Homeserver</span></div></div></article><article class=post-card data-title="single vs multi lane waiting" data-date=1786520514 data-reading-time=6 data-categories=project data-tags="queueing theory,markov chains,probability,mathematics,simulation"><div class=post-card-date>12. Aug 2026</div><h3 class=post-card-title><a href=/posts/single-vs-multi-lane-waiting/ style=color:inherit;text-decoration:none>Single vs Multi Lane Waiting</a></h3><p class=post-card-summary>Why Single-Line Queuing Outperforms Multi-Line Queuing: A Markovian Perspective</p><div class=post-card-meta><span>⏱️ ~6 min read</span><div class=post-tags><span class=tag-badge>#Queueing Theory</span>
 <span class=tag-badge>#Markov Chains</span></div></div></article><article class=post-card data-title="new york city bnb analysis" data-date=1783202400 data-reading-time=28 data-categories=project data-tags="r,data science,machine learning,quarto,geospatial"><div class=post-card-date>05. Jul 2026</div><h3 class=post-card-title><a href=/posts/nyc_bnb/ style=color:inherit;text-decoration:none>New York City BnB Analysis</a></h3><p class=post-card-summary>Exploratory data analysis, geospatial clustering, and predictive machine learning models on NYC Bed & Breakfast listings.</p><div class=post-card-meta><span>⏱️ ~28 min read</span><div class=post-tags><span class=tag-badge>#R</span>
-<span class=tag-badge>#Data Science</span></div></div></article><article class=post-card data-title="installing pytorch with cuda & pyg in conda" data-date=1782855074 data-reading-time=2 data-categories=howto data-tags="conda,cuda,pytorch,python,deep learning"><div class=post-card-date>30. Jun 2026</div><h3 class=post-card-title><a href=/posts/conda-cuda-pytorch/ style=color:inherit;text-decoration:none>Installing PyTorch with CUDA & PyG in Conda</a></h3><p class=post-card-summary>A reliable step-by-step walkthrough to set up PyTorch with hardware GPU acceleration (CUDA) and PyTorch Geometric in an isolated …</p><div class=post-card-meta><span>⏱️ ~2 min read</span><div class=post-tags><span class=tag-badge>#Conda</span>
+<span class=tag-badge>#Data Science</span></div></div></article><article class=post-card data-title="installing pytorch with cuda & pyg in conda" data-date=1782855074 data-reading-time=2 data-categories=howtos data-tags="conda,cuda,pytorch,python,deep learning"><div class=post-card-date>30. Jun 2026</div><h3 class=post-card-title><a href=/posts/conda-cuda-pytorch/ style=color:inherit;text-decoration:none>Installing PyTorch with CUDA & PyG in Conda</a></h3><p class=post-card-summary>A reliable step-by-step walkthrough to set up PyTorch with hardware GPU acceleration (CUDA) and PyTorch Geometric in an isolated …</p><div class=post-card-meta><span>⏱️ ~2 min read</span><div class=post-tags><span class=tag-badge>#Conda</span>
 <span class=tag-badge>#CUDA</span></div></div></article><article class=post-card data-title="deploy local ai via ollama, open-webui and vscode/vscodium" data-date=1782842519 data-reading-time=7 data-categories=guide data-tags=ollama,ide,vscode,vscodium><div class=post-card-date>30. Jun 2026</div><h3 class=post-card-title><a href=/posts/ollama_webui_vscode/ style=color:inherit;text-decoration:none>Deploy local AI via Ollama, Open-WebUI and VSCode/VSCodium</a></h3><p class=post-card-summary>A short guide to installing Ollama completely locally, serving it via Open-WebUI, and integrating it as an AI chat and …</p><div class=post-card-meta><span>⏱️ ~7 min read</span><div class=post-tags><span class=tag-badge>#Ollama</span>
-<span class=tag-badge>#IDE</span></div></div></article><article class=post-card data-title="install custom applications on linux" data-date=1780471311 data-reading-time=2 data-categories=howto data-tags=linux><div class=post-card-date>03. Jun 2026</div><h3 class=post-card-title><a href=/posts/linux/install-custom-applications-on-linux/ style=color:inherit;text-decoration:none>Install Custom Applications on Linux</a></h3><p class=post-card-summary>A guide on installing standalone Linux applications and creating desktop shortcuts (.desktop files) for a seamless desktop …</p><div class=post-card-meta><span>⏱️ ~2 min read</span><div class=post-tags><span class=tag-badge>#Linux</span></div></div></article><article class=post-card data-title="git & github" data-date=1780444800 data-reading-time=7 data-categories=guide data-tags=git,github><div class=post-card-date>03. Jun 2026</div><h3 class=post-card-title><a href=/posts/git/ style=color:inherit;text-decoration:none>Git & GitHub</a></h3><p class=post-card-summary>My summary of Git and GitHub essentials</p><div class=post-card-meta><span>⏱️ ~7 min read</span><div class=post-tags><span class=tag-badge>#Git</span>
-<span class=tag-badge>#GitHub</span></div></div></article><article class=post-card data-title="avoid python package import-errors in vscodium or vscode" data-date=1780237031 data-reading-time=1 data-categories=howto data-tags=ide,vscodium><div class=post-card-date>31. May 2026</div><h3 class=post-card-title><a href=/posts/vscodium_ignore-import-errors/ style=color:inherit;text-decoration:none>Avoid Python Package Import-Errors in VSCodium or VSCode</a></h3><p class=post-card-summary>How to resolve false-positive missing import errors in VS Code and VSCodium when using Conda environments.</p><div class=post-card-meta><span>⏱️ ~1 min read</span><div class=post-tags><span class=tag-badge>#IDE</span>
-<span class=tag-badge>#VSCodium</span></div></div></article><article class=post-card data-title="tune vscodium for python" data-date=1780137664 data-reading-time=1 data-categories=howto data-tags=ide,vscodium,python><div class=post-card-date>30. May 2026</div><h3 class=post-card-title><a href=/posts/vscodium_tune4python/ style=color:inherit;text-decoration:none>Tune VSCodium for Python</a></h3><p class=post-card-summary>Two simple steps to tune VSCodium for better Python Programming Experience</p><div class=post-card-meta><span>⏱️ ~1 min read</span><div class=post-tags><span class=tag-badge>#IDE</span>
-<span class=tag-badge>#VSCodium</span></div></div></article><article class=post-card data-title="structural mechanics modeling: continuum elasticity, structural elements & variational methods" data-date=1772045100 data-reading-time=36 data-categories=engineering,mechanics data-tags="structural mechanics,continuum mechanics,elasticity,fem,tensors,beams,plates"><div class=post-card-date>25. Feb 2026</div><h3 class=post-card-title><a href=/posts/structural-mechanics/ style=color:inherit;text-decoration:none>Structural Mechanics Modeling: Continuum Elasticity, Structural Elements & Variational Methods</a></h3><p class=post-card-summary>A comprehensive engineering compendium bridging 3D continuum mechanics, tensor calculus, Airy stress functions, Timoshenko and …</p><div class=post-card-meta><span>⏱️ ~36 min read</span><div class=post-tags><span class=tag-badge>#Structural Mechanics</span>
+<span class=tag-badge>#IDE</span></div></div></article><article class=post-card data-title="install custom applications on linux" data-date=1780471311 data-reading-time=2 data-categories=howtos data-tags=linux><div class=post-card-date>03. Jun 2026</div><h3 class=post-card-title><a href=/posts/linux/install-custom-applications-on-linux/ style=color:inherit;text-decoration:none>Install Custom Applications on Linux</a></h3><p class=post-card-summary>A guide on installing standalone Linux applications and creating desktop shortcuts (.desktop files) for a seamless desktop …</p><div class=post-card-meta><span>⏱️ ~2 min read</span><div class=post-tags><span class=tag-badge>#Linux</span></div></div></article><article class=post-card data-title="git & github" data-date=1780444800 data-reading-time=7 data-categories=guide data-tags=git,github><div class=post-card-date>03. Jun 2026</div><h3 class=post-card-title><a href=/posts/git/ style=color:inherit;text-decoration:none>Git & GitHub</a></h3><p class=post-card-summary>My summary of Git and GitHub essentials</p><div class=post-card-meta><span>⏱️ ~7 min read</span><div class=post-tags><span class=tag-badge>#Git</span>
+<span class=tag-badge>#GitHub</span></div></div></article><article class=post-card data-title="avoid python package import-errors in vscodium or vscode" data-date=1780237031 data-reading-time=1 data-categories=howtos data-tags=ide,vscodium><div class=post-card-date>31. May 2026</div><h3 class=post-card-title><a href=/posts/vscodium_ignore-import-errors/ style=color:inherit;text-decoration:none>Avoid Python Package Import-Errors in VSCodium or VSCode</a></h3><p class=post-card-summary>How to resolve false-positive missing import errors in VS Code and VSCodium when using Conda environments.</p><div class=post-card-meta><span>⏱️ ~1 min read</span><div class=post-tags><span class=tag-badge>#IDE</span>
+<span class=tag-badge>#VSCodium</span></div></div></article><article class=post-card data-title="tune vscodium for python" data-date=1780137664 data-reading-time=1 data-categories=howtos data-tags=ide,vscodium,python><div class=post-card-date>30. May 2026</div><h3 class=post-card-title><a href=/posts/vscodium_tune4python/ style=color:inherit;text-decoration:none>Tune VSCodium for Python</a></h3><p class=post-card-summary>Two simple steps to tune VSCodium for better Python Programming Experience</p><div class=post-card-meta><span>⏱️ ~1 min read</span><div class=post-tags><span class=tag-badge>#IDE</span>
+<span class=tag-badge>#VSCodium</span></div></div></article><article class=post-card data-title="smidr quick start guide: interactive cheatsheet & features" data-date=1774440000 data-reading-time=8 data-categories=guide data-tags="hugo,smidr,web development,interactive,cheatsheet"><div class=post-card-date>25. Mar 2026</div><h3 class=post-card-title><a href=/posts/smidr-quickstart/ style=color:inherit;text-decoration:none>Smidr Quick Start Guide: Interactive Cheatsheet & Features</a></h3><p class=post-card-summary>A complete interactive showcase and copy-paste reference of all components, shortcodes, and technical features in the Smidr Hugo …</p><div class=post-card-meta><span>⏱️ ~8 min read</span><div class=post-tags><span class=tag-badge>#Hugo</span>
+<span class=tag-badge>#Smidr</span></div></div></article><article class=post-card data-title="structural mechanics modeling: continuum elasticity, structural elements & variational methods" data-date=1772045100 data-reading-time=36 data-categories=guide data-tags="structural mechanics,continuum mechanics,elasticity,fem,tensors,beams,plates,engineering,mechanics"><div class=post-card-date>25. Feb 2026</div><h3 class=post-card-title><a href=/posts/structural-mechanics/ style=color:inherit;text-decoration:none>Structural Mechanics Modeling: Continuum Elasticity, Structural Elements & Variational Methods</a></h3><p class=post-card-summary>A comprehensive engineering compendium bridging 3D continuum mechanics, tensor calculus, Airy stress functions, Timoshenko and …</p><div class=post-card-meta><span>⏱️ ~36 min read</span><div class=post-tags><span class=tag-badge>#Structural Mechanics</span>
 <span class=tag-badge>#Continuum Mechanics</span></div></div></article><article class=post-card data-title="ergonomic typing with neo layout (bone variant)" data-date=1750078286 data-reading-time=2 data-categories=guide data-tags=linux,windows,latex,ergonomics><div class=post-card-date>16. Jun 2025</div><h3 class=post-card-title><a href=/posts/neoylayout/ style=color:inherit;text-decoration:none>Ergonomic Typing with Neo Layout (Bone Variant)</a></h3><p class=post-card-summary>An introduction to the ergonomic Neo Keyboard Layout (Bone variant) for faster, healthier programming and LaTeX typing.</p><div class=post-card-meta><span>⏱️ ~2 min read</span><div class=post-tags><span class=tag-badge>#Linux</span>
-<span class=tag-badge>#Windows</span></div></div></article><article class=post-card data-title=oobe data-date=1750070042 data-reading-time=3 data-categories=howto data-tags=windows,howto><div class=post-card-date>16. Jun 2025</div><h3 class=post-card-title><a href=/posts/windows/oobe/ style=color:inherit;text-decoration:none>OOBE</a></h3><p class=post-card-summary>Howto bypass the Windows 'Out of Box Experience'.</p><div class=post-card-meta><span>⏱️ ~3 min read</span><div class=post-tags><span class=tag-badge>#Windows</span>
+<span class=tag-badge>#Windows</span></div></div></article><article class=post-card data-title=oobe data-date=1750070042 data-reading-time=3 data-categories=howtos data-tags=windows,howto><div class=post-card-date>16. Jun 2025</div><h3 class=post-card-title><a href=/posts/windows/oobe/ style=color:inherit;text-decoration:none>OOBE</a></h3><p class=post-card-summary>Howto bypass the Windows 'Out of Box Experience'.</p><div class=post-card-meta><span>⏱️ ~3 min read</span><div class=post-tags><span class=tag-badge>#Windows</span>
 <span class=tag-badge>#Howto</span></div></div></article><article class=post-card data-title="pytorch essentials: tensors, datasets & deep learning basics" data-date=1749051062 data-reading-time=6 data-categories=guide data-tags="machine learning,neural network,python,pytorch"><div class=post-card-date>04. Jun 2025</div><h3 class=post-card-title><a href=/posts/programming/pytorch/ style=color:inherit;text-decoration:none>PyTorch Essentials: Tensors, Datasets & Deep Learning Basics</a></h3><p class=post-card-summary>A practical introduction to PyTorch covering tensors, automatic differentiation, datasets, and training a neural network on …</p><div class=post-card-meta><span>⏱️ ~6 min read</span><div class=post-tags><span class=tag-badge>#Machine Learning</span>
 <span class=tag-badge>#Neural Network</span></div></div></article><article class=post-card data-title=sql data-date=1747750924 data-reading-time=6 data-categories=guide data-tags="programming languages,sql,databases"><div class=post-card-date>20. May 2025</div><h3 class=post-card-title><a href=/posts/programming/sql/ style=color:inherit;text-decoration:none>SQL</a></h3><p class=post-card-summary>My Short Summary of the Structured-Query-Language Essentials</p><div class=post-card-meta><span>⏱️ ~6 min read</span><div class=post-tags><span class=tag-badge>#Programming Languages</span>
 <span class=tag-badge>#SQL</span></div></div></article><article class=post-card data-title="conda essentials: complete guide & cheat sheet" data-date=1747169433 data-reading-time=4 data-categories=guide data-tags=python,conda,devops><div class=post-card-date>13. May 2025</div><h3 class=post-card-title><a href=/posts/conda/ style=color:inherit;text-decoration:none>Conda Essentials: Complete Guide & Cheat Sheet</a></h3><p class=post-card-summary>A practical, modern guide to package and environment management with Conda and Miniforge.</p><div class=post-card-meta><span>⏱️ ~4 min read</span><div class=post-tags><span class=tag-badge>#Python</span>
-<span class=tag-badge>#Conda</span></div></div></article><article class=post-card data-title="custom anki card" data-date=1746179020 data-reading-time=2 data-categories=howto data-tags=howto,anki,productivity><div class=post-card-date>02. May 2025</div><h3 class=post-card-title><a href=/posts/custom-anki-card/ style=color:inherit;text-decoration:none>Custom Anki Card</a></h3><p class=post-card-summary>Howto create a custom Anki Card with three fields and cross-learning.</p><div class=post-card-meta><span>⏱️ ~2 min read</span><div class=post-tags><span class=tag-badge>#Howto</span>
+<span class=tag-badge>#Conda</span></div></div></article><article class=post-card data-title="custom anki card" data-date=1746179020 data-reading-time=2 data-categories=howtos data-tags=howto,anki,productivity><div class=post-card-date>02. May 2025</div><h3 class=post-card-title><a href=/posts/custom-anki-card/ style=color:inherit;text-decoration:none>Custom Anki Card</a></h3><p class=post-card-summary>Howto create a custom Anki Card with three fields and cross-learning.</p><div class=post-card-meta><span>⏱️ ~2 min read</span><div class=post-tags><span class=tag-badge>#Howto</span>
 <span class=tag-badge>#Anki</span></div></div></article><article class=post-card data-title="python essentials: complete syntax & concepts guide" data-date=1746019182 data-reading-time=2 data-categories=guide data-tags="programming languages,python,development"><div class=post-card-date>30. Apr 2025</div><h3 class=post-card-title><a href=/posts/programming/python/ style=color:inherit;text-decoration:none>Python Essentials: Complete Syntax & Concepts Guide</a></h3><p class=post-card-summary>A practical, modern reference guide to Python programming: core syntax, data structures, comprehensions, OOP, and …</p><div class=post-card-meta><span>⏱️ ~2 min read</span><div class=post-tags><span class=tag-badge>#Programming Languages</span>
 <span class=tag-badge>#Python</span></div></div></article><article class=post-card data-title=java data-date=1745762013 data-reading-time=13 data-categories=guide data-tags="programming languages,java"><div class=post-card-date>27. Apr 2025</div><h3 class=post-card-title><a href=/posts/programming/java/ style=color:inherit;text-decoration:none>Java</a></h3><p class=post-card-summary>My Short Summary of the Java Essentials</p><div class=post-card-meta><span>⏱️ ~13 min read</span><div class=post-tags><span class=tag-badge>#Programming Languages</span>
-<span class=tag-badge>#Java</span></div></div></article><article class=post-card data-title="how to include scalable vector graphics (svg) in $\latex$" data-date=1721246994 data-reading-time=2 data-categories=howto data-tags=howto,latex><div class=post-card-date>17. Jul 2024</div><h3 class=post-card-title><a href=/posts/latex/includesvg/ style=color:inherit;text-decoration:none>How to include Scalable Vector Graphics (svg) in $\LaTeX$</a></h3><p class=post-card-summary>Guide how to use _\includesvg[ ] (image.svg)_ in $\LaTeX$</p><div class=post-card-meta><span>⏱️ ~2 min read</span><div class=post-tags><span class=tag-badge>#Howto</span>
+<span class=tag-badge>#Java</span></div></div></article><article class=post-card data-title="how to include scalable vector graphics (svg) in $\latex$" data-date=1721246994 data-reading-time=2 data-categories=howtos data-tags=howto,latex><div class=post-card-date>17. Jul 2024</div><h3 class=post-card-title><a href=/posts/latex/includesvg/ style=color:inherit;text-decoration:none>How to include Scalable Vector Graphics (svg) in $\LaTeX$</a></h3><p class=post-card-summary>Guide how to use _\includesvg[ ] (image.svg)_ in $\LaTeX$</p><div class=post-card-meta><span>⏱️ ~2 min read</span><div class=post-tags><span class=tag-badge>#Howto</span>
 <span class=tag-badge>#LaTeX</span></div></div></article><article class=post-card data-title="eu drone license (lba proof of competence a1/a3 & a2)" data-date=1720843605 data-reading-time=4 data-categories=guide data-tags=drones,robotics,hardware,regulation><div class=post-card-date>12. Jul 2024</div><h3 class=post-card-title><a href=/posts/lba_kompetenznachweis/ style=color:inherit;text-decoration:none>EU Drone License (LBA Proof of Competence A1/A3 & A2)</a></h3><p class=post-card-summary>Comprehensive guide to European drone regulations (EASA/LBA), Open Category classes (A1/A2/A3), operator registration, and rules …</p><div class=post-card-meta><span>⏱️ ~4 min read</span><div class=post-tags><span class=tag-badge>#Drones</span>
 <span class=tag-badge>#Robotics</span></div></div></article><article class=post-card data-title="deploy hugo on your homeserver via github actions" data-date=1719584639 data-reading-time=7 data-categories=guide data-tags="hugo,github actions,self-hosting,caddy,devops"><div class=post-card-date>28. Jun 2024</div><h3 class=post-card-title><a href=/posts/hugo_github_workflow/ style=color:inherit;text-decoration:none>Deploy Hugo on your Homeserver via GitHub Actions</a></h3><p class=post-card-summary>A complete, secure workflow for deploying a Hugo website on your own Linux homeserver via GitHub Actions. Your markdown source …</p><div class=post-card-meta><span>⏱️ ~7 min read</span><div class=post-tags><span class=tag-badge>#Hugo</span>
-<span class=tag-badge>#GitHub Actions</span></div></div></article><article class=post-card data-title="how to create a blog with hugo and smidr (full guide)" data-date=1719510190 data-reading-time=9 data-categories=guide data-tags="hugo,smidr,github pages,web development"><div class=post-card-date>27. Jun 2024</div><h3 class=post-card-title><a href=/posts/create_hugo_blog/ style=color:inherit;text-decoration:none>How to Create a Blog with Hugo and Smidr (Full Guide)</a></h3><p class=post-card-summary>A step-by-step guide to setting up, configuring, and publishing a modern, cyber-clean Hugo blog with the Smidr theme on GitHub …</p><div class=post-card-meta><span>⏱️ ~9 min read</span><div class=post-tags><span class=tag-badge>#Hugo</span>
-<span class=tag-badge>#Smidr</span></div></div></article><article class=post-card data-title="linear regression" data-date=1719168621 data-reading-time=10 data-categories=guide data-tags="machine learning"><div class=post-card-date>23. Jun 2024</div><h3 class=post-card-title><a href=/posts/linear_regression/ style=color:inherit;text-decoration:none>Linear Regression</a></h3><p class=post-card-summary>Overview Why and when do we need linear regression? In a nutshell, linear regression is used to predict data that has a linear …</p><div class=post-card-meta><span>⏱️ ~10 min read</span><div class=post-tags><span class=tag-badge>#Machine Learning</span></div></div></article><article class=post-card data-title="interrupt-driven morse code transmitter on arduino (ws2812b & timer1)" data-date=1718452800 data-reading-time=10 data-categories="hardware,embedded systems" data-tags="arduino,avr,ws2812b,c++,morse code,interrupts,eeprom,timer1"><div class=post-card-date>15. Jun 2024</div><h3 class=post-card-title><a href=/posts/morse-transmitter/ style=color:inherit;text-decoration:none>Interrupt-Driven Morse Code Transmitter on Arduino (WS2812B & Timer1)</a></h3><p class=post-card-summary>Open Source Hardware Project Interactive Morse Transmitter with WS2812B Wave Effects Hardware Timer1 CTC • Empty loop() • …</p><div class=post-card-meta><span>⏱️ ~10 min read</span><div class=post-tags><span class=tag-badge>#Arduino</span>
+<span class=tag-badge>#GitHub Actions</span></div></div></article><article class=post-card data-title="how to create a blog with hugo and smidr (full setup guide)" data-date=1719510190 data-reading-time=11 data-categories=guide data-tags="hugo,smidr,github pages,web development,self-hosting"><div class=post-card-date>27. Jun 2024</div><h3 class=post-card-title><a href=/posts/create_hugo_blog/ style=color:inherit;text-decoration:none>How to Create a Blog with Hugo and Smidr (Full Setup Guide)</a></h3><p class=post-card-summary>A step-by-step guide to setting up, configuring, and publishing a modern, cyber-clean Hugo blog with the Smidr theme, …</p><div class=post-card-meta><span>⏱️ ~11 min read</span><div class=post-tags><span class=tag-badge>#Hugo</span>
+<span class=tag-badge>#Smidr</span></div></div></article><article class=post-card data-title="linear regression" data-date=1719168621 data-reading-time=10 data-categories=guide data-tags="machine learning"><div class=post-card-date>23. Jun 2024</div><h3 class=post-card-title><a href=/posts/linear_regression/ style=color:inherit;text-decoration:none>Linear Regression</a></h3><p class=post-card-summary>Overview Why and when do we need linear regression? In a nutshell, linear regression is used to predict data that has a linear …</p><div class=post-card-meta><span>⏱️ ~10 min read</span><div class=post-tags><span class=tag-badge>#Machine Learning</span></div></div></article><article class=post-card data-title="interrupt-driven morse code transmitter on arduino (ws2812b & timer1)" data-date=1718452800 data-reading-time=10 data-categories=project data-tags="arduino,avr,ws2812b,c++,morse code,interrupts,eeprom,timer1,hardware,embedded systems"><div class=post-card-date>15. Jun 2024</div><h3 class=post-card-title><a href=/posts/morse-transmitter/ style=color:inherit;text-decoration:none>Interrupt-Driven Morse Code Transmitter on Arduino (WS2812B & Timer1)</a></h3><p class=post-card-summary>Open Source Hardware Project Interactive Morse Transmitter with WS2812B Wave Effects Hardware Timer1 CTC • Empty loop() • …</p><div class=post-card-meta><span>⏱️ ~10 min read</span><div class=post-tags><span class=tag-badge>#Arduino</span>
 <span class=tag-badge>#AVR</span></div></div></article><article class=post-card data-title="backpropagation in matrix calculus" data-date=1716863250 data-reading-time=6 data-categories=guide data-tags="neural network,machine learning"><div class=post-card-date>27. May 2024</div><h3 class=post-card-title><a href=/posts/backpropagation_matrix_calculus/ style=color:inherit;text-decoration:none>Backpropagation in Matrix Calculus</a></h3><p class=post-card-summary>Introduction In our companion article, Backpropagation in Standard Calculus, we derived the gradient update equations using scalar …</p><div class=post-card-meta><span>⏱️ ~6 min read</span><div class=post-tags><span class=tag-badge>#Neural Network</span>
 <span class=tag-badge>#Machine Learning</span></div></div></article><article class=post-card data-title="feedforward phase" data-date=1716863250 data-reading-time=8 data-categories=guide data-tags="neural network,machine learning"><div class=post-card-date>27. May 2024</div><h3 class=post-card-title><a href=/posts/feedforward/ style=color:inherit;text-decoration:none>Feedforward Phase</a></h3><p class=post-card-summary>Introduction This article gives a quick overview over the feedforward phase of a Neural Network.
 Nodes A Neural Network is …</p><div class=post-card-meta><span>⏱️ ~8 min read</span><div class=post-tags><span class=tag-badge>#Neural Network</span>
@@ -43,29 +45,14 @@ Nodes A Neural Network is …</p><div class=post-card-meta><span>⏱️ ~8 min r
 <button type=button id=filter-mode-btn class="filter-mode-btn mode-and" title="Toggle between matching ALL selected tags (AND) or ANY selected tag (OR)">
 <span class=mode-text>AND</span></button></div><button type=button id=filter-clear-btn class=filter-clear-btn style=display:none title="Deselect all filters">
 Clear All</button></div><div id=filter-count-label class=active-count-label style=display:none></div></div><div class="tax-sidebar-card sort-card"><h3 class=tax-sidebar-heading><span>🔀</span>
-<span>Sort Order</span></h3><div class=sort-select-wrapper><select id=posts-sort-select class=posts-sort-select aria-label="Sort posts by"><option value=date-desc>Date: Newest First</option><option value=date-asc>Date: Oldest First</option><option value=title-asc>Title: A → Z</option><option value=title-desc>Title: Z → A</option><option value=time-asc>Read Time: Shortest</option><option value=time-desc>Read Time: Longest</option></select></div></div><div class=tax-sidebar-card><h3 class=tax-sidebar-heading>📂 Categories</h3><div class=tax-checkbox-list><button type=button class=tax-checkbox-btn data-type=category data-value="embedded systems" role=checkbox aria-checked=false>
-<span class=custom-checkbox><span class=check-mark>✓</span></span>
-<span class=tax-title>Embedded Systems</span>
-<span class=tax-count>1</span>
-</button>
-<button type=button class=tax-checkbox-btn data-type=category data-value=engineering role=checkbox aria-checked=false>
-<span class=custom-checkbox><span class=check-mark>✓</span></span>
-<span class=tax-title>Engineering</span>
-<span class=tax-count>1</span>
-</button>
-<button type=button class=tax-checkbox-btn data-type=category data-value=guide role=checkbox aria-checked=false>
+<span>Sort Order</span></h3><div class=sort-select-wrapper><select id=posts-sort-select class=posts-sort-select aria-label="Sort posts by"><option value=date-desc>Date: Newest First</option><option value=date-asc>Date: Oldest First</option><option value=title-asc>Title: A → Z</option><option value=title-desc>Title: Z → A</option><option value=time-asc>Read Time: Shortest</option><option value=time-desc>Read Time: Longest</option></select></div></div><div class=tax-sidebar-card><h3 class=tax-sidebar-heading>📂 Categories</h3><div class=tax-checkbox-list><button type=button class=tax-checkbox-btn data-type=category data-value=guide role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>Guide</span>
-<span class=tax-count>15</span>
+<span class=tax-count>18</span>
 </button>
-<button type=button class=tax-checkbox-btn data-type=category data-value=hardware role=checkbox aria-checked=false>
+<button type=button class=tax-checkbox-btn data-type=category data-value=howtos role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
-<span class=tax-title>Hardware</span>
-<span class=tax-count>1</span>
-</button>
-<button type=button class=tax-checkbox-btn data-type=category data-value=howto role=checkbox aria-checked=false>
-<span class=custom-checkbox><span class=check-mark>✓</span></span>
-<span class=tax-title>Howto</span>
+<span class=tax-title>Howtos</span>
 <span class=tax-count>7</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=category data-value="interactive tools" role=checkbox aria-checked=false>
@@ -73,29 +60,14 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=tax-title>Interactive Tools</span>
 <span class=tax-count>1</span>
 </button>
-<button type=button class=tax-checkbox-btn data-type=category data-value=mathematics role=checkbox aria-checked=false>
-<span class=custom-checkbox><span class=check-mark>✓</span></span>
-<span class=tax-title>Mathematics</span>
-<span class=tax-count>1</span>
-</button>
-<button type=button class=tax-checkbox-btn data-type=category data-value=mechanics role=checkbox aria-checked=false>
-<span class=custom-checkbox><span class=check-mark>✓</span></span>
-<span class=tax-title>Mechanics</span>
-<span class=tax-count>1</span>
-</button>
 <button type=button class=tax-checkbox-btn data-type=category data-value=project role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>Project</span>
-<span class=tax-count>1</span>
+<span class=tax-count>3</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=category data-value=science role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>Science</span>
-<span class=tax-count>1</span>
-</button>
-<button type=button class=tax-checkbox-btn data-type=category data-value=simulation role=checkbox aria-checked=false>
-<span class=custom-checkbox><span class=check-mark>✓</span></span>
-<span class=tax-title>Simulation</span>
 <span class=tax-count>1</span></button></div></div><div class=tax-sidebar-card><h3 class=tax-sidebar-heading>🏷️ Tags</h3><div class=tax-checkbox-list><button type=button class=tax-checkbox-btn data-type=tag data-value=anki role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Anki</span>
@@ -124,6 +96,11 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <button type=button class=tax-checkbox-btn data-type=tag data-value=caddy role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Caddy</span>
+<span class=tax-count>2</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=cheatsheet role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Cheatsheet</span>
 <span class=tax-count>1</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=chemistry role=checkbox aria-checked=false>
@@ -171,6 +148,11 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=tax-title>#DevOps</span>
 <span class=tax-count>2</span>
 </button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=docker role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Docker</span>
+<span class=tax-count>1</span>
+</button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=drones role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Drones</span>
@@ -186,10 +168,15 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=tax-title>#Elasticity</span>
 <span class=tax-count>1</span>
 </button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value="embedded systems" role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Embedded Systems</span>
+<span class=tax-count>1</span>
+</button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=engineering role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Engineering</span>
-<span class=tax-count>1</span>
+<span class=tax-count>2</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=ergonomics role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
@@ -229,6 +216,11 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <button type=button class=tax-checkbox-btn data-type=tag data-value=hardware role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Hardware</span>
+<span class=tax-count>2</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=homeserver role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Homeserver</span>
 <span class=tax-count>1</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=howto role=checkbox aria-checked=false>
@@ -239,17 +231,22 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <button type=button class=tax-checkbox-btn data-type=tag data-value=hugo role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Hugo</span>
-<span class=tax-count>2</span>
+<span class=tax-count>3</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=ide role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#IDE</span>
 <span class=tax-count>3</span>
 </button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=immich role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Immich</span>
+<span class=tax-count>1</span>
+</button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=interactive role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Interactive</span>
-<span class=tax-count>1</span>
+<span class=tax-count>2</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=interrupts role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
@@ -269,7 +266,7 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <button type=button class=tax-checkbox-btn data-type=tag data-value=linux role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Linux</span>
-<span class=tax-count>2</span>
+<span class=tax-count>3</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value="machine learning" role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
@@ -281,6 +278,16 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=tax-title>#Markov Chains</span>
 <span class=tax-count>1</span>
 </button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=mathematics role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Mathematics</span>
+<span class=tax-count>1</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=mechanics role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Mechanics</span>
+<span class=tax-count>1</span>
+</button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value="morse code" role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Morse Code</span>
@@ -290,6 +297,11 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Neural Network</span>
 <span class=tax-count>4</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=nextcloud role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Nextcloud</span>
+<span class=tax-count>1</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=ollama role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
@@ -346,6 +358,11 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=tax-title>#R</span>
 <span class=tax-count>1</span>
 </button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value="raspberry pi" role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Raspberry Pi</span>
+<span class=tax-count>1</span>
+</button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=regulation role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Regulation</span>
@@ -361,15 +378,25 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=tax-title>#Science</span>
 <span class=tax-count>1</span>
 </button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=self-hosted role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Self-Hosted</span>
+<span class=tax-count>1</span>
+</button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=self-hosting role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Self-Hosting</span>
+<span class=tax-count>2</span>
+</button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=simulation role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Simulation</span>
 <span class=tax-count>1</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=smidr role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Smidr</span>
-<span class=tax-count>1</span>
+<span class=tax-count>2</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=sql role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
@@ -391,6 +418,11 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <span class=tax-title>#Timer1</span>
 <span class=tax-count>1</span>
 </button>
+<button type=button class=tax-checkbox-btn data-type=tag data-value=vaultwarden role=checkbox aria-checked=false>
+<span class=custom-checkbox><span class=check-mark>✓</span></span>
+<span class=tax-title>#Vaultwarden</span>
+<span class=tax-count>1</span>
+</button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=vscode role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#VSCode</span>
@@ -404,7 +436,7 @@ Clear All</button></div><div id=filter-count-label class=active-count-label styl
 <button type=button class=tax-checkbox-btn data-type=tag data-value="web development" role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>
 <span class=tax-title>#Web Development</span>
-<span class=tax-count>1</span>
+<span class=tax-count>2</span>
 </button>
 <button type=button class=tax-checkbox-btn data-type=tag data-value=windows role=checkbox aria-checked=false>
 <span class=custom-checkbox><span class=check-mark>✓</span></span>

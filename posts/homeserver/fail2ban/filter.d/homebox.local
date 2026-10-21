@@ -1,0 +1,4 @@
+[Definition]
+failregex = ^.*"remote_ip":"<HOST>".*"uri":"/api/auth/login".*"status":401.*$
+datepattern = "ts":{EPOCH}
+ignoreregex =

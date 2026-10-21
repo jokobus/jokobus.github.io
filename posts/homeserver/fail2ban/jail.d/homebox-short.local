@@ -1,0 +1,12 @@
+[homebox-short]
+# if 3 tries in 3 minutes fail -> banned for 5 minutes
+chain = DOCKER-USER
+backend = auto
+enabled = true
+port = 80,443
+protocol = tcp
+filter = homebox
+maxretry = 2
+bantime = 300
+findtime = 180
+logpath = /caddydata/caddy.log

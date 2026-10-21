@@ -1,0 +1,8 @@
+[sshd]
+enabled = true
+port = 22
+filter = sshd
+logpath = /mnt/nextcloud_logs/nextcloud.log
+maxretry = 5
+bantime = 1d
+findtime = 5m

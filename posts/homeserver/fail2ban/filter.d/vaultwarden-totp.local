@@ -1,0 +1,8 @@
+# Fail2Ban filter for Vaultwarden TOTP
+
+[INCLUDES]
+before = common.conf
+
+[Definition]
+failregex = ^.*\[ERROR\] Invalid TOTP code! Server time: (.*) UTC IP: <ADDR>$
+ignoreregex =

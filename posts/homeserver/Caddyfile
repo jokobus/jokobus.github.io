@@ -1,0 +1,170 @@
+# After making changes to this file, execute: 
+# docker compose exec caddy caddy reload --config /etc/caddy/Caddyfile
+
+# Your email address where info about expiring certificates will be sent. Also leave this line as it ensures to get automatic SSL certificates
+{
+	email admin@example.com
+}
+
+# Uncomment this in addition with the import admin_redir statement to allow access to the admin interface only from local networks
+(admin_redir) {
+	@admin {
+		path /admin*
+		not remote_ip private_ranges
+		# not remote_ip privete_ranges 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 10.8.0.0/24
+	}
+	redir @admin /
+}
+
+(security_header) {
+	# If you want to use FIDO2 WebAuthn, set X-Frame-Options to "SAMEORIGIN" or the Browser will block those requests
+	# Once your server is running try out: https://developer.mozilla.org/en-US/observatory to see how the headers affect security. You should get a rating around 120
+
+	header {
+		# Enable HTTP Strict Transport Security (HSTS)
+		Strict-Transport-Security "max-age=31536000;"
+		# Disable cross-site filter (XSS)
+		X-XSS-Protection "0"
+		# Disallow the site to be rendered within a frame (clickjacking protection)
+		X-Frame-Options "DENY"
+		# Prevent search engines from indexing (optional)
+		X-Robots-Tag "noindex, nofollow"
+		# Disallow sniffing of X-Content-Type-Options
+		X-Content-Type-Options "nosniff"
+		# Disallow Cross Origin Resources
+		Cross-Origin-Resource-Policy "same-origin"
+		# Server name removing
+		-Server
+		# Remove X-Powered-By though this shouldn't be an issue, better opsec to remove
+		-X-Powered-By
+		# Remove Last-Modified because etag is the same and is as effective
+		-Last-Modified
+	}
+}
+
+https://nextcloud.example.com:443 {
+	# Must be equal to or higher than NEXTCLOUD_UPLOAD_LIMT    
+	request_body {
+		max_size 10G
+	}
+
+	# AIO Proxy Config (Order matters: more specific routes must come first.)
+	# Collabora (richdocuments) routes
+	# These paths are proxied to the AIO Collabora container
+	reverse_proxy /hosting/discovery nextcloud-aio-collabora:9980
+	reverse_proxy /hosting/capabilities nextcloud-aio-collabora:9980
+	reverse_proxy /lool/* nextcloud-aio-collabora:9980
+	reverse_proxy /loleaflet/* nextcloud-aio-collabora:9980
+
+	# Main Nextcloud route
+	# This is the catch-all for all other traffic
+	reverse_proxy /* nextcloud-aio-apache:11000 {
+		# request_body_nobuffer # no buffering in Caddy before sending it to the backend; better for NC's chunked file upload
+
+		transport http {
+			read_buffer 8k
+		}
+	}
+
+	# Don't import security header because Nextcloud already sets its own security headers. Import would lead to duplicate headers. 
+	
+}
+
+# See documentation: https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples
+https://bitwarden.example.com:443 {
+	#reverse_proxy host.docker.internal:11001
+
+	log {
+		level INFO
+		output file {$LOG_FILE} {
+			roll_size 10MB
+			roll_keep 10
+		}
+	}
+
+	# Import header to improve security
+	import security_header
+
+	# Uncomment this if you want to get a cert via ACME (Let's Encrypt or ZeroSSL).
+	# Comment: Not needed, as email specified globally already in Line 2 of this Caddyfile
+	# tls {$EMAIL}
+
+	# Or uncomment this if you're providing your own cert. You would also use this option if you're running behind Cloudflare.
+	# Comment: We're using the convenient way and let Caddy handle the certificate
+	# tls {$SSL_CERT_PATH} {$SSL_KEY_PATH}
+
+	# This setting may have compatibility issues with some browsers (e.g., attachment downloading on Firefox). Try disabling this if you encounter issues.
+	# encode zstd gzip
+
+	# Uncomment to allow access to the admin interface only from local networks
+	# import admin_redir
+
+	# Proxy everything to Rocket
+	# if located at a sub-path the reverse_proxy line will look like:
+	#   reverse_proxy /subpath/* <SERVER>:80
+	reverse_proxy vaultwarden:80 {
+		# Send the true remote IP to Rocket, so that Vaultwarden can put this in the log, so that fail2ban can ban the correct IP. https://github.com/dani-garcia/vaultwarden/wiki/Fail2Ban-Setup#setup-for-web-vault
+		header_up X-Real-IP {client_ip}
+
+		# If you use Cloudflare proxying, replace client_ip with http.request.header.Cf-Connecting-Ip
+		# See https://developers.cloudflare.com/support/troubleshooting/restoring-visitor-ips/restoring-original-visitor-ips/
+		# and https://caddy.community/t/forward-auth-copy-headers-value-not-replaced/16998/4
+	}
+}
+
+https://immich.example.com:443 {
+	log {
+		level INFO
+		output file {$LOG_FILE} {
+			roll_size 10MB
+			roll_keep 10
+		}
+	}
+
+	import security_header
+
+	# Better security, but does not allow Map loading
+	#header Content-Security-Policy "default-src 'self'; img-src 'self' data: blob: https://*.openstreetmap.org https://*.tile.openstreetmap.org; media-src 'self' blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss: https://*.openstreetmap.org https://*.tile.openstreetmap.org https://immich.example.com; worker-src 'self' blob:; frame-ancestors 'none'; object-src 'none'; base-uri 'self';"
+	#header Content-Security-Policy "default-src 'self'; img-src 'self' data: blob: https://*.openstreetmap.org https://*.tile.openstreetmap.org; media-src 'self' blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss: https://*.openstreetmap.org https://*.tile.openstreetmap.org https://immich.example.com; worker-src 'self' blob:; font-src 'self' data:; frame-ancestors 'none'; object-src 'none'; base-uri 'self';"
+	# Less safe, but allows Map loading
+	#header Content-Security-Policy "default-src 'self'; img-src 'self' data: blob: https:; media-src 'self' blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss: https:; worker-src 'self' blob:; font-src 'self' data:; frame-ancestors 'none'; object-src 'none'; base-uri 'self';"
+
+	reverse_proxy immich_server:2283 {
+		header_up X-Real-IP {client_ip}
+	}
+}
+
+https://homebox.example.com:443 {
+    log {
+        level INFO
+        output file {$LOG_FILE} {
+            roll_size 10MB
+            roll_keep 10
+        }
+    }
+
+    # Apply your refined security headers
+    import security_header
+
+    # Proxy to the Homebox container on its internal port (7745)
+    reverse_proxy homebox:7745 {
+        header_up X-Real-IP {client_ip}
+    }
+}
+
+example.com {
+	# Refined security
+	import security_header
+	header {
+	    # Updated CSP to allow KaTeX fonts/styles and Pyodide WASM execution
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data:; connect-src 'self' https://cdn.jsdelivr.net https://pypi.org https://files.pythonhosted.org; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'none';"
+		# Protect user privacy by stripping sensitive URL path data when navigating away from your site.
+		Referrer-Policy "strict-origin-when-cross-origin"
+	}
+	# Point Caddy to your automatically updated Hugo directory
+	root * /var/www/example.com
+	# Enable standard file serving for static HTML/CSS/JS
+	file_server
+	# Optional: Enable Gzip/Zstd compression for faster page loads
+	encode zstd gzip
+}

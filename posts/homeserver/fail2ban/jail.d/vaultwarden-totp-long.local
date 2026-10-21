@@ -1,0 +1,10 @@
+[vaultwarden-totp-long]
+# if 5 tries in 1 hour fail -> banned for 24 hours
+enabled = true
+port = 80,443
+filter = vaultwarden-totp
+banaction = iptables-multiport[name=vaultwarden-totp, port="80,443", protocol=tcp]
+logpath = /vwdata/vaultwarden.log
+maxretry = 4
+bantime = 86400
+findtime = 3600

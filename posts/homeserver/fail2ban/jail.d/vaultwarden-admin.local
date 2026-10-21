@@ -1,0 +1,15 @@
+[vaultwarden-admin]
+# no joke with admin backend: if 3 wrong tries within 12 hours -> ban for 24 hours
+enabled = true
+port = 80,443
+filter = vaultwarden-admin
+
+# if using systemd, uncomment next two lines, and comment banaction
+#backend = systemd
+#action = iptables-allports[name=vaultwarden-admin, chain=FORWARD]
+banaction = %(banaction_allports)s
+
+logpath = /vwdata/vaultwarden.log
+maxretry = 2
+bantime = 86400
+findtime = 43200

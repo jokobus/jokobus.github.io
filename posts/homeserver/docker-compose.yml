@@ -1,0 +1,339 @@
+services: # This code was oriented on the following example: https://github.com/nextcloud/all-in-one/discussions/575#discussioncomment-4626570 and modified according to research in (mainly) the nextcloud-aio and vaultwarden wikis
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    container_name: caddy
+    read_only: true # Make the container's root filesystem completely read-only. Format caddyfile with: docker run --rm -v $(pwd)/Caddyfile:/Caddyfile caddy caddy fmt --overwrite /Caddyfile
+    tmpfs:
+      - /tmp:size=64M,noexec,nosuid,nodev
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./certs:/certs
+      - ./config:/config
+      - /mnt/sda4/caddydata:/data
+      - ./sites:/srv
+      - /var/www/example.com:/var/www/example.com:ro
+#   network_mode: "host"
+    environment: 
+      LOG_FILE: "/data/caddy.log"
+    ports: 
+      - "80:80"
+      - "443:443"
+    security_opt: 
+      - no-new-privileges:true # Prevent processes from gaining extra privileges
+    cap_drop: 
+      - ALL # Drop all Linux kernel capabilities…
+    cap_add: 
+      - NET_BIND_SERVICE #…except the one Caddy needs to bind to ports 80/443
+    networks:
+      - nextcloud-aio
+      - vaultwarden-net
+      - immich-net
+      - homebox-net
+    extra_hosts: # Not needed after anymore as we use AIO Proxy Config in Caddyfile
+      - "host.docker.internal:host-gateway" # Needed, if not using network_mode: "host"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  fail2ban:
+    container_name: fail2ban
+    restart: always
+    image: crazymax/fail2ban:latest
+    environment: 
+      - TZ=Europe/Berlin
+      - F2B_DB_PURGE_AGE=30d
+      - F2B_LOG_TARGET=/data/fail2ban.log
+      - F2B_LOG_LEVEL=INFO
+      - F2B_IPTABLES_CHAIN=INPUT
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_FROM=${SMTP_FROM}
+      - SMTP_TO=${SMTP_TO}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+
+    volumes:
+      - /mnt/sda4/fail2bandata:/data
+      - /mnt/sda4/caddydata:/caddydata:ro
+      - /var/lib/docker/volumes/nextcloud_aio_nextcloud/_data:/mnt/nextcloud_logs:ro
+      - /mnt/sda4/vwdata:/vwdata:ro
+      - /var/log:/var/log:ro # for sshd
+
+      # Note: Mounting the whole directories like this will hide any default files provided by the image in those specific directories. If you rely on default filters that are not in your local folder, you should mount individual files instead.
+      - ./fail2ban/jail.d:/data/jail.d
+      - ./fail2ban/filter.d:/data/filter.d
+      - ./fail2ban/action.d:/data/action.d
+
+    network_mode: "host"
+
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  nextcloud:
+    image: nextcloud/all-in-one:latest
+    restart: unless-stopped
+    container_name: nextcloud-aio-mastercontainer # This line is not allowed to be changed as otherwise AIO will not work correctly
+    ports:
+      - "8080:8080" # Can be removed when running behind a web server or reverse proxy (like Apache, Nginx and else). See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
+     # - "127.0.0.1:8080:8080"
+     # - 8443:8443 # Can be removed when running behind a web server or reverse proxy (like Apache, Nginx and else). See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
+    environment: # Is needed when using any of the options below
+      - AIO_DISABLE_BACKUP_SECTION=false # Setting this to true allows to hide the backup section in the AIO interface.
+      - APACHE_PORT=11000 # Is needed when running behind a web server or reverse proxy (like Apache, Nginx and else). See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
+      # - APACHE_IP_BINDING=192.168.179.96 # Should be set when running behind a web server or reverse proxy (like Apache, Nginx and else) that is running on the same host. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md
+      # - APACHE_IP_BINDING=host.docker.internal # Should be better, as it avoids hardcoded ip addr. 
+      - APACHE_BODY_LIMIT=10G # higher or equal than NEXTCLOUD_UPLOAD_LIMIT; 0 for no limit
+      - APACHE_IP_BINDING=127.0.0.1
+      # - COLLABORA_SECCOMP_DISABLED=false # Setting this to true allows to disable Collabora's Seccomp feature. See https://github.com/nextcloud/all-in-one#how-to-disable-collaboras-seccomp-feature
+      - NEXTCLOUD_DATADIR=/mnt/sda4/ncdata # Allows to set the host directory for Nextcloud's datadir. See https://github.com/nextcloud/all-in-one#how-to-change-the-default-location-of-nextclouds-datadir
+      - NEXTCLOUD_MOUNT=/mnt/sda4/external-ncdata # Allows the Nextcloud container to access the chosen directory on the host. See https://github.com/nextcloud/all-in-one#how-to-allow-the-nextcloud-container-to-access-directories-on-the-host
+      - NEXTCLOUD_UPLOAD_LIMIT=10G # Can be adjusted if you need more. See https://github.com/nextcloud/all-in-one#how-to-adjust-the-upload-limit-for-nextcloud
+      - NEXTCLOUD_MAX_TIME=36000 # =10 hours; Standard 3600 = 1 hour; Can be adjusted if you need more. See https://github.com/nextcloud/all-in-one#how-to-adjust-the-max-execution-time-for-nextcloud
+      - NEXTCLOUD_MEMORY_LIMIT=512M # Can be adjusted if you need more. See https://github.com/nextcloud/all-in-one#how-to-adjust-the-php-memory-limit-for-nextcloud
+      # - NEXTCLOUD_TRUSTED_CACERTS_DIR=/path/to/my/cacerts # CA certificates in this directory will be trusted by the OS of the nexcloud container (Useful e.g. for LDAPS) See See https://github.com/nextcloud/all-in-one#how-to-trust-user-defiend-certification-authorities-ca
+      # - NEXTCLOUD_STARTUP_APPS=deck twofactor_totp tasks calendar contacts # Allows to modify the Nextcloud apps that are installed on starting AIO the first time. See https://github.com/nextcloud/all-in-one#how-to-change-the-nextcloud-apps-that-are-installed-on-the-first-startup
+      # - NEXTCLOUD_ADDITIONAL_APKS=imagemagick # This allows to add additional packages to the Nextcloud container permanently. Default is imagemagick but can be overwritten by modifying this value. See https://github.com/nextcloud/all-in-one#how-to-add-os-packages-permanently-to-the-nextcloud-container
+      # - NEXTCLOUD_ADDITIONAL_PHP_EXTENSIONS=imagick # This allows to add additional php extensions to the Nextcloud container permanently. Default is imagick but can be overwritten by modifying this value. See https://github.com/nextcloud/all-in-one#how-to-add-php-extensions-permanently-to-the-nextcloud-container
+      # - NEXTCLOUD_ENABLE_DRI_DEVICE=true # This allows to enable the /dev/dri device in the Nextcloud container which is needed for hardware-transcoding. See https://github.com/nextcloud/all-in-one#how-to-enable-hardware-transcoding-for-nextcloud
+      # - TALK_PORT=3478 # This allows to adjust the port that the talk container is using.
+      # - WATCHTOWER_DOCKER_SOCKET_PATH=/var/run/docker.sock # Needs to be specified if the docker socket on the host is not located in the default '/var/run/docker.sock'. Otherwise mastercontainer updates will fail. For macos it needs to be '/var/run/docker.sock'
+      # - TZ=Europe/Berlin # Set in AIO Admin Panel
+      # - PGTZ=Europe/Berlin
+    volumes:
+      - nextcloud_aio_mastercontainer:/mnt/docker-aio-config # This line is not allowed to be changed as otherwise the built-in backup solution will not work
+      - /var/run/docker.sock:/var/run/docker.sock:ro # May be changed on macOS, Windows or docker rootless. See the applicable documentation. If adjusting, don't forget to also set 'WATCHTOWER_DOCKER_SOCKET_PATH'!
+      - /var/lib/docker/volumes/nextcloud_aio_nextcloud/_data/config:/var/www/html/config # Solve Error:  fopen(/var/www/html/config/config.php): Failed to open stream: No such file or directory at /var/www/html/lib/private/Config.php#221
+#      - ./timezone:/etc/timezone:ro # Test to hopefully overwrite invalid PostgreSQL Timezone 'CEST' by 'Europe/Berlin' 
+#    depends_on: # Actually caddy depends on nextcloud not vice versa
+#      - caddy
+    networks: # Is needed when you want to create the nextcloud-aio network with ipv6-support using this file, see the network config at the bottom of the file
+      - nextcloud-aio # Is needed when you want to create the nextcloud-aio network with ipv6-support using this file, see the network config at the bottom of the file
+    labels:
+      # This allows Watchtower to update the Mastercontainer.
+      # You must enable auto-updates for the sub-containers inside the AIO Admin Interface!
+      - "com.centurylinklabs.watchtower.enable=true"
+      
+# See documentation: https://github.com/dani-garcia/vaultwarden/wiki/Using-Docker-Compose
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    #user: 1000:1000
+    environment:
+    # WEBSOCKET_ENABLED: 'false'  # Enable WebSocket notifications, obsolete.  
+      # Some general settings
+      - SIGNUPS_ALLOWED=false
+      - SHOW_PASSWORD_HINT=false
+      - DOMAIN=https://bitwarden.example.com
+      - TZ=Europe/Berlin
+      # Enable to automatically sync your vault between your devices (otherwise you have to trigger each sync manually)
+      # See https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification
+      - PUSH_ENABLED=true
+      - PUSH_INSTALLATION_ID=${PUSH_INSTALLATION_ID}
+      - PUSH_INSTALLATION_KEY=${PUSH_INSTALLATION_KEY}
+      - PUSH_RELAY_URI=https://api.bitwarden.eu
+      - PUSH_IDENTITY_URI=https://identity.bitwarden.eu
+      # Email Settings to
+      - SMTP_HOST=smtp.strato.de
+      - SMTP_FROM=${SMTP_FROM}
+      - SMTP_PORT=465
+      - SMTP_SECURITY=force_tls
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - ADMIN_TOKEN="${VAULTWARDEN_ADMIN_TOKEN}"
+      - LOG_FILE=/data/vaultwarden.log
+    ports:
+      # - 192.168.1.197:11001:80
+      - "127.0.0.1:11001:80" # 127.0.0.1 = close local network and internet -> route over nextcloud-aio network
+    volumes:
+      - /mnt/sda4/vwdata:/data
+    networks:
+      - vaultwarden-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/alive"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # Immich
+  # See https://docs.immich.app/install/docker-compose
+  # docker-compose from https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
+  immich-server:
+    container_name: immich_server
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    # extends:
+    #   file: hwaccel.transcoding.yml
+    #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
+    volumes:
+      # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
+      - ${UPLOAD_LOCATION}:/data
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/sda4/ncdata:/mnt/sda4/ncdata:ro
+    env_file:
+      - .env
+    ports:
+      - '127.0.0.1:2283:2283'
+    depends_on:
+      - redis
+      - database
+    restart: always
+    healthcheck:
+      disable: false
+    networks:
+      - immich-net
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  immich-machine-learning:
+    container_name: immich_machine_learning
+    # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
+    # Example tag: ${IMMICH_VERSION:-release}-cuda
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    # extends: # uncomment this section for hardware acceleration - see https://docs.immich.app/features/ml-hardware-acceleration
+    #   file: hwaccel.ml.yml
+    #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference - use the `-wsl` version for WSL2 where applicable
+    volumes:
+      - model-cache:/cache
+    env_file:
+      - .env
+    restart: always
+    healthcheck:
+      disable: false
+    networks:
+      - immich-net
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  redis:
+    container_name: immich_redis
+    image: docker.io/valkey/valkey:9@sha256:fb8d272e529ea567b9bf1302245796f21a2672b8368ca3fcb938ac334e613c8f
+    healthcheck:
+      test: redis-cli ping || exit 1
+    restart: always
+    networks:
+      - immich-net
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  database:
+    container_name: immich_postgres
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE_NAME}
+      POSTGRES_INITDB_ARGS: '--data-checksums'
+      # Uncomment the DB_STORAGE_TYPE: 'HDD' var if your database isn't stored on SSDs
+      # DB_STORAGE_TYPE: 'HDD'
+    volumes:
+      # Do not edit the next line. If you want to change the database storage location on your system, edit the value of DB_DATA_LOCATION in the .env file
+      - ${DB_DATA_LOCATION}:/var/lib/postgresql/data
+    shm_size: 128mb
+    restart: always
+    networks:
+      - immich-net
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  homebox:
+    image: ghcr.io/sysadminsmedia/homebox:latest-rootless
+    container_name: homebox
+    restart: unless-stopped
+    environment:
+      - HBOX_LOG_LEVEL=info
+      - HBOX_LOG_FORMAT=text
+      - HBOX_WEB_MAX_UPLOAD_SIZE=10
+      - HBOX_OPTIONS_ALLOW_ANALYTICS=false
+      # Move this to your .env file for security, similar to DB_PASSWORD
+      - HBOX_AUTH_API_KEY_PEPPER=${HOMEBOX_PEPPER}
+      # Email setting (password reset only). 
+      # Alternatively password reset by admin: docker exec -it homebox /app/homebox reset-password --email=user@example.com
+      - HBOX_MAIL_HOST=smtp.strato.de
+      - HBOX_MAIL_PORT=465
+      - HBOX_MAIL_USERNAME=${SMTP_USERNAME}
+      - HBOX_MAIL_PASSWORD=${SMTP_PASSWORD}
+      - HBOX_MAIL_FROM=${SMTP_FROM}
+    volumes:
+      # Following your pattern of storing data on /mnt/sda4/
+      - /mnt/sda4/homeboxdata:/data
+    ports:
+      # Expose locally just like Vaultwarden and Immich
+      - "127.0.0.1:3100:7745"
+      #- "3100:7745" for locall access only via <ipaddress>:3100
+    networks:
+      - homebox-net
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:7745"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_LABEL_ENABLE=true
+      # Runs every day at 4:00 AM
+      - WATCHTOWER_SCHEDULE=0 0 4 * * *
+      # Optional: Uncomment below for email notifications
+      # - WATCHTOWER_NOTIFICATIONS=email
+      # - WATCHTOWER_NOTIFICATION_EMAIL_FROM=${SMTP_FROM}
+      # - WATCHTOWER_NOTIFICATION_EMAIL_TO=${SMTP_TO}
+      # - WATCHTOWER_NOTIFICATION_EMAIL_SERVER=smtp.strato.de
+      # - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT=465
+      # - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER=${SMTP_USERNAME}
+      # - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD=${SMTP_PASSWORD}
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+# # Optional: If you need ipv6, follow step 1 and 2 of https://github.com/nextcloud/all-in-one/blob/main/docker-ipv6-support.md first and then uncomment the below config in order to activate ipv6 for the internal nextcloud-aio network.
+# # Please make sure to uncomment also the networking lines of the mastercontainer above in order to actually create the network with docker-compose  
+# # Inspired by https://github.com/mailcow/mailcow-dockerized/blob/master/docker-compose.yml  
+networks:  
+  nextcloud-aio:  
+    name: nextcloud-aio # This line is not allowed to be changed as otherwise the created network will not be used by the other containers of AIO  
+    driver: bridge  
+#    enable_ipv6: true
+#    ipam:  
+#      driver: default  
+#      config:  
+#        - subnet: fd12:3456:789a:2::/64 # IPv6 subnet to use 
+#    external: true
+  vaultwarden-net: 
+    name: vaultwarden-net
+    driver: bridge
+  immich-net: 
+    name: immich-net
+    driver: bridge
+  homebox-net:
+    name: homebox-net
+    driver: bridge
+
+volumes:
+  nextcloud_aio_mastercontainer:
+    name: nextcloud_aio_mastercontainer # This line is not allowed to be changed
+      #external: true #set true if the network already exists
+  
+  model-cache: # For Immich
+  caddy_tmp: # For Caddy: Anonymous writable volume required since root fs is read-only
+
+  # load nextcloud_aio_nextcloud as external module, to access it's log
+  nextcloud_aio_nextcloud:
+    external: true

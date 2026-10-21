@@ -1,0 +1,12 @@
+[immich-long]
+# if 5 tries in 1 hour fail -> banned for 24 hours
+chain=DOCKER-USER
+backend = auto
+enabled = true
+port = 80,443,2283
+protocol = tcp
+filter = immich
+maxretry = 4
+bantime = 86400
+findtime = 3600
+logpath = /caddydata/caddy.log
