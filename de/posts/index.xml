@@ -7492,7 +7492,7 @@ print(&#34;Sinuswerte   :&#34;, sinus)</textarea>
 </span></span></code></pre></div><hr>
 <h2 id="8-interaktive-parameter-widgets--schieberegler">8. Interaktive Parameter-Widgets &amp; Schieberegler</h2>
 <p>Binde interaktive HTML5-Canvas-Simulationen mit Live-Schiebereglern ein, um dynamische Systeme und Regelungstechnik intuitiv verständlich zu machen:</p>
-<div class="interactive-widget-box" id="widget-1792622423908874919">
+<div class="interactive-widget-box" id="widget-1792786385913102296">
   <div class="widget-title">Dynamischer System-Tuner</div>
   <div class="widget-desc">Passe Dämpfung und Eigenfrequenz über Schieberegler an und beobachte die Sprungantwort in Echtzeit.</div>
 
@@ -7630,7 +7630,7 @@ $$\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{q}_i}\right) - \fr
  und der modernen Regelungstheorie <span class="cite-group"><a class="cite-ref" href="#bib-astrom2010" data-cite-key="astrom2010" role="doc-biblioref" aria-label="Citation: astrom2010"><span class="cite-num">[astrom2010]</span></a></span>
  dargelegt, minimiert optimale Zustandsschätzung die Fehlervarianz. Grundlagen der Roboterkinematik finden sich in Craig <span class="cite-group"><a class="cite-ref" href="#bib-craig2005" data-cite-key="craig2005" role="doc-biblioref" aria-label="Citation: craig2005"><span class="cite-num">[craig2005]</span></a></span>
 .</p>
-<section class="smidr-bibliography-section" id="bib-sec-1792622423909439559" aria-label="Literatur- &amp; Quellenverzeichnis" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792786385913703261" aria-label="Literatur- &amp; Quellenverzeichnis" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur- &amp; Quellenverzeichnis</span>
     </h2>
@@ -8002,7 +8002,7 @@ print(&#34;Sinuswerte   :&#34;, sinus)</textarea>
 </span></span></code></pre></div><hr>
 <h2 id="8-interaktive-parameter-widgets--schieberegler">8. Interaktive Parameter-Widgets &amp; Schieberegler</h2>
 <p>Binde interaktive HTML5-Canvas-Simulationen mit Live-Schiebereglern ein, um dynamische Systeme und Regelungstechnik intuitiv verständlich zu machen:</p>
-<div class="interactive-widget-box" id="widget-1792622423908874919">
+<div class="interactive-widget-box" id="widget-1792786385913102296">
   <div class="widget-title">Dynamischer System-Tuner</div>
   <div class="widget-desc">Passe Dämpfung und Eigenfrequenz über Schieberegler an und beobachte die Sprungantwort in Echtzeit.</div>
 
@@ -8140,7 +8140,7 @@ $$\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{q}_i}\right) - \fr
  und der modernen Regelungstheorie <span class="cite-group"><a class="cite-ref" href="#bib-astrom2010" data-cite-key="astrom2010" role="doc-biblioref" aria-label="Citation: astrom2010"><span class="cite-num">[astrom2010]</span></a></span>
  dargelegt, minimiert optimale Zustandsschätzung die Fehlervarianz. Grundlagen der Roboterkinematik finden sich in Craig <span class="cite-group"><a class="cite-ref" href="#bib-craig2005" data-cite-key="craig2005" role="doc-biblioref" aria-label="Citation: craig2005"><span class="cite-num">[craig2005]</span></a></span>
 .</p>
-<section class="smidr-bibliography-section" id="bib-sec-1792622423909439559" aria-label="Literatur- &amp; Quellenverzeichnis" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792786385913703261" aria-label="Literatur- &amp; Quellenverzeichnis" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur- &amp; Quellenverzeichnis</span>
     </h2>
@@ -8596,7 +8596,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1792622424675730739">
+<figure class="tikz-container" id="tikz-1792786386631761057">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -8732,7 +8732,7 @@ wobei $\bm{b}$ die spezifische Volumenkraft (z. B. Schwerebeschleunigung $\bm{g}
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-konstitutivgesetze--lineare-elastizität">4. Konstitutivgesetze &amp; lineare Elastizität</h2>
-<figure class="tikz-container" id="tikz-1792622424675873204">
+<figure class="tikz-container" id="tikz-1792786386631919994">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -9338,7 +9338,7 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1792622424676427073">
+<figure class="tikz-container" id="tikz-1792786386632991820">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -9549,7 +9549,7 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1792622424676811107">
+<figure class="tikz-container" id="tikz-1792786386633767912">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -10069,7 +10069,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Gleichungssystem lösen:</strong>
 Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\mathbf{K}\mathbf{c} = \mathbf{F}$, dessen Lösung die energieoptimalen Koeffizienten $c_i$ liefert.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1792622424677607117" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792786386635779047" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur &amp; Referenzen</span>
     </h2>
@@ -10401,7 +10401,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1792622424675730739">
+<figure class="tikz-container" id="tikz-1792786386631761057">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -10537,7 +10537,7 @@ wobei $\bm{b}$ die spezifische Volumenkraft (z. B. Schwerebeschleunigung $\bm{g}
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-konstitutivgesetze--lineare-elastizität">4. Konstitutivgesetze &amp; lineare Elastizität</h2>
-<figure class="tikz-container" id="tikz-1792622424675873204">
+<figure class="tikz-container" id="tikz-1792786386631919994">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -11143,7 +11143,7 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1792622424676427073">
+<figure class="tikz-container" id="tikz-1792786386632991820">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -11354,7 +11354,7 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1792622424676811107">
+<figure class="tikz-container" id="tikz-1792786386633767912">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -11874,7 +11874,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Gleichungssystem lösen:</strong>
 Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\mathbf{K}\mathbf{c} = \mathbf{F}$, dessen Lösung die energieoptimalen Koeffizienten $c_i$ liefert.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1792622424677607117" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1792786386635779047" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur &amp; Referenzen</span>
     </h2>
@@ -17695,7 +17695,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792622424758414562" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792786386698025003" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -17812,7 +17812,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792622424758414562");
+  const root = document.getElementById("neuron-1792786386698025003");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -18284,7 +18284,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1792622424758414562" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1792786386698025003" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -18401,7 +18401,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1792622424758414562");
+  const root = document.getElementById("neuron-1792786386698025003");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
