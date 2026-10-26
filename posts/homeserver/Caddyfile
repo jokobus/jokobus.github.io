@@ -157,7 +157,7 @@ example.com {
 	import security_header
 	header {
 	    # Updated CSP to allow KaTeX fonts/styles and Pyodide WASM execution
-        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data:; connect-src 'self' https://cdn.jsdelivr.net https://pypi.org https://files.pythonhosted.org; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'none';"
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://umami.example.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data:; connect-src 'self' https://cdn.jsdelivr.net https://pypi.org https://files.pythonhosted.org https://umami.example.com; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'none';"
 		# Protect user privacy by stripping sensitive URL path data when navigating away from your site.
 		Referrer-Policy "strict-origin-when-cross-origin"
 	}
