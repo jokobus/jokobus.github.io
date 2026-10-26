@@ -648,6 +648,41 @@ Tell the operating system how to mount the SSD partitions during boot:</p>
 </span></span><span class="line"><span class="cl"><span class="k">done</span>
 </span></span></code></pre></div><p>Make it executable:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chmod +x /usr/local/sbin/cpustats
+</span></span></code></pre></div><h4 id="4-comprehensive-system-overview-sysstats">4. Comprehensive System Overview (<code>sysstats</code>)</h4>
+<p>Creates a single comprehensive dashboard summarizing CPU architecture, temperature, RAM allocation, storage volumes, network interfaces, and load average:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /usr/local/sbin/sysstats
+</span></span></code></pre></div><p>Paste:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl">clear
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;=== Kronos System Telemetry Dashboard ===&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Date: </span><span class="k">$(</span>date <span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- CPU Architecture -----&#34;</span>
+</span></span><span class="line"><span class="cl">lscpu <span class="p">|</span> grep -E <span class="s1">&#39;Model name|CPU\(s\):|Thread\(s\) per core|Core\(s\) per socket&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Temperature: </span><span class="k">$(</span>vcgencmd measure_temp<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- RAM Allocation -----&#34;</span>
+</span></span><span class="line"><span class="cl">free -h
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Storage &amp; Partitions -----&#34;</span>
+</span></span><span class="line"><span class="cl">lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Network Interfaces -----&#34;</span>
+</span></span><span class="line"><span class="cl">ip -c -br addr show
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- System Uptime &amp; Load -----&#34;</span>
+</span></span><span class="line"><span class="cl">uptime
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Top 5 Resource-Heavy Processes -----&#34;</span>
+</span></span><span class="line"><span class="cl">ps -eo pid,ppid,cmd,%mem,%cpu --sort<span class="o">=</span>-%cpu <span class="p">|</span> head -n <span class="m">6</span>
+</span></span></code></pre></div><p>Make it executable:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chmod +x /usr/local/sbin/sysstats
 </span></span></code></pre></div><hr>
 <h1 id="4-domain-router-firewall--dyndns-configuration">4. Domain, Router, Firewall &amp; DynDNS Configuration</h1>
 <p>To reach your cloud seamlessly from your phone, laptop, or office computer anywhere in the world, your server needs a public domain name and proper routing through your home internet router.</p>
@@ -1353,7 +1388,21 @@ Tell the operating system how to mount the SSD partitions during boot:</p>
 </span></span><span class="line"><span class="cl">sudo chown -R hsa:hsa_group /mnt/backup-hdd
 </span></span></code></pre></div></li>
 </ol>
-<hr>
+<h4 id="optional-hard-drive-standby--spindown-hdparm">Optional: Hard Drive Standby &amp; Spindown (<code>hdparm</code>)</h4>
+<p>To keep an external mechanical backup HDD silent, cool, and power-efficient when not backing up, configure it to automatically spin down into standby after 10 minutes of inactivity:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Install hdparm</span>
+</span></span><span class="line"><span class="cl">sudo apt install -y hdparm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Test immediate spindown timer (120 * 5s = 10 minutes):</span>
+</span></span><span class="line"><span class="cl">sudo hdparm -S <span class="m">120</span> /dev/sdb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Make spindown persistent across reboots in /etc/hdparm.conf:</span>
+</span></span><span class="line"><span class="cl">sudo nano /etc/hdparm.conf
+</span></span></code></pre></div><p>Add to the end of the file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/dev/disk/by-id/&lt;DISK-IDENTIFIER&gt; {
+</span></span><span class="line"><span class="cl">    spindown_time = 120
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><hr>
 <h3 id="72-nextcloud-aio-automated-borgbackup">7.2 Nextcloud AIO Automated BorgBackup</h3>
 <ol>
 <li>Open the Nextcloud AIO setup interface (<code>https://kronos.local:8080</code>).</li>
@@ -1368,6 +1417,23 @@ Tell the operating system how to mount the SSD partitions during boot:</p>
 </span></span></code></pre></div></li>
 <li>Run your initial backup. Future backup runs will execute automatically every night, taking only minutes because Borg only transfers new and modified file blocks.</li>
 </ol>
+<details>
+<summary><b>Moving or Changing the Borg Backup Target Location</b></summary>
+<br>
+<p>If you ever replace your backup drive or change its mount path after an initial backup has already been configured:</p>
+<ol>
+<li>Open the Nextcloud AIO setup interface and stop all containers.</li>
+<li>Edit the mastercontainer configuration JSON file:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /var/lib/docker/volumes/nextcloud_aio_mastercontainer/_data/data/configuration.json
+</span></span></code></pre></div></li>
+<li>Locate <code>&quot;borg_backup_host_location&quot;</code> and update it to your new directory path. Save and exit.</li>
+<li>Refresh the AIO setup interface.</li>
+<li>If running a new backup reports a stale configuration error or lock, clear the stale config marker:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker <span class="nb">exec</span> nextcloud-aio-mastercontainer rm /mnt/docker-aio-config/data/borg.config
+</span></span></code></pre></div></li>
+<li>Start the backup again via the Web UI.</li>
+</ol>
+</details>
 <hr>
 <h3 id="73-extracting-a-single-file-from-a-borg-backup">7.3 Extracting a Single File from a Borg Backup</h3>
 <p>If you ever accidentally delete or overwrite an important file, you do not need to restore the whole server. You can mount any Borg snapshot as a virtual folder and copy individual files directly.</p>
@@ -1381,18 +1447,24 @@ Tell the operating system how to mount the SSD partitions during boot:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mkdir -p /tmp/borg-mount
 </span></span><span class="line"><span class="cl">sudo <span class="nv">LC_ALL</span><span class="o">=</span>C.UTF-8 borg mount /mnt/backup-hdd::2026-10-20_04:00:01 /tmp/borg-mount
 </span></span></code></pre></div><p>Enter your Borg passphrase when prompted.</p>
-<h4 id="step-3-copy-your-file">Step 3: Copy Your File</h4>
+<h4 id="step-3-copy-your-file-on-the-server">Step 3: Copy Your File on the Server</h4>
 <p>The snapshot appears as a read-only directory:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Locate and copy the file</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Locate and copy the file to your user home directory</span>
 </span></span><span class="line"><span class="cl">sudo cp <span class="s2">&#34;/tmp/borg-mount/mnt/sda4/ncdata/data/hsa/files/Documents/Contract.pdf&#34;</span> ~/recovered_contract.pdf
 </span></span><span class="line"><span class="cl">sudo chown hsa:hsa ~/recovered_contract.pdf
-</span></span></code></pre></div><h4 id="step-4-unmount-the-archive">Step 4: Unmount the Archive</h4>
-<p>Always unmount the snapshot when finished so the repository is unlocked for nightly backups:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo borg umount /tmp/borg-mount
+</span></span></code></pre></div><h4 id="step-4-download-to-your-local-computer">Step 4: Download to Your Local Computer</h4>
+<p>Run this command in a <strong>new terminal on your local laptop / PC</strong> (do not run it inside your SSH session):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Downloads the recovered file via SCP to your current local directory</span>
+</span></span><span class="line"><span class="cl">scp hsa@kronos.local:~/recovered_contract.pdf ./
+</span></span></code></pre></div><h4 id="step-5-unmount-the-archive">Step 5: Unmount the Archive</h4>
+<p>Return to your server SSH session and unmount the snapshot so the repository is unlocked for nightly backups:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~
+</span></span><span class="line"><span class="cl">sudo borg umount /tmp/borg-mount
 </span></span></code></pre></div><details>
-<summary><b>Troubleshooting: PostgreSQL Timezone Dump Error</b></summary>
+<summary><b>Troubleshooting: PostgreSQL Timezone Dump Error & Emergency Container Access</b></summary>
 <br>
-<p>If the Nextcloud AIO backup fails with <code>FATAL: invalid value for parameter &quot;TimeZone&quot;: &quot;CEST&quot;</code>:</p>
+<p><strong>1. PostgreSQL Timezone Error:</strong><br>
+If the Nextcloud AIO backup fails with <code>FATAL: invalid value for parameter &quot;TimeZone&quot;: &quot;CEST&quot;</code>:</p>
 <ol>
 <li>Ensure the system timezone is set properly:
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo timedatectl set-timezone Europe/Berlin
@@ -1406,7 +1478,11 @@ Tell the operating system how to mount the SSD partitions during boot:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker compose down <span class="o">&amp;&amp;</span> docker compose up -d
 </span></span></code></pre></div></li>
 </ol>
-</details>
+<p><strong>2. Database Emergency Shell:</strong><br>
+If a configuration typo or syntax error prevents the PostgreSQL container from starting, launch an ephemeral alpine repair container mounted directly to the database volume:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -it --rm -v nextcloud_aio_database:/pgdata alpine /bin/sh
+</span></span><span class="line"><span class="cl"><span class="c1"># Once inside, inspect or fix /pgdata/postgresql.conf, then exit</span>
+</span></span></code></pre></div></details>
 <hr>
 <h1 id="8-daily-operation-faq--routine-maintenance">8. Daily Operation, FAQ &amp; Routine Maintenance</h1>
 <p>Your homeserver is now running a hardened, modern cloud suite with automated maintenance:</p>
@@ -1971,6 +2047,41 @@ Tell the operating system how to mount the SSD partitions during boot:</p>
 </span></span><span class="line"><span class="cl"><span class="k">done</span>
 </span></span></code></pre></div><p>Make it executable:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chmod +x /usr/local/sbin/cpustats
+</span></span></code></pre></div><h4 id="4-comprehensive-system-overview-sysstats">4. Comprehensive System Overview (<code>sysstats</code>)</h4>
+<p>Creates a single comprehensive dashboard summarizing CPU architecture, temperature, RAM allocation, storage volumes, network interfaces, and load average:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /usr/local/sbin/sysstats
+</span></span></code></pre></div><p>Paste:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl">clear
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;=== Kronos System Telemetry Dashboard ===&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Date: </span><span class="k">$(</span>date <span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- CPU Architecture -----&#34;</span>
+</span></span><span class="line"><span class="cl">lscpu <span class="p">|</span> grep -E <span class="s1">&#39;Model name|CPU\(s\):|Thread\(s\) per core|Core\(s\) per socket&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Temperature: </span><span class="k">$(</span>vcgencmd measure_temp<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- RAM Allocation -----&#34;</span>
+</span></span><span class="line"><span class="cl">free -h
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Storage &amp; Partitions -----&#34;</span>
+</span></span><span class="line"><span class="cl">lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Network Interfaces -----&#34;</span>
+</span></span><span class="line"><span class="cl">ip -c -br addr show
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- System Uptime &amp; Load -----&#34;</span>
+</span></span><span class="line"><span class="cl">uptime
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Top 5 Resource-Heavy Processes -----&#34;</span>
+</span></span><span class="line"><span class="cl">ps -eo pid,ppid,cmd,%mem,%cpu --sort<span class="o">=</span>-%cpu <span class="p">|</span> head -n <span class="m">6</span>
+</span></span></code></pre></div><p>Make it executable:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chmod +x /usr/local/sbin/sysstats
 </span></span></code></pre></div><hr>
 <h1 id="4-domain-router-firewall--dyndns-configuration">4. Domain, Router, Firewall &amp; DynDNS Configuration</h1>
 <p>To reach your cloud seamlessly from your phone, laptop, or office computer anywhere in the world, your server needs a public domain name and proper routing through your home internet router.</p>
@@ -2676,7 +2787,21 @@ Tell the operating system how to mount the SSD partitions during boot:</p>
 </span></span><span class="line"><span class="cl">sudo chown -R hsa:hsa_group /mnt/backup-hdd
 </span></span></code></pre></div></li>
 </ol>
-<hr>
+<h4 id="optional-hard-drive-standby--spindown-hdparm">Optional: Hard Drive Standby &amp; Spindown (<code>hdparm</code>)</h4>
+<p>To keep an external mechanical backup HDD silent, cool, and power-efficient when not backing up, configure it to automatically spin down into standby after 10 minutes of inactivity:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Install hdparm</span>
+</span></span><span class="line"><span class="cl">sudo apt install -y hdparm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Test immediate spindown timer (120 * 5s = 10 minutes):</span>
+</span></span><span class="line"><span class="cl">sudo hdparm -S <span class="m">120</span> /dev/sdb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Make spindown persistent across reboots in /etc/hdparm.conf:</span>
+</span></span><span class="line"><span class="cl">sudo nano /etc/hdparm.conf
+</span></span></code></pre></div><p>Add to the end of the file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/dev/disk/by-id/&lt;DISK-IDENTIFIER&gt; {
+</span></span><span class="line"><span class="cl">    spindown_time = 120
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><hr>
 <h3 id="72-nextcloud-aio-automated-borgbackup">7.2 Nextcloud AIO Automated BorgBackup</h3>
 <ol>
 <li>Open the Nextcloud AIO setup interface (<code>https://kronos.local:8080</code>).</li>
@@ -2691,6 +2816,23 @@ Tell the operating system how to mount the SSD partitions during boot:</p>
 </span></span></code></pre></div></li>
 <li>Run your initial backup. Future backup runs will execute automatically every night, taking only minutes because Borg only transfers new and modified file blocks.</li>
 </ol>
+<details>
+<summary><b>Moving or Changing the Borg Backup Target Location</b></summary>
+<br>
+<p>If you ever replace your backup drive or change its mount path after an initial backup has already been configured:</p>
+<ol>
+<li>Open the Nextcloud AIO setup interface and stop all containers.</li>
+<li>Edit the mastercontainer configuration JSON file:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /var/lib/docker/volumes/nextcloud_aio_mastercontainer/_data/data/configuration.json
+</span></span></code></pre></div></li>
+<li>Locate <code>&quot;borg_backup_host_location&quot;</code> and update it to your new directory path. Save and exit.</li>
+<li>Refresh the AIO setup interface.</li>
+<li>If running a new backup reports a stale configuration error or lock, clear the stale config marker:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker <span class="nb">exec</span> nextcloud-aio-mastercontainer rm /mnt/docker-aio-config/data/borg.config
+</span></span></code></pre></div></li>
+<li>Start the backup again via the Web UI.</li>
+</ol>
+</details>
 <hr>
 <h3 id="73-extracting-a-single-file-from-a-borg-backup">7.3 Extracting a Single File from a Borg Backup</h3>
 <p>If you ever accidentally delete or overwrite an important file, you do not need to restore the whole server. You can mount any Borg snapshot as a virtual folder and copy individual files directly.</p>
@@ -2704,18 +2846,24 @@ Tell the operating system how to mount the SSD partitions during boot:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mkdir -p /tmp/borg-mount
 </span></span><span class="line"><span class="cl">sudo <span class="nv">LC_ALL</span><span class="o">=</span>C.UTF-8 borg mount /mnt/backup-hdd::2026-10-20_04:00:01 /tmp/borg-mount
 </span></span></code></pre></div><p>Enter your Borg passphrase when prompted.</p>
-<h4 id="step-3-copy-your-file">Step 3: Copy Your File</h4>
+<h4 id="step-3-copy-your-file-on-the-server">Step 3: Copy Your File on the Server</h4>
 <p>The snapshot appears as a read-only directory:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Locate and copy the file</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Locate and copy the file to your user home directory</span>
 </span></span><span class="line"><span class="cl">sudo cp <span class="s2">&#34;/tmp/borg-mount/mnt/sda4/ncdata/data/hsa/files/Documents/Contract.pdf&#34;</span> ~/recovered_contract.pdf
 </span></span><span class="line"><span class="cl">sudo chown hsa:hsa ~/recovered_contract.pdf
-</span></span></code></pre></div><h4 id="step-4-unmount-the-archive">Step 4: Unmount the Archive</h4>
-<p>Always unmount the snapshot when finished so the repository is unlocked for nightly backups:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo borg umount /tmp/borg-mount
+</span></span></code></pre></div><h4 id="step-4-download-to-your-local-computer">Step 4: Download to Your Local Computer</h4>
+<p>Run this command in a <strong>new terminal on your local laptop / PC</strong> (do not run it inside your SSH session):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Downloads the recovered file via SCP to your current local directory</span>
+</span></span><span class="line"><span class="cl">scp hsa@kronos.local:~/recovered_contract.pdf ./
+</span></span></code></pre></div><h4 id="step-5-unmount-the-archive">Step 5: Unmount the Archive</h4>
+<p>Return to your server SSH session and unmount the snapshot so the repository is unlocked for nightly backups:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~
+</span></span><span class="line"><span class="cl">sudo borg umount /tmp/borg-mount
 </span></span></code></pre></div><details>
-<summary><b>Troubleshooting: PostgreSQL Timezone Dump Error</b></summary>
+<summary><b>Troubleshooting: PostgreSQL Timezone Dump Error & Emergency Container Access</b></summary>
 <br>
-<p>If the Nextcloud AIO backup fails with <code>FATAL: invalid value for parameter &quot;TimeZone&quot;: &quot;CEST&quot;</code>:</p>
+<p><strong>1. PostgreSQL Timezone Error:</strong><br>
+If the Nextcloud AIO backup fails with <code>FATAL: invalid value for parameter &quot;TimeZone&quot;: &quot;CEST&quot;</code>:</p>
 <ol>
 <li>Ensure the system timezone is set properly:
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo timedatectl set-timezone Europe/Berlin
@@ -2729,7 +2877,11 @@ Tell the operating system how to mount the SSD partitions during boot:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker compose down <span class="o">&amp;&amp;</span> docker compose up -d
 </span></span></code></pre></div></li>
 </ol>
-</details>
+<p><strong>2. Database Emergency Shell:</strong><br>
+If a configuration typo or syntax error prevents the PostgreSQL container from starting, launch an ephemeral alpine repair container mounted directly to the database volume:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -it --rm -v nextcloud_aio_database:/pgdata alpine /bin/sh
+</span></span><span class="line"><span class="cl"><span class="c1"># Once inside, inspect or fix /pgdata/postgresql.conf, then exit</span>
+</span></span></code></pre></div></details>
 <hr>
 <h1 id="8-daily-operation-faq--routine-maintenance">8. Daily Operation, FAQ &amp; Routine Maintenance</h1>
 <p>Your homeserver is now running a hardened, modern cloud suite with automated maintenance:</p>
@@ -7998,7 +8150,7 @@ print(&#34;Sine values :&#34;, sines)</textarea>
 </span></span></code></pre></div><hr>
 <h2 id="8-interactive-parameter-widgets--sliders">8. Interactive Parameter Widgets &amp; Sliders</h2>
 <p>Embed interactive HTML5 Canvas visualizers with real-time parameter sliders to demonstrate dynamic systems and control feedback:</p>
-<div class="interactive-widget-box" id="widget-1793018119783760326">
+<div class="interactive-widget-box" id="widget-1793018569659123380">
   <div class="widget-title">Dynamic System Response Tuner</div>
   <div class="widget-desc">Adjust damping and natural frequency sliders in real time to observe the step response.</div>
 
@@ -8136,7 +8288,7 @@ $$\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{q}_i}\right) - \fr
  and foundational feedback theory <span class="cite-group"><a class="cite-ref" href="#bib-astrom2010" data-cite-key="astrom2010" role="doc-biblioref" aria-label="Citation: astrom2010"><span class="cite-num">[astrom2010]</span></a></span>
 , optimal estimation requires minimal variance guarantees. Robot kinematics are comprehensively discussed in Craig <span class="cite-group"><a class="cite-ref" href="#bib-craig2005" data-cite-key="craig2005" role="doc-biblioref" aria-label="Citation: craig2005"><span class="cite-num">[craig2005]</span></a></span>
 .</p>
-<section class="smidr-bibliography-section" id="bib-sec-1793018119784281678" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1793018569659701366" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>References &amp; Citations</span>
     </h2>
@@ -8508,7 +8660,7 @@ print(&#34;Sine values :&#34;, sines)</textarea>
 </span></span></code></pre></div><hr>
 <h2 id="8-interactive-parameter-widgets--sliders">8. Interactive Parameter Widgets &amp; Sliders</h2>
 <p>Embed interactive HTML5 Canvas visualizers with real-time parameter sliders to demonstrate dynamic systems and control feedback:</p>
-<div class="interactive-widget-box" id="widget-1793018119783760326">
+<div class="interactive-widget-box" id="widget-1793018569659123380">
   <div class="widget-title">Dynamic System Response Tuner</div>
   <div class="widget-desc">Adjust damping and natural frequency sliders in real time to observe the step response.</div>
 
@@ -8646,7 +8798,7 @@ $$\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{q}_i}\right) - \fr
  and foundational feedback theory <span class="cite-group"><a class="cite-ref" href="#bib-astrom2010" data-cite-key="astrom2010" role="doc-biblioref" aria-label="Citation: astrom2010"><span class="cite-num">[astrom2010]</span></a></span>
 , optimal estimation requires minimal variance guarantees. Robot kinematics are comprehensively discussed in Craig <span class="cite-group"><a class="cite-ref" href="#bib-craig2005" data-cite-key="craig2005" role="doc-biblioref" aria-label="Citation: craig2005"><span class="cite-num">[craig2005]</span></a></span>
 .</p>
-<section class="smidr-bibliography-section" id="bib-sec-1793018119784281678" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1793018569659701366" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>References &amp; Citations</span>
     </h2>
@@ -9102,7 +9254,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1793018120615109006">
+<figure class="tikz-container" id="tikz-1793018570838477199">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -9238,7 +9390,7 @@ where $\bm{b}$ represents body forces per unit mass (gravity, magnetic fields). 
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-constitutive-laws--linear-elastic-solids">4. Constitutive Laws &amp; Linear Elastic Solids</h2>
-<figure class="tikz-container" id="tikz-1793018120615250098">
+<figure class="tikz-container" id="tikz-1793018570838670763">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -9846,7 +9998,7 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1793018120615677278">
+<figure class="tikz-container" id="tikz-1793018570839429138">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -10057,7 +10209,7 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1793018120615990848">
+<figure class="tikz-container" id="tikz-1793018570839983941">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -10577,7 +10729,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Solve System:</strong>
 This produces a symmetric linear system of algebraic equations $\mathbf{K}\mathbf{c} = \mathbf{F}$ yielding the energy-optimal approximation coefficients $c_i$.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1793018120616661574" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1793018570841280368" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>References &amp; Citations</span>
     </h2>
@@ -10909,7 +11061,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1793018120615109006">
+<figure class="tikz-container" id="tikz-1793018570838477199">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -11045,7 +11197,7 @@ where $\bm{b}$ represents body forces per unit mass (gravity, magnetic fields). 
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-constitutive-laws--linear-elastic-solids">4. Constitutive Laws &amp; Linear Elastic Solids</h2>
-<figure class="tikz-container" id="tikz-1793018120615250098">
+<figure class="tikz-container" id="tikz-1793018570838670763">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -11653,7 +11805,7 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1793018120615677278">
+<figure class="tikz-container" id="tikz-1793018570839429138">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -11864,7 +12016,7 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1793018120615990848">
+<figure class="tikz-container" id="tikz-1793018570839983941">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -12384,7 +12536,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Solve System:</strong>
 This produces a symmetric linear system of algebraic equations $\mathbf{K}\mathbf{c} = \mathbf{F}$ yielding the energy-optimal approximation coefficients $c_i$.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1793018120616661574" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1793018570841280368" aria-label="References &amp; Citations" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>References &amp; Citations</span>
     </h2>
@@ -19831,7 +19983,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1793018120696090408" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1793018571026671303" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -19948,7 +20100,7 @@ print(&#34;✓ Gradient check passed! Matrix equations match exact derivatives.&
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1793018120696090408");
+  const root = document.getElementById("neuron-1793018571026671303");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -20423,7 +20575,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. We have $y_{in} = 13 > 0$ so $y_{out} = 1$</li>
 <li>The node outputs $y_{out} = 1$</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1793018120696090408" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1793018571026671303" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -20540,7 +20692,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1793018120696090408");
+  const root = document.getElementById("neuron-1793018571026671303");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");

@@ -647,6 +647,41 @@ Konfiguriere das automatische Einhängen beim Systemstart:</p>
 </span></span><span class="line"><span class="cl"><span class="k">done</span>
 </span></span></code></pre></div><p>Ausführbar machen:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chmod +x /usr/local/sbin/cpustats
+</span></span></code></pre></div><h4 id="4-gesamtsystem-übersicht-sysstats">4. Gesamtsystem-Übersicht (<code>sysstats</code>)</h4>
+<p>Erzeugt ein kompaktes Dashboard über Prozessor-Architektur, Temperatur, RAM-Zuweisung, Speichermedien, Netzwerkschnittstellen und Systemlast:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /usr/local/sbin/sysstats
+</span></span></code></pre></div><p>Inhalt:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl">clear
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;=== Kronos System-Telemetrie Dashboard ===&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Datum: </span><span class="k">$(</span>date <span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- CPU-Architektur -----&#34;</span>
+</span></span><span class="line"><span class="cl">lscpu <span class="p">|</span> grep -E <span class="s1">&#39;Modellname|Model name|CPU\(s\):|Thread\(s\) per core|Core\(s\) per socket&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Temperatur:  </span><span class="k">$(</span>vcgencmd measure_temp<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Arbeitsspeicher (RAM) -----&#34;</span>
+</span></span><span class="line"><span class="cl">free -h
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Festplatten &amp; Partitionen -----&#34;</span>
+</span></span><span class="line"><span class="cl">lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Netzwerkschnittstellen -----&#34;</span>
+</span></span><span class="line"><span class="cl">ip -c -br addr show
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- System-Uptime &amp; Last -----&#34;</span>
+</span></span><span class="line"><span class="cl">uptime
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Top 5 ressourcenhungrigste Prozesse -----&#34;</span>
+</span></span><span class="line"><span class="cl">ps -eo pid,ppid,cmd,%mem,%cpu --sort<span class="o">=</span>-%cpu <span class="p">|</span> head -n <span class="m">6</span>
+</span></span></code></pre></div><p>Ausführbar machen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chmod +x /usr/local/sbin/sysstats
 </span></span></code></pre></div><hr>
 <h1 id="4-domain--router--firewall---dyndns-konfiguration">4. Domain-, Router-, Firewall- &amp; DynDNS-Konfiguration</h1>
 <p>Damit dein Server weltweit über Smartphone, Tablet oder Laptop erreichbar ist, konfigurieren wir Subdomains bei deinem Domainanbieter und richten die Portweiterleitung im Router ein.</p>
@@ -1352,7 +1387,21 @@ Konfiguriere das automatische Einhängen beim Systemstart:</p>
 </span></span><span class="line"><span class="cl">sudo chown -R hsa:hsa_group /mnt/backup-hdd
 </span></span></code></pre></div></li>
 </ol>
-<hr>
+<h4 id="optional-festplatten-standby--spindown-hdparm">Optional: Festplatten-Standby &amp; Spindown (<code>hdparm</code>)</h4>
+<p>Damit eine externe mechanische Backup-Festplatte leise, kühl und stromsparend bleibt, wenn kein Backup läuft, lässt sie sich nach 10 Minuten Inaktivität automatisch in den Spindown-Standby schicken:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># hdparm installieren</span>
+</span></span><span class="line"><span class="cl">sudo apt install -y hdparm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Standby-Timer testen (120 * 5s = 10 Minuten):</span>
+</span></span><span class="line"><span class="cl">sudo hdparm -S <span class="m">120</span> /dev/sdb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Dauerhaft beim Booten in /etc/hdparm.conf hinterlegen:</span>
+</span></span><span class="line"><span class="cl">sudo nano /etc/hdparm.conf
+</span></span></code></pre></div><p>Am Ende der Datei einfügen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/dev/disk/by-id/&lt;DISK-IDENTIFIER&gt; {
+</span></span><span class="line"><span class="cl">    spindown_time = 120
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><hr>
 <h3 id="72-nextcloud-aio-automatisches-borgbackup">7.2 Nextcloud AIO Automatisches BorgBackup</h3>
 <ol>
 <li>Öffne die Nextcloud AIO Weboberfläche (<code>https://kronos.local:8080</code>).</li>
@@ -1367,6 +1416,23 @@ Konfiguriere das automatische Einhängen beim Systemstart:</p>
 </span></span></code></pre></div></li>
 <li>Starte das erste Backup. Künftige Sicherungen laufen vollautomatisch jede Nacht und dauern meist nur wenige Minuten, da Borg nur veränderte Dateiblöcke überträgt.</li>
 </ol>
+<details>
+<summary><b>Borg-Backup-Speicherort nachträglich verschieben oder anpassen</b></summary>
+<br>
+<p>Falls du die Backup-Festplatte später austauschst oder den Mount-Pfad nach einem bereits erfolgten ersten Backup ändern möchtest:</p>
+<ol>
+<li>Öffne die Nextcloud AIO Oberfläche und stoppe alle Container.</li>
+<li>Bearbeite die Konfigurationsdatei des Mastercontainers:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /var/lib/docker/volumes/nextcloud_aio_mastercontainer/_data/data/configuration.json
+</span></span></code></pre></div></li>
+<li>Ändere den Wert von <code>&quot;borg_backup_host_location&quot;</code> auf den neuen Pfad. Speichern und schließen.</li>
+<li>Lade die AIO-Webseite neu.</li>
+<li>Sollte das Backup mit einem Sperr- oder Konfigurationsfehler abbrechen, entferne die alte Lock-Datei:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker <span class="nb">exec</span> nextcloud-aio-mastercontainer rm /mnt/docker-aio-config/data/borg.config
+</span></span></code></pre></div></li>
+<li>Starte das Backup erneut über die Web-Oberfläche.</li>
+</ol>
+</details>
 <hr>
 <h3 id="73-einzelne-dateien-aus-einem-borg-backup-wiederherstellen">7.3 Einzelne Dateien aus einem Borg-Backup wiederherstellen</h3>
 <p>Solltest du versehentlich ein wichtiges Dokument gelöscht oder überschrieben haben, musst du nicht den gesamten Server zurücksetzen. Jeder Borg-Snapshot lässt sich als virtueller Ordner einbinden:</p>
@@ -1380,18 +1446,24 @@ Konfiguriere das automatische Einhängen beim Systemstart:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mkdir -p /tmp/borg-mount
 </span></span><span class="line"><span class="cl">sudo <span class="nv">LC_ALL</span><span class="o">=</span>C.UTF-8 borg mount /mnt/backup-hdd::2026-10-20_04:00:01 /tmp/borg-mount
 </span></span></code></pre></div><p>Gib deine Borg-Passphrase ein.</p>
-<h4 id="schritt-3-datei-heraussuchen-und-kopieren">Schritt 3: Datei heraussuchen und kopieren</h4>
+<h4 id="schritt-3-datei-auf-dem-server-heraussuchen-und-kopieren">Schritt 3: Datei auf dem Server heraussuchen und kopieren</h4>
 <p>Der Snapshot steht nun als schreibgeschütztes Dateisystem bereit:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Datei finden und in dein Home-Verzeichnis kopieren</span>
 </span></span><span class="line"><span class="cl">sudo cp <span class="s2">&#34;/tmp/borg-mount/mnt/sda4/ncdata/data/hsa/files/Dokumente/Vertrag.pdf&#34;</span> ~/wiederhergestellt.pdf
 </span></span><span class="line"><span class="cl">sudo chown hsa:hsa ~/wiederhergestellt.pdf
-</span></span></code></pre></div><h4 id="schritt-4-virtuelles-dateisystem-wieder-aushängen">Schritt 4: Virtuelles Dateisystem wieder aushängen</h4>
-<p>Hänge den Ordner nach getaner Arbeit immer aus, damit das Backup-Repository für die nächste Nacht freigegeben ist:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo borg umount /tmp/borg-mount
+</span></span></code></pre></div><h4 id="schritt-4-datei-auf-den-lokalen-pc-herunterladen">Schritt 4: Datei auf den lokalen PC herunterladen</h4>
+<p>Führe diesen Befehl in einem <strong>neuen Terminal auf deinem PC / Laptop</strong> aus (nicht in der SSH-Sitzung):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Lädt die gerettete Datei via SCP in das aktuelle Verzeichnis deines PCs</span>
+</span></span><span class="line"><span class="cl">scp hsa@kronos.local:~/wiederhergestellt.pdf ./
+</span></span></code></pre></div><h4 id="schritt-5-virtuelles-dateisystem-wieder-aushängen">Schritt 5: Virtuelles Dateisystem wieder aushängen</h4>
+<p>Kehre in deine SSH-Sitzung zurück und hänge den Ordner aus, damit das Repository für künftige Sicherungen entsperrt ist:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~
+</span></span><span class="line"><span class="cl">sudo borg umount /tmp/borg-mount
 </span></span></code></pre></div><details>
-<summary><b>Fehlerbehebung: PostgreSQL Timezone Fehler beim Backup</b></summary>
+<summary><b>Fehlerbehebung: PostgreSQL Timezone Fehler & Notfall-Container-Shell</b></summary>
 <br>
-<p>Bricht das Nextcloud AIO Backup mit <code>FATAL: invalid value for parameter &quot;TimeZone&quot;: &quot;CEST&quot;</code> ab:</p>
+<p><strong>1. PostgreSQL Timezone-Fehler:</strong><br>
+Bricht das Nextcloud AIO Backup mit <code>FATAL: invalid value for parameter &quot;TimeZone&quot;: &quot;CEST&quot;</code> ab:</p>
 <ol>
 <li>Prüfe die Zeitzone des Systems:
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo timedatectl set-timezone Europe/Berlin
@@ -1405,7 +1477,11 @@ Konfiguriere das automatische Einhängen beim Systemstart:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker compose down <span class="o">&amp;&amp;</span> docker compose up -d
 </span></span></code></pre></div></li>
 </ol>
-</details>
+<p><strong>2. Notfall-Shell bei beschädigter Datenbank-Konfiguration:</strong><br>
+Falls ein Syntaxfehler in der <code>postgresql.conf</code> den Containerstart verhindert, starte einen temporären Alpine-Container mit gemountetem Datenbank-Volume:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -it --rm -v nextcloud_aio_database:/pgdata alpine /bin/sh
+</span></span><span class="line"><span class="cl"><span class="c1"># Repariere /pgdata/postgresql.conf und beende die Shell mit &#39;exit&#39;</span>
+</span></span></code></pre></div></details>
 <hr>
 <h1 id="8-tägliche-praxis-faq--routinewartung">8. Tägliche Praxis, FAQ &amp; Routinewartung</h1>
 <p>Dein Homeserver läuft nun vollautomatisiert, sicher und energieeffizient:</p>
@@ -1971,6 +2047,41 @@ Konfiguriere das automatische Einhängen beim Systemstart:</p>
 </span></span><span class="line"><span class="cl"><span class="k">done</span>
 </span></span></code></pre></div><p>Ausführbar machen:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chmod +x /usr/local/sbin/cpustats
+</span></span></code></pre></div><h4 id="4-gesamtsystem-übersicht-sysstats">4. Gesamtsystem-Übersicht (<code>sysstats</code>)</h4>
+<p>Erzeugt ein kompaktes Dashboard über Prozessor-Architektur, Temperatur, RAM-Zuweisung, Speichermedien, Netzwerkschnittstellen und Systemlast:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /usr/local/sbin/sysstats
+</span></span></code></pre></div><p>Inhalt:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl">clear
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;=== Kronos System-Telemetrie Dashboard ===&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Datum: </span><span class="k">$(</span>date <span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- CPU-Architektur -----&#34;</span>
+</span></span><span class="line"><span class="cl">lscpu <span class="p">|</span> grep -E <span class="s1">&#39;Modellname|Model name|CPU\(s\):|Thread\(s\) per core|Core\(s\) per socket&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Temperatur:  </span><span class="k">$(</span>vcgencmd measure_temp<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Arbeitsspeicher (RAM) -----&#34;</span>
+</span></span><span class="line"><span class="cl">free -h
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Festplatten &amp; Partitionen -----&#34;</span>
+</span></span><span class="line"><span class="cl">lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Netzwerkschnittstellen -----&#34;</span>
+</span></span><span class="line"><span class="cl">ip -c -br addr show
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- System-Uptime &amp; Last -----&#34;</span>
+</span></span><span class="line"><span class="cl">uptime
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;----- Top 5 ressourcenhungrigste Prozesse -----&#34;</span>
+</span></span><span class="line"><span class="cl">ps -eo pid,ppid,cmd,%mem,%cpu --sort<span class="o">=</span>-%cpu <span class="p">|</span> head -n <span class="m">6</span>
+</span></span></code></pre></div><p>Ausführbar machen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chmod +x /usr/local/sbin/sysstats
 </span></span></code></pre></div><hr>
 <h1 id="4-domain--router--firewall---dyndns-konfiguration">4. Domain-, Router-, Firewall- &amp; DynDNS-Konfiguration</h1>
 <p>Damit dein Server weltweit über Smartphone, Tablet oder Laptop erreichbar ist, konfigurieren wir Subdomains bei deinem Domainanbieter und richten die Portweiterleitung im Router ein.</p>
@@ -2676,7 +2787,21 @@ Konfiguriere das automatische Einhängen beim Systemstart:</p>
 </span></span><span class="line"><span class="cl">sudo chown -R hsa:hsa_group /mnt/backup-hdd
 </span></span></code></pre></div></li>
 </ol>
-<hr>
+<h4 id="optional-festplatten-standby--spindown-hdparm">Optional: Festplatten-Standby &amp; Spindown (<code>hdparm</code>)</h4>
+<p>Damit eine externe mechanische Backup-Festplatte leise, kühl und stromsparend bleibt, wenn kein Backup läuft, lässt sie sich nach 10 Minuten Inaktivität automatisch in den Spindown-Standby schicken:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># hdparm installieren</span>
+</span></span><span class="line"><span class="cl">sudo apt install -y hdparm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Standby-Timer testen (120 * 5s = 10 Minuten):</span>
+</span></span><span class="line"><span class="cl">sudo hdparm -S <span class="m">120</span> /dev/sdb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Dauerhaft beim Booten in /etc/hdparm.conf hinterlegen:</span>
+</span></span><span class="line"><span class="cl">sudo nano /etc/hdparm.conf
+</span></span></code></pre></div><p>Am Ende der Datei einfügen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/dev/disk/by-id/&lt;DISK-IDENTIFIER&gt; {
+</span></span><span class="line"><span class="cl">    spindown_time = 120
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><hr>
 <h3 id="72-nextcloud-aio-automatisches-borgbackup">7.2 Nextcloud AIO Automatisches BorgBackup</h3>
 <ol>
 <li>Öffne die Nextcloud AIO Weboberfläche (<code>https://kronos.local:8080</code>).</li>
@@ -2691,6 +2816,23 @@ Konfiguriere das automatische Einhängen beim Systemstart:</p>
 </span></span></code></pre></div></li>
 <li>Starte das erste Backup. Künftige Sicherungen laufen vollautomatisch jede Nacht und dauern meist nur wenige Minuten, da Borg nur veränderte Dateiblöcke überträgt.</li>
 </ol>
+<details>
+<summary><b>Borg-Backup-Speicherort nachträglich verschieben oder anpassen</b></summary>
+<br>
+<p>Falls du die Backup-Festplatte später austauschst oder den Mount-Pfad nach einem bereits erfolgten ersten Backup ändern möchtest:</p>
+<ol>
+<li>Öffne die Nextcloud AIO Oberfläche und stoppe alle Container.</li>
+<li>Bearbeite die Konfigurationsdatei des Mastercontainers:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /var/lib/docker/volumes/nextcloud_aio_mastercontainer/_data/data/configuration.json
+</span></span></code></pre></div></li>
+<li>Ändere den Wert von <code>&quot;borg_backup_host_location&quot;</code> auf den neuen Pfad. Speichern und schließen.</li>
+<li>Lade die AIO-Webseite neu.</li>
+<li>Sollte das Backup mit einem Sperr- oder Konfigurationsfehler abbrechen, entferne die alte Lock-Datei:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker <span class="nb">exec</span> nextcloud-aio-mastercontainer rm /mnt/docker-aio-config/data/borg.config
+</span></span></code></pre></div></li>
+<li>Starte das Backup erneut über die Web-Oberfläche.</li>
+</ol>
+</details>
 <hr>
 <h3 id="73-einzelne-dateien-aus-einem-borg-backup-wiederherstellen">7.3 Einzelne Dateien aus einem Borg-Backup wiederherstellen</h3>
 <p>Solltest du versehentlich ein wichtiges Dokument gelöscht oder überschrieben haben, musst du nicht den gesamten Server zurücksetzen. Jeder Borg-Snapshot lässt sich als virtueller Ordner einbinden:</p>
@@ -2704,18 +2846,24 @@ Konfiguriere das automatische Einhängen beim Systemstart:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mkdir -p /tmp/borg-mount
 </span></span><span class="line"><span class="cl">sudo <span class="nv">LC_ALL</span><span class="o">=</span>C.UTF-8 borg mount /mnt/backup-hdd::2026-10-20_04:00:01 /tmp/borg-mount
 </span></span></code></pre></div><p>Gib deine Borg-Passphrase ein.</p>
-<h4 id="schritt-3-datei-heraussuchen-und-kopieren">Schritt 3: Datei heraussuchen und kopieren</h4>
+<h4 id="schritt-3-datei-auf-dem-server-heraussuchen-und-kopieren">Schritt 3: Datei auf dem Server heraussuchen und kopieren</h4>
 <p>Der Snapshot steht nun als schreibgeschütztes Dateisystem bereit:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Datei finden und in dein Home-Verzeichnis kopieren</span>
 </span></span><span class="line"><span class="cl">sudo cp <span class="s2">&#34;/tmp/borg-mount/mnt/sda4/ncdata/data/hsa/files/Dokumente/Vertrag.pdf&#34;</span> ~/wiederhergestellt.pdf
 </span></span><span class="line"><span class="cl">sudo chown hsa:hsa ~/wiederhergestellt.pdf
-</span></span></code></pre></div><h4 id="schritt-4-virtuelles-dateisystem-wieder-aushängen">Schritt 4: Virtuelles Dateisystem wieder aushängen</h4>
-<p>Hänge den Ordner nach getaner Arbeit immer aus, damit das Backup-Repository für die nächste Nacht freigegeben ist:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo borg umount /tmp/borg-mount
+</span></span></code></pre></div><h4 id="schritt-4-datei-auf-den-lokalen-pc-herunterladen">Schritt 4: Datei auf den lokalen PC herunterladen</h4>
+<p>Führe diesen Befehl in einem <strong>neuen Terminal auf deinem PC / Laptop</strong> aus (nicht in der SSH-Sitzung):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Lädt die gerettete Datei via SCP in das aktuelle Verzeichnis deines PCs</span>
+</span></span><span class="line"><span class="cl">scp hsa@kronos.local:~/wiederhergestellt.pdf ./
+</span></span></code></pre></div><h4 id="schritt-5-virtuelles-dateisystem-wieder-aushängen">Schritt 5: Virtuelles Dateisystem wieder aushängen</h4>
+<p>Kehre in deine SSH-Sitzung zurück und hänge den Ordner aus, damit das Repository für künftige Sicherungen entsperrt ist:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~
+</span></span><span class="line"><span class="cl">sudo borg umount /tmp/borg-mount
 </span></span></code></pre></div><details>
-<summary><b>Fehlerbehebung: PostgreSQL Timezone Fehler beim Backup</b></summary>
+<summary><b>Fehlerbehebung: PostgreSQL Timezone Fehler & Notfall-Container-Shell</b></summary>
 <br>
-<p>Bricht das Nextcloud AIO Backup mit <code>FATAL: invalid value for parameter &quot;TimeZone&quot;: &quot;CEST&quot;</code> ab:</p>
+<p><strong>1. PostgreSQL Timezone-Fehler:</strong><br>
+Bricht das Nextcloud AIO Backup mit <code>FATAL: invalid value for parameter &quot;TimeZone&quot;: &quot;CEST&quot;</code> ab:</p>
 <ol>
 <li>Prüfe die Zeitzone des Systems:
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo timedatectl set-timezone Europe/Berlin
@@ -2729,7 +2877,11 @@ Konfiguriere das automatische Einhängen beim Systemstart:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker compose down <span class="o">&amp;&amp;</span> docker compose up -d
 </span></span></code></pre></div></li>
 </ol>
-</details>
+<p><strong>2. Notfall-Shell bei beschädigter Datenbank-Konfiguration:</strong><br>
+Falls ein Syntaxfehler in der <code>postgresql.conf</code> den Containerstart verhindert, starte einen temporären Alpine-Container mit gemountetem Datenbank-Volume:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -it --rm -v nextcloud_aio_database:/pgdata alpine /bin/sh
+</span></span><span class="line"><span class="cl"><span class="c1"># Repariere /pgdata/postgresql.conf und beende die Shell mit &#39;exit&#39;</span>
+</span></span></code></pre></div></details>
 <hr>
 <h1 id="8-tägliche-praxis-faq--routinewartung">8. Tägliche Praxis, FAQ &amp; Routinewartung</h1>
 <p>Dein Homeserver läuft nun vollautomatisiert, sicher und energieeffizient:</p>
@@ -7492,7 +7644,7 @@ print(&#34;Sinuswerte   :&#34;, sinus)</textarea>
 </span></span></code></pre></div><hr>
 <h2 id="8-interaktive-parameter-widgets--schieberegler">8. Interaktive Parameter-Widgets &amp; Schieberegler</h2>
 <p>Binde interaktive HTML5-Canvas-Simulationen mit Live-Schiebereglern ein, um dynamische Systeme und Regelungstechnik intuitiv verständlich zu machen:</p>
-<div class="interactive-widget-box" id="widget-1793018120875433884">
+<div class="interactive-widget-box" id="widget-1793018571443154237">
   <div class="widget-title">Dynamischer System-Tuner</div>
   <div class="widget-desc">Passe Dämpfung und Eigenfrequenz über Schieberegler an und beobachte die Sprungantwort in Echtzeit.</div>
 
@@ -7630,7 +7782,7 @@ $$\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{q}_i}\right) - \fr
  und der modernen Regelungstheorie <span class="cite-group"><a class="cite-ref" href="#bib-astrom2010" data-cite-key="astrom2010" role="doc-biblioref" aria-label="Citation: astrom2010"><span class="cite-num">[astrom2010]</span></a></span>
  dargelegt, minimiert optimale Zustandsschätzung die Fehlervarianz. Grundlagen der Roboterkinematik finden sich in Craig <span class="cite-group"><a class="cite-ref" href="#bib-craig2005" data-cite-key="craig2005" role="doc-biblioref" aria-label="Citation: craig2005"><span class="cite-num">[craig2005]</span></a></span>
 .</p>
-<section class="smidr-bibliography-section" id="bib-sec-1793018120875851620" aria-label="Literatur- &amp; Quellenverzeichnis" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1793018571443727324" aria-label="Literatur- &amp; Quellenverzeichnis" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur- &amp; Quellenverzeichnis</span>
     </h2>
@@ -8002,7 +8154,7 @@ print(&#34;Sinuswerte   :&#34;, sinus)</textarea>
 </span></span></code></pre></div><hr>
 <h2 id="8-interaktive-parameter-widgets--schieberegler">8. Interaktive Parameter-Widgets &amp; Schieberegler</h2>
 <p>Binde interaktive HTML5-Canvas-Simulationen mit Live-Schiebereglern ein, um dynamische Systeme und Regelungstechnik intuitiv verständlich zu machen:</p>
-<div class="interactive-widget-box" id="widget-1793018120875433884">
+<div class="interactive-widget-box" id="widget-1793018571443154237">
   <div class="widget-title">Dynamischer System-Tuner</div>
   <div class="widget-desc">Passe Dämpfung und Eigenfrequenz über Schieberegler an und beobachte die Sprungantwort in Echtzeit.</div>
 
@@ -8140,7 +8292,7 @@ $$\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{q}_i}\right) - \fr
  und der modernen Regelungstheorie <span class="cite-group"><a class="cite-ref" href="#bib-astrom2010" data-cite-key="astrom2010" role="doc-biblioref" aria-label="Citation: astrom2010"><span class="cite-num">[astrom2010]</span></a></span>
  dargelegt, minimiert optimale Zustandsschätzung die Fehlervarianz. Grundlagen der Roboterkinematik finden sich in Craig <span class="cite-group"><a class="cite-ref" href="#bib-craig2005" data-cite-key="craig2005" role="doc-biblioref" aria-label="Citation: craig2005"><span class="cite-num">[craig2005]</span></a></span>
 .</p>
-<section class="smidr-bibliography-section" id="bib-sec-1793018120875851620" aria-label="Literatur- &amp; Quellenverzeichnis" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1793018571443727324" aria-label="Literatur- &amp; Quellenverzeichnis" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur- &amp; Quellenverzeichnis</span>
     </h2>
@@ -8596,7 +8748,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1793018121433207966">
+<figure class="tikz-container" id="tikz-1793018572685644301">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -8732,7 +8884,7 @@ wobei $\bm{b}$ die spezifische Volumenkraft (z. B. Schwerebeschleunigung $\bm{g}
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-konstitutivgesetze--lineare-elastizität">4. Konstitutivgesetze &amp; lineare Elastizität</h2>
-<figure class="tikz-container" id="tikz-1793018121433399142">
+<figure class="tikz-container" id="tikz-1793018572685802939">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -9338,7 +9490,7 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1793018121434341215">
+<figure class="tikz-container" id="tikz-1793018572686566023">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -9549,7 +9701,7 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1793018121434928566">
+<figure class="tikz-container" id="tikz-1793018572687113833">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -10069,7 +10221,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Gleichungssystem lösen:</strong>
 Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\mathbf{K}\mathbf{c} = \mathbf{F}$, dessen Lösung die energieoptimalen Koeffizienten $c_i$ liefert.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1793018121436436466" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1793018572688381846" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur &amp; Referenzen</span>
     </h2>
@@ -10401,7 +10553,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1793018121433207966">
+<figure class="tikz-container" id="tikz-1793018572685644301">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -10537,7 +10689,7 @@ wobei $\bm{b}$ die spezifische Volumenkraft (z. B. Schwerebeschleunigung $\bm{g}
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-konstitutivgesetze--lineare-elastizität">4. Konstitutivgesetze &amp; lineare Elastizität</h2>
-<figure class="tikz-container" id="tikz-1793018121433399142">
+<figure class="tikz-container" id="tikz-1793018572685802939">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -11143,7 +11295,7 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1793018121434341215">
+<figure class="tikz-container" id="tikz-1793018572686566023">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -11354,7 +11506,7 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1793018121434928566">
+<figure class="tikz-container" id="tikz-1793018572687113833">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -11874,7 +12026,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Gleichungssystem lösen:</strong>
 Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\mathbf{K}\mathbf{c} = \mathbf{F}$, dessen Lösung die energieoptimalen Koeffizienten $c_i$ liefert.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1793018121436436466" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1793018572688381846" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur &amp; Referenzen</span>
     </h2>
@@ -17695,7 +17847,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1793018121493089131" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1793018572783209932" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -17812,7 +17964,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1793018121493089131");
+  const root = document.getElementById("neuron-1793018572783209932");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -18284,7 +18436,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1793018121493089131" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1793018572783209932" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -18401,7 +18553,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1793018121493089131");
+  const root = document.getElementById("neuron-1793018572783209932");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
