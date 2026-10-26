@@ -167,4 +167,10 @@ example.com {
 	file_server
 	# Optional: Enable Gzip/Zstd compression for faster page loads
 	encode zstd gzip
+
+	# Custom 404 Error Handling: serve Hugo's 404.html instead of empty browser error
+	handle_errors {
+		rewrite * /{err.status_code}.html
+		file_server
+	}
 }
