@@ -152,6 +152,28 @@ https://homebox.example.com:443 {
     }
 }
 
+https://umami.example.com:443 {
+	log {
+		level INFO
+		output file {$LOG_FILE} {
+			roll_size 10MB
+			roll_keep 10
+		}
+	}
+
+	import security_header
+
+	# Override CORP and allow cross-origin requests so other sites can load script.js and post analytics
+	header {
+		Cross-Origin-Resource-Policy "cross-origin"
+		Access-Control-Allow-Origin "*"
+	}
+
+	reverse_proxy umami:3000 {
+		header_up X-Real-IP {client_ip}
+	}
+}
+
 example.com {
 	# Refined security
 	import security_header
