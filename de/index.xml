@@ -1,4 +1,812 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet type="text/xsl" href="/rss-style.xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/"><channel><title>Jokobus</title><link>https://jokobus.github.io/de/</link><description>Recent dispatches on Jokobus</description><generator>Hugo -- gohugo.io</generator><language>de</language><lastBuildDate>Sat, 17 Oct 2026 12:00:00 +0200</lastBuildDate><atom:link href="https://jokobus.github.io/de/index.xml" rel="self" type="application/rss+xml"/><item><title>Interaktives Periodensystem der Elemente (PSE)</title><link>https://jokobus.github.io/de/pse/</link><pubDate>Sat, 17 Oct 2026 12:00:00 +0200</pubDate><guid>https://jokobus.github.io/de/pse/</guid><description><![CDATA[<p>Willkommen beim <strong>Interaktiven Periodensystem der Elemente (PSE)</strong>. Entwickelt für Ingenieure, Naturwissenschaftler, Studierende und Schüler vereint diese Übersicht alle 118 bekannten chemischen Elemente mit maximaler Informationsdichte, responsiver Darstellung und nativer Unterstützung für Dark- und Bright-Mode.</p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet type="text/xsl" href="/rss-style.xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/"><channel><title>Jokobus</title><link>https://jokobus.github.io/de/</link><description>Recent dispatches on Jokobus</description><generator>Hugo -- gohugo.io</generator><language>de</language><lastBuildDate>Mon, 09 Nov 2026 09:45:00 +0100</lastBuildDate><atom:link href="https://jokobus.github.io/de/index.xml" rel="self" type="application/rss+xml"/><item><title>Schreibverschleiß von USB-Sticks unter Linux minimieren</title><link>https://jokobus.github.io/de/posts/linux-usb-wear-reduction/</link><pubDate>Mon, 09 Nov 2026 09:45:00 +0100</pubDate><guid>https://jokobus.github.io/de/posts/linux-usb-wear-reduction/</guid><description><![CDATA[<p>Ein vollwertiges Desktop-Linux wie Manjaro direkt von einem handelsüblichen USB-Stick zu betreiben, ist erstaunlich flott – besonders an schnellen USB 3.0/3.1- oder USB-C-Ports. Doch bei dauerhafter Nutzung wird der <strong>Schreibverschleiß (Write Wear) zu einer ernstzunehmenden Gefahr</strong>.</p>
+<p>Egal, ob du Linux vor einer festen Dual-Boot-Partitionierung gründlich im Alltag testest oder ein mobiles Notfall- und Arbeits-System mit dir trägst: Mit den richtigen Systemeinstellungen lässt sich die Lebensdauer des Flash-Speichers um ein Vielfaches verlängern.</p>
+<hr>
+<h2 id="wie-gravierend-ist-das-problem-wirklich">Wie gravierend ist das Problem wirklich?</h2>
+<p>Wie schnell ein USB-Stick verschleißt, hängt vor allem von zwei Faktoren ab: der Qualität des Flash-Speichers und der Systemkonfiguration.</p>
+<h3 id="das-limit-von-nand-flash">Das Limit von NAND-Flash</h3>
+<p>Klassische USB-Sticks verwenden NAND-Flash-Speicher mit einer begrenzten Anzahl von Schreib-/Löschzyklen (P/E-Cycles) pro Speicherblock – bei typischem TLC- oder QLC-Flash liegt dieses Limit oft bei nur <strong>500 bis 3.000 Zyklen</strong>.</p>
+<h3 id="die-hauptverursacher-hintergrund-schreiboperationen">Die Hauptverursacher: Hintergrund-Schreiboperationen</h3>
+<p>Im Gegensatz zu einem klassischen Live-System (das schreibgeschützt als komprimiertes Image läuft und Daten nur im RAM hält), schreibt eine <strong>vollständige, persistente Linux-Installation kontinuierlich auf den Datenträger</strong>:</p>
+<ul>
+<li><strong>systemd-journald</strong>: Fortlaufende Protokollierung von System- und Dienstereignissen.</li>
+<li><strong>Browser-Caches</strong>: Firefox oder Chrome schreiben beim Surfen im Minutentakt Hunderte Megabyte temporärer Skripte und Datenbanken auf den Stick.</li>
+<li><strong>Dateizugriffs-Zeitstempel (<code>atime</code>)</strong>: Standardmäßig aktualisiert das Linux-Dateisystem bei jedem bloßen Lesevorgang einer Datei deren Zugriffszeitstempel auf der Festplatte.</li>
+<li><strong>Swap-Speicher</strong>: Auslagerungsvorgänge des Arbeitsspeichers erzeugen eine massive Schreibverstärkung (Write Amplification).</li>
+</ul>
+<h3 id="die-realität">Die Realität</h3>
+<p>Ein günstiger USB-Stick ohne Wear-Leveling-Controller, auf dem ein Standard-Linux mit Werkseinstellungen läuft, kann bei täglicher Nutzung bereits nach wenigen Monaten dauerhaft ausfallen (blockiert im Nur-Lese-Modus oder reagiert gar nicht mehr). Hochwertige USB-Laufwerke halten zwar länger durch, besitzen aber im Gegensatz zu echten NVMe-SSDs kein fortschrittliches TRIM-Garbage-Collection.</p>
+<hr>
+<h2 id="4-effektive-maßnahmen-zur-reduktion-von-schreibzyklen">4 effektive Maßnahmen zur Reduktion von Schreibzyklen</h2>
+<p>Mit vier gezielten Optimierungen lassen sich bis zu 90 % der überflüssigen Hintergrund-Schreibvorgänge eliminieren:</p>
+<hr>
+<h3 id="1-noatime-in-etcfstab-aktivieren">1. <code>noatime</code> in <code>/etc/fstab</code> aktivieren</h3>
+<p><em>Verhindert, dass Linux bei jedem Lesevorgang einen Zeitstempel auf das Dateisystem schreibt.</em></p>
+<h4 id="schritt-1-uuid-der-root-partition-ermitteln">Schritt 1: UUID der Root-Partition ermitteln</h4>
+<p>Lass dir die UUIDs deiner Partitionen anzeigen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsblk -f
+</span></span></code></pre></div><p>Suche die Zeile deiner Manjaro-Wurzelpartition (Mountpoint <code>/</code>). Notiere dir die UUID (eine lange Zeichenkette wie <code>a1b2c3d4-...</code>).</p>
+<h4 id="schritt-2-etcfstab-anpassen">Schritt 2: <code>/etc/fstab</code> anpassen</h4>
+<p>Öffne die Dateisystemtabelle mit Administratorrechten:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/fstab
+</span></span></code></pre></div><p>Suche die Zeile für deine Root-Partition (<code>/</code>). Sie sieht ungefähr so aus:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">UUID=deine-uuid / ext4 defaults 0 1
+</span></span></code></pre></div><p>Ergänze die Mount-Optionen um <code>noatime</code>, sodass dort <code>defaults,noatime</code> (oder <code>noatime</code> neben bestehenden Optionen) steht:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">UUID=deine-uuid / ext4 defaults,noatime 0 1
+</span></span></code></pre></div><p>Speichere mit <code>Strg+O</code>, bestätige mit <code>Enter</code> und verlasse nano mit <code>Strg+X</code>.</p>
+<h4 id="schritt-3-ohne-neustart-anwenden--überprüfen">Schritt 3: Ohne Neustart anwenden &amp; überprüfen</h4>
+<p>Wende die Änderung sofort im laufenden Betrieb an:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mount -o remount /
+</span></span></code></pre></div><p>Überprüfe, ob <code>noatime</code> aktiv ist:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mount <span class="p">|</span> grep <span class="s2">&#34; / &#34;</span>
+</span></span></code></pre></div><h4 id="schritt-4-wichtiger-syntax-sicherheitstest">Schritt 4: Wichtiger Syntax-Sicherheitstest</h4>
+<p>Bevor du den Rechner neu startest, teste die Konfiguration auf Tippfehler (Syntaxfehler in <code>fstab</code> können den Bootvorgang blockieren):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mount -a
+</span></span></code></pre></div><p>Gibt dieser Befehl keinerlei Fehlermeldung aus, ist die Datei fehlerfrei.</p>
+<hr>
+<h3 id="2-systemd-logs-in-den-flüchtigen-ram-verlagern-tmpfs">2. Systemd-Logs in den flüchtigen RAM verlagern (<code>tmpfs</code>)</h3>
+<p><em>Stoppt die kontinuierliche Protokollierung auf die Speicherzellen.</em></p>
+<p>Standardmäßig speichert <code>systemd-journald</code> alle Systemprotokolle dauerhaft auf dem Datenträger. Du kannst anordnen, Logs ausschließlich im flüchtigen Arbeitsspeicher zu halten:</p>
+<p>Öffne die Journal-Konfiguration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/systemd/journald.conf
+</span></span></code></pre></div><p>Suche die Zeile <code>#Storage=auto</code> (auskommentiert). Entferne das <code>#</code> und ändere den Wert auf:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">Storage</span><span class="o">=</span><span class="s">volatile</span>
+</span></span></code></pre></div><p>Speichere mit <code>Strg+O</code>, <code>Enter</code>, <code>Strg+X</code> und starte den Protokolldienst neu:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl restart systemd-journald
+</span></span></code></pre></div><p>Prüfe den Status:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl status systemd-journald
+</span></span></code></pre></div><hr>
+<h3 id="3-swap-partition-oder-swap-datei-deaktivieren">3. Swap-Partition oder Swap-Datei deaktivieren</h3>
+<p><em>Verhindert schädliches Paging auf den USB-Stick.</em></p>
+<p>Verfügt dein Rechner über 8 GB RAM oder mehr, ist Auslagerungsspeicher für reguläre Tests überflüssig und belastet den USB-Stick unnötig.</p>
+<p>Prüfe zunächst, ob Swap aktiv ist:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">swapon --show
+</span></span></code></pre></div><p>Wird aktiver Swap aufgelistet, schalte ihn für die laufende Sitzung sofort ab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo swapoff -a
+</span></span></code></pre></div><p>Um Swap dauerhaft zu deaktivieren, öffne erneut <code>/etc/fstab</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/fstab
+</span></span></code></pre></div><p>Kommentiere jede Zeile aus, die <code>swap</code> enthält, indem du ein <code>#</code> an den Zeilenanfang setzt:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl"># UUID=... none swap defaults 0 0
+</span></span></code></pre></div><p>Speichere und verlasse den Editor. Ein erneuter Aufruf von <code>swapon --show</code> sollte nun leer bleiben.</p>
+<hr>
+<h3 id="4-browser-caches-in-den-ram-verlegen">4. Browser-Caches in den RAM verlegen</h3>
+<p><em>Schützt vor ständigen Schreiboperationen beim Surfen.</em></p>
+<p>Webbrowser schreiben kontinuierlich temporäre Datenmengen (Bilder, Skripte, Medien) auf die Festplatte.</p>
+<h4 id="für-mozilla-firefox">Für Mozilla Firefox:</h4>
+<ol>
+<li>Öffne Firefox und tippe <code>about:config</code> in die Adressleiste ein. Bestätige den Warnhinweis.</li>
+<li>Suche nach der Einstellung <code>browser.cache.disk.enable</code>.</li>
+<li>Doppelklicke darauf, um den Wert von <code>true</code> auf <strong><code>false</code></strong> zu setzen.</li>
+</ol>
+<p><strong>Überprüfung:</strong> Tippe in Firefox <code>about:cache</code> ein. Unter dem Abschnitt <strong>Disk Cache Device</strong> sollte vermerkt sein, dass der Disk-Cache <strong>Disabled</strong> ist.</p>
+<h4 id="für-chromium--google-chrome--brave">Für Chromium / Google Chrome / Brave:</h4>
+<p>Chromium-basierte Browser lassen sich mit dem Startparameter <code>--disk-cache-dir=/tmp/chromium-cache</code> starten, um den Cache in das RAM-gestützte Verzeichnis <code>/tmp</code> zu lenken, oder mit <code>--disk-cache-size=1</code> minimieren.</p>
+<hr>
+<h2 id="zusammenfassung">Zusammenfassung</h2>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Maßnahme</th>
+					<th style="text-align: left">Einstellung</th>
+					<th style="text-align: left">Effekt</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>Keine Lesezeitstempel</strong></td>
+					<td style="text-align: left"><code>noatime</code> in <code>/etc/fstab</code></td>
+					<td style="text-align: left">Keine Schreibzugriffe beim reinen Lesen von Dateien</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Flüchtiges System-Log</strong></td>
+					<td style="text-align: left"><code>Storage=volatile</code> in <code>journald.conf</code></td>
+					<td style="text-align: left">Protokolldateien verbleiben ausschließlich im RAM</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Kein Swap</strong></td>
+					<td style="text-align: left"><code>sudo swapoff -a</code> &amp; Auskommentieren in <code>fstab</code></td>
+					<td style="text-align: left">Keine Auslagerung von Speicherblöcken auf den Stick</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Browser-Festplatten-Cache aus</strong></td>
+					<td style="text-align: left"><code>browser.cache.disk.enable = false</code></td>
+					<td style="text-align: left">Massive Einsparung temporärer Schreibdaten</td>
+			</tr>
+	</tbody>
+</table>
+<p>Mit diesen vier Handgriffen läuft Manjaro auf deinem USB-Stick spürbar reaktionsschneller und der Datenträger bleibt dauerhaft vor vorzeitigem Verschleiß geschützt.</p>
+]]></description><content:encoded><![CDATA[<p>Ein vollwertiges Desktop-Linux wie Manjaro direkt von einem handelsüblichen USB-Stick zu betreiben, ist erstaunlich flott – besonders an schnellen USB 3.0/3.1- oder USB-C-Ports. Doch bei dauerhafter Nutzung wird der <strong>Schreibverschleiß (Write Wear) zu einer ernstzunehmenden Gefahr</strong>.</p>
+<p>Egal, ob du Linux vor einer festen Dual-Boot-Partitionierung gründlich im Alltag testest oder ein mobiles Notfall- und Arbeits-System mit dir trägst: Mit den richtigen Systemeinstellungen lässt sich die Lebensdauer des Flash-Speichers um ein Vielfaches verlängern.</p>
+<hr>
+<h2 id="wie-gravierend-ist-das-problem-wirklich">Wie gravierend ist das Problem wirklich?</h2>
+<p>Wie schnell ein USB-Stick verschleißt, hängt vor allem von zwei Faktoren ab: der Qualität des Flash-Speichers und der Systemkonfiguration.</p>
+<h3 id="das-limit-von-nand-flash">Das Limit von NAND-Flash</h3>
+<p>Klassische USB-Sticks verwenden NAND-Flash-Speicher mit einer begrenzten Anzahl von Schreib-/Löschzyklen (P/E-Cycles) pro Speicherblock – bei typischem TLC- oder QLC-Flash liegt dieses Limit oft bei nur <strong>500 bis 3.000 Zyklen</strong>.</p>
+<h3 id="die-hauptverursacher-hintergrund-schreiboperationen">Die Hauptverursacher: Hintergrund-Schreiboperationen</h3>
+<p>Im Gegensatz zu einem klassischen Live-System (das schreibgeschützt als komprimiertes Image läuft und Daten nur im RAM hält), schreibt eine <strong>vollständige, persistente Linux-Installation kontinuierlich auf den Datenträger</strong>:</p>
+<ul>
+<li><strong>systemd-journald</strong>: Fortlaufende Protokollierung von System- und Dienstereignissen.</li>
+<li><strong>Browser-Caches</strong>: Firefox oder Chrome schreiben beim Surfen im Minutentakt Hunderte Megabyte temporärer Skripte und Datenbanken auf den Stick.</li>
+<li><strong>Dateizugriffs-Zeitstempel (<code>atime</code>)</strong>: Standardmäßig aktualisiert das Linux-Dateisystem bei jedem bloßen Lesevorgang einer Datei deren Zugriffszeitstempel auf der Festplatte.</li>
+<li><strong>Swap-Speicher</strong>: Auslagerungsvorgänge des Arbeitsspeichers erzeugen eine massive Schreibverstärkung (Write Amplification).</li>
+</ul>
+<h3 id="die-realität">Die Realität</h3>
+<p>Ein günstiger USB-Stick ohne Wear-Leveling-Controller, auf dem ein Standard-Linux mit Werkseinstellungen läuft, kann bei täglicher Nutzung bereits nach wenigen Monaten dauerhaft ausfallen (blockiert im Nur-Lese-Modus oder reagiert gar nicht mehr). Hochwertige USB-Laufwerke halten zwar länger durch, besitzen aber im Gegensatz zu echten NVMe-SSDs kein fortschrittliches TRIM-Garbage-Collection.</p>
+<hr>
+<h2 id="4-effektive-maßnahmen-zur-reduktion-von-schreibzyklen">4 effektive Maßnahmen zur Reduktion von Schreibzyklen</h2>
+<p>Mit vier gezielten Optimierungen lassen sich bis zu 90 % der überflüssigen Hintergrund-Schreibvorgänge eliminieren:</p>
+<hr>
+<h3 id="1-noatime-in-etcfstab-aktivieren">1. <code>noatime</code> in <code>/etc/fstab</code> aktivieren</h3>
+<p><em>Verhindert, dass Linux bei jedem Lesevorgang einen Zeitstempel auf das Dateisystem schreibt.</em></p>
+<h4 id="schritt-1-uuid-der-root-partition-ermitteln">Schritt 1: UUID der Root-Partition ermitteln</h4>
+<p>Lass dir die UUIDs deiner Partitionen anzeigen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsblk -f
+</span></span></code></pre></div><p>Suche die Zeile deiner Manjaro-Wurzelpartition (Mountpoint <code>/</code>). Notiere dir die UUID (eine lange Zeichenkette wie <code>a1b2c3d4-...</code>).</p>
+<h4 id="schritt-2-etcfstab-anpassen">Schritt 2: <code>/etc/fstab</code> anpassen</h4>
+<p>Öffne die Dateisystemtabelle mit Administratorrechten:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/fstab
+</span></span></code></pre></div><p>Suche die Zeile für deine Root-Partition (<code>/</code>). Sie sieht ungefähr so aus:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">UUID=deine-uuid / ext4 defaults 0 1
+</span></span></code></pre></div><p>Ergänze die Mount-Optionen um <code>noatime</code>, sodass dort <code>defaults,noatime</code> (oder <code>noatime</code> neben bestehenden Optionen) steht:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">UUID=deine-uuid / ext4 defaults,noatime 0 1
+</span></span></code></pre></div><p>Speichere mit <code>Strg+O</code>, bestätige mit <code>Enter</code> und verlasse nano mit <code>Strg+X</code>.</p>
+<h4 id="schritt-3-ohne-neustart-anwenden--überprüfen">Schritt 3: Ohne Neustart anwenden &amp; überprüfen</h4>
+<p>Wende die Änderung sofort im laufenden Betrieb an:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mount -o remount /
+</span></span></code></pre></div><p>Überprüfe, ob <code>noatime</code> aktiv ist:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mount <span class="p">|</span> grep <span class="s2">&#34; / &#34;</span>
+</span></span></code></pre></div><h4 id="schritt-4-wichtiger-syntax-sicherheitstest">Schritt 4: Wichtiger Syntax-Sicherheitstest</h4>
+<p>Bevor du den Rechner neu startest, teste die Konfiguration auf Tippfehler (Syntaxfehler in <code>fstab</code> können den Bootvorgang blockieren):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mount -a
+</span></span></code></pre></div><p>Gibt dieser Befehl keinerlei Fehlermeldung aus, ist die Datei fehlerfrei.</p>
+<hr>
+<h3 id="2-systemd-logs-in-den-flüchtigen-ram-verlagern-tmpfs">2. Systemd-Logs in den flüchtigen RAM verlagern (<code>tmpfs</code>)</h3>
+<p><em>Stoppt die kontinuierliche Protokollierung auf die Speicherzellen.</em></p>
+<p>Standardmäßig speichert <code>systemd-journald</code> alle Systemprotokolle dauerhaft auf dem Datenträger. Du kannst anordnen, Logs ausschließlich im flüchtigen Arbeitsspeicher zu halten:</p>
+<p>Öffne die Journal-Konfiguration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/systemd/journald.conf
+</span></span></code></pre></div><p>Suche die Zeile <code>#Storage=auto</code> (auskommentiert). Entferne das <code>#</code> und ändere den Wert auf:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">Storage</span><span class="o">=</span><span class="s">volatile</span>
+</span></span></code></pre></div><p>Speichere mit <code>Strg+O</code>, <code>Enter</code>, <code>Strg+X</code> und starte den Protokolldienst neu:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl restart systemd-journald
+</span></span></code></pre></div><p>Prüfe den Status:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl status systemd-journald
+</span></span></code></pre></div><hr>
+<h3 id="3-swap-partition-oder-swap-datei-deaktivieren">3. Swap-Partition oder Swap-Datei deaktivieren</h3>
+<p><em>Verhindert schädliches Paging auf den USB-Stick.</em></p>
+<p>Verfügt dein Rechner über 8 GB RAM oder mehr, ist Auslagerungsspeicher für reguläre Tests überflüssig und belastet den USB-Stick unnötig.</p>
+<p>Prüfe zunächst, ob Swap aktiv ist:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">swapon --show
+</span></span></code></pre></div><p>Wird aktiver Swap aufgelistet, schalte ihn für die laufende Sitzung sofort ab:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo swapoff -a
+</span></span></code></pre></div><p>Um Swap dauerhaft zu deaktivieren, öffne erneut <code>/etc/fstab</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/fstab
+</span></span></code></pre></div><p>Kommentiere jede Zeile aus, die <code>swap</code> enthält, indem du ein <code>#</code> an den Zeilenanfang setzt:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl"># UUID=... none swap defaults 0 0
+</span></span></code></pre></div><p>Speichere und verlasse den Editor. Ein erneuter Aufruf von <code>swapon --show</code> sollte nun leer bleiben.</p>
+<hr>
+<h3 id="4-browser-caches-in-den-ram-verlegen">4. Browser-Caches in den RAM verlegen</h3>
+<p><em>Schützt vor ständigen Schreiboperationen beim Surfen.</em></p>
+<p>Webbrowser schreiben kontinuierlich temporäre Datenmengen (Bilder, Skripte, Medien) auf die Festplatte.</p>
+<h4 id="für-mozilla-firefox">Für Mozilla Firefox:</h4>
+<ol>
+<li>Öffne Firefox und tippe <code>about:config</code> in die Adressleiste ein. Bestätige den Warnhinweis.</li>
+<li>Suche nach der Einstellung <code>browser.cache.disk.enable</code>.</li>
+<li>Doppelklicke darauf, um den Wert von <code>true</code> auf <strong><code>false</code></strong> zu setzen.</li>
+</ol>
+<p><strong>Überprüfung:</strong> Tippe in Firefox <code>about:cache</code> ein. Unter dem Abschnitt <strong>Disk Cache Device</strong> sollte vermerkt sein, dass der Disk-Cache <strong>Disabled</strong> ist.</p>
+<h4 id="für-chromium--google-chrome--brave">Für Chromium / Google Chrome / Brave:</h4>
+<p>Chromium-basierte Browser lassen sich mit dem Startparameter <code>--disk-cache-dir=/tmp/chromium-cache</code> starten, um den Cache in das RAM-gestützte Verzeichnis <code>/tmp</code> zu lenken, oder mit <code>--disk-cache-size=1</code> minimieren.</p>
+<hr>
+<h2 id="zusammenfassung">Zusammenfassung</h2>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Maßnahme</th>
+					<th style="text-align: left">Einstellung</th>
+					<th style="text-align: left">Effekt</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>Keine Lesezeitstempel</strong></td>
+					<td style="text-align: left"><code>noatime</code> in <code>/etc/fstab</code></td>
+					<td style="text-align: left">Keine Schreibzugriffe beim reinen Lesen von Dateien</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Flüchtiges System-Log</strong></td>
+					<td style="text-align: left"><code>Storage=volatile</code> in <code>journald.conf</code></td>
+					<td style="text-align: left">Protokolldateien verbleiben ausschließlich im RAM</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Kein Swap</strong></td>
+					<td style="text-align: left"><code>sudo swapoff -a</code> &amp; Auskommentieren in <code>fstab</code></td>
+					<td style="text-align: left">Keine Auslagerung von Speicherblöcken auf den Stick</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Browser-Festplatten-Cache aus</strong></td>
+					<td style="text-align: left"><code>browser.cache.disk.enable = false</code></td>
+					<td style="text-align: left">Massive Einsparung temporärer Schreibdaten</td>
+			</tr>
+	</tbody>
+</table>
+<p>Mit diesen vier Handgriffen läuft Manjaro auf deinem USB-Stick spürbar reaktionsschneller und der Datenträger bleibt dauerhaft vor vorzeitigem Verschleiß geschützt.</p>
+]]></content:encoded><category>Linux</category><category>Manjaro</category><category>Hardware</category><category>SSD</category><category>USB</category><category>Performance</category><category>DualBoot</category></item><item><title>Ergonomische Tastaturlayouts (Neo/Bone) im Linux-Anmeldebildschirm einrichten (SDDM, GDM, LightDM)</title><link>https://jokobus.github.io/de/posts/bone-login-screen/</link><pubDate>Mon, 09 Nov 2026 09:40:00 +0100</pubDate><guid>https://jokobus.github.io/de/posts/bone-login-screen/</guid><description><![CDATA[<p>Wer auf ein ergonomisches Tastaturlayout wie <a href="https://jokobus.github.io/de/posts/neoylayout/">Neo 2 oder die Variante Bone</a> umsteigt, stößt früher oder später auf das gleiche Hindernis: Während das Layout in der angemeldeten Desktop-Sitzung perfekt funktioniert, verharrt der initiale Anmeldebildschirm (Display Manager) im Standard-QWERTZ- oder QWERTY-Modus.</p>
+<p>Das Eintippen sicherer Passwörter wird damit zur Geduldsprobe, wenn man die Tastaturbelegung im Kopf wieder auf das alte Schema zurückübersetzen muss.</p>
+<p>Hier erfährst du, wie du das Bone- oder Neo-Layout dauerhaft und sauber für die drei verbreitetsten Display-Manager (<strong>KDE SDDM</strong>, <strong>GNOME GDM</strong> und <strong>XFCE LightDM</strong>) einrichtest.</p>
+<hr>
+<h2 id="1-kde-plasma-sddm">1. KDE Plasma (SDDM)</h2>
+<p>KDE Plasma bietet eine elegante Möglichkeit, die Tastatur- und Regionaleinstellungen der aktuellen Benutzersitzung mit einem einzigen Klick auf SDDM zu übertragen.</p>
+<h3 id="methode-1-über-die-kde-systemeinstellungen-empfohlen">Methode 1: Über die KDE-Systemeinstellungen (Empfohlen)</h3>
+<ol>
+<li>Öffne die <strong>Systemeinstellungen</strong>.</li>
+<li>Tippe oben in die Suche <strong>Anmeldebildschirm (SDDM)</strong> ein (zu finden unter <em>Farben &amp; Designs</em> oder <em>Systemverwaltung</em>).</li>
+<li>Klicke ganz unten im Fenster auf die Schaltfläche <strong>„Plasma-Einstellungen anwenden&hellip;“</strong> (Apply Plasma Settings).</li>
+<li>Aktiviere den Haken bei <strong>Tastaturbelegung</strong> (sowie optional Mauszeiger oder Skalierung).</li>
+<li>Klicke auf <strong>Anwenden</strong> und bestätige die Abfrage mit deinem Administrator-Passwort.</li>
+</ol>
+<h3 id="methode-2-systemweit-per-terminal-localectl">Methode 2: Systemweit per Terminal (<code>localectl</code>)</h3>
+<p>Alternativ kannst du die Konfiguration direkt über das systemd-Werkzeug <code>localectl</code> vornehmen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo localectl set-x11-keymap de pc105 bone
+</span></span></code></pre></div><p>Dieser Befehl schreibt die Einstellungen in <code>/etc/vconsole.conf</code> sowie <code>/etc/X11/xorg.conf.d/00-keyboard.conf</code>, die von SDDM beim Start ausgelesen werden.</p>
+<hr>
+<h2 id="2-gnome-gdm">2. GNOME (GDM)</h2>
+<p>Unter GNOME (z. B. unter Fedora, Ubuntu oder Arch mit GNOME) läuft der Login-Manager GDM als eigener Systembenutzer (<code>gdm</code>) mit separater dconf-Datenbank.</p>
+<h3 id="methode-1-über-die-grafischen-einstellungen">Methode 1: Über die grafischen Einstellungen</h3>
+<ol>
+<li>Öffne <strong>Einstellungen</strong> $\rightarrow$ <strong>Tastatur</strong>.</li>
+<li>Vergewissere dich, dass <strong>Deutsch (Bone)</strong> unter <em>Eingabequellen</em> eingerichtet ist.</li>
+<li>Wechsle zu <strong>Einstellungen</strong> $\rightarrow$ <strong>Region und Sprache</strong> (bzw. <em>System</em> $\rightarrow$ <em>Region und Sprache</em>).</li>
+<li>Klicke oben rechts auf den Schalter <strong>Anmeldebildschirm</strong> (erfordert Entsperren mit Admin-Passwort).</li>
+<li>Füge das Layout <strong>Bone</strong> der Anmeldebildschirm-Liste hinzu und befördere es an die erste Stelle.</li>
+</ol>
+<h3 id="methode-2-systemweit-via-terminal">Methode 2: Systemweit via Terminal</h3>
+<p>Auch für GDM setzt <code>localectl</code> die systemweite Standardbelegung:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo localectl set-x11-keymap de pc105 bone
+</span></span></code></pre></div><p>Alternativ kann der dconf-Schlüssel des <code>gdm</code>-Benutzers direkt gesetzt werden:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -u gdm dbus-launch gsettings <span class="nb">set</span> org.gnome.desktop.input-sources sources <span class="s2">&#34;[(&#39;xkb&#39;, &#39;de+bone&#39;)]&#34;</span>
+</span></span></code></pre></div><hr>
+<h2 id="3-xfce-lightdm">3. XFCE (LightDM)</h2>
+<p>XFCE nutzt standardmäßig <strong>LightDM</strong> als Display Manager. LightDM stützt sich auf die zentrale X11-Tastaturkonfiguration des Systems.</p>
+<h3 id="methode-1-zentrale-x11-tastaturbelegung-via-localectl">Methode 1: Zentrale X11-Tastaturbelegung via <code>localectl</code></h3>
+<p>Der sauberste und robusteste Weg unter XFCE / LightDM führt über:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo localectl set-x11-keymap de pc105 bone
+</span></span></code></pre></div><p>Dies generiert die Konfigurationsdatei <code>/etc/X11/xorg.conf.d/00-keyboard.conf</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Section &#34;InputClass&#34;
+</span></span><span class="line"><span class="cl">        Identifier &#34;system-keyboard&#34;
+</span></span><span class="line"><span class="cl">        MatchIsKeyboard &#34;on&#34;
+</span></span><span class="line"><span class="cl">        Option &#34;XkbLayout&#34; &#34;de&#34;
+</span></span><span class="line"><span class="cl">        Option &#34;XkbVariant&#34; &#34;bone&#34;
+</span></span><span class="line"><span class="cl">EndSection
+</span></span></code></pre></div><h3 id="methode-2-greeter-startskript-in-lightdm-fallback">Methode 2: Greeter-Startskript in LightDM (Fallback)</h3>
+<p>Sollte dein LightDM-Greeter die X11-Belegung nicht automatisch laden, kannst du <code>setxkbmap</code> als Pre-Login-Skript in <code>/etc/lightdm/lightdm.conf</code> eintragen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/lightdm/lightdm.conf
+</span></span></code></pre></div><p>Suche den Abschnitt <code>[Seat:*]</code> und setze oder bearbeite die Zeile <code>display-setup-script</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Seat:*]</span>
+</span></span><span class="line"><span class="cl"><span class="na">display-setup-script</span><span class="o">=</span><span class="s">/usr/bin/setxkbmap -layout de -variant bone</span>
+</span></span></code></pre></div><p>Speichere mit <code>Strg+O</code> und schließe mit <code>Strg+X</code>.</p>
+<hr>
+<h2 id="überprüfung">Überprüfung</h2>
+<p>Starte den Rechner neu:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo reboot
+</span></span></code></pre></div><p>Sobald der Anmeldebildschirm erscheint, kannst du dein Kennwort direkt mit dem gewohnten Muskelgedächtnis im Bone-Layout eintippen.</p>
+]]></description><content:encoded><![CDATA[<p>Wer auf ein ergonomisches Tastaturlayout wie <a href="https://jokobus.github.io/de/posts/neoylayout/">Neo 2 oder die Variante Bone</a> umsteigt, stößt früher oder später auf das gleiche Hindernis: Während das Layout in der angemeldeten Desktop-Sitzung perfekt funktioniert, verharrt der initiale Anmeldebildschirm (Display Manager) im Standard-QWERTZ- oder QWERTY-Modus.</p>
+<p>Das Eintippen sicherer Passwörter wird damit zur Geduldsprobe, wenn man die Tastaturbelegung im Kopf wieder auf das alte Schema zurückübersetzen muss.</p>
+<p>Hier erfährst du, wie du das Bone- oder Neo-Layout dauerhaft und sauber für die drei verbreitetsten Display-Manager (<strong>KDE SDDM</strong>, <strong>GNOME GDM</strong> und <strong>XFCE LightDM</strong>) einrichtest.</p>
+<hr>
+<h2 id="1-kde-plasma-sddm">1. KDE Plasma (SDDM)</h2>
+<p>KDE Plasma bietet eine elegante Möglichkeit, die Tastatur- und Regionaleinstellungen der aktuellen Benutzersitzung mit einem einzigen Klick auf SDDM zu übertragen.</p>
+<h3 id="methode-1-über-die-kde-systemeinstellungen-empfohlen">Methode 1: Über die KDE-Systemeinstellungen (Empfohlen)</h3>
+<ol>
+<li>Öffne die <strong>Systemeinstellungen</strong>.</li>
+<li>Tippe oben in die Suche <strong>Anmeldebildschirm (SDDM)</strong> ein (zu finden unter <em>Farben &amp; Designs</em> oder <em>Systemverwaltung</em>).</li>
+<li>Klicke ganz unten im Fenster auf die Schaltfläche <strong>„Plasma-Einstellungen anwenden&hellip;“</strong> (Apply Plasma Settings).</li>
+<li>Aktiviere den Haken bei <strong>Tastaturbelegung</strong> (sowie optional Mauszeiger oder Skalierung).</li>
+<li>Klicke auf <strong>Anwenden</strong> und bestätige die Abfrage mit deinem Administrator-Passwort.</li>
+</ol>
+<h3 id="methode-2-systemweit-per-terminal-localectl">Methode 2: Systemweit per Terminal (<code>localectl</code>)</h3>
+<p>Alternativ kannst du die Konfiguration direkt über das systemd-Werkzeug <code>localectl</code> vornehmen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo localectl set-x11-keymap de pc105 bone
+</span></span></code></pre></div><p>Dieser Befehl schreibt die Einstellungen in <code>/etc/vconsole.conf</code> sowie <code>/etc/X11/xorg.conf.d/00-keyboard.conf</code>, die von SDDM beim Start ausgelesen werden.</p>
+<hr>
+<h2 id="2-gnome-gdm">2. GNOME (GDM)</h2>
+<p>Unter GNOME (z. B. unter Fedora, Ubuntu oder Arch mit GNOME) läuft der Login-Manager GDM als eigener Systembenutzer (<code>gdm</code>) mit separater dconf-Datenbank.</p>
+<h3 id="methode-1-über-die-grafischen-einstellungen">Methode 1: Über die grafischen Einstellungen</h3>
+<ol>
+<li>Öffne <strong>Einstellungen</strong> $\rightarrow$ <strong>Tastatur</strong>.</li>
+<li>Vergewissere dich, dass <strong>Deutsch (Bone)</strong> unter <em>Eingabequellen</em> eingerichtet ist.</li>
+<li>Wechsle zu <strong>Einstellungen</strong> $\rightarrow$ <strong>Region und Sprache</strong> (bzw. <em>System</em> $\rightarrow$ <em>Region und Sprache</em>).</li>
+<li>Klicke oben rechts auf den Schalter <strong>Anmeldebildschirm</strong> (erfordert Entsperren mit Admin-Passwort).</li>
+<li>Füge das Layout <strong>Bone</strong> der Anmeldebildschirm-Liste hinzu und befördere es an die erste Stelle.</li>
+</ol>
+<h3 id="methode-2-systemweit-via-terminal">Methode 2: Systemweit via Terminal</h3>
+<p>Auch für GDM setzt <code>localectl</code> die systemweite Standardbelegung:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo localectl set-x11-keymap de pc105 bone
+</span></span></code></pre></div><p>Alternativ kann der dconf-Schlüssel des <code>gdm</code>-Benutzers direkt gesetzt werden:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -u gdm dbus-launch gsettings <span class="nb">set</span> org.gnome.desktop.input-sources sources <span class="s2">&#34;[(&#39;xkb&#39;, &#39;de+bone&#39;)]&#34;</span>
+</span></span></code></pre></div><hr>
+<h2 id="3-xfce-lightdm">3. XFCE (LightDM)</h2>
+<p>XFCE nutzt standardmäßig <strong>LightDM</strong> als Display Manager. LightDM stützt sich auf die zentrale X11-Tastaturkonfiguration des Systems.</p>
+<h3 id="methode-1-zentrale-x11-tastaturbelegung-via-localectl">Methode 1: Zentrale X11-Tastaturbelegung via <code>localectl</code></h3>
+<p>Der sauberste und robusteste Weg unter XFCE / LightDM führt über:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo localectl set-x11-keymap de pc105 bone
+</span></span></code></pre></div><p>Dies generiert die Konfigurationsdatei <code>/etc/X11/xorg.conf.d/00-keyboard.conf</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Section &#34;InputClass&#34;
+</span></span><span class="line"><span class="cl">        Identifier &#34;system-keyboard&#34;
+</span></span><span class="line"><span class="cl">        MatchIsKeyboard &#34;on&#34;
+</span></span><span class="line"><span class="cl">        Option &#34;XkbLayout&#34; &#34;de&#34;
+</span></span><span class="line"><span class="cl">        Option &#34;XkbVariant&#34; &#34;bone&#34;
+</span></span><span class="line"><span class="cl">EndSection
+</span></span></code></pre></div><h3 id="methode-2-greeter-startskript-in-lightdm-fallback">Methode 2: Greeter-Startskript in LightDM (Fallback)</h3>
+<p>Sollte dein LightDM-Greeter die X11-Belegung nicht automatisch laden, kannst du <code>setxkbmap</code> als Pre-Login-Skript in <code>/etc/lightdm/lightdm.conf</code> eintragen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/lightdm/lightdm.conf
+</span></span></code></pre></div><p>Suche den Abschnitt <code>[Seat:*]</code> und setze oder bearbeite die Zeile <code>display-setup-script</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Seat:*]</span>
+</span></span><span class="line"><span class="cl"><span class="na">display-setup-script</span><span class="o">=</span><span class="s">/usr/bin/setxkbmap -layout de -variant bone</span>
+</span></span></code></pre></div><p>Speichere mit <code>Strg+O</code> und schließe mit <code>Strg+X</code>.</p>
+<hr>
+<h2 id="überprüfung">Überprüfung</h2>
+<p>Starte den Rechner neu:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo reboot
+</span></span></code></pre></div><p>Sobald der Anmeldebildschirm erscheint, kannst du dein Kennwort direkt mit dem gewohnten Muskelgedächtnis im Bone-Layout eintippen.</p>
+]]></content:encoded><category>Linux</category><category>Tastatur</category><category>Ergonomie</category><category>KDE</category><category>GNOME</category><category>XFCE</category><category>SDDM</category><category>GDM</category></item><item><title>Microsoft OneDrive unter Manjaro &amp; Arch Linux einrichten</title><link>https://jokobus.github.io/de/posts/onedrive-linux/</link><pubDate>Mon, 09 Nov 2026 09:35:00 +0100</pubDate><guid>https://jokobus.github.io/de/posts/onedrive-linux/</guid><description><![CDATA[<p>Wer ein Dual-Boot-System mit Windows betreibt oder für Studium, Forschung und Beruf auf Microsoft 365 angewiesen ist, benötigt auch unter Linux einen verlässlichen Zugriff auf seinen Cloud-Speicher.</p>
+<p>Obwohl Microsoft selbst keinen offiziellen Linux-Desktop-Client für OneDrive anbietet, existiert mit dem Open-Source-Projekt von <strong>abraunegg</strong> ein extrem ausgereifter, performanter und zuverlässiger Synchronisations-Client. Er bietet echte bidirektionale Synchronisation, automatische Dateiüberwachung via <code>inotify</code>, selektive Ordnerauswahl und eine saubere systemd-Dienstintegration.</p>
+<p>Hier erfährst du, wie die Einrichtung unter Manjaro und Arch Linux in wenigen Minuten gelingt.</p>
+<hr>
+<h2 id="1-installation">1. Installation</h2>
+<p>Unter Manjaro und Arch Linux ist der vorkompilierte Client direkt in den offiziellen Paketquellen enthalten:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -S onedrive
+</span></span></code></pre></div><p>Wer stets die allerneueste Entwicklerversion direkt aus dem Quellcode bauen möchte, kann das AUR-Paket verwenden:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pamac build onedrive-abraunegg
+</span></span></code></pre></div><hr>
+<h2 id="2-ersteinrichtung--microsoft-konto-verknüpfen">2. Ersteinrichtung &amp; Microsoft-Konto verknüpfen</h2>
+<p>Um den Client mit deinem Microsoft-Konto zu autorisieren, starte ihn einmalig im Terminal:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">onedrive
+</span></span></code></pre></div><p>Das Programm gibt eine strukturierte Anleitung mit einer Authentifizierungs-URL aus:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Authorize this client by visiting:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=...
+</span></span></code></pre></div><ol>
+<li>Kopiere den vollständigen Link in deinen Browser.</li>
+<li>Melde dich mit deinem Microsoft-Konto an (privates Konto, Uni-Account oder Firmen-Tenant).</li>
+<li>Nach Bestätigung der Berechtigungen leitet der Browser auf eine weiße Bestätigungsseite weiter (<code>https://login.microsoftonline.com/common/oauth2/nativeclient?code=...</code>).</li>
+<li>Kopiere die <strong>gesamte Adresszeile</strong> dieser weißen Seite.</li>
+<li>Füge sie in das Terminal ein und bestätige mit <strong>Enter</strong>.</li>
+</ol>
+<p>Nach der Autorisierung prüft der Client die Verbindung und zeigt deinen verfügbaren Speicherplatz an.</p>
+<hr>
+<h2 id="3-konfiguration--selektive-synchronisation-optional">3. Konfiguration &amp; Selektive Synchronisation (Optional)</h2>
+<p>Standardmäßig synchronisiert der Client das gesamte OneDrive in das Verzeichnis <code>~/OneDrive</code>. Falls du nur bestimmte Ordner synchronisieren möchtest (z. B. Dokumente und Notizen, aber keine riesigen Bild- oder Videoarchive), kannst du eine Ausschluss- oder Einschlussliste anlegen.</p>
+<p>Erstelle das lokale Konfigurationsverzeichnis:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p ~/.config/onedrive
+</span></span></code></pre></div><p>Erstelle eine <code>sync_list</code>-Datei:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano ~/.config/onedrive/sync_list
+</span></span></code></pre></div><p>Trage die gewünschten Pfade zeilenweise ein (ausgehend vom Wurzelverzeichnis deines OneDrive mit vorangestelltem <code>/</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/Documents
+</span></span><span class="line"><span class="cl">/Notizen
+</span></span><span class="line"><span class="cl">/Forschung
+</span></span><span class="line"><span class="cl">/Code
+</span></span><span class="line"><span class="cl">!/Documents/GrosseArchive
+</span></span></code></pre></div><p>Speichere mit <code>Strg+O</code> und schließe nano mit <code>Strg+X</code>. Mit einem Probelauf kannst du deine Konfiguration testen, ohne Dateien herunterzuladen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">onedrive --synchronize --dry-run
+</span></span></code></pre></div><hr>
+<h2 id="4-automatische-hintergrund-synchronisation-aktivieren">4. Automatische Hintergrund-Synchronisation aktivieren</h2>
+<p>Damit neue und geänderte Dateien automatisch im Hintergrund synchronisiert werden, richtest du den systemd-Benutzerdienst ein:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl --user <span class="nb">enable</span> --now onedrive
+</span></span></code></pre></div><p>Überprüfe den Status des Dienstes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl --user status onedrive
+</span></span></code></pre></div><hr>
+<h2 id="5-status-abfragen-und-manuelle-synchronisation">5. Status abfragen und manuelle Synchronisation</h2>
+<p>Möchtest du den aktuellen Sync-Status oder den verbleibenden Cloud-Speicherplatz prüfen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">onedrive --display-sync-status
+</span></span></code></pre></div><p>Für einen sofortigen manuellen Sync-Durchlauf:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">onedrive --synchronize
+</span></span></code></pre></div><p>Der Dienst läuft extrem ressourcenschonend im Hintergrund und sorgt dafür, dass deine Daten nahtlos zwischen Windows, Linux und Mobilgeräten abgeglichen bleiben.</p>
+]]></description><content:encoded><![CDATA[<p>Wer ein Dual-Boot-System mit Windows betreibt oder für Studium, Forschung und Beruf auf Microsoft 365 angewiesen ist, benötigt auch unter Linux einen verlässlichen Zugriff auf seinen Cloud-Speicher.</p>
+<p>Obwohl Microsoft selbst keinen offiziellen Linux-Desktop-Client für OneDrive anbietet, existiert mit dem Open-Source-Projekt von <strong>abraunegg</strong> ein extrem ausgereifter, performanter und zuverlässiger Synchronisations-Client. Er bietet echte bidirektionale Synchronisation, automatische Dateiüberwachung via <code>inotify</code>, selektive Ordnerauswahl und eine saubere systemd-Dienstintegration.</p>
+<p>Hier erfährst du, wie die Einrichtung unter Manjaro und Arch Linux in wenigen Minuten gelingt.</p>
+<hr>
+<h2 id="1-installation">1. Installation</h2>
+<p>Unter Manjaro und Arch Linux ist der vorkompilierte Client direkt in den offiziellen Paketquellen enthalten:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -S onedrive
+</span></span></code></pre></div><p>Wer stets die allerneueste Entwicklerversion direkt aus dem Quellcode bauen möchte, kann das AUR-Paket verwenden:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pamac build onedrive-abraunegg
+</span></span></code></pre></div><hr>
+<h2 id="2-ersteinrichtung--microsoft-konto-verknüpfen">2. Ersteinrichtung &amp; Microsoft-Konto verknüpfen</h2>
+<p>Um den Client mit deinem Microsoft-Konto zu autorisieren, starte ihn einmalig im Terminal:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">onedrive
+</span></span></code></pre></div><p>Das Programm gibt eine strukturierte Anleitung mit einer Authentifizierungs-URL aus:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Authorize this client by visiting:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=...
+</span></span></code></pre></div><ol>
+<li>Kopiere den vollständigen Link in deinen Browser.</li>
+<li>Melde dich mit deinem Microsoft-Konto an (privates Konto, Uni-Account oder Firmen-Tenant).</li>
+<li>Nach Bestätigung der Berechtigungen leitet der Browser auf eine weiße Bestätigungsseite weiter (<code>https://login.microsoftonline.com/common/oauth2/nativeclient?code=...</code>).</li>
+<li>Kopiere die <strong>gesamte Adresszeile</strong> dieser weißen Seite.</li>
+<li>Füge sie in das Terminal ein und bestätige mit <strong>Enter</strong>.</li>
+</ol>
+<p>Nach der Autorisierung prüft der Client die Verbindung und zeigt deinen verfügbaren Speicherplatz an.</p>
+<hr>
+<h2 id="3-konfiguration--selektive-synchronisation-optional">3. Konfiguration &amp; Selektive Synchronisation (Optional)</h2>
+<p>Standardmäßig synchronisiert der Client das gesamte OneDrive in das Verzeichnis <code>~/OneDrive</code>. Falls du nur bestimmte Ordner synchronisieren möchtest (z. B. Dokumente und Notizen, aber keine riesigen Bild- oder Videoarchive), kannst du eine Ausschluss- oder Einschlussliste anlegen.</p>
+<p>Erstelle das lokale Konfigurationsverzeichnis:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p ~/.config/onedrive
+</span></span></code></pre></div><p>Erstelle eine <code>sync_list</code>-Datei:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano ~/.config/onedrive/sync_list
+</span></span></code></pre></div><p>Trage die gewünschten Pfade zeilenweise ein (ausgehend vom Wurzelverzeichnis deines OneDrive mit vorangestelltem <code>/</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/Documents
+</span></span><span class="line"><span class="cl">/Notizen
+</span></span><span class="line"><span class="cl">/Forschung
+</span></span><span class="line"><span class="cl">/Code
+</span></span><span class="line"><span class="cl">!/Documents/GrosseArchive
+</span></span></code></pre></div><p>Speichere mit <code>Strg+O</code> und schließe nano mit <code>Strg+X</code>. Mit einem Probelauf kannst du deine Konfiguration testen, ohne Dateien herunterzuladen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">onedrive --synchronize --dry-run
+</span></span></code></pre></div><hr>
+<h2 id="4-automatische-hintergrund-synchronisation-aktivieren">4. Automatische Hintergrund-Synchronisation aktivieren</h2>
+<p>Damit neue und geänderte Dateien automatisch im Hintergrund synchronisiert werden, richtest du den systemd-Benutzerdienst ein:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl --user <span class="nb">enable</span> --now onedrive
+</span></span></code></pre></div><p>Überprüfe den Status des Dienstes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl --user status onedrive
+</span></span></code></pre></div><hr>
+<h2 id="5-status-abfragen-und-manuelle-synchronisation">5. Status abfragen und manuelle Synchronisation</h2>
+<p>Möchtest du den aktuellen Sync-Status oder den verbleibenden Cloud-Speicherplatz prüfen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">onedrive --display-sync-status
+</span></span></code></pre></div><p>Für einen sofortigen manuellen Sync-Durchlauf:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">onedrive --synchronize
+</span></span></code></pre></div><p>Der Dienst läuft extrem ressourcenschonend im Hintergrund und sorgt dafür, dass deine Daten nahtlos zwischen Windows, Linux und Mobilgeräten abgeglichen bleiben.</p>
+]]></content:encoded><category>Linux</category><category>Manjaro</category><category>Arch</category><category>OneDrive</category><category>Cloud</category><category>DualBoot</category></item><item><title>Manjaro Linux auf dem HP Envy x360 (13-bf0xxx): Post-Installation Anleitung</title><link>https://jokobus.github.io/de/posts/hp-envy-x360-linux/</link><pubDate>Mon, 09 Nov 2026 09:30:00 +0100</pubDate><guid>https://jokobus.github.io/de/posts/hp-envy-x360-linux/</guid><description><![CDATA[<p>Das <strong>HP Envy x360 13 (Modellreihe 13-bf0xxx)</strong> ist ein vielseitiges 2-in-1 Convertible mit brillantem Display, starker Akkulaufzeit und handlicher Mobilität. Wer jedoch versucht, Manjaro oder eine andere Linux-Distribution ohne Anpassungen darauf zu installieren, stößt rasch auf typische Hürden moderner Convertibles: Das Display reagiert nicht auf Toucheingaben, beim Zuklappen des Deckels friert das gesamte System komplett ein und die integrierte Webcam benötigt manuelles Feintuning.</p>
+<p>Dieser Guide ist Teil unserer Beitragsreihe zum <strong>Dual-Boot von Manjaro und Windows</strong>. Die gute Nachricht vorweg: <strong>Fast die gesamte Hardware läuft einwandfrei</strong>, sobald man Manjaro mit dem <code>linux-surface</code>-Kernel und einigen gezielten Kernel-Parametern kombiniert.</p>
+<p>Hier ist die vollständige Schritt-für-Schritt-Anleitung, um das HP Envy x360 alltagstauglich und stabil einzurichten. Voraussetzung ist eine bereits laufende (z.B. frisch aufgesetzte KDE) Manjaro Installation.</p>
+<hr>
+<h2 id="hardware-status-im-überblick">Hardware-Status im Überblick</h2>
+<p>Vor der Einrichtung zeigt diese Übersicht die Unterscheidung zwischen direkt funktionierender Hardware und Komponenten, die Anpassungen erfordern:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Hardware-Komponente</th>
+					<th style="text-align: center">Status</th>
+					<th style="text-align: left">Einrichtungsart</th>
+					<th style="text-align: left">Details / Lösung</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>Audio &amp; Lautsprecher</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Out-of-the-box</strong></td>
+					<td style="text-align: left">Intel HD Audio über PipeWire / WirePlumber</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Interne Mikrofone</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Out-of-the-box</strong></td>
+					<td style="text-align: left">Saubere Tonaufnahme über PipeWire</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>WLAN &amp; Bluetooth</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Out-of-the-box</strong></td>
+					<td style="text-align: left">Intel Wi-Fi 6E AX211 läuft sofort</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Display &amp; Helligkeit</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Out-of-the-box</strong></td>
+					<td style="text-align: left">Native Helligkeitssteuerung via Funktionstasten</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Touchscreen</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Erfordert Anpassung</strong></td>
+					<td style="text-align: left">Benötigt <code>linux-surface</code>-Kernel &amp; <code>iptsd</code>-Dienst</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Aktiver Eingabestift (Stylus)</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Erfordert Anpassung</strong></td>
+					<td style="text-align: left">Vollständig über <code>iptsd</code> unterstützt</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Sleep / Deckel zuklappen</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Erfordert Anpassung</strong></td>
+					<td style="text-align: left">Erfordert <code>i915.enable_psr=0</code> &amp; Modern Standby (<code>s2idle</code>)</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>RGB-Frontkamera</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Erfordert Anpassung</strong></td>
+					<td style="text-align: left">Benötigt <code>libcamera</code> &amp; PipeWire-Integration</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>IR-Gesichtserkennung (Howdy)</strong></td>
+					<td style="text-align: center">❌ Noch nicht</td>
+					<td style="text-align: left"><strong>Treiber fehlt</strong></td>
+					<td style="text-align: left">Kernel-Treiber für das MIPI-IR-Kameramodul steht noch aus</td>
+			</tr>
+	</tbody>
+</table>
+<hr>
+<h2 id="0-vorbereitung-windows-schnellstart-deaktivieren-fast-startup">0. Vorbereitung: Windows-Schnellstart deaktivieren (Fast Startup)</h2>
+<p>Falls du das Envy im Dual-Boot mit Windows betreibst, <strong>muss der Windows-Schnellstart zwingend deaktiviert werden</strong>. Der Schnellstart versetzt die Hardware beim Herunterfahren in einen proprietären Ruhezustand, anstatt sie sauber stromlos zu schalten. Dadurch verbleiben der Intel Sensor Hub (ISH) und die Touch-Controller in einem gesperrten Zustand, den der Linux-Kernel beim Starten nicht initialisieren kann.</p>
+<ol>
+<li>Starte Windows.</li>
+<li>Öffne die <strong>Systemsteuerung</strong> $\rightarrow$ <strong>Energieoptionen</strong>.</li>
+<li>Klicke in der linken Seitenleiste auf <strong>„Auswählen, was beim Drücken des Netzschalters geschehen soll“</strong>.</li>
+<li>Klicke oben auf das Schild-Symbol: <strong>„Einige Einstellungen sind momentan nicht verfügbar“</strong>.</li>
+<li>Entferne unter <em>Einstellungen für das Herunterfahren</em> den Haken bei <strong>„Schnellstart aktivieren (empfohlen)“</strong>.</li>
+<li>Klicke auf <strong>Änderungen speichern</strong> und fahre Windows vollständig herunter.</li>
+</ol>
+<hr>
+<h2 id="1-touchscreen-aktivieren-linux-surface-kernel">1. Touchscreen aktivieren (<code>linux-surface</code>-Kernel)</h2>
+<p>Das HP Envy x360 13-bf0xxx verarbeitet Digitizer- und Touch-Eingaben über Intels Integrated Sensor Solution (Intel ISH / IPTS). Die regulären Standard-Kernel von Distributionen enthalten für diesen spezifischen Controller nicht den vollständigen Verarbeitungs-Daemon.</p>
+<p>Das renommierte <strong>linux-surface</strong>-Projekt pflegt optimierte Kernel-Patches sowie den Begleitdienst <code>iptsd</code>, mit denen der Touchscreen auf diesen Geräten reibungslos läuft.</p>
+<h3 id="schritt-1-signierschlüssel-des-repositories-hinterlegen">Schritt 1: Signierschlüssel des Repositories hinterlegen</h3>
+<p>Öffne ein Terminal und importiere die Schlüssel des Linux-Surface-Repositories:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -qO - https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc <span class="p">|</span> sudo pacman-key --add -
+</span></span><span class="line"><span class="cl">sudo pacman-key --finger 56C464BAAC421453
+</span></span><span class="line"><span class="cl">sudo pacman-key --lsign-key 56C464BAAC421453
+</span></span></code></pre></div><h3 id="schritt-2-paketquelle-in-pacmanconf-eintragen">Schritt 2: Paketquelle in pacman.conf eintragen</h3>
+<p>Öffne die Konfigurationsdatei <code>/etc/pacman.conf</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/pacman.conf
+</span></span></code></pre></div><p>Füge ganz am Ende der Datei folgenden Block ein:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[linux-surface]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Server</span> <span class="o">=</span> <span class="s">https://pkg.surfacelinux.com/arch/</span>
+</span></span></code></pre></div><p>Speichere die Datei mit <code>Strg+S</code> und verlasse den Editor mit <code>Strg+X</code>.</p>
+<h3 id="schritt-3-kernel-und-touchscreen-daemon-installieren">Schritt 3: Kernel und Touchscreen-Daemon installieren</h3>
+<p>Aktualisiere die Paketdatenbanken und installiere den Surface-Kernel inklusive Header und <code>iptsd</code> (Intel Precise Touch &amp; Stylus Daemon):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -Syu
+</span></span><span class="line"><span class="cl">sudo pacman -S linux-surface linux-surface-headers iptsd
+</span></span></code></pre></div><p>Aktiviere und starte den Touch-Dienst:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now iptsd
+</span></span></code></pre></div><h3 id="schritt-4-grub-aktualisieren-und-system-neu-starten">Schritt 4: GRUB aktualisieren und System neu starten</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo update-grub
+</span></span><span class="line"><span class="cl">sudo reboot
+</span></span></code></pre></div><p><em>(Hinweis: Sollte <code>update-grub</code> unter Manjaro nicht gefunden werden, verwende alternativ: <code>sudo grub-mkconfig -o /boot/grub/grub.cfg</code>).</em></p>
+<p>Nach dem Neustart im Surface-Kernel reagiert der Bildschirm sofort präzise auf Finger- und Stiftberührungen.</p>
+<hr>
+<h2 id="2-standby-einfrieren-beim-zuklappen-des-deckels-beheben">2. Standby-Einfrieren beim Zuklappen des Deckels beheben</h2>
+<p>Eines der frustrierendsten Phänomene bei modernen Intel-Laptops der 12./13. Generation unter Linux ist der Totalabsturz beim Zuklappen des Deckels: Der Bildschirm bleibt schwarz, die Tastatur reagiert nicht mehr und es hilft nur noch langes Drücken des Power-Buttons.</p>
+<p>Dieses Problem beruht auf zwei Ursachen: <strong>Intel Panel Self Refresh (PSR)</strong> und dem ACPI-Schlafzustand <strong>Modern Standby</strong>.</p>
+<h3 id="lösung-1-intel-panel-self-refresh-abschalten-i915enable_psr0">Lösung 1: Intel Panel Self Refresh abschalten (<code>i915.enable_psr=0</code>)</h3>
+<p>Die Stromsparfunktion PSR im Intel-Grafiktreiber führt bei vielen hochauflösenden Laptop-Displays beim Reaktivieren aus Energiesparzuständen zu einem Deadlock des Display-Controllers. Das Abschalten behebt das Problem zuverlässig und ohne nennenswerte Einbußen bei der Akkulaufzeit:</p>
+<ol>
+<li>
+<p>Öffne die GRUB-Standardkonfiguration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/default/grub
+</span></span></code></pre></div></li>
+<li>
+<p>Suche die Zeile, die mit <code>GRUB_CMDLINE_LINUX_DEFAULT</code> beginnt. Ergänze innerhalb der Anführungszeichen mit einem Leerzeichen den Parameter <code>i915.enable_psr=0</code>.</p>
+<p><em>Beispiel:</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">GRUB_CMDLINE_LINUX_DEFAULT</span><span class="o">=</span><span class="s">&#34;quiet splash apparmor=1 security=apparmor udev.log_priority=3 i915.enable_psr=0&#34;</span>
+</span></span></code></pre></div></li>
+</ol>
+<h3 id="lösung-2-modern-standby-verifizieren-s2idle">Lösung 2: Modern Standby verifizieren (<code>s2idle</code>)</h3>
+<p>Intel-Prozessoren der 12. Generation unterstützen den alten ACPI S3 &ldquo;Deep&rdquo;-Schlafmodus hardwareseitig nicht mehr. Wenn das Linux-System versucht, Deep Sleep statt <code>s2idle</code> (Modern Standby) zu erzwingen, stürzt der Rechner beim Aufwachen unweigerlich ab.</p>
+<p>Prüfe den aktiven Zustand im Terminal:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /sys/power/mem_sleep
+</span></span></code></pre></div><ul>
+<li><strong><code>[s2idle] deep</code></strong>: Das System ist bereits korrekt auf Modern Standby eingestellt (die eckigen Klammern markieren den aktiven Modus).</li>
+<li><strong><code>s2idle [deep]</code></strong>: Das veraltete Deep Sleep ist aktiv – dies ist der Verursacher des Einfrierens.</li>
+</ul>
+<p>Falls <code>deep</code> aktiv ist, ergänze deine GRUB-Befehlszeile zusätzlich um den Parameter <code>mem_sleep_default=s2idle</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">GRUB_CMDLINE_LINUX_DEFAULT</span><span class="o">=</span><span class="s">&#34;quiet splash i915.enable_psr=0 mem_sleep_default=s2idle&#34;</span>
+</span></span></code></pre></div><p>Speichere die Datei und aktualisiere die Bootloader-Konfiguration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo update-grub
+</span></span><span class="line"><span class="cl"><span class="c1"># Fallback falls erforderlich:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sudo grub-mkconfig -o /boot/grub/grub.cfg</span>
+</span></span></code></pre></div><p>Nach einem Neustart wacht der Laptop beim Aufklappen des Deckels sofort und ohne Hänger auf.</p>
+<hr>
+<h2 id="3-webcam-einrichten-pipewire--libcamera">3. Webcam einrichten (PipeWire &amp; Libcamera)</h2>
+<p>Neuere Convertible-Modelle binden ihre Kamera nicht mehr als klassisches USB-UVC-Gerät an, sondern über das MIPI/IPU6-Subsystem. Das Gerät lässt sich per PCI-Bus überprüfen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lspci <span class="p">|</span> grep -i multimedia
+</span></span></code></pre></div><p>Damit Videokonferenzen (Chromium, Firefox, Zoom, Teams) und Desktop-Apps das Videosignal erhalten, installierst du den <code>libcamera</code>-Stack inklusive PipeWire-Erweiterung:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -S libcamera libcamera-ipa libcamera-tools gst-plugin-libcamera pipewire-libcamera
+</span></span></code></pre></div><p>Starte anschließend die Benutzersitzung für Audio/Video neu:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl --user restart pipewire wireplumber
+</span></span></code></pre></div><p>Sobald du ein Kameraprogramm wie <code>kamoso</code> oder den Browser öffnest, schaltet sich die Kamera zuverlässig ein.</p>
+<hr>
+<h2 id="4-bekannte-einschränkung-ir-gesichtserkennung-howdy">4. Bekannte Einschränkung: IR-Gesichtserkennung (Howdy)</h2>
+<p>Viele Nutzer schätzen komfortables Entsperren per Gesichtserkennung via <a href="https://github.com/boltgolt/howdy">Howdy</a>.</p>
+<div class="callout callout-warning" role="region" aria-label="Status: Fehlender IR-Kameratreiber">
+  <div class="callout-icon" aria-hidden="true">⚠️</div>
+  <div class="callout-body">
+    <div class="callout-title">Status: Fehlender IR-Kameratreiber</div>
+    <div class="callout-content">
+      Auf der HP Envy x360 13-bf0xxx Baureihe wird das separate Infrarot-Kameramodul derzeit noch nicht vom Linux-Kernel angesteuert. Während die reguläre RGB-Kamera via <code>libcamera</code> einwandfrei arbeitet, bleibt der IR-Sensor dunkel. Howdy kann daher derzeit nicht verwendet werden, bis entsprechende Treiber-Patches im Upstream-Kernel integriert sind.
+    </div>
+  </div>
+</div>
+
+
+<hr>
+<h2 id="fazit">Fazit</h2>
+<p>Mit dem <code>linux-surface</code>-Kernel und diesen Feineinstellungen wird das HP Envy x360 zu einem exzellenten, schnellen und ausdauernden Linux-Convertible für den Alltag.</p>
+<hr>
+<h2 id="vertiefende-anleitungen--erweiterungen">Vertiefende Anleitungen &amp; Erweiterungen</h2>
+<p>Um den Guide übersichtlich zu halten, sind weiterführende Themen in eigenständige Artikel ausgegliedert:</p>
+<ul>
+<li><strong>Microsoft OneDrive unter Linux</strong>: Vollständige Synchronisation für Uni oder Beruf findest du in unserem Guide <a href="https://jokobus.github.io/de/posts/onedrive-linux/">Microsoft OneDrive unter Manjaro &amp; Arch Linux einrichten</a>.</li>
+<li><strong>Ergonomisches Tastaturlayout beim Systemstart</strong>: Nutzt du <a href="https://jokobus.github.io/de/posts/neoylayout/">Neo 2 oder Bone</a>? In unserer Anleitung <a href="https://jokobus.github.io/de/posts/bone-login-screen/">Neo/Bone für SDDM, GDM und LightDM einrichten</a> erfährst du, wie das Layout direkt beim Booten aktiv ist.</li>
+<li><strong>USB-Stick schonen bei persistentem Linux</strong>: Wer Manjaro zunächst von einem USB-Laufwerk testet, sollte unnötige Schreibzyklen minimieren: <a href="https://jokobus.github.io/de/posts/linux-usb-wear-reduction/">Schreibverschleiß von USB-Sticks unter Linux minimieren</a>.</li>
+</ul>
+]]></description><content:encoded><![CDATA[<p>Das <strong>HP Envy x360 13 (Modellreihe 13-bf0xxx)</strong> ist ein vielseitiges 2-in-1 Convertible mit brillantem Display, starker Akkulaufzeit und handlicher Mobilität. Wer jedoch versucht, Manjaro oder eine andere Linux-Distribution ohne Anpassungen darauf zu installieren, stößt rasch auf typische Hürden moderner Convertibles: Das Display reagiert nicht auf Toucheingaben, beim Zuklappen des Deckels friert das gesamte System komplett ein und die integrierte Webcam benötigt manuelles Feintuning.</p>
+<p>Dieser Guide ist Teil unserer Beitragsreihe zum <strong>Dual-Boot von Manjaro und Windows</strong>. Die gute Nachricht vorweg: <strong>Fast die gesamte Hardware läuft einwandfrei</strong>, sobald man Manjaro mit dem <code>linux-surface</code>-Kernel und einigen gezielten Kernel-Parametern kombiniert.</p>
+<p>Hier ist die vollständige Schritt-für-Schritt-Anleitung, um das HP Envy x360 alltagstauglich und stabil einzurichten. Voraussetzung ist eine bereits laufende (z.B. frisch aufgesetzte KDE) Manjaro Installation.</p>
+<hr>
+<h2 id="hardware-status-im-überblick">Hardware-Status im Überblick</h2>
+<p>Vor der Einrichtung zeigt diese Übersicht die Unterscheidung zwischen direkt funktionierender Hardware und Komponenten, die Anpassungen erfordern:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Hardware-Komponente</th>
+					<th style="text-align: center">Status</th>
+					<th style="text-align: left">Einrichtungsart</th>
+					<th style="text-align: left">Details / Lösung</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left"><strong>Audio &amp; Lautsprecher</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Out-of-the-box</strong></td>
+					<td style="text-align: left">Intel HD Audio über PipeWire / WirePlumber</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Interne Mikrofone</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Out-of-the-box</strong></td>
+					<td style="text-align: left">Saubere Tonaufnahme über PipeWire</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>WLAN &amp; Bluetooth</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Out-of-the-box</strong></td>
+					<td style="text-align: left">Intel Wi-Fi 6E AX211 läuft sofort</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Display &amp; Helligkeit</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Out-of-the-box</strong></td>
+					<td style="text-align: left">Native Helligkeitssteuerung via Funktionstasten</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Touchscreen</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Erfordert Anpassung</strong></td>
+					<td style="text-align: left">Benötigt <code>linux-surface</code>-Kernel &amp; <code>iptsd</code>-Dienst</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Aktiver Eingabestift (Stylus)</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Erfordert Anpassung</strong></td>
+					<td style="text-align: left">Vollständig über <code>iptsd</code> unterstützt</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>Sleep / Deckel zuklappen</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Erfordert Anpassung</strong></td>
+					<td style="text-align: left">Erfordert <code>i915.enable_psr=0</code> &amp; Modern Standby (<code>s2idle</code>)</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>RGB-Frontkamera</strong></td>
+					<td style="text-align: center">✔️ Funktioniert</td>
+					<td style="text-align: left"><strong>Erfordert Anpassung</strong></td>
+					<td style="text-align: left">Benötigt <code>libcamera</code> &amp; PipeWire-Integration</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><strong>IR-Gesichtserkennung (Howdy)</strong></td>
+					<td style="text-align: center">❌ Noch nicht</td>
+					<td style="text-align: left"><strong>Treiber fehlt</strong></td>
+					<td style="text-align: left">Kernel-Treiber für das MIPI-IR-Kameramodul steht noch aus</td>
+			</tr>
+	</tbody>
+</table>
+<hr>
+<h2 id="0-vorbereitung-windows-schnellstart-deaktivieren-fast-startup">0. Vorbereitung: Windows-Schnellstart deaktivieren (Fast Startup)</h2>
+<p>Falls du das Envy im Dual-Boot mit Windows betreibst, <strong>muss der Windows-Schnellstart zwingend deaktiviert werden</strong>. Der Schnellstart versetzt die Hardware beim Herunterfahren in einen proprietären Ruhezustand, anstatt sie sauber stromlos zu schalten. Dadurch verbleiben der Intel Sensor Hub (ISH) und die Touch-Controller in einem gesperrten Zustand, den der Linux-Kernel beim Starten nicht initialisieren kann.</p>
+<ol>
+<li>Starte Windows.</li>
+<li>Öffne die <strong>Systemsteuerung</strong> $\rightarrow$ <strong>Energieoptionen</strong>.</li>
+<li>Klicke in der linken Seitenleiste auf <strong>„Auswählen, was beim Drücken des Netzschalters geschehen soll“</strong>.</li>
+<li>Klicke oben auf das Schild-Symbol: <strong>„Einige Einstellungen sind momentan nicht verfügbar“</strong>.</li>
+<li>Entferne unter <em>Einstellungen für das Herunterfahren</em> den Haken bei <strong>„Schnellstart aktivieren (empfohlen)“</strong>.</li>
+<li>Klicke auf <strong>Änderungen speichern</strong> und fahre Windows vollständig herunter.</li>
+</ol>
+<hr>
+<h2 id="1-touchscreen-aktivieren-linux-surface-kernel">1. Touchscreen aktivieren (<code>linux-surface</code>-Kernel)</h2>
+<p>Das HP Envy x360 13-bf0xxx verarbeitet Digitizer- und Touch-Eingaben über Intels Integrated Sensor Solution (Intel ISH / IPTS). Die regulären Standard-Kernel von Distributionen enthalten für diesen spezifischen Controller nicht den vollständigen Verarbeitungs-Daemon.</p>
+<p>Das renommierte <strong>linux-surface</strong>-Projekt pflegt optimierte Kernel-Patches sowie den Begleitdienst <code>iptsd</code>, mit denen der Touchscreen auf diesen Geräten reibungslos läuft.</p>
+<h3 id="schritt-1-signierschlüssel-des-repositories-hinterlegen">Schritt 1: Signierschlüssel des Repositories hinterlegen</h3>
+<p>Öffne ein Terminal und importiere die Schlüssel des Linux-Surface-Repositories:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -qO - https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc <span class="p">|</span> sudo pacman-key --add -
+</span></span><span class="line"><span class="cl">sudo pacman-key --finger 56C464BAAC421453
+</span></span><span class="line"><span class="cl">sudo pacman-key --lsign-key 56C464BAAC421453
+</span></span></code></pre></div><h3 id="schritt-2-paketquelle-in-pacmanconf-eintragen">Schritt 2: Paketquelle in pacman.conf eintragen</h3>
+<p>Öffne die Konfigurationsdatei <code>/etc/pacman.conf</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/pacman.conf
+</span></span></code></pre></div><p>Füge ganz am Ende der Datei folgenden Block ein:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[linux-surface]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Server</span> <span class="o">=</span> <span class="s">https://pkg.surfacelinux.com/arch/</span>
+</span></span></code></pre></div><p>Speichere die Datei mit <code>Strg+S</code> und verlasse den Editor mit <code>Strg+X</code>.</p>
+<h3 id="schritt-3-kernel-und-touchscreen-daemon-installieren">Schritt 3: Kernel und Touchscreen-Daemon installieren</h3>
+<p>Aktualisiere die Paketdatenbanken und installiere den Surface-Kernel inklusive Header und <code>iptsd</code> (Intel Precise Touch &amp; Stylus Daemon):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -Syu
+</span></span><span class="line"><span class="cl">sudo pacman -S linux-surface linux-surface-headers iptsd
+</span></span></code></pre></div><p>Aktiviere und starte den Touch-Dienst:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now iptsd
+</span></span></code></pre></div><h3 id="schritt-4-grub-aktualisieren-und-system-neu-starten">Schritt 4: GRUB aktualisieren und System neu starten</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo update-grub
+</span></span><span class="line"><span class="cl">sudo reboot
+</span></span></code></pre></div><p><em>(Hinweis: Sollte <code>update-grub</code> unter Manjaro nicht gefunden werden, verwende alternativ: <code>sudo grub-mkconfig -o /boot/grub/grub.cfg</code>).</em></p>
+<p>Nach dem Neustart im Surface-Kernel reagiert der Bildschirm sofort präzise auf Finger- und Stiftberührungen.</p>
+<hr>
+<h2 id="2-standby-einfrieren-beim-zuklappen-des-deckels-beheben">2. Standby-Einfrieren beim Zuklappen des Deckels beheben</h2>
+<p>Eines der frustrierendsten Phänomene bei modernen Intel-Laptops der 12./13. Generation unter Linux ist der Totalabsturz beim Zuklappen des Deckels: Der Bildschirm bleibt schwarz, die Tastatur reagiert nicht mehr und es hilft nur noch langes Drücken des Power-Buttons.</p>
+<p>Dieses Problem beruht auf zwei Ursachen: <strong>Intel Panel Self Refresh (PSR)</strong> und dem ACPI-Schlafzustand <strong>Modern Standby</strong>.</p>
+<h3 id="lösung-1-intel-panel-self-refresh-abschalten-i915enable_psr0">Lösung 1: Intel Panel Self Refresh abschalten (<code>i915.enable_psr=0</code>)</h3>
+<p>Die Stromsparfunktion PSR im Intel-Grafiktreiber führt bei vielen hochauflösenden Laptop-Displays beim Reaktivieren aus Energiesparzuständen zu einem Deadlock des Display-Controllers. Das Abschalten behebt das Problem zuverlässig und ohne nennenswerte Einbußen bei der Akkulaufzeit:</p>
+<ol>
+<li>
+<p>Öffne die GRUB-Standardkonfiguration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nano /etc/default/grub
+</span></span></code></pre></div></li>
+<li>
+<p>Suche die Zeile, die mit <code>GRUB_CMDLINE_LINUX_DEFAULT</code> beginnt. Ergänze innerhalb der Anführungszeichen mit einem Leerzeichen den Parameter <code>i915.enable_psr=0</code>.</p>
+<p><em>Beispiel:</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">GRUB_CMDLINE_LINUX_DEFAULT</span><span class="o">=</span><span class="s">&#34;quiet splash apparmor=1 security=apparmor udev.log_priority=3 i915.enable_psr=0&#34;</span>
+</span></span></code></pre></div></li>
+</ol>
+<h3 id="lösung-2-modern-standby-verifizieren-s2idle">Lösung 2: Modern Standby verifizieren (<code>s2idle</code>)</h3>
+<p>Intel-Prozessoren der 12. Generation unterstützen den alten ACPI S3 &ldquo;Deep&rdquo;-Schlafmodus hardwareseitig nicht mehr. Wenn das Linux-System versucht, Deep Sleep statt <code>s2idle</code> (Modern Standby) zu erzwingen, stürzt der Rechner beim Aufwachen unweigerlich ab.</p>
+<p>Prüfe den aktiven Zustand im Terminal:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /sys/power/mem_sleep
+</span></span></code></pre></div><ul>
+<li><strong><code>[s2idle] deep</code></strong>: Das System ist bereits korrekt auf Modern Standby eingestellt (die eckigen Klammern markieren den aktiven Modus).</li>
+<li><strong><code>s2idle [deep]</code></strong>: Das veraltete Deep Sleep ist aktiv – dies ist der Verursacher des Einfrierens.</li>
+</ul>
+<p>Falls <code>deep</code> aktiv ist, ergänze deine GRUB-Befehlszeile zusätzlich um den Parameter <code>mem_sleep_default=s2idle</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">GRUB_CMDLINE_LINUX_DEFAULT</span><span class="o">=</span><span class="s">&#34;quiet splash i915.enable_psr=0 mem_sleep_default=s2idle&#34;</span>
+</span></span></code></pre></div><p>Speichere die Datei und aktualisiere die Bootloader-Konfiguration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo update-grub
+</span></span><span class="line"><span class="cl"><span class="c1"># Fallback falls erforderlich:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sudo grub-mkconfig -o /boot/grub/grub.cfg</span>
+</span></span></code></pre></div><p>Nach einem Neustart wacht der Laptop beim Aufklappen des Deckels sofort und ohne Hänger auf.</p>
+<hr>
+<h2 id="3-webcam-einrichten-pipewire--libcamera">3. Webcam einrichten (PipeWire &amp; Libcamera)</h2>
+<p>Neuere Convertible-Modelle binden ihre Kamera nicht mehr als klassisches USB-UVC-Gerät an, sondern über das MIPI/IPU6-Subsystem. Das Gerät lässt sich per PCI-Bus überprüfen:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lspci <span class="p">|</span> grep -i multimedia
+</span></span></code></pre></div><p>Damit Videokonferenzen (Chromium, Firefox, Zoom, Teams) und Desktop-Apps das Videosignal erhalten, installierst du den <code>libcamera</code>-Stack inklusive PipeWire-Erweiterung:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -S libcamera libcamera-ipa libcamera-tools gst-plugin-libcamera pipewire-libcamera
+</span></span></code></pre></div><p>Starte anschließend die Benutzersitzung für Audio/Video neu:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl --user restart pipewire wireplumber
+</span></span></code></pre></div><p>Sobald du ein Kameraprogramm wie <code>kamoso</code> oder den Browser öffnest, schaltet sich die Kamera zuverlässig ein.</p>
+<hr>
+<h2 id="4-bekannte-einschränkung-ir-gesichtserkennung-howdy">4. Bekannte Einschränkung: IR-Gesichtserkennung (Howdy)</h2>
+<p>Viele Nutzer schätzen komfortables Entsperren per Gesichtserkennung via <a href="https://github.com/boltgolt/howdy">Howdy</a>.</p>
+<div class="callout callout-warning" role="region" aria-label="Status: Fehlender IR-Kameratreiber">
+  <div class="callout-icon" aria-hidden="true">⚠️</div>
+  <div class="callout-body">
+    <div class="callout-title">Status: Fehlender IR-Kameratreiber</div>
+    <div class="callout-content">
+      Auf der HP Envy x360 13-bf0xxx Baureihe wird das separate Infrarot-Kameramodul derzeit noch nicht vom Linux-Kernel angesteuert. Während die reguläre RGB-Kamera via <code>libcamera</code> einwandfrei arbeitet, bleibt der IR-Sensor dunkel. Howdy kann daher derzeit nicht verwendet werden, bis entsprechende Treiber-Patches im Upstream-Kernel integriert sind.
+    </div>
+  </div>
+</div>
+
+
+<hr>
+<h2 id="fazit">Fazit</h2>
+<p>Mit dem <code>linux-surface</code>-Kernel und diesen Feineinstellungen wird das HP Envy x360 zu einem exzellenten, schnellen und ausdauernden Linux-Convertible für den Alltag.</p>
+<hr>
+<h2 id="vertiefende-anleitungen--erweiterungen">Vertiefende Anleitungen &amp; Erweiterungen</h2>
+<p>Um den Guide übersichtlich zu halten, sind weiterführende Themen in eigenständige Artikel ausgegliedert:</p>
+<ul>
+<li><strong>Microsoft OneDrive unter Linux</strong>: Vollständige Synchronisation für Uni oder Beruf findest du in unserem Guide <a href="https://jokobus.github.io/de/posts/onedrive-linux/">Microsoft OneDrive unter Manjaro &amp; Arch Linux einrichten</a>.</li>
+<li><strong>Ergonomisches Tastaturlayout beim Systemstart</strong>: Nutzt du <a href="https://jokobus.github.io/de/posts/neoylayout/">Neo 2 oder Bone</a>? In unserer Anleitung <a href="https://jokobus.github.io/de/posts/bone-login-screen/">Neo/Bone für SDDM, GDM und LightDM einrichten</a> erfährst du, wie das Layout direkt beim Booten aktiv ist.</li>
+<li><strong>USB-Stick schonen bei persistentem Linux</strong>: Wer Manjaro zunächst von einem USB-Laufwerk testet, sollte unnötige Schreibzyklen minimieren: <a href="https://jokobus.github.io/de/posts/linux-usb-wear-reduction/">Schreibverschleiß von USB-Sticks unter Linux minimieren</a>.</li>
+</ul>
+]]></content:encoded><category>Linux</category><category>Manjaro</category><category>HP Envy</category><category>Hardware</category><category>Kernel</category><category>Touchscreen</category><category>KDE</category><category>DualBoot</category></item><item><title>Interaktives Periodensystem der Elemente (PSE)</title><link>https://jokobus.github.io/de/pse/</link><pubDate>Sat, 17 Oct 2026 12:00:00 +0200</pubDate><guid>https://jokobus.github.io/de/pse/</guid><description><![CDATA[<p>Willkommen beim <strong>Interaktiven Periodensystem der Elemente (PSE)</strong>. Entwickelt für Ingenieure, Naturwissenschaftler, Studierende und Schüler vereint diese Übersicht alle 118 bekannten chemischen Elemente mit maximaler Informationsdichte, responsiver Darstellung und nativer Unterstützung für Dark- und Bright-Mode.</p>
 <div class="callout callout-tip" role="region" aria-label="Interaktive Funktionen">
   <div class="callout-icon" aria-hidden="true">💡</div>
   <div class="callout-body">
@@ -7644,7 +8452,7 @@ print(&#34;Sinuswerte   :&#34;, sinus)</textarea>
 </span></span></code></pre></div><hr>
 <h2 id="8-interaktive-parameter-widgets--schieberegler">8. Interaktive Parameter-Widgets &amp; Schieberegler</h2>
 <p>Binde interaktive HTML5-Canvas-Simulationen mit Live-Schiebereglern ein, um dynamische Systeme und Regelungstechnik intuitiv verständlich zu machen:</p>
-<div class="interactive-widget-box" id="widget-1793096909862580991">
+<div class="interactive-widget-box" id="widget-1794217003999085636">
   <div class="widget-title">Dynamischer System-Tuner</div>
   <div class="widget-desc">Passe Dämpfung und Eigenfrequenz über Schieberegler an und beobachte die Sprungantwort in Echtzeit.</div>
 
@@ -7782,7 +8590,7 @@ $$\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{q}_i}\right) - \fr
  und der modernen Regelungstheorie <span class="cite-group"><a class="cite-ref" href="#bib-astrom2010" data-cite-key="astrom2010" role="doc-biblioref" aria-label="Citation: astrom2010"><span class="cite-num">[astrom2010]</span></a></span>
  dargelegt, minimiert optimale Zustandsschätzung die Fehlervarianz. Grundlagen der Roboterkinematik finden sich in Craig <span class="cite-group"><a class="cite-ref" href="#bib-craig2005" data-cite-key="craig2005" role="doc-biblioref" aria-label="Citation: craig2005"><span class="cite-num">[craig2005]</span></a></span>
 .</p>
-<section class="smidr-bibliography-section" id="bib-sec-1793096909863129406" aria-label="Literatur- &amp; Quellenverzeichnis" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1794217003999445101" aria-label="Literatur- &amp; Quellenverzeichnis" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur- &amp; Quellenverzeichnis</span>
     </h2>
@@ -8154,7 +8962,7 @@ print(&#34;Sinuswerte   :&#34;, sinus)</textarea>
 </span></span></code></pre></div><hr>
 <h2 id="8-interaktive-parameter-widgets--schieberegler">8. Interaktive Parameter-Widgets &amp; Schieberegler</h2>
 <p>Binde interaktive HTML5-Canvas-Simulationen mit Live-Schiebereglern ein, um dynamische Systeme und Regelungstechnik intuitiv verständlich zu machen:</p>
-<div class="interactive-widget-box" id="widget-1793096909862580991">
+<div class="interactive-widget-box" id="widget-1794217003999085636">
   <div class="widget-title">Dynamischer System-Tuner</div>
   <div class="widget-desc">Passe Dämpfung und Eigenfrequenz über Schieberegler an und beobachte die Sprungantwort in Echtzeit.</div>
 
@@ -8292,7 +9100,7 @@ $$\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{q}_i}\right) - \fr
  und der modernen Regelungstheorie <span class="cite-group"><a class="cite-ref" href="#bib-astrom2010" data-cite-key="astrom2010" role="doc-biblioref" aria-label="Citation: astrom2010"><span class="cite-num">[astrom2010]</span></a></span>
  dargelegt, minimiert optimale Zustandsschätzung die Fehlervarianz. Grundlagen der Roboterkinematik finden sich in Craig <span class="cite-group"><a class="cite-ref" href="#bib-craig2005" data-cite-key="craig2005" role="doc-biblioref" aria-label="Citation: craig2005"><span class="cite-num">[craig2005]</span></a></span>
 .</p>
-<section class="smidr-bibliography-section" id="bib-sec-1793096909863129406" aria-label="Literatur- &amp; Quellenverzeichnis" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1794217003999445101" aria-label="Literatur- &amp; Quellenverzeichnis" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur- &amp; Quellenverzeichnis</span>
     </h2>
@@ -8748,7 +9556,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1793096910604835926">
+<figure class="tikz-container" id="tikz-1794217004834875129">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -8884,7 +9692,7 @@ wobei $\bm{b}$ die spezifische Volumenkraft (z. B. Schwerebeschleunigung $\bm{g}
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-konstitutivgesetze--lineare-elastizität">4. Konstitutivgesetze &amp; lineare Elastizität</h2>
-<figure class="tikz-container" id="tikz-1793096910605064252">
+<figure class="tikz-container" id="tikz-1794217004835058308">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -9490,7 +10298,7 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1793096910606405126">
+<figure class="tikz-container" id="tikz-1794217004835796339">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -9701,7 +10509,7 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1793096910607327239">
+<figure class="tikz-container" id="tikz-1794217004836446522">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -10221,7 +11029,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Gleichungssystem lösen:</strong>
 Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\mathbf{K}\mathbf{c} = \mathbf{F}$, dessen Lösung die energieoptimalen Koeffizienten $c_i$ liefert.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1793096910609434505" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1794217004839525232" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur &amp; Referenzen</span>
     </h2>
@@ -10553,7 +11361,7 @@ $$\bm{t}_{\bm{e}_1} = \sigma_{11} \bm{e}_1 + \sigma_{21} \bm{e}_2 + \sigma_{31} 
 
 $$\sigma_{ij} = \sigma_{ji} \quad \leftrightarrow \quad \bm{\sigma} = \bm{\sigma}^T$$</li>
 </ul>
-<figure class="tikz-container" id="tikz-1793096910604835926">
+<figure class="tikz-container" id="tikz-1794217004834875129">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -10689,7 +11497,7 @@ wobei $\bm{b}$ die spezifische Volumenkraft (z. B. Schwerebeschleunigung $\bm{g}
 </p>
 $$\sigma_{ij,j} = 0$$<hr>
 <h2 id="4-konstitutivgesetze--lineare-elastizität">4. Konstitutivgesetze &amp; lineare Elastizität</h2>
-<figure class="tikz-container" id="tikz-1793096910605064252">
+<figure class="tikz-container" id="tikz-1794217004835058308">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
     
@@ -11295,7 +12103,7 @@ $$\begin{aligned}
    \varepsilon_{33} &= -\frac{\nu}{E}(2a_3 + 2a_1), \quad \varepsilon_{13} = \varepsilon_{23} = 0
    \end{aligned}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1793096910606405126">
+<figure class="tikz-container" id="tikz-1794217004835796339">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 460" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -11506,7 +12314,7 @@ $$\sigma_{22}(x,l) = -2\rho g x + \rho g l = \rho g (l - 2x)$$
 
 $$\boxed{\bm{t}\big|_{BC} = -\rho g x \bm{e}_1 + \rho g (l - 2x) \bm{e}_2}$$</li>
 </ol>
-<figure class="tikz-container" id="tikz-1793096910607327239">
+<figure class="tikz-container" id="tikz-1794217004836446522">
   <div class="tikz-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="100%" height="auto" class="tikz-svg" style="background: transparent; font-family: system-ui, -apple-system, sans-serif;">
   <defs>
   <style>
@@ -12026,7 +12834,7 @@ $$\frac{\partial \Pi}{\partial c_i} = 0 \quad (i = 1, \dots, n)$$</li>
 <li><strong>Gleichungssystem lösen:</strong>
 Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\mathbf{K}\mathbf{c} = \mathbf{F}$, dessen Lösung die energieoptimalen Koeffizienten $c_i$ liefert.</li>
 </ol>
-<section class="smidr-bibliography-section" id="bib-sec-1793096910609434505" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
+<section class="smidr-bibliography-section" id="bib-sec-1794217004839525232" aria-label="Literatur &amp; Referenzen" data-default-style="numeric" data-show-all="false"><div class="bib-section-header">
     <h2 class="bib-section-title">
       <span>📚</span> <span>Literatur &amp; Referenzen</span>
     </h2>
@@ -12099,7 +12907,35 @@ Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\math
 ]]></content:encoded><category>Strukturmechanik</category><category>Kontinuumsmechanik</category><category>Elastizität</category><category>FEM</category><category>Tensoren</category><category>Balken</category><category>Platten</category><category>Ingenieurwesen</category><category>Mechanik</category></item><item><title>Ergonomisches Tippen mit dem Neo-Tastaturlayout (Bone-Variante)</title><link>https://jokobus.github.io/de/posts/neoylayout/</link><pubDate>Mon, 16 Jun 2025 14:51:26 +0200</pubDate><guid>https://jokobus.github.io/de/posts/neoylayout/</guid><description><![CDATA[<p>Das <a href="https://neo-layout.org">Neo-Tastaturlayout</a> ist ein ergonomisches deutsches Tastaturlayout, das für minimale Fingerwege, ausgewogene Handbelastung und blitzschnellen Zugriff auf mathematische Sonderzeichen, Klammern und LaTeX-Symbole über 6 Ebenen entwickelt wurde. Die Variante <a href="https://neo-layout.org/Layouts/bone/"><strong>Bone</strong></a> optimiert die Buchstabenverteilung nochmals für flüssigeren Tippfluss beim Programmieren.</p>
 <hr>
 <h2 id="einrichtung-unter-linux">Einrichtung unter Linux</h2>
-<p>Auf den meisten Linux-Distributionen (Ubuntu, Debian, Fedora, Arch) ist das Layout bereits vorinstalliert:</p>
+<p>Das Neo-Bone-Layout ist im modernen Linux-Tastaturtreiber (<code>xkeyboard-config</code>) bereits vollständig integriert. Du musst keine Treiber herunterladen oder kompilieren.</p>
+<h3 id="methode-1-über-die-grafischen-systemeinstellungen-empfohlen">Methode 1: Über die grafischen Systemeinstellungen (Empfohlen)</h3>
+<p>Der eleganteste und dauerhafte Weg führt über die Einstellungen deiner Desktop-Umgebung:</p>
+<h4 id="kde-plasma-z-b-manjaro-kde-kubuntu-fedora-kde">KDE Plasma (z. B. Manjaro KDE, Kubuntu, Fedora KDE)</h4>
+<ol>
+<li>Öffne die <strong>Systemeinstellungen</strong> $ightarrow$ <strong>Eingabegeräte</strong> $ightarrow$ <strong>Tastatur</strong>.</li>
+<li>Wechsle auf den Reiter <strong>Belegungen</strong> (Layouts).</li>
+<li>Klicke auf <strong>Hinzufügen</strong> (+).</li>
+<li>Wähle als Sprache <strong>Deutsch</strong> und scrolle in der Variantenliste zu <strong>Deutsch (Bone)</strong>.</li>
+<li>Klicke auf <strong>Hinzufügen</strong> und befördere <em>Bone</em> mit den Pfeiltasten ganz nach oben an die erste Stelle (oder richte dir ein Tastenkürzel zum Umschalten ein).</li>
+<li>Klicke unten rechts auf <strong>Anwenden</strong>.</li>
+</ol>
+<h4 id="gnome-z-b-ubuntu-fedora-workstation">GNOME (z. B. Ubuntu, Fedora Workstation)</h4>
+<ol>
+<li>Öffne die <strong>Einstellungen</strong> $ightarrow$ <strong>Tastatur</strong>.</li>
+<li>Klicke unter <strong>Eingabequellen</strong> auf <strong>Eingabequelle hinzufügen</strong> (+).</li>
+<li>Klicke auf die drei senkrechten Punkte (Mehr&hellip;), tippe <code>Bone</code> in das Suchfeld ein und wähle <strong>German (Bone)</strong> aus.</li>
+<li>Füge das Layout hinzu und verschiebe es an die oberste Position.</li>
+</ol>
+<h4 id="xfce-z-b-manjaro-xfce-xubuntu">XFCE (z. B. Manjaro XFCE, Xubuntu)</h4>
+<ol>
+<li>Öffne <strong>Einstellungen</strong> $ightarrow$ <strong>Tastatur</strong> $ightarrow$ Reiter <strong>Layout</strong>.</li>
+<li>Deaktiviere die Option <em>Systemweite Einstellungen verwenden</em>.</li>
+<li>Klicke auf <strong>Hinzufügen</strong>, wähle Sprache <strong>Deutsch</strong> und Variante <strong>German (Bone)</strong>.</li>
+<li>Schiebe Bone an die oberste Stelle.</li>
+</ol>
+<hr>
+<h3 id="methode-2-schnellumschaltung-per-terminal-setxkbmap">Methode 2: Schnellumschaltung per Terminal (<code>setxkbmap</code>)</h3>
+<p>Wer im laufenden Betrieb ohne Menüs schnell zwischen QWERTZ und Bone wechseln möchte:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># Sofort auf Neo Bone umschalten:</span>
 </span></span><span class="line"><span class="cl">setxkbmap -layout de -variant bone
 </span></span><span class="line"><span class="cl">
@@ -12119,6 +12955,8 @@ Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\math
 </div>
 
 
+<h3 id="bone-im-anmeldebildschirm-nutzen-sddm-gdm-lightdm">Bone im Anmeldebildschirm nutzen (SDDM, GDM, LightDM)</h3>
+<p>Ein bekanntes Ärgernis unter Linux: In der grafischen Benutzersitzung funktioniert das Bone-Layout einwandfrei, doch beim Rechnerstart verharrt der Login-Bildschirm noch im Standard-QWERTZ-Layout. 👉 <strong><a href="https://jokobus.github.io/de/posts/bone-login-screen/">Ergonomische Tastaturlayouts (Neo/Bone) im Linux-Anmeldebildschirm einrichten (SDDM, GDM, LightDM)</a></strong></p>
 <hr>
 <h2 id="einrichtung-unter-windows">Einrichtung unter Windows</h2>
 <ol>
@@ -12138,7 +12976,35 @@ Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\math
 ]]></description><content:encoded><![CDATA[<p>Das <a href="https://neo-layout.org">Neo-Tastaturlayout</a> ist ein ergonomisches deutsches Tastaturlayout, das für minimale Fingerwege, ausgewogene Handbelastung und blitzschnellen Zugriff auf mathematische Sonderzeichen, Klammern und LaTeX-Symbole über 6 Ebenen entwickelt wurde. Die Variante <a href="https://neo-layout.org/Layouts/bone/"><strong>Bone</strong></a> optimiert die Buchstabenverteilung nochmals für flüssigeren Tippfluss beim Programmieren.</p>
 <hr>
 <h2 id="einrichtung-unter-linux">Einrichtung unter Linux</h2>
-<p>Auf den meisten Linux-Distributionen (Ubuntu, Debian, Fedora, Arch) ist das Layout bereits vorinstalliert:</p>
+<p>Das Neo-Bone-Layout ist im modernen Linux-Tastaturtreiber (<code>xkeyboard-config</code>) bereits vollständig integriert. Du musst keine Treiber herunterladen oder kompilieren.</p>
+<h3 id="methode-1-über-die-grafischen-systemeinstellungen-empfohlen">Methode 1: Über die grafischen Systemeinstellungen (Empfohlen)</h3>
+<p>Der eleganteste und dauerhafte Weg führt über die Einstellungen deiner Desktop-Umgebung:</p>
+<h4 id="kde-plasma-z-b-manjaro-kde-kubuntu-fedora-kde">KDE Plasma (z. B. Manjaro KDE, Kubuntu, Fedora KDE)</h4>
+<ol>
+<li>Öffne die <strong>Systemeinstellungen</strong> $ightarrow$ <strong>Eingabegeräte</strong> $ightarrow$ <strong>Tastatur</strong>.</li>
+<li>Wechsle auf den Reiter <strong>Belegungen</strong> (Layouts).</li>
+<li>Klicke auf <strong>Hinzufügen</strong> (+).</li>
+<li>Wähle als Sprache <strong>Deutsch</strong> und scrolle in der Variantenliste zu <strong>Deutsch (Bone)</strong>.</li>
+<li>Klicke auf <strong>Hinzufügen</strong> und befördere <em>Bone</em> mit den Pfeiltasten ganz nach oben an die erste Stelle (oder richte dir ein Tastenkürzel zum Umschalten ein).</li>
+<li>Klicke unten rechts auf <strong>Anwenden</strong>.</li>
+</ol>
+<h4 id="gnome-z-b-ubuntu-fedora-workstation">GNOME (z. B. Ubuntu, Fedora Workstation)</h4>
+<ol>
+<li>Öffne die <strong>Einstellungen</strong> $ightarrow$ <strong>Tastatur</strong>.</li>
+<li>Klicke unter <strong>Eingabequellen</strong> auf <strong>Eingabequelle hinzufügen</strong> (+).</li>
+<li>Klicke auf die drei senkrechten Punkte (Mehr&hellip;), tippe <code>Bone</code> in das Suchfeld ein und wähle <strong>German (Bone)</strong> aus.</li>
+<li>Füge das Layout hinzu und verschiebe es an die oberste Position.</li>
+</ol>
+<h4 id="xfce-z-b-manjaro-xfce-xubuntu">XFCE (z. B. Manjaro XFCE, Xubuntu)</h4>
+<ol>
+<li>Öffne <strong>Einstellungen</strong> $ightarrow$ <strong>Tastatur</strong> $ightarrow$ Reiter <strong>Layout</strong>.</li>
+<li>Deaktiviere die Option <em>Systemweite Einstellungen verwenden</em>.</li>
+<li>Klicke auf <strong>Hinzufügen</strong>, wähle Sprache <strong>Deutsch</strong> und Variante <strong>German (Bone)</strong>.</li>
+<li>Schiebe Bone an die oberste Stelle.</li>
+</ol>
+<hr>
+<h3 id="methode-2-schnellumschaltung-per-terminal-setxkbmap">Methode 2: Schnellumschaltung per Terminal (<code>setxkbmap</code>)</h3>
+<p>Wer im laufenden Betrieb ohne Menüs schnell zwischen QWERTZ und Bone wechseln möchte:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># Sofort auf Neo Bone umschalten:</span>
 </span></span><span class="line"><span class="cl">setxkbmap -layout de -variant bone
 </span></span><span class="line"><span class="cl">
@@ -12158,6 +13024,8 @@ Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\math
 </div>
 
 
+<h3 id="bone-im-anmeldebildschirm-nutzen-sddm-gdm-lightdm">Bone im Anmeldebildschirm nutzen (SDDM, GDM, LightDM)</h3>
+<p>Ein bekanntes Ärgernis unter Linux: In der grafischen Benutzersitzung funktioniert das Bone-Layout einwandfrei, doch beim Rechnerstart verharrt der Login-Bildschirm noch im Standard-QWERTZ-Layout. 👉 <strong><a href="https://jokobus.github.io/de/posts/bone-login-screen/">Ergonomische Tastaturlayouts (Neo/Bone) im Linux-Anmeldebildschirm einrichten (SDDM, GDM, LightDM)</a></strong></p>
 <hr>
 <h2 id="einrichtung-unter-windows">Einrichtung unter Windows</h2>
 <ol>
@@ -12174,7 +13042,7 @@ Dies führt auf ein symmetrisches lineares algebraisches Gleichungssystem $\math
 <li><strong>Tipp10 Online-Trainer:</strong> Nutze <a href="https://online.tipp10.com/de/training/">Tipp10</a>, dort kann in den Einstellungen direkt die Lektionenfolge für <em>Bone</em> ausgewählt werden.</li>
 <li><strong>Hintergrundbild:</strong> Richte dir die Ebenen-Grafik von Bone als Desktophintergrund ein, um anfangs schnell nachschlagen zu können, ohne die Hände von der Grundreihe zu nehmen.</li>
 </ul>
-]]></content:encoded><category>Linux</category><category>Windows</category><category>LaTeX</category><category>Ergonomie</category><category>Tastatur</category></item><item><title>Windows OOBE umgehen</title><link>https://jokobus.github.io/de/posts/windows/oobe/</link><pubDate>Mon, 16 Jun 2025 12:34:02 +0200</pubDate><guid>https://jokobus.github.io/de/posts/windows/oobe/</guid><description><![CDATA[<h2 id="was-ist-oobe">Was ist OOBE?</h2>
+]]></content:encoded><category>Linux</category><category>Windows</category><category>LaTeX</category><category>Ergonomie</category><category>Tastatur</category><media:content url="https://jokobus.github.io/images/bone1.svg" medium="image"/></item><item><title>Windows OOBE umgehen</title><link>https://jokobus.github.io/de/posts/windows/oobe/</link><pubDate>Mon, 16 Jun 2025 12:34:02 +0200</pubDate><guid>https://jokobus.github.io/de/posts/windows/oobe/</guid><description><![CDATA[<h2 id="was-ist-oobe">Was ist OOBE?</h2>
 <p><strong>OOBE</strong> steht für die Windows <strong>Out-of-Box Experience</strong> – der Einrichtungsassistent, der nach einer Neuinstallation von Windows 11 oder Windows 10 erscheint. Hier werden Sprache, Tastaturlayout, Netzwerkverbindung und Benutzerkonten konfiguriert.</p>
 <hr>
 <h2 id="problem-1--2-microsoft-konto-zwang--offline-installation">Problem 1 &amp; 2: Microsoft-Konto-Zwang &amp; Offline-Installation</h2>
@@ -17847,7 +18715,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1793096910674330124" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1794217004881714379" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -17964,7 +18832,7 @@ print(&#34;✓ Gradient-Check erfolgreich: Analytische Matrixformeln stimmen exa
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1793096910674330124");
+  const root = document.getElementById("neuron-1794217004881714379");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
@@ -18436,7 +19304,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 <li>$y_{out} = f(y_{in})$. Da $y_{in} = 13 > 0$, folgt $y_{out} = 1$.</li>
 <li>Der Knoten gibt $y_{out} = 1$ an die Folgeschicht weiter.</li>
 </ol>
-<div class="interactive-widget-box" id="neuron-1793096910674330124" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
+<div class="interactive-widget-box" id="neuron-1794217004881714379" style="margin: 2rem 0; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-bg-surface); box-shadow: var(--shadow-sm);">
   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
     <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem;">
       <span>🧠</span>
@@ -18553,7 +19421,7 @@ forward_pass(x1=2.0, x2=3.0)</textarea>
 
 <script>
 (function() {
-  const root = document.getElementById("neuron-1793096910674330124");
+  const root = document.getElementById("neuron-1794217004881714379");
   if (!root) return;
 
   const sx1 = root.querySelector(".slider-x1");
